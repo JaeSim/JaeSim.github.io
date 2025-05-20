@@ -1,0 +1,6 @@
+---
+title: "Home"
+---
+
+
+{{< recent-posts >}}

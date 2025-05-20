@@ -1,3 +1,8 @@
-baseURL = 'https://example.org/'
-languageCode = 'en-us'
-title = 'My New Hugo Site'
+baseURL = 'https://JaeSim.github.io'
+languageCode = 'ko-kr'
+title = "JaeSim's Workspace"
+theme = 'hugo-book'
+
+[params]
+  BookTheme = 'auto'
+  BookSection = '*'
