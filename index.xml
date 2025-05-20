@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Home on JaeSim&#39;s Workspace</title>
+    <link>https://JaeSim.github.io/</link>
+    <description>Recent content in Home on JaeSim&#39;s Workspace</description>
+    <generator>Hugo</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Tue, 20 May 2025 16:53:50 +0900</lastBuildDate>
+    <atom:link href="https://JaeSim.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>첫번째 글입니다.</title>
+      <link>https://JaeSim.github.io/development/firstpost/</link>
+      <pubDate>Tue, 20 May 2025 16:43:50 +0900</pubDate>
+      <guid>https://JaeSim.github.io/development/firstpost/</guid>
+      <description>&lt;p&gt;개발 관련 항목을 기록하기 위한 post 입니다.&lt;/p&gt;&#xA;&lt;p&gt;Todo List:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;블로그 github page 연동&lt;/li&gt;&#xA;&lt;li&gt;블로그 setup 관련 post 남기기&lt;/li&gt;&#xA;&lt;li&gt;블로그 댓글-github-issue 연동&lt;/li&gt;&#xA;&lt;li&gt;RL 관련 Post 남기기&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;About Me&lt;/code&gt; 완성&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>두번째 글입니다.</title>
+      <link>https://JaeSim.github.io/reinforcement-learning/secondpost/</link>
+      <pubDate>Tue, 20 May 2025 16:53:50 +0900</pubDate>
+      <guid>https://JaeSim.github.io/reinforcement-learning/secondpost/</guid>
+      <description>&lt;p&gt;RL 관련 항목을 기록하기 위한 post 입니다.&lt;/p&gt;&#xA;&lt;p&gt;RL 관련 항목을 기록하기 위한 post 입니다.&lt;/p&gt;&#xA;&lt;p&gt;RL 관련 항목을 기록하기 위한 post 입니다.&lt;/p&gt;&#xA;&lt;p&gt;RL 관련 항목을 기록하기 위한 post 입니다.&lt;/p&gt;&#xA;&lt;p&gt;RL 관련 항목을 기록하기 위한 post 입니다.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
