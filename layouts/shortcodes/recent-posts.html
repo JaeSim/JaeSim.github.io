@@ -1,0 +1,33 @@
+<style>
+.summary-box {
+  background: #f8f9fa;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+.summary-box:hover {
+  background: #e9ecef;
+}
+</style>
+
+<ul>
+{{ range (first 5 (sort .Site.RegularPages "Date" "desc")) }}
+  <li style="margin-bottom: 2rem;">
+    <a href="{{ .RelPermalink }}">
+      <strong style="font-size: 1.25rem;">{{ .Title }}</strong>
+    </a><br/>
+
+    {{ with .Params.subtitle }}
+      <small style="color: #888;">{{ . }}</small><br/>
+    {{ end }}
+
+    <small>{{ .Date.Format "2006-01-02" }}</small>
+
+    <a href="{{ .RelPermalink }}" style="text-decoration: none; color: inherit;">
+      <div class="summary-box">
+        {{ .Summary | truncate 80 }}
+      </div>
+    </a>
+  </li>
+{{ end }}
+</ul>
