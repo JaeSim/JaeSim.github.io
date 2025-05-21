@@ -2,25 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Home on JaeSim&#39;s Workspace</title>
-    <link>https://JaeSim.github.io/</link>
+    <link>http://localhost:1313/</link>
     <description>Recent content in Home on JaeSim&#39;s Workspace</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Tue, 20 May 2025 16:53:50 +0900</lastBuildDate>
-    <atom:link href="https://JaeSim.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 21 May 2025 10:20:00 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>첫번째 글입니다.</title>
-      <link>https://JaeSim.github.io/development/firstpost/</link>
-      <pubDate>Tue, 20 May 2025 16:43:50 +0900</pubDate>
-      <guid>https://JaeSim.github.io/development/firstpost/</guid>
-      <description>&lt;p&gt;개발 관련 항목을 기록하기 위한 post 입니다.&lt;/p&gt;&#xA;&lt;p&gt;Todo List:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;블로그 github page 연동&lt;/li&gt;&#xA;&lt;li&gt;블로그 setup 관련 post 남기기&lt;/li&gt;&#xA;&lt;li&gt;블로그 댓글-github-issue 연동&lt;/li&gt;&#xA;&lt;li&gt;RL 관련 Post 남기기&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;About Me&lt;/code&gt; 완성&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+      <link>http://localhost:1313/development/firstpost/</link>
+      <pubDate>Wed, 21 May 2025 10:20:00 +0900</pubDate>
+      <guid>http://localhost:1313/development/firstpost/</guid>
+      <description>&lt;p&gt;개발 관련 항목을 기록하기 위한 post 입니다.&lt;/p&gt;&#xA;&lt;p&gt;Todo List:&lt;/p&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;상태&lt;/th&gt;&#xA;          &lt;th&gt;날짜&lt;/th&gt;&#xA;          &lt;th&gt;작업 내용&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;✅&lt;/td&gt;&#xA;          &lt;td&gt;&lt;em&gt;2025-05-21&lt;/em&gt;&lt;/td&gt;&#xA;          &lt;td&gt;블로그 GitHub Page 연동&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;☐&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;          &lt;td&gt;RL 관련 Post 남기기&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;☐&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;          &lt;td&gt;블로그 setup 관련 post 남기기 &lt;!-- raw HTML omitted --&gt;&lt;em&gt;hugo + github page + giscus&lt;/em&gt;&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;☐&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;          &lt;td&gt;&lt;code&gt;About Me&lt;/code&gt; 완성&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;☐&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;          &lt;td&gt;Google 서치 연동&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;</description>
     </item>
     <item>
-      <title>두번째 글입니다.</title>
-      <link>https://JaeSim.github.io/reinforcement-learning/secondpost/</link>
+      <title>두번째 글입니다. 블로그 실험용 테스트 글입니다.</title>
+      <link>http://localhost:1313/reinforcement-learning/secondpost/</link>
       <pubDate>Tue, 20 May 2025 16:53:50 +0900</pubDate>
-      <guid>https://JaeSim.github.io/reinforcement-learning/secondpost/</guid>
-      <description>&lt;p&gt;RL 관련 항목을 기록하기 위한 post 입니다.&lt;/p&gt;&#xA;&lt;p&gt;RL 관련 항목을 기록하기 위한 post 입니다.&lt;/p&gt;&#xA;&lt;p&gt;RL 관련 항목을 기록하기 위한 post 입니다.&lt;/p&gt;&#xA;&lt;p&gt;RL 관련 항목을 기록하기 위한 post 입니다.&lt;/p&gt;&#xA;&lt;p&gt;RL 관련 항목을 기록하기 위한 post 입니다.&lt;/p&gt;</description>
+      <guid>http://localhost:1313/reinforcement-learning/secondpost/</guid>
+      <description>&lt;h1 id=&#34;test&#34;&gt;&#xD;&#xA;  &lt;strong&gt;test&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#test&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;h2 id=&#34;test2&#34;&gt;&#xD;&#xA;  &lt;strong&gt;test2&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#test2&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;RL 관련 항목을 기록하기 위한 post 입니다.&lt;/p&gt;&#xA;&lt;p&gt;페이지 업로드 확인용 임시 포스트&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
