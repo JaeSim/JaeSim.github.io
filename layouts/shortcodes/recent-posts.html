@@ -1,10 +1,21 @@
 <style>
 .summary-box {
   background: #f8f9fa;
-  padding: 0.5rem;
+  padding: 1rem;
   border-radius: 8px;
   transition: background 0.3s ease;
 }
+
+.summary-box h1,
+.summary-box h2,
+.summary-box h3,
+.summary-box h4,
+.summary-box h5,
+.summary-box h6,
+.summary-box p {
+  margin: 0 0 0.5rem 0;
+}
+
 .summary-box:hover {
   background: #e9ecef;
 }
@@ -24,10 +35,11 @@
     <small>{{ .Date.Format "2006-01-02" }}</small>
 
     <a href="{{ .RelPermalink }}" style="text-decoration: none; color: inherit;">
-      <div class="summary-box">
-        {{ .Summary | truncate 80 }}
+      <div class="summary-box"> <!-- delete anchor in title-->
+        {{ .Content | replaceRE "<a class=\"anchor\" href=\"#.*?\">#</a>" ""  | safeHTML | truncate 300}}
       </div>
     </a>
+
   </li>
 {{ end }}
 </ul>
