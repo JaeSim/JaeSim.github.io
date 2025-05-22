@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="ko-kr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
+  강화학습에 대한 기초 내용
+  #
+
+
+  들어가기 앞서
+  #
+
+강화학습의 기초적인 내용을 학습한 뒤 정리한 것으로,
+남들에게 보여주기 보다는 본인의 이해와 기억을 위해서 기술한 것입니다.
+나만의 방식으로 이해한 것이기 때문에, 주요하다고 생각하는 부분이 다를수 있으며 생략되거나 놓친 부분이 많이 있습니다.
+
+  강화학습(RL: Reinforcement Learning) 이란?
+  #
+
+
+  Definition
+  #
+
+
+“Reinforcement learning is learning what to do—how to map situations to actions—so as to maximize a numerical reward signal.”
+— Richard S. Sutton and Andrew G. Barto, Reinforcement Learning: An Introduction (2nd ed), p.1">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/reinforcement-learning/rl-essential/">
+  <meta property="og:site_name" content="JaeSim&#39;s Workspace">
+  <meta property="og:title" content="1. Reinforcement Learning Essential">
+  <meta property="og:description" content="강화학습에 대한 기초 내용#들어가기 앞서#강화학습의 기초적인 내용을 학습한 뒤 정리한 것으로, 남들에게 보여주기 보다는 본인의 이해와 기억을 위해서 기술한 것입니다.
+나만의 방식으로 이해한 것이기 때문에, 주요하다고 생각하는 부분이 다를수 있으며 생략되거나 놓친 부분이 많이 있습니다.
+강화학습(RL: Reinforcement Learning) 이란?#Definition#“Reinforcement learning is learning what to do—how to map situations to actions—so as to maximize a numerical reward signal.”
+— Richard S. Sutton and Andrew G. Barto, Reinforcement Learning: An Introduction (2nd ed), p.1">
+  <meta property="og:locale" content="ko_kr">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="reinforcement-learning">
+    <meta property="article:published_time" content="2025-05-22T11:13:00+09:00">
+    <meta property="article:modified_time" content="2025-05-22T11:13:00+09:00">
+<title>1. Reinforcement Learning Essential | JaeSim&#39;s Workspace</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="https://JaeSim.github.io/reinforcement-learning/rl-essential/">
+<link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.986fbac5607514d6baad970ba26752bcc5fea171651e0f1a47b7ce7d3f51d3f2.js" integrity="sha256-mG&#43;6xWB1FNa6rZcLomdSvMX&#43;oXFlHg8aR7fOfT9R0/I=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>JaeSim&#39;s Workspace</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/aboutme/" class="">About Me</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Development / 개발</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/firstpost/" class="">첫번째 글입니다.</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Reinforcement Learning / 강화학습</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/secondpost/" class="">두번째 글입니다. 블로그 실험용 테스트 글입니다.</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-essential/" class="active">1. Reinforcement Learning Essential</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>1. Reinforcement Learning Essential</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#들어가기-앞서"><strong>들어가기 앞서</strong></a></li>
+    <li><a href="#강화학습rl-reinforcement-learning-이란"><strong>강화학습(RL: Reinforcement Learning) 이란?</strong></a>
+      <ul>
+        <li><a href="#definition"><strong>Definition</strong></a></li>
+        <li><a href="#state-and-mdp"><strong>State and MDP</strong></a></li>
+        <li><a href="#policy-value-function-model"><strong>Policy, Value Function, Model</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#머신러닝ml과-딥러닝dl과의-관계"><strong>머신러닝(ML)과 딥러닝(DL)과의 관계</strong></a></li>
+    <li><a href="#참고"><strong>참고</strong></a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="강화학습에-대한-기초-내용">
+  <strong>강화학습에 대한 기초 내용</strong>
+  <a class="anchor" href="#%ea%b0%95%ed%99%94%ed%95%99%ec%8a%b5%ec%97%90-%eb%8c%80%ed%95%9c-%ea%b8%b0%ec%b4%88-%eb%82%b4%ec%9a%a9">#</a>
+</h1>
+<h2 id="들어가기-앞서">
+  <strong>들어가기 앞서</strong>
+  <a class="anchor" href="#%eb%93%a4%ec%96%b4%ea%b0%80%ea%b8%b0-%ec%95%9e%ec%84%9c">#</a>
+</h2>
+<p>강화학습의 기초적인 내용을 학습한 뒤 정리한 것으로,
+남들에게 보여주기 보다는 본인의 이해와 기억을 위해서 기술한 것입니다.</p>
+<p>나만의 방식으로 이해한 것이기 때문에, 주요하다고 생각하는 부분이 다를수 있으며 생략되거나 놓친 부분이 많이 있습니다.</p>
+<h2 id="강화학습rl-reinforcement-learning-이란">
+  <strong>강화학습(RL: Reinforcement Learning) 이란?</strong>
+  <a class="anchor" href="#%ea%b0%95%ed%99%94%ed%95%99%ec%8a%b5rl-reinforcement-learning-%ec%9d%b4%eb%9e%80">#</a>
+</h2>
+<h3 id="definition">
+  <strong>Definition</strong>
+  <a class="anchor" href="#definition">#</a>
+</h3>
+<blockquote>
+<p>“Reinforcement learning is learning what to do—how to map <strong>situations</strong> to <strong>actions</strong>—so as to maximize a numerical <strong>reward</strong> signal.”<br>
+— <em>Richard S. Sutton and Andrew G. Barto</em>, <em>Reinforcement Learning: An Introduction</em> (2nd ed), p.1</p></blockquote>
+<p>situations을 state로 표기하여</p>
+<p>통상적으로 action, state와 reward 가 RL의 핵심 요소이다.</p>
+<!-- ![figure](/images/rl-action-state-reward.png) -->
+<img src="/images/rl-action-state-reward.png" alt="test" style="width:80%;" />
+<p>요약하면,
+<strong>주어진 상태(State)에서 보상(Reward)을 최대화 할 수 있는 행동(Action)을 학습하는 것</strong></p>
+<p>이는 Reward Hypothesis를 기반으로한다.</p>
+<blockquote>
+<p><strong>Reward Hypothesis</strong><br>
+All goals can be described by the maximisation of expected cumulative reward</p></blockquote>
+<p>Rewards는 Scalar feedback signal이다
+Agent는 미래에 기대되는 cumulative reward가 최대화 되는 방향으로 학습 한다</p>
+<h3 id="state-and-mdp">
+  <strong>State and MDP</strong>
+  <a class="anchor" href="#state-and-mdp">#</a>
+</h3>
+<p>Envrionment State, Agent State 가 있고
+각각 Envrionment, Agent관점에서의 수식적/내부적 표현이다.</p>
+<p>Envrionment State는 Envrionment 관점에서 다음 step에서 Envrionment가 어떻게 변화할지를(어떤 State로 변화할지) 나타낸다.
+Envrionment에서는 microsecond 에서도 수많은 정보가 오기 때문에 불필요한 정보들도 많다.
+Envrionment State는 우리의 알고리즘을 만드는데 유용하진 않다. 왜냐하면 Agent의 정보를 포함하고 있지 않기 때문. (우리의 알고리즘은 Agent에 있을테니 라고 이해함)</p>
+<p>Agent State는 다음 step 에서 Agent가 어떤 행동을 선택할지를 나타낸 수식/표현이다.</p>
+<p>Information State는 과거 history부터 모든 유용한 정보를 포함한 수학적 정의를 가진 State이다. 주로 Markov State라 부른다. (Markov 속성을 만족한다)</p>
+<ul>
+<li>Markov Properties : <br>
+이전의 모든 스테이트정보를 이용해서 다음 State를 선택하는것이, 현재State만 보고 하는것과 같다
+<span>
+  \[
+\mathbb{P}[S_{t+1} \mid S_t] = \mathbb{P}[S_{t+1} \mid S_1, \dots, S_t]
+\]
+</span>
+</li>
+</ul>
+<p>이를 이용하면, 미래(future) 는 과거에 무엇이 주어졌든지 독립적이다.
+(=The future is independent of the past given the present)
+달리말하면, 현재 <span>
+  \(S_t\)
+</span>
+ 만 저장해도 된다
+<span>
+  \[
+H_{1:t} \rightarrow S_t \rightarrow H_{t+1:\infty}
+\]
+</span>
+
+현재의 State가 충분한 정보를 이미 담고 있다고도 볼 수 잇다.</p>
+<details ><summary>Appendix</summary>
+  <div class="markdown-inner">
+<ul>
+<li>history 는 Observation과 actions, rewards의 연속이다</li>
+</ul>
+<div style="text-align: center;">
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \[
+\quad \quad H_t = O_1, R_1, A_1, ..., A_{t−1}, O_t, R_t
+\]
+</span>
+</div>
+<ul>
+<li>State 는 다음 action을 결정하기 위한 정보이다</li>
+</ul>
+<div style="text-align: center;">
+<span>
+  \[
+\quad \quad S_t = f(H_t)
+\\
+\]
+</span>
+</div>
+<ul>
+<li>이전 state는</li>
+</ul>
+<div style="text-align: center;">
+<span>
+  \[
+\mathbb{P}[S_{t+1} \mid S_t] = \mathbb{P}[S_{t+1} \mid S_1, \dots, S_t]
+\]
+</span>
+</div>
+<ul>
+<li>The future is independent of the past given the present</li>
+<li>모든 이전 State를 알지 않아도 직전 State만 보고 결정 할 수 있다</li>
+</ul>
+<div style="text-align: center;">
+<span>
+  \[
+H_{1:t} \rightarrow S_t \rightarrow H_{t+1:\infty}
+\]
+</span>
+</div>
+  </div>
+</details>
+<p><strong>Fully Observable Envrionments</strong> 는 Agent가 envrionment에서 어떻게 동작하는지 바로 관측이 가능함을 나타내고,
+결과적으로 Envrionment State = Information State = Agent State 상태이다.
+이를 <strong>Markov Desicion Process(MDP)</strong> 라고 한다</p>
+<p><strong>Partial Observabable Envrionments</strong> 는 좀더 현실적인 환경. 로봇이 카메라를 통해서 화면을 보지만 현재 자기의 위치를 모르는 것처럼.
+즉, Agent State <span>
+  \( \ne \)
+</span>
+ Environment State 이다.
+<strong>Partially Observable Markov Decision Process(POMDP)</strong> 로 수식이 표현된다.</p>
+<p>우리는 환경에 대해서 잘 모르지만</p>
+<ul>
+<li>이전 History를 이용해서 사용하는 방법이 있고,
+<span>
+  \[S_t^a = H_t\]
+</span>
+</li>
+<li>Probability 로 나타내는 방법이 있고,
+<span>
+  \[S_t^a = \left( \mathbb{P}[S_t^e = s_1], \dots, \mathbb{P}[S_t^e = s_n] \right)\]
+</span>
+</li>
+<li>순환신경망(Recurrent neural network) 으로 나타내는 방법도 있다.
+<span>
+  \[S_t^a = \sigma(S_{t-1}^a W_s + O_t W_o)\]
+</span>
+</li>
+</ul>
+<h3 id="policy-value-function-model">
+  <strong>Policy, Value Function, Model</strong>
+  <a class="anchor" href="#policy-value-function-model">#</a>
+</h3>
+<p>RL은 아래 components를 한개 이상 포함한다.</p>
+<blockquote>
+<p><strong>Policy</strong>는 <strong><em>Agent가 어떻게 Action을 선택하는지(=behavior function)</em></strong> 이다.</p></blockquote>
+<p>State로부터 function 파이를 이용해서(policy) 를 통해 action을 결정한다.</p>
+<ul>
+<li>Deterministic policy: <span>
+  \( a = \pi(s)\)
+</span>
+</li>
+</ul>
+<p>probability로 policy를 표현하고자 한다면 다음과 같다.</p>
+<ul>
+<li>Stochastic policy: <span>
+  \( \pi(a \mid s) = \mathbb{P}[A_t = a \mid S_t = s]\)
+</span>
+</li>
+</ul>
+<blockquote>
+<p><strong>Value Function</strong>은 <strong><em>State나 Action이 얼마나 좋은지(기대되는 미래의 reward가 얼마일지 예측)</em></strong> 을 나타낸다.</p></blockquote>
+<p>State one과 State two,  action one과 action two를 선택할때 최종 reward가 더 좋은쪽으로 선택한다.</p>
+<p>아래와 같이 표현되는데 <span>
+  \( R_{t+1}, R_{t+2}, R_{t+3} \)
+</span>
+ 를 더하는 것과 같이 다음(미래)의 reward의 합의 기대값
+<span>
+  \[
+v_{\pi}(s) = \mathbb{E}_{\pi} \left[ R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \dots \mid S_t = s \right]
+\]
+</span>
+
+gamma(<span>
+  \( \gamma\)
+</span>
+) 는 다음 스탭에 대한 discounting factor (미래를 예측하는것이니 넣은 변수로 이해함)</p>
+<blockquote>
+<p><strong>Model</strong>은 <strong><em>Agent관점에서 Envrionment가 어떻게 동작할지 생각하는 것</em></strong> 을 나타낸다.</p></blockquote>
+<p>transitions model, rewards model 전통적으로 두가지로 나뉜다</p>
+<p>transtions 모델은 directly 다음 state를 예측한다.
+<span>
+  \[\mathcal{P}_{ss'}^a = \mathbb{P}[S_{t+1} = s' \mid S_t = s, A_t = a]\]
+</span>
+
+Rewards 모델은 reward를 예측한다.
+<span>
+  \[\mathcal{R}_s^a = \mathbb{E}[R_{t+1} \mid S_t = s, A_t = a]\]
+</span>
+</p>
+<h4 id="rl-agent의-분류">
+  RL agent의 분류
+  <a class="anchor" href="#rl-agent%ec%9d%98-%eb%b6%84%eb%a5%98">#</a>
+</h4>
+<img src="/images/rl-agent-taxonomy.png" alt="test" style="width:80%;" />
+<p>어떤 key component를 가지고 있는지에 따라서 RL을 분류한다</p>
+<ul>
+<li>value-based RL은 value function을 가지고 있다.</li>
+<li>policy-based RL은 policy를 가지고 있다.</li>
+<li>actor-critic은 value function과 policy를 가지고 잇다.</li>
+</ul>
+<p>Model base로 구분하는 방법이 있다.</p>
+<ul>
+<li>model free는 모델이 없지만(=환경에 대한 representation이 없지만) value function + policy로 구성된 RL</li>
+<li>model based는 value function + policy, model 이 존재</li>
+</ul>
+<h4 id="sequential-decision-making의-두가지">
+  Sequential decision making의 두가지
+  <a class="anchor" href="#sequential-decision-making%ec%9d%98-%eb%91%90%ea%b0%80%ec%a7%80">#</a>
+</h4>
+<ul>
+<li>Reinforcement Learning은 환경(Environment)을 모르고 상호작용하면서 reward가 최대가 되도록 학습</li>
+<li>Planning은 환경을 알고(환경에 해당하는 model을 주고) agent가 계산하는 것</li>
+</ul>
+<h4 id="exploration-and-exploitation">
+  Exploration and Exploitation
+  <a class="anchor" href="#exploration-and-exploitation">#</a>
+</h4>
+<p>Exploration 와 Exploitation 는 trade-off</p>
+<ul>
+<li>Exploration 은 환경에 대한 정보를 더 찾는것</li>
+<li>Exploitation 은 알고 있는 정보를 활용해서 reward를 최대화 하는것</li>
+</ul>
+<p>예) 새로운 레스토랑 찾기 vs 가장 좋아하는 레스토랑 재방문</p>
+<hr>
+<h2 id="머신러닝ml과-딥러닝dl과의-관계">
+  <strong>머신러닝(ML)과 딥러닝(DL)과의 관계</strong>
+  <a class="anchor" href="#%eb%a8%b8%ec%8b%a0%eb%9f%ac%eb%8b%9dml%ea%b3%bc-%eb%94%a5%eb%9f%ac%eb%8b%9ddl%ea%b3%bc%ec%9d%98-%ea%b4%80%ea%b3%84">#</a>
+</h2>
+<p>머신러닝(Machine Learning)은 인공지능(AI)의 개념으로써, 학습을 통해 예측(또는 분류)를 하는 것</p>
+<p>딥러닝은 머신러닝의 하위 개념으로써, 인공신경망(Neural Network)를 이용해서 학습하는 것</p>
+<p>강화 학습은 머신러닝의 한갈래로써, 보상을 기반으로 스스로 행동 학습하는 것</p>
+<pre tabindex="0"><code>AI
+├── Machine Learning
+│   ├── Supervised / Unsupervised
+│   ├── Reinforcement Learning
+│   └── Deep Learning
+│       └── Deep Reinforcement Learning (e.g., DQN, PPO)
+</code></pre><h2 id="참고">
+  <strong>참고</strong>
+  <a class="anchor" href="#%ec%b0%b8%ea%b3%a0">#</a>
+</h2>
+<p>David Silver 의 RL 강좌
+<a href="https://davidstarsilver.wordpress.com/teaching">https://davidstarsilver.wordpress.com/teaching</a></p>
+<p>한글 유튜브 + 블로그
+<a href="https://smj990203.tistory.com/2">https://smj990203.tistory.com/2</a></p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#들어가기-앞서"><strong>들어가기 앞서</strong></a></li>
+    <li><a href="#강화학습rl-reinforcement-learning-이란"><strong>강화학습(RL: Reinforcement Learning) 이란?</strong></a>
+      <ul>
+        <li><a href="#definition"><strong>Definition</strong></a></li>
+        <li><a href="#state-and-mdp"><strong>State and MDP</strong></a></li>
+        <li><a href="#policy-value-function-model"><strong>Policy, Value Function, Model</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#머신러닝ml과-딥러닝dl과의-관계"><strong>머신러닝(ML)과 딥러닝(DL)과의 관계</strong></a></li>
+    <li><a href="#참고"><strong>참고</strong></a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('pre > code[class^="language-"]').forEach(codeBlock => {
+      const pre = codeBlock.parentElement;
+
+      
+      const button = document.createElement('button');
+      button.innerText = '📋';
+      button.title = 'Copy code';
+      button.style = `
+        position: absolute;
+        top: 0.5em;
+        right: 0.5em;
+        padding: 2px 6px;
+        font-size: 0.8rem;
+        background: #f5f5f5;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+        z-index: 10;
+      `;
+
+      
+      button.addEventListener('click', () => {
+        navigator.clipboard.writeText(codeBlock.innerText);
+        button.innerText = '✔';
+        setTimeout(() => button.innerText = '📋', 1000);
+      });
+
+      
+      pre.style.position = 'relative';
+      pre.appendChild(button);
+    });
+  });
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

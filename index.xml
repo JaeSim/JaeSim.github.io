@@ -2,25 +2,32 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Home on JaeSim&#39;s Workspace</title>
-    <link>http://localhost:1313/</link>
+    <link>https://JaeSim.github.io/</link>
     <description>Recent content in Home on JaeSim&#39;s Workspace</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Wed, 21 May 2025 10:20:00 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>첫번째 글입니다.</title>
-      <link>http://localhost:1313/development/firstpost/</link>
-      <pubDate>Wed, 21 May 2025 10:20:00 +0900</pubDate>
-      <guid>http://localhost:1313/development/firstpost/</guid>
-      <description>&lt;p&gt;개발 관련 항목을 기록하기 위한 post 입니다.&lt;/p&gt;&#xA;&lt;p&gt;Todo List:&lt;/p&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;상태&lt;/th&gt;&#xA;          &lt;th&gt;날짜&lt;/th&gt;&#xA;          &lt;th&gt;작업 내용&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;✅&lt;/td&gt;&#xA;          &lt;td&gt;&lt;em&gt;2025-05-21&lt;/em&gt;&lt;/td&gt;&#xA;          &lt;td&gt;블로그 GitHub Page 연동&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;☐&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;          &lt;td&gt;RL 관련 Post 남기기&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;☐&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;          &lt;td&gt;블로그 setup 관련 post 남기기 &lt;!-- raw HTML omitted --&gt;&lt;em&gt;hugo + github page + giscus&lt;/em&gt;&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;☐&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;          &lt;td&gt;&lt;code&gt;About Me&lt;/code&gt; 완성&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;☐&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;          &lt;td&gt;Google 서치 연동&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;</description>
-    </item>
+    <lastBuildDate>Thu, 22 May 2025 11:13:00 +0900</lastBuildDate>
+    <atom:link href="https://JaeSim.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>두번째 글입니다. 블로그 실험용 테스트 글입니다.</title>
-      <link>http://localhost:1313/reinforcement-learning/secondpost/</link>
+      <link>https://JaeSim.github.io/reinforcement-learning/secondpost/</link>
       <pubDate>Tue, 20 May 2025 16:53:50 +0900</pubDate>
-      <guid>http://localhost:1313/reinforcement-learning/secondpost/</guid>
+      <guid>https://JaeSim.github.io/reinforcement-learning/secondpost/</guid>
       <description>&lt;h1 id=&#34;test&#34;&gt;&#xD;&#xA;  &lt;strong&gt;test&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#test&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;h2 id=&#34;test2&#34;&gt;&#xD;&#xA;  &lt;strong&gt;test2&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#test2&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;RL 관련 항목을 기록하기 위한 post 입니다.&lt;/p&gt;&#xA;&lt;p&gt;페이지 업로드 확인용 임시 포스트&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>1. Reinforcement Learning Essential</title>
+      <link>https://JaeSim.github.io/reinforcement-learning/rl-essential/</link>
+      <pubDate>Thu, 22 May 2025 11:13:00 +0900</pubDate>
+      <guid>https://JaeSim.github.io/reinforcement-learning/rl-essential/</guid>
+      <description>&lt;h1 id=&#34;강화학습에-대한-기초-내용&#34;&gt;&#xD;&#xA;  &lt;strong&gt;강화학습에 대한 기초 내용&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#%ea%b0%95%ed%99%94%ed%95%99%ec%8a%b5%ec%97%90-%eb%8c%80%ed%95%9c-%ea%b8%b0%ec%b4%88-%eb%82%b4%ec%9a%a9&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;h2 id=&#34;들어가기-앞서&#34;&gt;&#xD;&#xA;  &lt;strong&gt;들어가기 앞서&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#%eb%93%a4%ec%96%b4%ea%b0%80%ea%b8%b0-%ec%95%9e%ec%84%9c&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;강화학습의 기초적인 내용을 학습한 뒤 정리한 것으로,&#xA;남들에게 보여주기 보다는 본인의 이해와 기억을 위해서 기술한 것입니다.&lt;/p&gt;&#xA;&lt;p&gt;나만의 방식으로 이해한 것이기 때문에, 주요하다고 생각하는 부분이 다를수 있으며 생략되거나 놓친 부분이 많이 있습니다.&lt;/p&gt;&#xA;&lt;h2 id=&#34;강화학습rl-reinforcement-learning-이란&#34;&gt;&#xD;&#xA;  &lt;strong&gt;강화학습(RL: Reinforcement Learning) 이란?&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#%ea%b0%95%ed%99%94%ed%95%99%ec%8a%b5rl-reinforcement-learning-%ec%9d%b4%eb%9e%80&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;h3 id=&#34;definition&#34;&gt;&#xD;&#xA;  &lt;strong&gt;Definition&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#definition&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h3&gt;&#xD;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;“Reinforcement learning is learning what to do—how to map &lt;strong&gt;situations&lt;/strong&gt; to &lt;strong&gt;actions&lt;/strong&gt;—so as to maximize a numerical &lt;strong&gt;reward&lt;/strong&gt; signal.”&lt;br&gt;&#xA;— &lt;em&gt;Richard S. Sutton and Andrew G. Barto&lt;/em&gt;, &lt;em&gt;Reinforcement Learning: An Introduction&lt;/em&gt; (2nd ed), p.1&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>첫번째 글입니다.</title>
+      <link>https://JaeSim.github.io/development/firstpost/</link>
+      <pubDate>Wed, 21 May 2025 10:26:34 +0900</pubDate>
+      <guid>https://JaeSim.github.io/development/firstpost/</guid>
+      <description>&lt;p&gt;개발 관련 항목을 기록하기 위한 post 입니다.&lt;/p&gt;&#xA;&lt;p&gt;Todo List:&lt;/p&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;상태&lt;/th&gt;&#xA;          &lt;th&gt;날짜&lt;/th&gt;&#xA;          &lt;th&gt;작업 내용&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;✅&lt;/td&gt;&#xA;          &lt;td&gt;&lt;em&gt;2025-05-21&lt;/em&gt;&lt;/td&gt;&#xA;          &lt;td&gt;블로그 GitHub Page 연동&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;☐&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;          &lt;td&gt;RL 관련 Post 남기기&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;☐&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;          &lt;td&gt;블로그 setup 관련 post 남기기 &lt;br&gt;&lt;em&gt;hugo + github page + giscus&lt;/em&gt;&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;☐&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;          &lt;td&gt;&lt;code&gt;About Me&lt;/code&gt; 완성&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;☐&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;          &lt;td&gt;Google 서치 연동&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;</description>
     </item>
   </channel>
 </rss>
