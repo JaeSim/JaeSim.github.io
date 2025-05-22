@@ -12,7 +12,8 @@ Todo List:
 | 상태   | 날짜          | 작업 내용                                        |
 |--------|---------------|--------------------------------------------------|
 | ✅     | _2025-05-21_  | 블로그 GitHub Page 연동                         |
-| ☐     |               | RL 관련 Post 남기기                             |
-| ☐     |               | 블로그 setup 관련 post 남기기 <br>_hugo + github page + giscus_ |
+| ✅     | _2025-05-22_  | RL 관련 Post 남기기                             |
+| ✅     | _2025-05-22_  | _hugo + github page + giscus_ |
+| ☐     |               | 블로그 setup 관련 post 남기기 |
 | ☐     |               | `About Me` 완성                                 |
 | ☐     |               | Google 서치 연동                                |
