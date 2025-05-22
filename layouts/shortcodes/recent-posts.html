@@ -4,6 +4,12 @@
   padding: 1rem;
   border-radius: 8px;
   transition: background 0.3s ease;
+  max-height: 14rem;         /* 높이 제한 */
+  overflow: hidden;         /* 넘치는 내용 숨김 */
+  display: -webkit-box;     
+  -webkit-line-clamp: 6;    /* 최대 줄 수 (예: 6줄) */
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;  /* ... 처리 */
 }
 
 .summary-box h1,
@@ -36,7 +42,7 @@
 
     <a href="{{ .RelPermalink }}" style="text-decoration: none; color: inherit;">
       <div class="summary-box"> <!-- delete anchor in title-->
-        {{ .Content | replaceRE "<a class=\"anchor\" href=\"#.*?\">#</a>" ""  | safeHTML | truncate 300}}
+        {{ .Summary | replaceRE "<a class=\"anchor\" href=\"#.*?\">#</a>" ""  | safeHTML | truncate 400}}
       </div>
     </a>
 
