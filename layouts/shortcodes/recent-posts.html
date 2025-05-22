@@ -13,7 +13,7 @@
 .summary-box h5,
 .summary-box h6,
 .summary-box p {
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 1rem 0;
 }
 
 .summary-box:hover {
@@ -32,7 +32,7 @@
       <small style="color: #888;">{{ . }}</small><br/>
     {{ end }}
 
-    <small>{{ .Date.Format "2006-01-02" }}</small>
+    <small>{{ .Date.Format "2006-01-02 15:04:05 MST" }}</small>
 
     <a href="{{ .RelPermalink }}" style="text-decoration: none; color: inherit;">
       <div class="summary-box"> <!-- delete anchor in title-->

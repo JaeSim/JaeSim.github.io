@@ -1,0 +1,35 @@
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('pre > code[class^="language-"]').forEach(codeBlock => {
+      const pre = codeBlock.parentElement;
+
+      // 코드블럭의 복사 버튼  생성
+      const button = document.createElement('button');
+      button.innerText = '📋';
+      button.title = 'Copy code';
+      button.style = `
+        position: absolute;
+        top: 0.5em;
+        right: 0.5em;
+        padding: 2px 6px;
+        font-size: 0.8rem;
+        background: #f5f5f5;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+        z-index: 10;
+      `;
+
+      // 복사 동작 정의
+      button.addEventListener('click', () => {
+        navigator.clipboard.writeText(codeBlock.innerText);
+        button.innerText = '✔';
+        setTimeout(() => button.innerText = '📋', 1000);
+      });
+
+      // 스타일 적용
+      pre.style.position = 'relative';
+      pre.appendChild(button);
+    });
+  });
+</script>
