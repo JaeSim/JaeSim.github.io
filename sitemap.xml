@@ -2,46 +2,51 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://JaeSim.github.io/development/secondpost/</loc>
+    <loc>http://localhost:1313/development/secondpost/</loc>
     <lastmod>2025-05-20T16:53:50+09:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://JaeSim.github.io/aboutme/</loc>
+    <loc>http://localhost:1313/aboutme/</loc>
     <lastmod>2025-05-20T16:43:50+09:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://JaeSim.github.io/reinforcement-learning/rl-essential/</loc>
+    <loc>http://localhost:1313/reinforcement-learning/rl-essential/</loc>
     <lastmod>2025-05-22T11:13:00+09:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://JaeSim.github.io/development/firstpost/</loc>
+    <loc>http://localhost:1313/development/firstpost/</loc>
     <lastmod>2025-05-21T10:26:34+09:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://JaeSim.github.io/development/</loc>
+    <loc>http://localhost:1313/development/</loc>
     <lastmod>2025-05-20T16:43:50+09:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://JaeSim.github.io/reinforcement-learning/</loc>
+    <loc>http://localhost:1313/development/blogsetup/</loc>
+    <lastmod>2025-05-22T17:00:21+09:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/reinforcement-learning/</loc>
     <lastmod>2025-05-20T16:43:50+09:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://JaeSim.github.io/</loc>
-    <lastmod>2025-05-22T11:13:00+09:00</lastmod>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2025-05-22T17:00:21+09:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://JaeSim.github.io/categories/</loc>
+    <loc>http://localhost:1313/categories/</loc>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://JaeSim.github.io/tags/</loc>
+    <loc>http://localhost:1313/tags/</loc>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
   </url>

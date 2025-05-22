@@ -2,25 +2,32 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Development / 개발 on JaeSim&#39;s Workspace</title>
-    <link>https://JaeSim.github.io/development/</link>
+    <link>http://localhost:1313/development/</link>
     <description>Recent content in Development / 개발 on JaeSim&#39;s Workspace</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Wed, 21 May 2025 10:26:34 +0900</lastBuildDate>
-    <atom:link href="https://JaeSim.github.io/development/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 22 May 2025 17:00:21 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/development/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>두번째 글입니다. 블로그 실험용 테스트 글입니다.</title>
-      <link>https://JaeSim.github.io/development/secondpost/</link>
+      <link>http://localhost:1313/development/secondpost/</link>
       <pubDate>Tue, 20 May 2025 16:53:50 +0900</pubDate>
-      <guid>https://JaeSim.github.io/development/secondpost/</guid>
+      <guid>http://localhost:1313/development/secondpost/</guid>
       <description>&lt;h1 id=&#34;test&#34;&gt;&#xD;&#xA;  &lt;strong&gt;test&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#test&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;h2 id=&#34;test2&#34;&gt;&#xD;&#xA;  &lt;strong&gt;test2&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#test2&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;RL 관련 항목을 기록하기 위한 post 입니다.&lt;/p&gt;&#xA;&lt;p&gt;페이지 업로드 확인용 임시 포스트&lt;/p&gt;</description>
     </item>
     <item>
       <title>첫번째 글입니다.</title>
-      <link>https://JaeSim.github.io/development/firstpost/</link>
+      <link>http://localhost:1313/development/firstpost/</link>
       <pubDate>Wed, 21 May 2025 10:26:34 +0900</pubDate>
-      <guid>https://JaeSim.github.io/development/firstpost/</guid>
-      <description>&lt;p&gt;개발 관련 항목을 기록하기 위한 post 입니다.&lt;/p&gt;&#xA;&lt;p&gt;Todo List:&lt;/p&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;상태&lt;/th&gt;&#xA;          &lt;th&gt;날짜&lt;/th&gt;&#xA;          &lt;th&gt;작업 내용&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;✅&lt;/td&gt;&#xA;          &lt;td&gt;&lt;em&gt;2025-05-21&lt;/em&gt;&lt;/td&gt;&#xA;          &lt;td&gt;블로그 GitHub Page 연동&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;✅&lt;/td&gt;&#xA;          &lt;td&gt;&lt;em&gt;2025-05-22&lt;/em&gt;&lt;/td&gt;&#xA;          &lt;td&gt;RL 관련 Post 남기기 (on-going)&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;✅&lt;/td&gt;&#xA;          &lt;td&gt;&lt;em&gt;2025-05-22&lt;/em&gt;&lt;/td&gt;&#xA;          &lt;td&gt;&lt;em&gt;hugo + github page + giscus&lt;/em&gt;&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;☐&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;          &lt;td&gt;블로그 setup 관련 post 남기기&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;☐&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;          &lt;td&gt;&lt;code&gt;About Me&lt;/code&gt; 완성&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;☐&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;          &lt;td&gt;Google 서치 연동&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;</description>
+      <guid>http://localhost:1313/development/firstpost/</guid>
+      <description>&lt;p&gt;개발 관련 항목을 기록하기 위한 post 입니다.&lt;/p&gt;&#xA;&lt;p&gt;Todo List:&lt;/p&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;상태&lt;/th&gt;&#xA;          &lt;th&gt;날짜&lt;/th&gt;&#xA;          &lt;th&gt;작업 내용&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;✅&lt;/td&gt;&#xA;          &lt;td&gt;&lt;em&gt;2025-05-21&lt;/em&gt;&lt;/td&gt;&#xA;          &lt;td&gt;블로그 GitHub Page 연동&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;✅&lt;/td&gt;&#xA;          &lt;td&gt;&lt;em&gt;2025-05-22&lt;/em&gt;&lt;/td&gt;&#xA;          &lt;td&gt;RL 관련 Post 남기기 (on-going)&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;✅&lt;/td&gt;&#xA;          &lt;td&gt;&lt;em&gt;2025-05-22&lt;/em&gt;&lt;/td&gt;&#xA;          &lt;td&gt;&lt;em&gt;hugo + github page + giscus&lt;/em&gt;&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;✅&lt;/td&gt;&#xA;          &lt;td&gt;&lt;em&gt;2025-05-22&lt;/em&gt;&lt;/td&gt;&#xA;          &lt;td&gt;Google 서치 연동&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;☐&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;          &lt;td&gt;Naver 서치 연동&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;☐&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;          &lt;td&gt;블로그 setup 관련 post 남기기&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;☐&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;          &lt;td&gt;&lt;code&gt;About Me&lt;/code&gt; 완성&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;☐&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;          &lt;td&gt;Google 서치 연동&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;</description>
+    </item>
+    <item>
+      <title>Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus</title>
+      <link>http://localhost:1313/development/blogsetup/</link>
+      <pubDate>Thu, 22 May 2025 17:00:21 +0900</pubDate>
+      <guid>http://localhost:1313/development/blogsetup/</guid>
+      <description>&lt;h1 id=&#34;github-pages-를-이용한-blog-setting-hugo--hugo-book-theme--giscus&#34;&gt;&#xD;&#xA;  &lt;strong&gt;Github pages 를 이용한 blog Setting (hugo + hugo-book theme + giscus&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#github-pages-%eb%a5%bc-%ec%9d%b4%ec%9a%a9%ed%95%9c-blog-setting-hugo--hugo-book-theme--giscus&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;h2 id=&#34;0-blog-host-방식-선택&#34;&gt;&#xD;&#xA;  &lt;strong&gt;0. blog host 방식 선택&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#0-blog-host-%eb%b0%a9%ec%8b%9d-%ec%84%a0%ed%83%9d&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;여러 블로그 host방식을 고려하였으나, 유지보수가 손이 덜가며, 오랫동안 hosting이 되는것이 우선 순위였고.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Github pages&lt;/strong&gt;를 통한 호스팅 방법을 선택하였다.&lt;/p&gt;&#xA;&lt;p&gt;그렇다면, static page를 generation을 해주는 framework로 jekyll 와 hugo를 고민하였고&#xA;ruby 보다 go로 이루어진 hugo를 믿기로 하였다.&lt;/p&gt;&#xA;&lt;p&gt;다른 blog들이 생성한 페이지를 주로 참조하였으며, 이 포스팅은 해당 글들의 엮음에 불과한점을 참조 부탁한다.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
