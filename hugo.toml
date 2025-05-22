@@ -10,3 +10,9 @@ theme = 'hugo-book'
   
 [markup.goldmark.renderer]
   unsafe = true
+
+[sitemap]
+# always, hourly daily, weekly, monthly, yearly, never
+  changefreq = "always"
+  filename = "sitemap.xml"
+  priority = 0.5
