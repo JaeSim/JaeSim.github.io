@@ -7,3 +7,6 @@ theme = 'hugo-book'
   BookTheme = 'auto'
   BookSection = '*'
   BookShowToC = true
+  
+[markup.goldmark.renderer]
+  unsafe = true
