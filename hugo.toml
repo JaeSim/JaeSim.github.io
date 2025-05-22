@@ -2,7 +2,8 @@ baseURL = 'https://JaeSim.github.io'
 languageCode = 'ko-kr'
 title = "JaeSim's Workspace"
 theme = 'hugo-book'
-
+# robots.txt
+enableRobotsTXT = true
 [params]
   BookTheme = 'auto'
   BookSection = '*'
