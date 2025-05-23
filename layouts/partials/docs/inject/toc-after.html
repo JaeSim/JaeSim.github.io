@@ -1,0 +1,18 @@
+{{ with .Params.tags }}
+  <div class="post-tags">
+    <strong>Tags:</strong>
+    {{ range . }}
+      <a href="{{ "tags/" | relLangURL }}{{ . | urlize }}" class="tag">{{ . }}</a>
+    {{ end }}
+  </div>
+{{ end }}
+
+{{ with .Params.categories }}
+  <div class="post-categories">
+    <strong>Categories:</strong>
+    {{ range . }}
+      <a href="{{ "categories/" | relLangURL }}{{ . | urlize }}" class="category">{{ . }}</a>
+    {{ end }}
+  </div>
+{{ end }}
+

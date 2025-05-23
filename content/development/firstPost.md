@@ -3,6 +3,8 @@ date = '2025-05-21T10:26:34+09:00'
 title = '할일'
 subtitle =  '첫번째글의 소제목입니다'
 weight = 2
+tags = ["blog", "to-do"]
+categories = ["development"]
 +++
 
 
