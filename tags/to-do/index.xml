@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>To-Do on JaeSim&#39;s Workspace</title>
+    <link>https://JaeSim.github.io/tags/to-do/</link>
+    <description>Recent content in To-Do on JaeSim&#39;s Workspace</description>
+    <generator>Hugo</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Wed, 21 May 2025 10:26:34 +0900</lastBuildDate>
+    <atom:link href="https://JaeSim.github.io/tags/to-do/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>할일</title>
+      <link>https://JaeSim.github.io/development/firstpost/</link>
+      <pubDate>Wed, 21 May 2025 10:26:34 +0900</pubDate>
+      <guid>https://JaeSim.github.io/development/firstpost/</guid>
+      <description>&lt;p&gt;개발 관련 항목을 기록하기 위한 post 입니다.&lt;/p&gt;&#xA;&lt;p&gt;Todo List:&lt;/p&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;상태&lt;/th&gt;&#xA;          &lt;th&gt;날짜&lt;/th&gt;&#xA;          &lt;th&gt;작업 내용&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;✅&lt;/td&gt;&#xA;          &lt;td&gt;&lt;em&gt;2025-05-21&lt;/em&gt;&lt;/td&gt;&#xA;          &lt;td&gt;블로그 GitHub Page 연동&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;✅&lt;/td&gt;&#xA;          &lt;td&gt;&lt;em&gt;2025-05-22&lt;/em&gt;&lt;/td&gt;&#xA;          &lt;td&gt;RL 관련 Post 남기기 (on-going)&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;✅&lt;/td&gt;&#xA;          &lt;td&gt;&lt;em&gt;2025-05-22&lt;/em&gt;&lt;/td&gt;&#xA;          &lt;td&gt;&lt;em&gt;hugo + github page + giscus&lt;/em&gt;&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;✅&lt;/td&gt;&#xA;          &lt;td&gt;&lt;em&gt;2025-05-22&lt;/em&gt;&lt;/td&gt;&#xA;          &lt;td&gt;Google 서치 연동&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;☐&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;          &lt;td&gt;Naver 서치 연동&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;✅&lt;/td&gt;&#xA;          &lt;td&gt;&lt;em&gt;2025-05-22&lt;/em&gt;&lt;/td&gt;&#xA;          &lt;td&gt;블로그 setup 관련 post 남기기&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;☐&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;          &lt;td&gt;&lt;code&gt;About Me&lt;/code&gt; 완성&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;☐&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;          &lt;td&gt;Google 서치 연동&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;</description>
+    </item>
+  </channel>
+</rss>
