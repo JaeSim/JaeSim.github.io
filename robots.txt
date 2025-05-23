@@ -1,1 +1,3 @@
 User-agent: *
+Allow: /
+Sitemap: https://JaeSim.github.io/sitemap.xml

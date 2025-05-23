@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Profile on JaeSim&#39;s Workspace</title>
+    <link>https://JaeSim.github.io/tags/profile/</link>
+    <description>Recent content in Profile on JaeSim&#39;s Workspace</description>
+    <generator>Hugo</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Tue, 20 May 2025 16:43:50 +0900</lastBuildDate>
+    <atom:link href="https://JaeSim.github.io/tags/profile/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About Me</title>
+      <link>https://JaeSim.github.io/aboutme/</link>
+      <pubDate>Tue, 20 May 2025 16:43:50 +0900</pubDate>
+      <guid>https://JaeSim.github.io/aboutme/</guid>
+      <description>&lt;h1 id=&#34;profile&#34;&gt;&#xD;&#xA;  &lt;strong&gt;Profile&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#profile&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;Name : Jaeyoung Sim&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

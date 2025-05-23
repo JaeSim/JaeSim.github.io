@@ -6,6 +6,28 @@
     <description>Recent content in Categories on JaeSim&#39;s Workspace</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
+    <lastBuildDate>Thu, 22 May 2025 17:00:21 +0900</lastBuildDate>
     <atom:link href="https://JaeSim.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Development</title>
+      <link>https://JaeSim.github.io/categories/development/</link>
+      <pubDate>Thu, 22 May 2025 17:00:21 +0900</pubDate>
+      <guid>https://JaeSim.github.io/categories/development/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Reinforcement Learning</title>
+      <link>https://JaeSim.github.io/categories/reinforcement-learning/</link>
+      <pubDate>Thu, 22 May 2025 11:13:00 +0900</pubDate>
+      <guid>https://JaeSim.github.io/categories/reinforcement-learning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Private</title>
+      <link>https://JaeSim.github.io/categories/private/</link>
+      <pubDate>Tue, 20 May 2025 16:43:50 +0900</pubDate>
+      <guid>https://JaeSim.github.io/categories/private/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>
