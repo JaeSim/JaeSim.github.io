@@ -3,6 +3,8 @@ date = '2025-05-22T11:13:00+09:00'
 title = '1. Reinforcement Learning Essential'
 subtitle =  '강화학습에 대한 기초 내용'
 weight = 2
+tags = ["Definition", "Essential"]
+categories = ["Reinforcement Learning"]
 +++
 # **강화학습에 대한 기초 내용**
 

@@ -14,6 +14,10 @@ enableRobotsTXT = true
 
 [sitemap]
 # always, hourly daily, weekly, monthly, yearly, never
-  changefreq = "always"
+  changefreq = "weekly"
   filename = "sitemap.xml"
   priority = 0.5
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"

@@ -3,6 +3,8 @@ date = '2025-05-20T16:53:50+09:00'
 title = '두번째 글입니다. 블로그 실험용 테스트 글입니다.'
 subtitle =  '두번째글의 소제목입니다'
 weight = 1
+tags = ["test", "debug"]
+categories = ["development"]
 +++
 # **test**
 ## **test2**

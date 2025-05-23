@@ -2,6 +2,8 @@
 date = '2025-05-22T17:00:21+09:00'
 title = 'Github pages 를 이용한 blog Setting (hugo + hugo-book theme + giscus'
 weight = 3
+tags = ["blog", "Github", "Github Pages", "setup", "hugo", "giscus", "hugo-book"]
+categories = ["development"]
 +++
 # **Github pages 를 이용한 blog Setting (hugo + hugo-book theme + giscus**
 
@@ -320,7 +322,70 @@ https://giscus.app/ko 페이지에 접속하여
 comments = false를 넣은 페이지들은 github 코멘트가 안보임
 {{% /hint %}}
 
-## **5. 검색 연동**
+## **5. tag 설정**
+
+`hugo.toml` 에 아래 설정 삽입
+```toml
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+```
+
+각 포스트마다 아래 front matter에 아래 항목을 기입
+```md
++++
+...
+tags = ["Definition", "Essential"]
+categories = ["Reinforcement Learning"]
+...
++++
+
+```
+
+이 블로그의 경우, 우측 ToC 항목 하단에 위치 Tag 및 Categories를 위치시킴
+
+이는 테마마다 다르니 각 테마별 적용 방법 확인 필요
+
+`layouts/partials/doc/inject/toc-after.html` 을 생성
+```html
+{{ with .Params.tags }}
+  <div class="post-tags">
+    <strong>Tags:</strong>
+    {{ range . }}
+      <a href="{{ "tags/" | relLangURL }}{{ . | urlize }}" class="tag">{{ . }}</a>
+    {{ end }}
+  </div>
+{{ end }}
+
+{{ with .Params.categories }}
+  <div class="post-categories">
+    <strong>Categories:</strong>
+    {{ range . }}
+      <a href="{{ "categories/" | relLangURL }}{{ . | urlize }}" class="category">{{ . }}</a>
+    {{ end }}
+  </div>
+{{ end }}
+```
+
+카테고리 및 tag 선택했을때 해당 list가 보이도록 설정
+`layouts/_default/term.html` 을 생성
+```html
+{{ define "main" }}
+    <main>
+        <h1>{{ .Title }}</h1>
+        <ul>
+        {{ range .Pages }}
+            <li><a href="{{ .RelPermalink }}">{{ .Title }}</a> {{ .Date }}</li>
+        {{ else }}
+            <li><em>No posts found.</em></li>
+        {{ end }}
+        </ul>
+    </main>
+{{ end }}
+```
+
+
+## **6. 검색 연동**
 
 ### **구굴 서치 콘솔**
 
@@ -334,30 +399,49 @@ google_<blabla>.html 을 다운로드 후에 `public/` 에 위치시킴
 enableRobotsTXT = true
 [sitemap]
 # always, hourly daily, weekly, monthly, yearly, never
-  changefreq = "always"
+  changefreq = "weekly"
   filename = "sitemap.xml"
   priority = 0.5
 ```
 
-3. `public/robot.txt` 파일을 수정
+3. `layouts/robots.txt` 파일을 수정
 ```yaml
 User-agent: *
 Allow: /
-Sitemap: {{ '/sitemap.xml' | relative_url | prepend: site.url }}
+Sitemap: {{ .Site.BaseURL }}sitemap.xml
 ```
+
+`hugo.toml` 에서 아래 설정
+```toml
+enableRobotsTXT = true
+```
+아래 커맨드로 빌드시에 `public/robots.txt` 생성을 확인
+```sh
+hugo
+```
+
+
 5. sitemap.xml을 서치 콘솔에 등록
 
 ### **네이버 서치 어드바이져**
-// TODO: google search console 및 네이버 서치 어드바이져
 
-## **6. tag 설정**
-// TODO: 글마다 tag 설정 가능하게 하기
+1. naver search advisor 접속
+2. blog url 입력
+3. html 다운로드후 `public` 안에 위치시키고 배포 -> 소유권 확인
+
+
 
 ## **참조**
 https://ialy1595.github.io/post/blog-construct-1/
+
+https://ialy1595.github.io/post/blog-construct-2/
 
 https://minyeamer.github.io/blog/hugo-blog-1/
 
 https://d5br5.dev/blog/nextjs_blog/giscus
 
 https://velog.io/@eona1301/Github-Blog-%EA%B2%80%EC%83%89%EC%B0%BD-%EB%85%B8%EC%B6%9C%EC%8B%9C%ED%82%A4%EA%B8%B0
+
+https://golangkorea.github.io/post/hugo-intro/taxonomy-basic/
+
+https://boyinblue.github.io/002_github_blog/003_naver_search_advisor.html
