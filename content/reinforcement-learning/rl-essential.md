@@ -2,11 +2,11 @@
 date = '2025-05-22T11:13:00+09:00'
 title = '1. Reinforcement Learning Essential'
 subtitle =  '강화학습에 대한 기초 내용'
-weight = 2
-tags = ["Definition", "Essential"]
+weight = 4
+tags = ["Definition", "Essential", "Reinforcement Learning"]
 categories = ["Reinforcement Learning"]
 +++
-# **강화학습에 대한 기초 내용**
+# **1. 강화학습에 대한 기초 내용**
 
 ## **들어가기 앞서**
 
@@ -28,7 +28,7 @@ situations을 state로 표기하여
 통상적으로 action, state와 reward 가 RL의 핵심 요소이다.
 
 <!-- ![figure](/images/rl-action-state-reward.png) -->
-<img src="/images/rl-action-state-reward.png" alt="test" style="width:80%;" />
+<img src="/images/rl-action-state-reward.png" alt="rl-essential" style="width:80%;" />
 
 요약하면, 
 **주어진 상태(State)에서 보상(Reward)을 최대화 할 수 있는 행동(Action)을 학습하는 것**
@@ -154,7 +154,7 @@ Rewards 모델은 reward를 예측한다.
 
 #### RL agent의 분류
 
-<img src="/images/rl-agent-taxonomy.png" alt="test" style="width:80%;" />
+<img src="/images/rl-agent-taxonomy.png" alt="rl-agent-taxonomy" style="width:80%;" />
 
 어떤 key component를 가지고 있는지에 따라서 RL을 분류한다
 - value-based RL은 value function을 가지고 있다. 

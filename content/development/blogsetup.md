@@ -1,5 +1,5 @@
 +++
-date = '2025-05-22T17:00:21+09:00'
+date = '2025-05-23T11:06:13+09:00'
 title = 'Github pages 를 이용한 blog Setting (hugo + hugo-book theme + giscus'
 weight = 3
 tags = ["blog", "Github", "Github Pages", "setup", "hugo", "giscus", "hugo-book"]
