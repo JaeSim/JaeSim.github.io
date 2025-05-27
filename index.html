@@ -14,30 +14,36 @@
 
   
     
-      Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus
+      2. Markov Decision Process
     
 
     
+      강화학습의 MP, MRP, MDP에 대한 내용
+    
 
-    2025-05-22 17:00:21 KST
+    2025-05-27 16:43:57 KST
 
     
        
         
-  Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus
+  2. Markov Decision Process
   
 
 
-  0. blog host 방식 선택
+  Markov Process(MP) 란?
   
 
-여러 블로그 host방식을 고려하였으나, 유지보수가 손이 덜가며, 오랫동안 hosting이 되는것이 우선 순위였고.">
+
+  MP 속성
+  
+
+MDP는 환경에 대해서 Reinforcement Learning이 이해가능하도록 수식화한다">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="Home">
-  <meta property="og:description" content="Recent Posts#Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus2025-05-22 17:00:21 KSTGithub pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus0. blog host 방식 선택여러 블로그 host방식을 고려하였으나, 유지보수가 손이 덜가며, 오랫동안 hosting이 되는것이 우선 순위였고.">
+  <meta property="og:description" content="Recent Posts#2. Markov Decision Process강화학습의 MP, MRP, MDP에 대한 내용2025-05-27 16:43:57 KST2. Markov Decision ProcessMarkov Process(MP) 란?MP 속성MDP는 환경에 대해서 Reinforcement Learning이 이해가능하도록 수식화한다">
   <meta property="og:locale" content="ko_kr">
   <meta property="og:type" content="website">
 <title>Home | JaeSim&#39;s Workspace</title>
@@ -46,7 +52,7 @@
 <link rel="canonical" href="https://JaeSim.github.io/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.bdc237152c501404158b56c04fea2cfb740636d2fddd9aa8b6aca8680c1c49c6.js" integrity="sha256-vcI3FSxQFAQVi1bAT&#43;os&#43;3QGNtL93ZqotqyoaAwcScY=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.896e9d05c980be8af355411660f592f1531b7c344efd99d9ac455685614cbdec.js" integrity="sha256-iW6dBcmAvorzVUEWYPWS8VMbfDRO/ZnZrEVWhWFMvew=" crossorigin="anonymous"></script>
 <link rel="alternate" type="application/rss+xml" href="https://JaeSim.github.io/index.xml" title="JaeSim's Workspace" />
 <!--
 Made with Book Theme
@@ -195,6 +201,19 @@ https://github.com/alex-shpak/hugo-book
         </li>
       
     
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-mdp/" class="">2. Markov Decision Process</a>
+  
+
+        </li>
+      
+    
   </ul>
 
         </li>
@@ -300,13 +319,56 @@ https://github.com/alex-shpak/hugo-book
 <ul>
 
   <li style="margin-bottom: 2rem;">
+    <a href="/reinforcement-learning/rl-mdp/">
+      <strong style="font-size: 1.25rem;">2. Markov Decision Process</strong>
+    </a><br/>
+
+    
+      <small style="color: #888;">강화학습의 MP, MRP, MDP에 대한 내용</small><br/>
+    
+
+    <small>2025-05-27 16:43:57 KST</small>
+
+    <a href="/reinforcement-learning/rl-mdp/" style="text-decoration: none; color: inherit;">
+      <div class="summary-box"> 
+        <h1 id="2-markov-decision-process">
+  <strong>2. Markov Decision Process</strong>
+  
+</h1>
+<h2 id="markov-processmp-란">
+  <strong>Markov Process(MP) 란?</strong>
+  
+</h2>
+<h3 id="mp-속성">
+  <strong>MP 속성</strong>
+  
+</h3>
+<p>MDP는 환경에 대해서 Reinforcement Learning이 이해가능하도록 수식화한다</p>
+<p>거의 모든 RL 관련 문제들은 MDP로 수식화 할 수 있다(Fully observable이나 Partially ovservable이나)</p>
+<p>Markov Property를 이용하는데, &ndash;이전 강의참조&ndash;</p>
+<p>요약하면, 현재 state만으로 미래를 예측해도 된다는 속성이다.
+(다르게 말하면, 현재 state가 이미 유용한 정보를 포함하고 있다. memoryless)</p>
+<p>Markov state 
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \(s\)
+</span>
+로부터 <span>
+  \(s'\) …</span></p>
+      </div>
+    </a>
+
+  </li>
+
+  <li style="margin-bottom: 2rem;">
     <a href="/development/blogsetup/">
       <strong style="font-size: 1.25rem;">Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus</strong>
     </a><br/>
 
     
 
-    <small>2025-05-22 17:00:21 KST</small>
+    <small>2025-05-23 11:06:13 KST</small>
 
     <a href="/development/blogsetup/" style="text-decoration: none; color: inherit;">
       <div class="summary-box"> 
@@ -341,8 +403,8 @@ ruby 보다 go로 이루어진 hugo를 믿기로 하였다.</p>
 
     <a href="/reinforcement-learning/rl-essential/" style="text-decoration: none; color: inherit;">
       <div class="summary-box"> 
-        <h1 id="강화학습에-대한-기초-내용">
-  <strong>강화학습에 대한 기초 내용</strong>
+        <h1 id="1-강화학습에-대한-기초-내용">
+  <strong>1. 강화학습에 대한 기초 내용</strong>
   
 </h1>
 <h2 id="들어가기-앞서">
@@ -362,7 +424,7 @@ ruby 보다 go로 이루어진 hugo를 믿기로 하였다.</p>
 </h3>
 <blockquote>
 <p>“Reinforcement learning is learning what to do—how to map <strong>situations</strong> to <strong>actions</strong>—so as to maximize a numerical <strong>reward</strong> signal.”<br>
-— <em>Richard S. Sutton …</em></p></blockquote>
+— <em>Richard S. …</em></p></blockquote>
       </div>
     </a>
 

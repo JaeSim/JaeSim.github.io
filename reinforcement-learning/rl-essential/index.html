@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="
-  강화학습에 대한 기초 내용
+  1. 강화학습에 대한 기초 내용
   #
 
 
@@ -30,7 +30,7 @@
 <meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/reinforcement-learning/rl-essential/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="1. Reinforcement Learning Essential">
-  <meta property="og:description" content="강화학습에 대한 기초 내용#들어가기 앞서#강화학습의 기초적인 내용을 학습한 뒤 정리한 것으로, 남들에게 보여주기 보다는 본인의 이해와 기억을 위해서 기술한 것입니다.
+  <meta property="og:description" content="1. 강화학습에 대한 기초 내용#들어가기 앞서#강화학습의 기초적인 내용을 학습한 뒤 정리한 것으로, 남들에게 보여주기 보다는 본인의 이해와 기억을 위해서 기술한 것입니다.
 나만의 방식으로 이해한 것이기 때문에, 주요하다고 생각하는 부분이 다를수 있으며 생략되거나 놓친 부분이 많이 있습니다.
 강화학습(RL: Reinforcement Learning) 이란?#Definition#“Reinforcement learning is learning what to do—how to map situations to actions—so as to maximize a numerical reward signal.”
 — Richard S. Sutton and Andrew G. Barto, Reinforcement Learning: An Introduction (2nd ed), p.1">
@@ -41,13 +41,14 @@
     <meta property="article:modified_time" content="2025-05-22T11:13:00+09:00">
     <meta property="article:tag" content="Definition">
     <meta property="article:tag" content="Essential">
+    <meta property="article:tag" content="Reinforcement Learning">
 <title>1. Reinforcement Learning Essential | JaeSim&#39;s Workspace</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
 <link rel="canonical" href="https://JaeSim.github.io/reinforcement-learning/rl-essential/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.bdc237152c501404158b56c04fea2cfb740636d2fddd9aa8b6aca8680c1c49c6.js" integrity="sha256-vcI3FSxQFAQVi1bAT&#43;os&#43;3QGNtL93ZqotqyoaAwcScY=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.896e9d05c980be8af355411660f592f1531b7c344efd99d9ac455685614cbdec.js" integrity="sha256-iW6dBcmAvorzVUEWYPWS8VMbfDRO/ZnZrEVWhWFMvew=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -195,6 +196,19 @@ https://github.com/alex-shpak/hugo-book
         </li>
       
     
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-mdp/" class="">2. Markov Decision Process</a>
+  
+
+        </li>
+      
+    
   </ul>
 
         </li>
@@ -271,6 +285,8 @@ https://github.com/alex-shpak/hugo-book
     
       <a href="/tags/essential" class="tag">Essential</a>
     
+      <a href="/tags/reinforcement-learning" class="tag">Reinforcement Learning</a>
+    
   </div>
 
 
@@ -293,9 +309,9 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown book-article"><h1 id="강화학습에-대한-기초-내용">
-  <strong>강화학습에 대한 기초 내용</strong>
-  <a class="anchor" href="#%ea%b0%95%ed%99%94%ed%95%99%ec%8a%b5%ec%97%90-%eb%8c%80%ed%95%9c-%ea%b8%b0%ec%b4%88-%eb%82%b4%ec%9a%a9">#</a>
+  <article class="markdown book-article"><h1 id="1-강화학습에-대한-기초-내용">
+  <strong>1. 강화학습에 대한 기초 내용</strong>
+  <a class="anchor" href="#1-%ea%b0%95%ed%99%94%ed%95%99%ec%8a%b5%ec%97%90-%eb%8c%80%ed%95%9c-%ea%b8%b0%ec%b4%88-%eb%82%b4%ec%9a%a9">#</a>
 </h1>
 <h2 id="들어가기-앞서">
   <strong>들어가기 앞서</strong>
@@ -318,7 +334,7 @@ https://github.com/alex-shpak/hugo-book
 <p>situations을 state로 표기하여</p>
 <p>통상적으로 action, state와 reward 가 RL의 핵심 요소이다.</p>
 <!-- ![figure](/images/rl-action-state-reward.png) -->
-<img src="/images/rl-action-state-reward.png" alt="test" style="width:80%;" />
+<img src="/images/rl-action-state-reward.png" alt="rl-essential" style="width:80%;" />
 <p>요약하면,
 <strong>주어진 상태(State)에서 보상(Reward)을 최대화 할 수 있는 행동(Action)을 학습하는 것</strong></p>
 <p>이는 Reward Hypothesis를 기반으로한다.</p>
@@ -491,7 +507,7 @@ Rewards 모델은 reward를 예측한다.
   RL agent의 분류
   <a class="anchor" href="#rl-agent%ec%9d%98-%eb%b6%84%eb%a5%98">#</a>
 </h4>
-<img src="/images/rl-agent-taxonomy.png" alt="test" style="width:80%;" />
+<img src="/images/rl-agent-taxonomy.png" alt="rl-agent-taxonomy" style="width:80%;" />
 <p>어떤 key component를 가지고 있는지에 따라서 RL을 분류한다</p>
 <ul>
 <li>value-based RL은 value function을 가지고 있다.</li>
@@ -618,6 +634,8 @@ Rewards 모델은 reward를 예측한다.
       <a href="/tags/definition" class="tag">Definition</a>
     
       <a href="/tags/essential" class="tag">Essential</a>
+    
+      <a href="/tags/reinforcement-learning" class="tag">Reinforcement Learning</a>
     
   </div>
 
