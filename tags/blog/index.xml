@@ -6,7 +6,7 @@
     <description>Recent content in Blog on JaeSim&#39;s Workspace</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Thu, 22 May 2025 17:00:21 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 23 May 2025 11:06:13 +0900</lastBuildDate>
     <atom:link href="https://JaeSim.github.io/tags/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>할일</title>
@@ -18,7 +18,7 @@
     <item>
       <title>Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus</title>
       <link>https://JaeSim.github.io/development/blogsetup/</link>
-      <pubDate>Thu, 22 May 2025 17:00:21 +0900</pubDate>
+      <pubDate>Fri, 23 May 2025 11:06:13 +0900</pubDate>
       <guid>https://JaeSim.github.io/development/blogsetup/</guid>
       <description>&lt;h1 id=&#34;github-pages-를-이용한-blog-setting-hugo--hugo-book-theme--giscus&#34;&gt;&#xD;&#xA;  &lt;strong&gt;Github pages 를 이용한 blog Setting (hugo + hugo-book theme + giscus&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#github-pages-%eb%a5%bc-%ec%9d%b4%ec%9a%a9%ed%95%9c-blog-setting-hugo--hugo-book-theme--giscus&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;h2 id=&#34;0-blog-host-방식-선택&#34;&gt;&#xD;&#xA;  &lt;strong&gt;0. blog host 방식 선택&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#0-blog-host-%eb%b0%a9%ec%8b%9d-%ec%84%a0%ed%83%9d&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;여러 블로그 host방식을 고려하였으나, 유지보수가 손이 덜가며, 오랫동안 hosting이 되는것이 우선 순위였고.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Github pages&lt;/strong&gt;를 통한 호스팅 방법을 선택하였다.&lt;/p&gt;&#xA;&lt;p&gt;그렇다면, static page를 generation을 해주는 framework로 jekyll 와 hugo를 고민하였고&#xA;ruby 보다 go로 이루어진 hugo를 믿기로 하였다.&lt;/p&gt;&#xA;&lt;p&gt;다른 blog들이 생성한 페이지를 주로 참조하였으며, 이 포스팅은 해당 글들의 엮음에 불과한점을 참조 부탁한다.&lt;/p&gt;</description>
     </item>
