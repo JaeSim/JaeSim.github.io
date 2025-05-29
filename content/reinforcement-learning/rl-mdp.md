@@ -19,7 +19,7 @@ MDP는 환경에 대해서 Reinforcement Learning이 이해가능하도록 수�
 Markov Property를 이용하는데, --이전 강의참조--
 
 요약하면, 현재 state만으로 미래를 예측해도 된다는 속성이다.
-(다르게 말하면, 현재 state가 이미 유용한 정보를 포함하고 있다. memoryless)
+(다르게 말하면, 현재 state가 이미 유용한 정보를 포함하고 있다. = memoryless)
 
 Markov state {{< katex display=false >}}s{{< /katex >}}로부터 {{< katex display=false >}}s'{{< /katex >}} 으로 변경하는 transition probability 를 하는 수식은 다음과 같다.
 {{< katex display=true >}}
@@ -72,6 +72,11 @@ timestep t에 대한 goal 은 다음과 같이 표현된다.
 G_t = R_{t+1} + \gamma R_{t+2} + \dots = \sum_{k=0}^{\infty} \gamma^k R_{t+k+1}
 {{< /katex >}}
 
+MP는 시간이 지남에 따라 확률에 의해서 state가 변경되는 것이고.<br>
+MRP 에서는 그 변화된 시간에서 state에 도달할때마다 reward가 획득된다고 이해했다.<br>
+이로써 현재 state 에서 바라본다면 앞으로 나의 미래 total reward를 계산할 수 있다.(discount factor 0~1)
+<img src="/images/rl-mrp-example.png" alt="mp-example" style="width:80%;" />
+
 #### **Value Function**
 
 현재상태(s)에서의 terminated 상태에서의 Expected return 
@@ -82,7 +87,7 @@ v(s) = \mathbb{E} [ G_t \mid S_t = s ]
 
 이는 밸망방정식으로 표현될 수 있다.
 
-#### **Bellman Euation for MRP**
+#### **Bellman Equation for MRP**
 
 Value Function은 크게 두가지 컴포넌트로 나눌수 있다.
 - 현재의 리워드 {{< katex display=false >}} R_(t+1){{< /katex >}}
@@ -108,6 +113,36 @@ v(s) = \mathcal{R}_s + \gamma \sum_{s' \in \mathcal{S}} \mathcal{P}_{ss'} v(s')
 
 이를 벡터 매트릭스로 표현하면 아래와 같다.
 
+{{< katex display=true >}}
+\begin{bmatrix}
+v(1) \\
+\vdots \\
+v(n)
+\end{bmatrix}
+=
+\begin{bmatrix}
+\mathcal{R}_1 \\
+\vdots \\
+\mathcal{R}_n
+\end{bmatrix}
++
+\gamma
+\begin{bmatrix}
+\mathcal{P}_{11} & \cdots & \mathcal{P}_{1n} \\
+\vdots & \ddots & \vdots \\
+\mathcal{P}_{n1} & \cdots & \mathcal{P}_{nn}
+\end{bmatrix}
+\begin{bmatrix}
+v(1) \\
+\vdots \\
+v(n)
+\end{bmatrix}
+{{< /katex >}}
+
+#### **Solving the Bellman Equation**
+벨만 방정식은 linear equation 이지만 O(n^3) 복잡도를 가지고 있기 때문에 작은것만 풀수 있다.<>
+Large MRP를 풀기위해서 Dynamic Programing 이나 Monte-Carlo evaluation 이나 Temporal-Difference Learning이 있다.
+
 ## **Markov Decision Process(MDP) 란?**
 
 > A Markov Decision Process (or Markov Chain) is a tuple {{< katex display=false >}}\langle \mathcal{S}, \mathcal{A}, \mathcal{P}, \mathcal{R}, \gamma \rangle {{< /katex >}}
@@ -118,15 +153,20 @@ v(s) = \mathcal{R}_s + \gamma \sum_{s' \in \mathcal{S}} \mathcal{P}_{ss'} v(s')
 > - {{< katex display=false >}}\mathcal{R}{{< /katex >}} is a reward function, {{< katex display=false >}}\mathcal{R}^a_s = \mathbb{E} \left[ R_{t+1} \mid S_t = s , A_t =a \right]{{< /katex >}} 
 > - {{< katex display=false >}}\gamma{{< /katex >}} is a discount factor, {{< katex display=false >}}{\gamma \in [0, 1]}{{< /katex >}} 
 
+위 MP MRP 예제와 다르게 action이 추가됨. <br>
+그림에서는 잘 안표현되어있지만, 액션을 하면. 그 액션으로인해 특정 state로 전이되는 것은 확률이다.<br>
+밑에 pub에 가는것 액션을 수행하면 확률적으로 class1, class2, class3에 도달한다.
+<img src="/images/rl-mdp-example.png" alt="mp-example" style="width:80%;" />
+
 ### **Policy**
 
 정책(Policy {{< katex display=false >}}\pi{{< /katex >}}) 는 주어진 state에 대한 action의 분포
 {{< katex display=true >}}
 \pi(a \mid s) = \mathbb{P}[A_t = a \mid S_t = s]
 {{< /katex >}}
-마크로프 속성에 의해서 현재 state는 reward를 fully characterize 한것이기 때문에 수식에 reward가 없다
+마크로프 속성에 의해서 현재 state는 reward를 fully characterize 한것이기 때문에 위 수식에 reward가 없다
 
-state 시퀀스에 대해서 폴리시를 넣으면 Markov Process이고,
+state 시퀀스(상태전의)에 대해서 폴리시를 넣으면 Markov Process이고,
 state 시퀀에 리워드를 넣으면 Markov reward process 이다.
 
 마르코프 reward process 에 대해서 
@@ -150,9 +190,9 @@ v_\pi(s) = \mathbb{E}_\pi \left[ G_t \mid S_t = s \right]
 여기세 E_pi는 모든 샘플액션에 대한 expectation
 
 
-### **action-value function**
+### **action-value (q) function**
 이를 action-value function q_pi 로 나타낼 수 있다.
-이는 **현재 state에서 어떤떤action을 선택했을때 얼마나 좋은지**를 나타낸다. (얼마나 리워드를 얻을지)
+이는 **현재 state에서 어떤action을 선택했을때 얼마나 좋은지**를 나타낸다. (얼마나 리워드를 얻을지)
 {{< katex display = true >}}
 q_\pi(s, a) = \mathbb{E}_\pi \left[ G_t \mid S_t = s, A_t = a \right]
 {{< /katex >}}
@@ -200,8 +240,8 @@ v_\pi = \left( I - \gamma \mathcal{P}^\pi \right)^{-1} \mathcal{R}^\pi
 
 ### **optimal value function**
 
-mdp에서의 최적 행동을 찾는 방법은 optimal state-value function v_*(s) 를 구하는 것이다.
-이것은 모든 policy 에 대해서 value function을 최대화 하는것이다. 
+mdp에서의 최적 행동을 찾는 방법은 optimal state-value function {{< katex display = false >}}v_*(s){{< /katex >}} 를 구하는 것이다.
+이것은 모든 policy 에 대해서 value function을 최대화 하는것이다. (장기적으로 최대 보상을 얻기 위해서) <br>
 optimal action-value function q_*(s,a) 의 경우 아래와 같이 구할 수 있다.
 
 {{< katex display=true >}}
@@ -248,3 +288,5 @@ Bellman Optimality Equation은 non-linear 하고 보통 No closed form 으로 �
 https://davidstarsilver.wordpress.com/wp-content/uploads/2025/04/lecture-2-mdp.pdf
 
 https://www.youtube.com/watch?v=lfHX2hHRMVQ
+
+https://trivia-starage.tistory.com/280

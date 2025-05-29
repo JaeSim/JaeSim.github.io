@@ -43,20 +43,29 @@ Agent는 미래에 기대되는 cumulative reward가 최대화 되는 방향으�
 
 
 ### **State and MDP**
+**State** 는 다음 action을 결정하기 위한 정보이다
+
+<div style="text-align: center;">
+{{< katex display=true >}}
+\quad \quad S_t = f(H_t)
+\\
+{{< /katex >}}
+</div>
+
 Envrionment State, Agent State 가 있고
 각각 Envrionment, Agent관점에서의 수식적/내부적 표현이다.
 
-Envrionment State는 Envrionment 관점에서 다음 step에서 Envrionment가 어떻게 변화할지를(어떤 State로 변화할지) 나타낸다.
+**Envrionment State**는 Envrionment 관점에서 다음 step에서 Envrionment가 어떻게 변화할지를(어떤 State로 변화할지) 나타낸다.
 Envrionment에서는 microsecond 에서도 수많은 정보가 오기 때문에 불필요한 정보들도 많다.
 Envrionment State는 우리의 알고리즘을 만드는데 유용하진 않다. 왜냐하면 Agent의 정보를 포함하고 있지 않기 때문. (우리의 알고리즘은 Agent에 있을테니 라고 이해함)
 
 
-Agent State는 다음 step 에서 Agent가 어떤 행동을 선택할지를 나타낸 수식/표현이다.
+**Agent State**는 다음 step 에서 Agent가 어떤 행동을 선택할지를 나타낸 수식/표현이다.
 
 
-Information State는 과거 history부터 모든 유용한 정보를 포함한 수학적 정의를 가진 State이다. 주로 Markov State라 부른다. (Markov 속성을 만족한다)
+**Information State**는 과거 history부터 모든 유용한 정보를 포함한 수학적 정의를 가진 State이다. 주로 Markov State라 부른다. (Markov 속성을 만족한다)
 
-- Markov Properties : <br>
+- **Markov Properties** : <br>
 이전의 모든 스테이트정보를 이용해서 다음 State를 선택하는것이, 현재State만 보고 하는것과 같다
 {{< katex display=true >}}
 \mathbb{P}[S_{t+1} \mid S_t] = \mathbb{P}[S_{t+1} \mid S_1, \dots, S_t]
@@ -123,21 +132,22 @@ H_{1:t} \rightarrow S_t \rightarrow H_{t+1:\infty}
 
 ### **Policy, Value Function, Model**
 
-RL은 아래 components를 한개 이상 포함한다.
+RL은 agent는 아래 components를 한개 이상 포함한다.
 > **Policy**는 **_Agent가 어떻게 Action을 선택하는지(=behavior function)_** 이다.
 
 State로부터 function 파이를 이용해서(policy) 를 통해 action을 결정한다.
-- Deterministic policy: {{< katex display=false >}} a = \pi(s){{< /katex >}}
+- Deterministic policy: {{< katex display=false >}} a = \pi(s){{< /katex >}} <br>
+ state를 넣으면 다음 취할 액션이 튀어나온다
 
 probability로 policy를 표현하고자 한다면 다음과 같다.
-- Stochastic policy: {{< katex display=false >}} \pi(a \mid s) = \mathbb{P}[A_t = a \mid S_t = s]{{< /katex >}}
-
+- Stochastic policy: {{< katex display=false >}} \pi(a \mid s) = \mathbb{P}[A_t = a \mid S_t = s]{{< /katex >}} <br>
+ 현재 상태 s 에 있을 때, 액션 a 를 선택할 확률
 
 > **Value Function**은 **_State나 Action이 얼마나 좋은지(기대되는 미래의 reward가 얼마일지 예측)_** 을 나타낸다.
 
 State one과 State two,  action one과 action two를 선택할때 최종 reward가 더 좋은쪽으로 선택한다.
 
-아래와 같이 표현되는데 {{< katex display=false >}} R_{t+1}, R_{t+2}, R_{t+3} {{< /katex >}} 를 더하는 것과 같이 다음(미래)의 reward의 합의 기대값
+아래와 같이 표현되는데 {{< katex display=false >}} R_{t+1}, R_{t+2}, R_{t+3} {{< /katex >}} 를 더하는 것과 같이 다음(미래)의 reward의 합의 **기대값**(어떤 폴리시 {{< katex display = false >}}\pi{{< /katex >}}를 따르는 가정하에)
 {{< katex display=true >}}
 v_{\pi}(s) = \mathbb{E}_{\pi} \left[ R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \dots \mid S_t = s \right]
 {{< /katex >}}
@@ -152,7 +162,7 @@ transtions 모델은 directly 다음 state를 예측한다.
 Rewards 모델은 reward를 예측한다.
 {{< katex display=true >}}\mathcal{R}_s^a = \mathbb{E}[R_{t+1} \mid S_t = s, A_t = a]{{< /katex >}}
 
-#### RL agent의 분류
+### **RL agent의 분류**
 
 <img src="/images/rl-agent-taxonomy.png" alt="rl-agent-taxonomy" style="width:80%;" />
 
@@ -166,19 +176,23 @@ Model base로 구분하는 방법이 있다.
 - model based는 value function + policy, model 이 존재
 
 
-#### Sequential decision making의 두가지
-- Reinforcement Learning은 환경(Environment)을 모르고 상호작용하면서 reward가 최대가 되도록 학습
-- Planning은 환경을 알고(환경에 해당하는 model을 주고) agent가 계산하는 것
+### **Sequential decision making의 두가지 방식**
+- Reinforcement Learning은 환경(Environment)을 모르고 상호작용하면서 reward가 최대가 되도록 학습 하는것
+- Planning은 환경을 알고(우리가 환경에 해당하는 rule/model을 주고) agent가 계산하는 것
 
 
-#### Exploration and Exploitation
+### **Exploration and Exploitation**
 Exploration 와 Exploitation 는 trade-off
 - Exploration 은 환경에 대한 정보를 더 찾는것
 - Exploitation 은 알고 있는 정보를 활용해서 reward를 최대화 하는것
 
 예) 새로운 레스토랑 찾기 vs 가장 좋아하는 레스토랑 재방문
 
+### **Prediction and Control**
+RL에서는 prediction problem과 control problem 이 있다.
 
+- **prediction** 은 현재 폴리시를 따르면 앞으로 얼마나 미래에 좋을찌 평가하는것
+- **contorl** 은 bset policy를 찾는것
 
 ---
 
