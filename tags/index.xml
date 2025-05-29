@@ -6,13 +6,48 @@
     <description>Recent content in Tags on JaeSim&#39;s Workspace</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Tue, 27 May 2025 16:43:57 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 29 May 2025 12:21:05 +0900</lastBuildDate>
     <atom:link href="https://JaeSim.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Definition</title>
       <link>https://JaeSim.github.io/tags/definition/</link>
-      <pubDate>Tue, 27 May 2025 16:43:57 +0900</pubDate>
+      <pubDate>Thu, 29 May 2025 12:21:05 +0900</pubDate>
       <guid>https://JaeSim.github.io/tags/definition/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>DP</title>
+      <link>https://JaeSim.github.io/tags/dp/</link>
+      <pubDate>Thu, 29 May 2025 12:21:05 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/dp/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Dynamic Programming</title>
+      <link>https://JaeSim.github.io/tags/dynamic-programming/</link>
+      <pubDate>Thu, 29 May 2025 12:21:05 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/dynamic-programming/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Policy Iteration</title>
+      <link>https://JaeSim.github.io/tags/policy-iteration/</link>
+      <pubDate>Thu, 29 May 2025 12:21:05 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/policy-iteration/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Reinforcement Learning</title>
+      <link>https://JaeSim.github.io/tags/reinforcement-learning/</link>
+      <pubDate>Thu, 29 May 2025 12:21:05 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/reinforcement-learning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Value Iteration</title>
+      <link>https://JaeSim.github.io/tags/value-iteration/</link>
+      <pubDate>Thu, 29 May 2025 12:21:05 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/value-iteration/</guid>
       <description></description>
     </item>
     <item>
@@ -34,13 +69,6 @@
       <link>https://JaeSim.github.io/tags/markov-process/</link>
       <pubDate>Tue, 27 May 2025 16:43:57 +0900</pubDate>
       <guid>https://JaeSim.github.io/tags/markov-process/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Reinforcement Learning</title>
-      <link>https://JaeSim.github.io/tags/reinforcement-learning/</link>
-      <pubDate>Tue, 27 May 2025 16:43:57 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/reinforcement-learning/</guid>
       <description></description>
     </item>
     <item>

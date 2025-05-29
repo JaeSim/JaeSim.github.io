@@ -14,36 +14,31 @@
 
   
     
-      2. Markov Decision Process
+      temp : 3. Planning by Dynamic Programming
     
 
     
-      강화학습의 MP, MRP, MDP에 대한 내용
+      강화학습의 value iteration, policy iteration과 DP 대한 내용
     
 
-    2025-05-27 16:43:57 KST
+    2025-05-29 12:21:05 KST
 
     
        
         
-  2. Markov Decision Process
+  3. Planning by Dynamic Programming
   
 
 
-  Markov Process(MP) 란?
-  
+  // NOTE: 이 페이지는 임시로 작성되었습니다.
 
-
-  MP 속성
-  
-
-MDP는 환경에 대해서 Reinforcement Learning이 이해가능하도록 수식화한다">
+MDP를 푸는 방식들이 여러개가 있다.">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="Home">
-  <meta property="og:description" content="Recent Posts#2. Markov Decision Process강화학습의 MP, MRP, MDP에 대한 내용2025-05-27 16:43:57 KST2. Markov Decision ProcessMarkov Process(MP) 란?MP 속성MDP는 환경에 대해서 Reinforcement Learning이 이해가능하도록 수식화한다">
+  <meta property="og:description" content="Recent Posts#temp : 3. Planning by Dynamic Programming강화학습의 value iteration, policy iteration과 DP 대한 내용2025-05-29 12:21:05 KST3. Planning by Dynamic Programming// NOTE: 이 페이지는 임시로 작성되었습니다.MDP를 푸는 방식들이 여러개가 있다.">
   <meta property="og:locale" content="ko_kr">
   <meta property="og:type" content="website">
 <title>Home | JaeSim&#39;s Workspace</title>
@@ -52,7 +47,7 @@ MDP는 환경에 대해서 Reinforcement Learning이 이해가능하도록 수�
 <link rel="canonical" href="https://JaeSim.github.io/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.896e9d05c980be8af355411660f592f1531b7c344efd99d9ac455685614cbdec.js" integrity="sha256-iW6dBcmAvorzVUEWYPWS8VMbfDRO/ZnZrEVWhWFMvew=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.22e82a459f3659bd0e8a383183eca3d7705a97c835c61f03d062fc77bc6218f8.js" integrity="sha256-IugqRZ82Wb0Oijgxg&#43;yj13Bal8g1xh8D0GL8d7xiGPg=" crossorigin="anonymous"></script>
 <link rel="alternate" type="application/rss+xml" href="https://JaeSim.github.io/index.xml" title="JaeSim's Workspace" />
 <!--
 Made with Book Theme
@@ -214,6 +209,19 @@ https://github.com/alex-shpak/hugo-book
         </li>
       
     
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-dp/" class="">temp : 3. Planning by Dynamic Programming</a>
+  
+
+        </li>
+      
+    
   </ul>
 
         </li>
@@ -319,6 +327,40 @@ https://github.com/alex-shpak/hugo-book
 <ul>
 
   <li style="margin-bottom: 2rem;">
+    <a href="/reinforcement-learning/rl-dp/">
+      <strong style="font-size: 1.25rem;">temp : 3. Planning by Dynamic Programming</strong>
+    </a><br/>
+
+    
+      <small style="color: #888;">강화학습의 value iteration, policy iteration과 DP 대한 내용</small><br/>
+    
+
+    <small>2025-05-29 12:21:05 KST</small>
+
+    <a href="/reinforcement-learning/rl-dp/" style="text-decoration: none; color: inherit;">
+      <div class="summary-box"> 
+        <h1 id="3-planning-by-dynamic-programming">
+  <strong>3. Planning by Dynamic Programming</strong>
+  
+</h1>
+<blockquote class="book-hint warning">
+  // NOTE: 이 페이지는 임시로 작성되었습니다.
+</blockquote>
+<p>MDP를 푸는 방식들이 여러개가 있다.</p>
+<p><strong>Policy evaluation, Policy iteration, value iteration</strong> 등이 있고, 이것들은 <strong>환경을 정확하게 안다면</strong> DP가 적용이 가능하다</p>
+<p>먼저 간략하게 언급하자면</p>
+<ol>
+<li>policy를 평가하고 iteration 하면서 발전해나가는 방식과  (policy evaluation + policy iteration)</li>
+<li>value function을 iteration하면서 옵티멀을 찾아가는 방법 (value iteration)</li>
+</ol>
+<p>이 있다.</p>
+<p>이번 섹션은 DP로 known MDP를 푸는 방법에 대한것이고, …</p>
+      </div>
+    </a>
+
+  </li>
+
+  <li style="margin-bottom: 2rem;">
     <a href="/reinforcement-learning/rl-mdp/">
       <strong style="font-size: 1.25rem;">2. Markov Decision Process</strong>
     </a><br/>
@@ -347,7 +389,7 @@ https://github.com/alex-shpak/hugo-book
 <p>거의 모든 RL 관련 문제들은 MDP로 수식화 할 수 있다(Fully observable이나 Partially ovservable이나)</p>
 <p>Markov Property를 이용하는데, &ndash;이전 강의참조&ndash;</p>
 <p>요약하면, 현재 state만으로 미래를 예측해도 된다는 속성이다.
-(다르게 말하면, 현재 state가 이미 유용한 정보를 포함하고 있다. memoryless)</p>
+(다르게 말하면, 현재 state가 이미 유용한 정보를 포함하고 있다. = memoryless)</p>
 <p>Markov state 
 <link rel="stylesheet" href="/katex/katex.min.css" />
 <script defer src="/katex/katex.min.js"></script>
@@ -472,34 +514,6 @@ ruby 보다 go로 이루어진 hugo를 믿기로 하였다.</p>
       <tr>
           <td>✅</td>
           <td><em>2025-05-22 …</em></td></tr></tbody></table>
-      </div>
-    </a>
-
-  </li>
-
-  <li style="margin-bottom: 2rem;">
-    <a href="/development/secondpost/">
-      <strong style="font-size: 1.25rem;">두번째 글입니다. 블로그 실험용 테스트 글입니다.</strong>
-    </a><br/>
-
-    
-      <small style="color: #888;">두번째글의 소제목입니다</small><br/>
-    
-
-    <small>2025-05-20 16:53:50 KST</small>
-
-    <a href="/development/secondpost/" style="text-decoration: none; color: inherit;">
-      <div class="summary-box"> 
-        <h1 id="test">
-  <strong>test</strong>
-  
-</h1>
-<h2 id="test2">
-  <strong>test2</strong>
-  
-</h2>
-<p>RL 관련 항목을 기록하기 위한 post 입니다.</p>
-<p>페이지 업로드 확인용 임시 포스트</p>
       </div>
     </a>
 

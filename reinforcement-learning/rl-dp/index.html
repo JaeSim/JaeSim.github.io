@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="ko-kr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
+  3. Planning by Dynamic Programming
+  #
+
+
+  // NOTE: 이 페이지는 임시로 작성되었습니다.
+
+MDP를 푸는 방식들이 여러개가 있다.
+Policy evaluation, Policy iteration, value iteration 등이 있고, 이것들은 환경을 정확하게 안다면 DP가 적용이 가능하다
+먼저 간략하게 언급하자면
+
+policy를 평가하고 iteration 하면서 발전해나가는 방식과  (policy evaluation &#43; policy iteration)
+value function을 iteration하면서 옵티멀을 찾아가는 방법 (value iteration)
+
+이 있다.
+이번 섹션은 DP로 known MDP를 푸는 방법에 대한것이고, 이것은 강화학습의 flow 와 수식 간의 이해를 위한 섹션이다.
+4장부터 unknown MDP를 푸는 방법이 기술되어 있다.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/reinforcement-learning/rl-dp/">
+  <meta property="og:site_name" content="JaeSim&#39;s Workspace">
+  <meta property="og:title" content="temp : 3. Planning by Dynamic Programming">
+  <meta property="og:description" content="3. Planning by Dynamic Programming#// NOTE: 이 페이지는 임시로 작성되었습니다.MDP를 푸는 방식들이 여러개가 있다.
+Policy evaluation, Policy iteration, value iteration 등이 있고, 이것들은 환경을 정확하게 안다면 DP가 적용이 가능하다
+먼저 간략하게 언급하자면
+policy를 평가하고 iteration 하면서 발전해나가는 방식과 (policy evaluation &#43; policy iteration) value function을 iteration하면서 옵티멀을 찾아가는 방법 (value iteration) 이 있다.
+이번 섹션은 DP로 known MDP를 푸는 방법에 대한것이고, 이것은 강화학습의 flow 와 수식 간의 이해를 위한 섹션이다. 4장부터 unknown MDP를 푸는 방법이 기술되어 있다.">
+  <meta property="og:locale" content="ko_kr">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="reinforcement-learning">
+    <meta property="article:published_time" content="2025-05-29T12:21:05+09:00">
+    <meta property="article:modified_time" content="2025-05-29T12:21:05+09:00">
+    <meta property="article:tag" content="Definition">
+    <meta property="article:tag" content="Value Iteration">
+    <meta property="article:tag" content="Policy Iteration">
+    <meta property="article:tag" content="DP">
+    <meta property="article:tag" content="Dynamic Programming">
+    <meta property="article:tag" content="Reinforcement Learning">
+<title>temp : 3. Planning by Dynamic Programming | JaeSim&#39;s Workspace</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="https://JaeSim.github.io/reinforcement-learning/rl-dp/">
+<link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.22e82a459f3659bd0e8a383183eca3d7705a97c835c61f03d062fc77bc6218f8.js" integrity="sha256-IugqRZ82Wb0Oijgxg&#43;yj13Bal8g1xh8D0GL8d7xiGPg=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>JaeSim&#39;s Workspace</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/aboutme/" class="">About Me</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Development / 개발</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/secondpost/" class="">두번째 글입니다. 블로그 실험용 테스트 글입니다.</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/firstpost/" class="">할일</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/blogsetup/" class="">Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Reinforcement Learning / 강화학습</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-essential/" class="">1. Reinforcement Learning Essential</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-mdp/" class="">2. Markov Decision Process</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-dp/" class="active">temp : 3. Planning by Dynamic Programming</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>temp : 3. Planning by Dynamic Programming</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#dynamic-programmingdp-이란"><strong>Dynamic Programming(DP) 이란?</strong></a>
+      <ul>
+        <li><a href="#policy-evaluation"><strong>policy evaluation</strong></a></li>
+        <li><a href="#policy-iteration"><strong>policy iteration</strong></a></li>
+        <li><a href="#value-interation"><strong>value interation</strong></a></li>
+        <li><a href="#synchronous-dynamic-programing"><strong>Synchronous Dynamic Programing</strong></a></li>
+        <li><a href="#asynchronous-dynamic-programing"><strong>Asynchronous Dynamic Programing</strong></a></li>
+        <li><a href="#full-width-backup-과-sample-backup"><strong>Full-Width Backup 과 Sample Backup</strong></a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#on-policyoff-policy-intro"><strong>on-policy/off-policy intro</strong></a></li>
+    <li><a href="#on-policy"><strong>on-policy</strong></a>
+      <ul>
+        <li><a href="#monte-carlo-iteration"><strong>Monte-carlo iteration</strong></a></li>
+        <li><a href="#ε-greedy"><strong>ε-greedy</strong></a></li>
+        <li><a href="#monte-carlo-control"><strong>Monte-carlo Control</strong></a></li>
+        <li><a href="#sarsa"><strong>Sarsa</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#off-policy"><strong>off-policy</strong></a>
+      <ul>
+        <li><a href="#q-learning"><strong>Q-learning</strong></a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#action-value-function-approximation"><strong>Action-value function Approximation</strong></a></li>
+    <li><a href="#batch-method"><strong>Batch Method</strong></a>
+      <ul>
+        <li><a href="#experience-replay"><strong>Experience Replay</strong></a></li>
+        <li><a href="#prioritized-experience-replay-per"><strong>Prioritized Experience Replay (PER)</strong></a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#actor-critic"><strong>Actor-Critic</strong></a>
+      <ul>
+        <li><a href="#proximal-policy-optimization-ppo"><strong>Proximal Policy Optimization (PPO)</strong></a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#model-based-rl"><strong>Model-based RL</strong></a></li>
+    <li><a href="#simulation-based-search"><strong>Simulation-based Search</strong></a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#model-agnostic-meta-learningmaml"><strong>Model-Agnostic Meta-Learning(MAML)</strong></a></li>
+    <li><a href="#per"><strong>PER</strong></a></li>
+    <li><a href="#참조">참조</a></li>
+  </ul>
+</nav>
+
+  <div class="post-tags">
+    <strong>Tags:</strong>
+    
+      <a href="/tags/definition" class="tag">Definition</a>
+    
+      <a href="/tags/value-iteration" class="tag">value iteration</a>
+    
+      <a href="/tags/policy-iteration" class="tag">policy iteration</a>
+    
+      <a href="/tags/dp" class="tag">DP</a>
+    
+      <a href="/tags/dynamic-programming" class="tag">Dynamic Programming</a>
+    
+      <a href="/tags/reinforcement-learning" class="tag">Reinforcement Learning</a>
+    
+  </div>
+
+
+
+  <div class="post-categories">
+    <strong>Categories:</strong>
+    
+      <a href="/categories/reinforcement-learning" class="category">Reinforcement Learning</a>
+    
+  </div>
+
+
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="3-planning-by-dynamic-programming">
+  <strong>3. Planning by Dynamic Programming</strong>
+  <a class="anchor" href="#3-planning-by-dynamic-programming">#</a>
+</h1>
+<blockquote class="book-hint warning">
+  // NOTE: 이 페이지는 임시로 작성되었습니다.
+</blockquote>
+<p>MDP를 푸는 방식들이 여러개가 있다.</p>
+<p><strong>Policy evaluation, Policy iteration, value iteration</strong> 등이 있고, 이것들은 <strong>환경을 정확하게 안다면</strong> DP가 적용이 가능하다</p>
+<p>먼저 간략하게 언급하자면</p>
+<ol>
+<li>policy를 평가하고 iteration 하면서 발전해나가는 방식과  (policy evaluation + policy iteration)</li>
+<li>value function을 iteration하면서 옵티멀을 찾아가는 방법 (value iteration)</li>
+</ol>
+<p>이 있다.</p>
+<p>이번 섹션은 DP로 known MDP를 푸는 방법에 대한것이고, 이것은 강화학습의 flow 와 수식 간의 이해를 위한 섹션이다.
+4장부터 unknown MDP를 푸는 방법이 기술되어 있다.</p>
+<h2 id="dynamic-programmingdp-이란">
+  <strong>Dynamic Programming(DP) 이란?</strong>
+  <a class="anchor" href="#dynamic-programmingdp-%ec%9d%b4%eb%9e%80">#</a>
+</h2>
+<p><strong>정의 : // 이부분은 생략</strong></p>
+<p>MDP는 DP로 문제를 풀기에 필요한 조건들을 만족한다.</p>
+<ul>
+<li>벨만 방정식(Bellman equation) 은 재귀적 decomposition</li>
+<li>value function 은 값을 저장하고, 재사용한다.</li>
+</ul>
+<p>full environment 정보가 주어지면 이것은 강화학습의 문제가 아니라 planning problem(mdp를)으로써 DP로 풀수 있다. <br>
+MDP planning의 두가지 문제가 있다. (For prediction, For control)</p>
+<ul>
+<li>
+<p>prediction problem은 input MDP(or MRP)와 policy가 주어졌을때, 이것의 output인 value function 
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \(v_\pi\)
+</span>
+ 을 구하는것</p>
+</li>
+<li>
+<p>control problem 은 옵티마이징 하는것(best policy와 그에따른 best value function을 구하는것). <br>
+input으로 MDP가 주어지고 output으로 <span>
+  \(v_*\)
+</span>
+ (옵티멀 벨류 펑션) 또는 <span>
+  \(\pi_*\)
+</span>
+ (옵티멀 폴리시)</p>
+</li>
+</ul>
+<h3 id="policy-evaluation">
+  <strong>policy evaluation</strong>
+  <a class="anchor" href="#policy-evaluation">#</a>
+</h3>
+<p>폴리시가 얼마나 좋은지 평가(mdp로 얼마나 얼마나 많은 reward를 얻을수 있는지?). policy를 업데이트하지 않는다<br>
+bellman expectation equation을 사용</p>
+<p>bellman expectation equation을 풀기 위해서,<br>
+이터레이션마다 policy하의 value 펑션을 평가해서, _value 펑션_을 업데이트 한다.<br>
+<span>
+  \(v1 	\rightarrow v2 	\rightarrow ... 	\rightarrow v_\pi\)
+</span>
+ 가 되어 true value function 을 얻을 수 있다.</p>
+<p>이때 두가지 방식으로 backup이 가능하다. <br>
+<strong>synchronous backup/asyncronous backup</strong> <br>
+synchronous backup <br>=  한 iteration에서 전체 상태들의 값이 한꺼번에 업데이트됨 <br>
+트리에서 현재root 노드에 있다고 가정하면, 취할 수 있는 모든 action을 고려하고 갈수 있는 모든 계승 state도 고려해서 backup(되돌아가서) 현재 노드에 probability 에 따른 weight를 더한다. 이것이 결국 현재 노드의 이번 이터레이션의 value function.</p>
+<p>이것은 true value function으로 수렴하는것을 보장한다 <br>(why?= discount factor 가 0~1 이므로 수축 매핑 성질을 가진다 (contraction mapping) by GPT)</p>
+<h4 id="synchronous-backup-policy-evaluation-example">
+  synchronous backup policy evaluation example
+  <a class="anchor" href="#synchronous-backup-policy-evaluation-example">#</a>
+</h4>
+<p>아래그림은 이동을 uniform random하기 pick된다는 policy에 대한 그림이다 (왼쪽에 적힌 숫자값들 : 1/4씩 가능성이 있는경우)
+k=1 일때의, 주변 으로 갔을때 전부 -1 이니 -1*4/4 로 1회 업데이트 <br>
+k=2 일때의 1.7 은 1.75가 짤린것. <br>
+[0,1] 을보면 네곳으로 이동할수 있고 <br>
+북으로가면 자기자신으로 돌아와서 이동-1, 이전step(k=1에서의) 자가자신의 값 -1 이므로 -2, <br> 동으로가면 이동-1 과 이전step의 [0,2]의 값 -1 이 합쳐져서 -2, 마찬가지로 남으로가면 -2 <br>
+서로 가면 이동 -1 과 이전step의 [0,0]의 값 0이 합쳐져서 0 <br>
+따라서 (0 -2 -2 -2) / 4 하면 [0,1] 은 -1.75</p>
+<p>이것을 계속하면 값이 계속 업데이트가 되는데 k=3일때 벌써 수렴한것을 볼수 있다.</p>
+<div style="display: flex; gap: 20px;">
+  <img src="/images/rl-iterative-policy-evaluation.png" alt="state-value-merged" style="width: 50%;" />
+  <img src="/images/rl-iterative-policy-evaluation2.png" alt="action-value-merged" style="width: 50%;" />
+</div>
+<p>이 value function을 random policy가 아니라 그리디하게 선택하게 하는 policy 하면 (값이 큰것을 선택하도록하면) 오른쪽 화살표 그림과 같이 나타난다.</p>
+<p>value function을 better 폴리시를 찾아내는데 도음을 준다.
+현재 policy를 평가하는것만으로도 우리는 더좋은 새로운 폴리시를 만들수 있다.</p>
+<p>asyncronous backup =  전체 상태를 한 번에 갱신하는 것이 아니라, 선택된 특정 상태에 대해서만 value function을 갱신하는 방식이다. 이는 계산 효율을 높이고, 빠른 수렴을 가능하게 한다. by GPT</p>
+<h3 id="policy-iteration">
+  <strong>policy iteration</strong>
+  <a class="anchor" href="#policy-iteration">#</a>
+</h3>
+<p>폴리시를 inner loop에서 이터레이션마다 평가하면서 policy가 better하도록 적용해나가는 방식;
+결국 optimal policy를 찾게 된다는 설명.</p>
+<p>첫번째 스텝으로 <strong>policy evaluation</strong> : policy <span>
+  \(\pi\)
+</span>
+ 를 평가(evaluatiaon) 하면 value 펑션이 나오고, (현재 폴리시로 각상태의 value 를 구하는것)
+<span>
+  \[
+v_\pi(s) = \mathbb{E} \left[ R_{t+1} + \gamma R_{t+2} + \dots \mid S_t = s \right]
+\]
+</span>
+
+두번째 스텝으로 <strong>policy improvement</strong>: <span>
+  \(
+v_\pi(s)\)
+</span>
+ 기반으로 policy 를 greedily 행동하게 improvement 하면 이것이 업데이트된 폴리시다.
+<span>
+  \[
+\pi' = \text{greedy}(v_\pi)
+\]
+</span>
+
+이것이 결국 옵티멀한 폴리시다. (value function도 결국 옵티멀한 것으로 수렴한다.)</p>
+<blockquote>
+<p><strong>추가질문:언제 수렴했는지는 어떻게 파악할 수 있는지?</strong></p>
+<ul>
+<li>정책이 더이상 바뀌지 않거나, 정책간의 차이가 아주 작을때 (10^-4) 수렴했다고 파악 by GTP</li>
+<li>DQN (2015)	Validation 환경에서의 평균 reward가 더 이상 증가하지 않을때때</li>
+<li>PPO (2017)	평균 reward의 moving average가 안정될때 (변화량 &lt; threshold)</li>
+</ul>
+<p>이것들은 결국 Modified Policy Iteration. <br>
+명시적으로 stop할 iteration 숫자(k)를 세팅하거나, 입실론-convergence of function 으로 stopping condition을 만들어야함.</p></blockquote>
+<div style="display: flex; gap: 20px;">
+  <img src="/images/rl-policy-interation.png" alt="state-value-merged" style="width: 70%;" />
+  <img src="/images/rl-policy-interation-eval-impro.png" alt="action-value-merged" style="width: 30%;" />
+</div>
+<p>만약 policy가 deterministic 한 policy 이라면, <span>
+  \( a = \pi(s)\)
+</span>
+.
+improvement가 멈춘다면 수식적으로 수렴한다는것을(벨만 옵티멀 이퀘이션을 만족함을) 증명할 수 있지만, 생략함.
+lecture-3 의 17page</p>
+<h3 id="value-interation">
+  <strong>value interation</strong>
+  <a class="anchor" href="#value-interation">#</a>
+</h3>
+<p>이것은 MDP를 푸는 또 다른 방식이다.</p>
+<p>bellan equation을 통해서 value function이 better 하도록 하는 방식
+정책 반복보다 계산량이 적고, 수렴 속도가 빠를 수 있습니다.</p>
+<p>어떠한 optimal policy도 두개의 컴포넌트로 나뉠수 있다.</p>
+<ul>
+<li>optimal first action <span>
+  \(A_*\)
+</span>
+</li>
+<li>계승되는 state S&rsquo; 의 optimal policy</li>
+</ul>
+<p>이를 다시말하면, <br>
+현재상태에서 다음행동 (첫번째 action)이 옵티멀한 것을 선택하면, <br>
+그다음은 계승 state S&rsquo; 에서 옵티멀 폴리시따르는것 <br></p>
+<p>이는  <strong>Principle of Optimality</strong> 를 나타낸다.</p>
+<p>한 정책이 어느 한 상태에서 최적이라면,
+그 정책이 앞으로 갈 모든 경로에서도 계속 최적이어야 한다.</p>
+<p>이는 아래 수식을 (value fucntion을) 최대화 하는것으로 나타낼수 있다.
+<span>
+  \[
+v_*(s) \leftarrow \max_{a \in \mathcal{A}} \mathcal{R}_s^a + \gamma \sum_{s' \in \mathcal{S}} \mathcal{P}_{ss'}^a \, v_*(s')
+\]
+</span>
+</p>
+<p>아래그림은, 어떻게 flow가 진행되는지 직관적으로 이해하기 위한 예제이다</p>
+<p>syncronous 하게 업데이트가 되니 숫자가 채워져 있다.
+이동시 reward는 -1 <br>
+terminate state 0인상태에서 출발. 인접 슬롯은 첫번째 iter에 -1 된다. 자세한 flow는 다음과 같다.
+<br></p>
+<ul>
+<li>V_1에서 V_2로 간다면 <br>
+인접 행렬[0,1] 은 주변 자기로부터 한칸 이동한경우가 -1 =  0(왼칸 값) + -1(이동) 이 최대값이므로 취함. (네방향 모두)<br>
+[0,2] 의 경우도 동일: 주변 자기로부터 한칸 이동한경우가 -1 =  0(왼칸 값) + -1(이동) 이 최대값이므로 취함. (네방향 모두)<br></li>
+<li>V_2에서 V_3으로 간다면
+[0,1] 의 경우 왼칸은 -1 =    0(왼칸 값) + -1(이동) <br>
+나머지 방향은 -2 =   + -1(동남북 값) + -1(이동)  이므로 최대값 -1을 취함 <br>
+[0,2] 의 경우 : 주변 자기로부터 한칸 이동한경우가 -2 =  1(왼칸 값) + -1(이동) 이 최대값이므로 취함. (네방향 모두)</li>
+</ul>
+<img src="/images/rl-value-iteration-example.png" alt="rl-essential" style="width:80%;" />
+<p>사실 우리가 모든 environment가 어떻게 동작하는지 명확하게 안다면 위에 예제의 경우, goal로 부터 인접 값들을 채워가면서 계산하면 풀리는 문제이다.</p>
+<p>만약 우리가 syncronous dynamic programming 으로 푼다면 이게 언제 풀리는지 모른다.
+(모든 state 값을 업데이트하기 때문에 v_2에서 [2,2] 의 경우 -1 로 채워져 있는데, 이게 잘채워진건가? 를 판단하지 못함)</p>
+<p>결국 value iteration 은
+optimal policy <span>
+  \(\pi\)
+</span>
+를 찾는것</p>
+<p>계속해서 value function을 업데이트하면서 최적을 찾아가고 있기 때문에
+<strong>명시적으로 policy를 만들지 않는다.</strong></p>
+<p>수식적으로는 다음과 같이 표현되어 있다.</p>
+<span>
+  \[
+\mathbf{v}_{k+1} = \max_{a \in \mathcal{A}} \left( \mathcal{R}^a + \gamma \mathcal{P}^a \mathbf{v}_k \right)
+\]
+</span>
+
+<h3 id="synchronous-dynamic-programing">
+  <strong>Synchronous Dynamic Programing</strong>
+  <a class="anchor" href="#synchronous-dynamic-programing">#</a>
+</h3>
+<p>아래 도표와 같이 처리하면 된다
+<img src="/images/rl-synchronousDP-algo.png" alt="rl-essential" style="width:80%;" /></p>
+<ul>
+<li>state-value function을 base로 <span>
+  \( v_\pi(s) \)
+</span>
+ 나 <span>
+  \( v_*(s) \)
+</span>
+ 를 찾는다면 <br>
+iteration당 <span>
+  \( \mathcal{O}(mn^2) \)
+</span>
+ 시간복잡도고 m = actions, n = states</li>
+<li>action-value function 을 베이로하면 <span>
+  \( q_\pi(s,a) \)
+</span>
+ 나 <span>
+  \( q_*(s,a) \)
+</span>
+를 찾는다면 <br>
+iteration당  <span>
+  \( \mathcal{O}(m^2n^2)\)
+</span>
+ 시간복잡도</li>
+</ul>
+<h3 id="asynchronous-dynamic-programing">
+  <strong>Asynchronous Dynamic Programing</strong>
+  <a class="anchor" href="#asynchronous-dynamic-programing">#</a>
+</h3>
+<p>위의 예제는 모든 state를 모두 업데이트 하는데 낭비가 심함.</p>
+<p>정의: 모든 상태를 동시에 업데이트하지 않고, 일부 상태만 선택적으로 업데이트합니다.
+장점: 계산 효율성이 높아지고, 특정 상태에 집중할 수 있습니다.</p>
+<p>asynchronous dynamic programming을 하기위한 3가지 idea들은 다음과 같다</p>
+<ul>
+<li>In-place dynamic programming</li>
+<li>Prioritised sweeping</li>
+<li>Real-time dynamic programming</li>
+</ul>
+<p>자세한 내용은 생략</p>
+<h3 id="full-width-backup-과-sample-backup">
+  <strong>Full-Width Backup 과 Sample Backup</strong>
+  <a class="anchor" href="#full-width-backup-%ea%b3%bc-sample-backup">#</a>
+</h3>
+<p>Full-width backup은 너무 비싸서 sample 기반 backup을 한다.</p>
+<blockquote>
+<p><strong>sample</strong> : 에이전트가 환경과 상호작용해서 얻은 한 번의 경험 데이터</p></blockquote>
+<p>이로인한 장점은 다음과 같다.</p>
+<ol>
+<li>이로인해서 궁극적으로 Model-free하게 된다.( envrionment의 모델을 알지 않아도 되게 된다)</li>
+<li>차원의 저주 해소</li>
+<li>backup cost가 줄어듬</li>
+</ol>
+<p>샘플을 통해서 Dynamic programing에서 model-free reinforcement learning 문제로 변환하게 된다.</p>
+<blockquote>
+<p>Model-based :	환경의 동작 방식을 알고 있음 (혹은 학습함). 이를 사용해 planning을 함.</p>
+<p>Model-free	: 환경의 동작 방식 없이, 직접 환경과 상호작용하며 학습함. 오직 경험(transition, reward)에만 의존.</p></blockquote>
+<blockquote class="book-hint warning">
+  매번 샘플은 &ldquo;운 좋을 수도 있고 아닐 수도&rdquo; 있지만, 충분히 많이, 반복적으로, 그리고 잘 정해진 규칙으로 업데이트하면 결국 기대값에 수렴 → 최적에 수렴. by GPT <br>
+수학적으로 증명이 되었다고도 한다..
+</blockquote>
+<h1 id="4-model-free-prediction">
+  <strong>4. model-free prediction</strong>
+  <a class="anchor" href="#4-model-free-prediction">#</a>
+</h1>
+<p>3장 DP에 있는것처럼, Model-free prediction 하고, Model-free control 하는 순서로 진행된다.</p>
+<p>episode : 에이전트가 시작 상태에서 행동을 시작해서, 어떤 종료 조건(End state)에 도달할 때까지의 전체 과정</p>
+<p>MC와 TD는 major model-free algo.</p>
+<ul>
+<li><strong>Monte Carlo (MC)</strong> : 한 에피소드가 끝날 때까지 기다린 후, 그 전체 리턴 값을 이용하여 value function을 업데이트<br>
+MC는 <strong>하나의 에피소드 전체</strong>(시작 ~ 종료)를 관찰한 뒤, <br>
+실제로 받은 reward들을 기반으로 학습합니다. <br>
+환경 모델 없이, 경험만으로 value function이나 policy를 추정합니다. <br>
+Monte-Carlo policy evaluation uses <em>empirical mean</em> return
+instead of expected return <br>
+높은 variance와 zero bias를 가짐</li>
+</ul>
+<p>즉, 가장 손쉬운 방법으로 epside를 돌려보고 가능서들의 mean 값으로 처리 <br>
+방문할때마다 횟수와 토탈 return을 늘리고, 이것의 평균을 통해 value function을 estimate한다.
+lecture-4, 7 page
+<span>
+  \[
+V(S_t) \leftarrow V(S_t) + \frac{1}{N(S_t)} \left(G_t - V(S_t)\right)
+\]
+</span>
+</p>
+<p>Blackjack 예제처럼,
+확률이나, 분포 그런것 전혀 없이 episode 로 부터 value function을 만들어냈다. (~500,000반복하면서)</p>
+<ul>
+<li><strong>Temporal Difference (TD)</strong> : 에피소드가 끝나지 않아도, 다음 상태의 현재 추정 값을 사용해 바로 업데이트 <br>
+incomplete episodes 를 bootstraping을 통해서 업데이트 <br>
+아직 에피소드가 끝나지 않아서 나머지 예상되는 reward를 포함해서 value function을 업데이트함 <br>
+따라서 bias가 있음 + 낮은 variance를 가짐<br>
+이것은 Markov property를 활용한다.</li>
+</ul>
+<span>
+  \[
+V(S_t) \leftarrow V(S_t) + \alpha \left( R_{t+1} + \gamma V(S_{t+1}) - V(S_t) \right)
+\]
+</span>
+
+<ul>
+<li><strong>TD(<span>
+  \(\lambda\)
+</span>
+)</strong> : 여러 step + 가중합으로 업데이트 ?  MC와 TD의 중간<br>
+MC &lt;-&gt; TD는 전체 에피소드를 보느냐, 일부분만 보느냐의 차이.<br>
+TD의 step을 0~n (n이 되면 MC와 같음) 사이를 <span>
+  \(\lambda\)
+</span>
+로 가중치를 구해 사용하는것<br>
+Monte-Carlo Reinforcement Learning 은 model-free 이다.
+왜냐하면 MDP Transition 에 대한 (reward에 대한) 지식이 없기 때문.</li>
+</ul>
+<p>Temporal-Difference Learning 은 model-free</p>
+<img src="/images/rl-backup-category.png" alt="rl-essential" style="width:80%;" />
+<h1 id="5-model-free-control">
+  <strong>5. model-free control</strong>
+  <a class="anchor" href="#5-model-free-control">#</a>
+</h1>
+<h2 id="on-policyoff-policy-intro">
+  <strong>on-policy/off-policy intro</strong>
+  <a class="anchor" href="#on-policyoff-policy-intro">#</a>
+</h2>
+<p>π = Target Policy
+µ = Behavior Policy</p>
+<p>이두개가 같으면 on-policy 다르면 off-policy.</p>
+<ul>
+<li>
+<p>Off-policy learning : “Look over someone’s shoulder” <br>
+Learn about policy π from experience sampled from µ <br>
+<strong>re-use</strong> experience generated from old policy <br>
+<strong>Q-Learning</strong> : <span>
+  \(\varepsilon\)
+</span>
+-greedy 방식으로 탐험하지만 학습에는 반영 안할수 있음(최적의 행동만 업데이트)</p>
+</li>
+<li>
+<p>On-policy learning : “Learn on the job” <br>
+Learn about policy π from experience sampled from π<br>
+<strong>Salsa</strong> :on-policy Q-learning. 현재 행동을 그대로 따라가며 학습</p>
+</li>
+</ul>
+<h2 id="on-policy">
+  <strong>on-policy</strong>
+  <a class="anchor" href="#on-policy">#</a>
+</h2>
+<h3 id="monte-carlo-iteration">
+  <strong>Monte-carlo iteration</strong>
+  <a class="anchor" href="#monte-carlo-iteration">#</a>
+</h3>
+<p>Monte-Carlo 방법을 통해서 Policy Evaluation은 가능.(=Monte-Carlo Evaluation)<br>
+greedy 하게 policy improvement는 action-value 펑션에 대해서만 가능하다.
+state-value function을 하려면, 모델에 대해 알아야만 가능하다.<br></p>
+<p><span>
+  \[
+\pi'(s) = \arg\max_{a \in \mathcal{A}} \left( \mathcal{R}_s^a + \sum_{s'} \mathcal{P}_{ss'}^a V(s') \right)
+\]
+</span>
+
+위와 대비되게 action-value function(Q 펑션) 은 model-free해서 알수 있다.</p>
+<span>
+  \[
+\pi'(s) = \arg\max_{a \in \mathcal{A}} Q(s, a)
+\]
+</span>
+
+<p>이렇게 알게된 policy를 아래 <span>
+  \(\varepsilon\)
+</span>
+-greedy  방식으로 improvement 한다.</p>
+<h3 id="ε-greedy">
+  <strong>ε-greedy</strong>
+  <a class="anchor" href="#%ce%b5-greedy">#</a>
+</h3>
+<p><strong><span>
+  \(\varepsilon\)
+</span>
+-greedy Algo</strong></p>
+<p>항상 최고의 행동만 고르면 탐험이 부족하고, 항상 무작위로 고르면 성능이 낮다. → 둘 사이를 적절히 섞자!</p>
+<p>예시 )<br>
+ε=0.1 (10%) <br>
+90% 확률로 현재 최적의 행동 <br>
+10% 확률로 랜덤 행동 <br></p>
+<h3 id="monte-carlo-control">
+  <strong>Monte-carlo Control</strong>
+  <a class="anchor" href="#monte-carlo-control">#</a>
+</h3>
+<p>Monde-Carlo Policy iteration 은 이전 섹션에서 설명한것</p>
+<p>Monde-Carlo Control 은 하나씩의 episode 가 끝난후에 policy를 업데이트하는것 (episode 단위로 policy improvement)<br>
+이렇게 해도 되는 이유는(수렴하는이유는) <code>Greedy in the Limit with Infinite Exploration</code> 성질을 만족하기 때문이다..</p>
+<p>GLIE 성질에 대한 설명은 추후 업데이트.</p>
+<h3 id="sarsa">
+  <strong>Sarsa</strong>
+  <a class="anchor" href="#sarsa">#</a>
+</h3>
+<p>MC Control은 episode가 끝날때마다 정책을 개선하는데
+Salsa는 매 step마다 정책을 개선.</p>
+<h2 id="off-policy">
+  <strong>off-policy</strong>
+  <a class="anchor" href="#off-policy">#</a>
+</h2>
+<p><strong>behaviour policy µ를 통해서 수집하고, target policy π 를 학습하는것</strong> <br>
+이것은 다른 분포로부터 학습하는 성질을 이용
+<span>
+  \[
+\mathbb{E}_{X \sim P}[f(X)]
+= \sum P(X) f(X)
+= \sum Q(X) \frac{P(X)}{Q(X)} f(X)
+= \mathbb{E}_{X \sim Q} \left[ \frac{P(X)}{Q(X)} f(X) \right]
+\]
+</span>
+</p>
+<p>이것은 다음과 같이 value function 계산에 주입된다.
+<span>
+  \[
+G_t^{\pi / \mu} =
+\frac{\pi(A_t \mid S_t)}{\mu(A_t \mid S_t)}
+\frac{\pi(A_{t+1} \mid S_{t+1})}{\mu(A_{t+1} \mid S_{t+1})}
+\cdots
+\frac{\pi(A_T \mid S_T)}{\mu(A_T \mid S_T)}
+G_t
+\]
+</span>
+
+<span>
+  \[
+V(S_t) \leftarrow V(S_t) + \alpha \left( G_t^{\pi / \mu} - V(S_t) \right)
+\]
+</span>
+</p>
+<h3 id="q-learning">
+  <strong>Q-learning</strong>
+  <a class="anchor" href="#q-learning">#</a>
+</h3>
+<p>action-value Q(s,a) 의 off-policy learning <br>
+다음 action을 선택할때 behaviour policy로부터 고르고, <span>
+  \(A_{t+1} \sim \mu(\cdot \mid S_t)\)
+</span>
+ <br>
+학습은 target policy 기반으로 진행. <span>
+  \(A' \sim \pi(\cdot \mid S_t)\)
+</span>
+<br>
+<strong>위와 같이 진행해도, Q-learing은 결국에는 <br>
+옵티멀한 action-value (q) function에 수렴한다는 성질을 이용한것.</strong> <br></p>
+<p>밑에는 improvement 하는 수식.
+<span>
+  \[
+Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha \left( R_{t+1} + \gamma Q(S_{t+1}, A') - Q(S_t, A_t) \right)
+\]
+</span>
+</p>
+<p>이렇게 하면 복잡한 weight 계산식 을 하지 않아도 된다.</p>
+<h1 id="6-value-function-approximation">
+  <strong>6. value function approximation</strong>
+  <a class="anchor" href="#6-value-function-approximation">#</a>
+</h1>
+<p>large MDP를 풀수 없으니 (too many state and action) value function(state-value/action-value function)을 어떻게 근사하게 구하는가?</p>
+<ul>
+<li>Liner combinations of feature</li>
+<li>Nueural network</li>
+</ul>
+<p>여기서부터 Gradient Descent 가 나온다.</p>
+<blockquote>
+<ol>
+<li>정책 π 고정</li>
+<li>Q-function을 gradient descent로 근사 (policy evaluation)</li>
+<li>근사된 Q 기반으로 정책 개선 (policy improvement)</li>
+<li>다시 반복 (⇒ 점진적으로 최적 정책에 수렴)</li>
+</ol></blockquote>
+<p>value function을 근사해서 사용하므로 <strong>value-based</strong> 라고도 한다.</p>
+<h2 id="action-value-function-approximation">
+  <strong>Action-value function Approximation</strong>
+  <a class="anchor" href="#action-value-function-approximation">#</a>
+</h2>
+<p>아래와 같이 action value function은 approximate를 통해서 표현될수 있고.
+델타 W를 작게하므로써 근사를 구할 수 있다.
+<span>
+  \[
+J(\mathbf{w}) = \mathbb{E}_{\pi} \left[ \left( q_{\pi}(S, A) - \hat{q}(S, A, \mathbf{w}) \right)^2 \right]
+\]
+</span>
+</p>
+<p><span>
+  \[
+- \frac{1}{2} \nabla_{\mathbf{w}} J(\mathbf{w}) 
+= \left( q_{\pi}(S, A) - \hat{q}(S, A, \mathbf{w}) \right) \nabla_{\mathbf{w}} \hat{q}(S, A, \mathbf{w})
+\]
+</span>
+
+<span>
+  \[
+\Delta \mathbf{w} = \alpha \left( q_{\pi}(S, A) - \hat{q}(S, A, \mathbf{w}) \right) \nabla_{\mathbf{w}} \hat{q}(S, A, \mathbf{w})
+\]
+</span>
+</p>
+<h2 id="batch-method">
+  <strong>Batch Method</strong>
+  <a class="anchor" href="#batch-method">#</a>
+</h2>
+<p>위의 gradient descent 할때 sampling을 효율적으로 하기 위한 여러가지 방법들</p>
+<h3 id="experience-replay">
+  <strong>Experience Replay</strong>
+  <a class="anchor" href="#experience-replay">#</a>
+</h3>
+<p>과거의 transition들을 버리지 않고 buffer에 저장해 두었다가,
+학습할 때마다 랜덤하게 샘플링해서 사용</p>
+<h3 id="prioritized-experience-replay-per">
+  <strong>Prioritized Experience Replay (PER)</strong>
+  <a class="anchor" href="#prioritized-experience-replay-per">#</a>
+</h3>
+<p>모든 transition을 균등하게 샘플하지 않고,
+TD-error가 큰 transition에 더 높은 확률을 부여하여 학습</p>
+<p>직관: TD-error가 클수록 더 학습이 필요한 &ldquo;중요한&rdquo; 경험</p>
+<h1 id="7-policy-gradient-method">
+  <strong>7. policy gradient Method</strong>
+  <a class="anchor" href="#7-policy-gradient-method">#</a>
+</h1>
+<p>이전섹션에서는 action-value function(Q 펑션)을 근사해서 옵티멀한 폴리시를 찾아갔다면, <br>
+policy gradient는 Q 없이 policy parameter를 직접 업데이트 한다. <strong>policy-based</strong></p>
+<ul>
+<li>Softmax Policy : 이산행동일때, softmax over logits으로 정책을 정하고, policy에 대한 gradient 값 계산<br>
+이를 통해서 현재 iteration 에 대한 policy 파라미터를 업데이트한다.</li>
+<li>Gaussian Policy : 연속행동일때,  가우시안 분포를 정책으로 정하고, policy에 대한 gradient 값 계산<br>
+이를 통해서 현재 iteration 에 대한 policy 파라미터를 업데이트한다.</li>
+</ul>
+<blockquote class="book-hint warning">
+  <p>policy-based 에서도 replay buffer를 쓸수 있는가?</p>
+<ol>
+<li>
+<p>Policy-based에서 Replay Buffer의 어려움
+문제: Policy가 계속 변하기 때문에
+​</p>
+</li>
+<li>
+<p>PPO, TRPO [	❌ 또는 제한적 사용 ]	최근의 데이터만 사용 (very short buffer)</p>
+</li>
+<li>
+<p>SAC (Soft Actor-Critic) [ 확률적 policy 사용 ] (policy gradient 기반) <br>
+하지만 전체 구조는 off-policy 로써 replay buffer 적극 사용</p>
+</li>
+</ol>
+<p>by GPT</p>
+<p><strong>추가 research 요망</strong></p>
+</blockquote>
+<h2 id="actor-critic">
+  <strong>Actor-Critic</strong>
+  <a class="anchor" href="#actor-critic">#</a>
+</h2>
+<p>policy-based + value-based</p>
+<p>Actor는 행동을 생성하고 <br>
+Critic은 그 행동의 &ldquo;좋음&quot;을 평가해서 Advantage를 추정 <br>
+이를 바탕으로 Actor의 policy gradient를 계산 <br></p>
+<p>lacture-7 24page</p>
+<p>간단한 actor-critic 구조는 actuion-value를 critic 하는것이다.
+Critic은 TD(0)을 통해서 Q-Function을 학습하고
+Actor는 위 학습된 Q-function을 기반으로 policy gradient를 수행하는것이다.</p>
+<h3 id="proximal-policy-optimization-ppo">
+  <strong>Proximal Policy Optimization (PPO)</strong>
+  <a class="anchor" href="#proximal-policy-optimization-ppo">#</a>
+</h3>
+<p>Actor-Critic 구조에서
+Clipped Objective를 도입해서, policy가 너무 크게 바뀌지 않도록 제약하는것.</p>
+<p>아래는 PPO surrogate objective 함수(목적함수). 이를 gradient ascent(최대화) 하는 파라미터를 현재 policy에 업데이트하면 policy는 옵티멀을 향해간다.
+<span>
+  \[
+L^{\text{CLIP}}(\theta) = \hat{\mathbb{E}}_t \left[ \min \left( r_t(\theta) \hat{A}_t,\; \text{clip}(r_t(\theta), 1 - \epsilon, 1 + \epsilon) \hat{A}_t \right) \right]
+\]
+</span>
+</p>
+<h1 id="8-integration-learning-and-planning">
+  <strong>8. Integration Learning and Planning</strong>
+  <a class="anchor" href="#8-integration-learning-and-planning">#</a>
+</h1>
+<h2 id="model-based-rl">
+  <strong>Model-based RL</strong>
+  <a class="anchor" href="#model-based-rl">#</a>
+</h2>
+<p><strong>[생략]</strong></p>
+<h2 id="simulation-based-search">
+  <strong>Simulation-based Search</strong>
+  <a class="anchor" href="#simulation-based-search">#</a>
+</h2>
+<p>&ldquo;전체 상태 공간을 직접 학습하기는 너무 비싸다. 대신, 유망한 부분만 집중적으로 시뮬레이션하면서 거기서 경험한 정보로 Q값을 점점 더 정확하게 만든다.&rdquo;</p>
+<p>//note: balsa simulation learning 과는 개념이 조금 다름</p>
+<p><strong>[미완]</strong></p>
+<h1 id="9-exploration-and-exploitation">
+  <strong>9. Exploration and Exploitation</strong>
+  <a class="anchor" href="#9-exploration-and-exploitation">#</a>
+</h1>
+<ul>
+<li><strong>Exploitation</strong> : Make the best decision given current information</li>
+<li><strong>Exploration</strong> : Gather more information</li>
+</ul>
+<p>너무 탐험만 하면: 성능이 낮은 행동도 계속 시도 → 학습은 느리고, 보상은 낮음 <br>
+너무 이용만 하면: 더 나은 행동을 아예 시도하지 않음 → **지역 최적해(local optimum)**에 갇힘 <br>
+→ 따라서, 단기 보상 vs 장기 학습 사이의 균형을 잡는 것이 중요합니다. <br></p>
+<p>이 섹션에서는 여러 방법들을 제시하고 있습니다
+[미완]</p>
+<h1 id="10-case-study-rl-in-classic-games">
+  <strong>10. Case Study: RL in Classic Games</strong>
+  <a class="anchor" href="#10-case-study-rl-in-classic-games">#</a>
+</h1>
+<p>[미완]</p>
+<hr>
+<h1 id="999-deep-rl">
+  <strong>999. Deep RL</strong>
+  <a class="anchor" href="#999-deep-rl">#</a>
+</h1>
+<p>RL과 딥러닝의 결합 <br>
+딥러닝이 사용하는 위치</p>
+<ul>
+<li><strong>Policy Network</strong> : 현재 상태에서 행동 분포를 출력</li>
+<li><strong>Value Network</strong> : 상태나 상태-행동의 가치를 출력</li>
+<li><strong>Q-network</strong> : Q(s, a)를 직접 추정</li>
+<li><strong>Model Network</strong> : 환경 dynamics (transition, reward)를 예측 (model-based RL에서만 사용)</li>
+</ul>
+<h1 id="a-balsa">
+  <strong>a. Balsa</strong>
+  <a class="anchor" href="#a-balsa">#</a>
+</h1>
+<p>Balsa는 쿼리 플랜을 순차적으로 구성하는 문제를 <strong>Markov Decision Process (MDP)</strong> 으로 보고,
+이를 강화학습으로 해결</p>
+<ul>
+<li>State s = 현재까지 만들어진 partial query plan</li>
+<li>Action a = 다음에 어떤 테이블을 조인할지 결정</li>
+<li>Reward r = 쿼리 플랜의 실행 비용 또는 latency</li>
+<li>Envrionment = DB 쿼리 시뮬레이터 or Costmodel</li>
+</ul>
+<p>추가적으로</p>
+<ul>
+<li>simulation phase(step) 을 가져서 재앙적 plan을 탐험하지 않게하고,</li>
+<li>Timeout을 둬서 Safe Execution 시간을 보장했다. (재앙적 plan이 선택되더라도 timeout으로 하한보장)</li>
+<li>policy network를 simple tree convolution networks 로 구성</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 여기에서 모델은 강화학습의 environment의 모델이 아니라, policy를 업데이트할(계산할) treeconv 모델을 의미함</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">MakeModel</span>(p, exp, dataset):
+</span></span><span style="display:flex;"><span>    dev <span style="color:#f92672">=</span> GetDevice()
+</span></span><span style="display:flex;"><span>    num_label_bins <span style="color:#f92672">=</span> int(
+</span></span><span style="display:flex;"><span>        dataset<span style="color:#f92672">.</span>costs<span style="color:#f92672">.</span>max()<span style="color:#f92672">.</span>item()) <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>  <span style="color:#75715e"># +1 for 0, +1 for ceil(max cost).</span>
+</span></span><span style="display:flex;"><span>    query_feat_size <span style="color:#f92672">=</span> len(exp<span style="color:#f92672">.</span>query_featurizer(exp<span style="color:#f92672">.</span>nodes[<span style="color:#ae81ff">0</span>]))
+</span></span><span style="display:flex;"><span>    batch <span style="color:#f92672">=</span> exp<span style="color:#f92672">.</span>featurizer(exp<span style="color:#f92672">.</span>nodes[<span style="color:#ae81ff">0</span>])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">assert</span> batch<span style="color:#f92672">.</span>ndim <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    plan_feat_size <span style="color:#f92672">=</span> batch<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> p<span style="color:#f92672">.</span>tree_conv:
+</span></span><span style="display:flex;"><span>        labels <span style="color:#f92672">=</span> num_label_bins <span style="color:#66d9ef">if</span> p<span style="color:#f92672">.</span>cross_entropy <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> TreeConvolution(feature_size<span style="color:#f92672">=</span>query_feat_size,
+</span></span><span style="display:flex;"><span>                               plan_size<span style="color:#f92672">=</span>plan_feat_size,
+</span></span><span style="display:flex;"><span>                               label_size<span style="color:#f92672">=</span>labels,
+</span></span><span style="display:flex;"><span>                               version<span style="color:#f92672">=</span>p<span style="color:#f92672">.</span>tree_conv_version)<span style="color:#f92672">.</span>to(dev)
+</span></span></code></pre></div><h1 id="b-logger">
+  <strong>b. LOGGER</strong>
+  <a class="anchor" href="#b-logger">#</a>
+</h1>
+<ul>
+<li>e-beam search 소개 [Exploration and exploitation]</li>
+<li>loss function reward weighting을 통해서 poor operator에 의한 fluctuation 방지</li>
+<li>log transformation 을 통해서 reward의 범위를 압축 (재앙적 plan의 영향도를 감쇄)</li>
+<li>ROSS Restricted Operator Search Space. (최적을 찾지 않고 최악이 안골라지게 해서 효율적)</li>
+<li>policy nertwork (GNN + LSTM)</li>
+</ul>
+<h1 id="c-reload">
+  <strong>c. RELOAD</strong>
+  <a class="anchor" href="#c-reload">#</a>
+</h1>
+<p>Balsa + MAML + PER</p>
+<h2 id="model-agnostic-meta-learningmaml">
+  <strong>Model-Agnostic Meta-Learning(MAML)</strong>
+  <a class="anchor" href="#model-agnostic-meta-learningmaml">#</a>
+</h2>
+<p>모든 task에 잘 작동하는 하나의 모델을 학습하는 것&quot;이 아니라, <br>
+조금만 fine-tuning 하면 각 task에 잘 작동할 수 있는 초기 모델&quot;을 학습하는 것.</p>
+<h2 id="per">
+  <strong>PER</strong>
+  <a class="anchor" href="#per">#</a>
+</h2>
+<p>위에 언급 [ 생략 ]</p>
+<h2 id="참조">
+  참조
+  <a class="anchor" href="#%ec%b0%b8%ec%a1%b0">#</a>
+</h2>
+<p><a href="https://davidstarsilver.wordpress.com/teaching/">https://davidstarsilver.wordpress.com/teaching/</a></p>
+<p><a href="https://wnthqmffhrm.tistory.com/10">https://wnthqmffhrm.tistory.com/10</a></p>
+<p><a href="https://davidstarsilver.wordpress.com/wp-content/uploads/2025/04/lecture-5-model-free-control-.pdf">https://davidstarsilver.wordpress.com/wp-content/uploads/2025/04/lecture-5-model-free-control-.pdf</a></p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+<script src="https://giscus.app/client.js"
+        data-repo="JaeSim/JaeSim.github.io"
+        data-repo-id="R_kgDOOtVVtw"
+        data-category="Comment"
+        data-category-id="DIC_kwDOOtVVt84Cqcxg"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#dynamic-programmingdp-이란"><strong>Dynamic Programming(DP) 이란?</strong></a>
+      <ul>
+        <li><a href="#policy-evaluation"><strong>policy evaluation</strong></a></li>
+        <li><a href="#policy-iteration"><strong>policy iteration</strong></a></li>
+        <li><a href="#value-interation"><strong>value interation</strong></a></li>
+        <li><a href="#synchronous-dynamic-programing"><strong>Synchronous Dynamic Programing</strong></a></li>
+        <li><a href="#asynchronous-dynamic-programing"><strong>Asynchronous Dynamic Programing</strong></a></li>
+        <li><a href="#full-width-backup-과-sample-backup"><strong>Full-Width Backup 과 Sample Backup</strong></a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#on-policyoff-policy-intro"><strong>on-policy/off-policy intro</strong></a></li>
+    <li><a href="#on-policy"><strong>on-policy</strong></a>
+      <ul>
+        <li><a href="#monte-carlo-iteration"><strong>Monte-carlo iteration</strong></a></li>
+        <li><a href="#ε-greedy"><strong>ε-greedy</strong></a></li>
+        <li><a href="#monte-carlo-control"><strong>Monte-carlo Control</strong></a></li>
+        <li><a href="#sarsa"><strong>Sarsa</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#off-policy"><strong>off-policy</strong></a>
+      <ul>
+        <li><a href="#q-learning"><strong>Q-learning</strong></a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#action-value-function-approximation"><strong>Action-value function Approximation</strong></a></li>
+    <li><a href="#batch-method"><strong>Batch Method</strong></a>
+      <ul>
+        <li><a href="#experience-replay"><strong>Experience Replay</strong></a></li>
+        <li><a href="#prioritized-experience-replay-per"><strong>Prioritized Experience Replay (PER)</strong></a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#actor-critic"><strong>Actor-Critic</strong></a>
+      <ul>
+        <li><a href="#proximal-policy-optimization-ppo"><strong>Proximal Policy Optimization (PPO)</strong></a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#model-based-rl"><strong>Model-based RL</strong></a></li>
+    <li><a href="#simulation-based-search"><strong>Simulation-based Search</strong></a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#model-agnostic-meta-learningmaml"><strong>Model-Agnostic Meta-Learning(MAML)</strong></a></li>
+    <li><a href="#per"><strong>PER</strong></a></li>
+    <li><a href="#참조">참조</a></li>
+  </ul>
+</nav>
+
+  <div class="post-tags">
+    <strong>Tags:</strong>
+    
+      <a href="/tags/definition" class="tag">Definition</a>
+    
+      <a href="/tags/value-iteration" class="tag">value iteration</a>
+    
+      <a href="/tags/policy-iteration" class="tag">policy iteration</a>
+    
+      <a href="/tags/dp" class="tag">DP</a>
+    
+      <a href="/tags/dynamic-programming" class="tag">Dynamic Programming</a>
+    
+      <a href="/tags/reinforcement-learning" class="tag">Reinforcement Learning</a>
+    
+  </div>
+
+
+
+  <div class="post-categories">
+    <strong>Categories:</strong>
+    
+      <a href="/categories/reinforcement-learning" class="category">Reinforcement Learning</a>
+    
+  </div>
+
+
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('pre > code[class^="language-"]').forEach(codeBlock => {
+      const pre = codeBlock.parentElement;
+
+      
+      const button = document.createElement('button');
+      button.innerText = '📋';
+      button.title = 'Copy code';
+      button.style = `
+        position: absolute;
+        top: 0.5em;
+        right: 0.5em;
+        padding: 2px 6px;
+        font-size: 0.8rem;
+        background: #f5f5f5;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+        z-index: 10;
+      `;
+
+      
+      button.addEventListener('click', () => {
+        navigator.clipboard.writeText(codeBlock.innerText);
+        button.innerText = '✔';
+        setTimeout(() => button.innerText = '📋', 1000);
+      });
+
+      
+      pre.style.position = 'relative';
+      pre.appendChild(button);
+    });
+  });
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
