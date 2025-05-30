@@ -32,13 +32,13 @@
 
   // NOTE: 이 페이지는 임시로 작성되었습니다.
 
-MDP를 푸는 방식들이 여러개가 있다.">
+MDP를 푸는 방식들이 여러 방법이 있다.">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="Home">
-  <meta property="og:description" content="Recent Posts#temp : 3. Planning by Dynamic Programming강화학습의 value iteration, policy iteration과 DP 대한 내용2025-05-29 12:21:05 KST3. Planning by Dynamic Programming// NOTE: 이 페이지는 임시로 작성되었습니다.MDP를 푸는 방식들이 여러개가 있다.">
+  <meta property="og:description" content="Recent Posts#temp : 3. Planning by Dynamic Programming강화학습의 value iteration, policy iteration과 DP 대한 내용2025-05-29 12:21:05 KST3. Planning by Dynamic Programming// NOTE: 이 페이지는 임시로 작성되었습니다.MDP를 푸는 방식들이 여러 방법이 있다.">
   <meta property="og:locale" content="ko_kr">
   <meta property="og:type" content="website">
 <title>Home | JaeSim&#39;s Workspace</title>
@@ -47,7 +47,7 @@ MDP를 푸는 방식들이 여러개가 있다.">
 <link rel="canonical" href="https://JaeSim.github.io/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.22e82a459f3659bd0e8a383183eca3d7705a97c835c61f03d062fc77bc6218f8.js" integrity="sha256-IugqRZ82Wb0Oijgxg&#43;yj13Bal8g1xh8D0GL8d7xiGPg=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.f3d73cc38a9307efbe81ed599d6507776c1c7f0b6c6aa6c1c6c1b33132f2c3a2.js" integrity="sha256-89c8w4qTB&#43;&#43;&#43;ge1ZnWUHd2wcfwtsaqbBxsGzMTLyw6I=" crossorigin="anonymous"></script>
 <link rel="alternate" type="application/rss+xml" href="https://JaeSim.github.io/index.xml" title="JaeSim's Workspace" />
 <!--
 Made with Book Theme
@@ -346,15 +346,15 @@ https://github.com/alex-shpak/hugo-book
 <blockquote class="book-hint warning">
   // NOTE: 이 페이지는 임시로 작성되었습니다.
 </blockquote>
-<p>MDP를 푸는 방식들이 여러개가 있다.</p>
-<p><strong>Policy evaluation, Policy iteration, value iteration</strong> 등이 있고, 이것들은 <strong>환경을 정확하게 안다면</strong> DP가 적용이 가능하다</p>
+<p>MDP를 푸는 방식들이 여러 방법이 있다.</p>
+<p><strong>Policy evaluation, Policy iteration, Value iteration</strong> 등이 있고, 이것들은 <strong>환경을 정확하게 안다면(=모델을 안다면)</strong> DP가 적용이 가능하다</p>
 <p>먼저 간략하게 언급하자면</p>
 <ol>
-<li>policy를 평가하고 iteration 하면서 발전해나가는 방식과  (policy evaluation + policy iteration)</li>
-<li>value function을 iteration하면서 옵티멀을 찾아가는 방법 (value iteration)</li>
+<li><strong>policy iteration</strong> : policy를 평가하고 iteration 하면서 발전해나가는 방식과  (policy evaluation + policy improvement)</li>
+<li><strong>value iteration</strong> : value function을 iteration하면서 옵티멀을 찾아가는 방법</li>
 </ol>
 <p>이 있다.</p>
-<p>이번 섹션은 DP로 known MDP를 푸는 방법에 대한것이고, …</p>
+<p>이번 섹션은 DP …</p>
       </div>
     </a>
 
@@ -386,7 +386,7 @@ https://github.com/alex-shpak/hugo-book
   
 </h3>
 <p>MDP는 환경에 대해서 Reinforcement Learning이 이해가능하도록 수식화한다</p>
-<p>거의 모든 RL 관련 문제들은 MDP로 수식화 할 수 있다(Fully observable이나 Partially ovservable이나)</p>
+<p><U>거의 모든 RL 관련 문제들은 MDP로 수식화 할 수 있다(Fully observable이나 Partially observation이나) </U></p>
 <p>Markov Property를 이용하는데, &ndash;이전 강의참조&ndash;</p>
 <p>요약하면, 현재 state만으로 미래를 예측해도 된다는 속성이다.
 (다르게 말하면, 현재 state가 이미 유용한 정보를 포함하고 있다. = memoryless)</p>
