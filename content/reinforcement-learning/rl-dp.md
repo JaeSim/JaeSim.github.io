@@ -14,13 +14,13 @@ categories = ["Reinforcement Learning"]
 {{% /hint %}}
 
 
-MDP를 푸는 방식들이 여러개가 있다.
+MDP를 푸는 방식들이 여러 방법이 있다.
 
-**Policy evaluation, Policy iteration, value iteration** 등이 있고, 이것들은 **환경을 정확하게 안다면** DP가 적용이 가능하다 
+**Policy evaluation, Policy iteration, Value iteration** 등이 있고, 이것들은 **환경을 정확하게 안다면(=모델을 안다면)** DP가 적용이 가능하다 
 
 먼저 간략하게 언급하자면 
-1) policy를 평가하고 iteration 하면서 발전해나가는 방식과  (policy evaluation + policy iteration)
-2) value function을 iteration하면서 옵티멀을 찾아가는 방법 (value iteration)
+1) **policy iteration** : policy를 평가하고 iteration 하면서 발전해나가는 방식과  (policy evaluation + policy improvement)
+2) **value iteration** : value function을 iteration하면서 옵티멀을 찾아가는 방법 
 
 이 있다.
 
@@ -35,21 +35,25 @@ MDP는 DP로 문제를 풀기에 필요한 조건들을 만족한다.
  - 벨만 방정식(Bellman equation) 은 재귀적 decomposition
  - value function 은 값을 저장하고, 재사용한다.
 
-full environment 정보가 주어지면 이것은 강화학습의 문제가 아니라 planning problem(mdp를)으로써 DP로 풀수 있다. <br>
+<U>full environment 정보가 주어지면</U> 이것은 강화학습의 문제가 아니라 planning problem(mdp를)으로써 DP로 풀수 있다. <br>
 MDP planning의 두가지 문제가 있다. (For prediction, For control)
- - prediction problem은 input MDP(or MRP)와 policy가 주어졌을때, 이것의 output인 value function {{< katex display=false >}}v_\pi{{< /katex >}} 을 구하는것
+ - **prediction problem**은 input MDP(or MRP)와 policy가 주어졌을때, 이것의 output인 value function {{< katex display=false >}}v_\pi{{< /katex >}} 을 구하는것
 
- - control problem 은 옵티마이징 하는것(best policy와 그에따른 best value function을 구하는것). <br>
-input으로 MDP가 주어지고 output으로 {{< katex display=false >}}v_*{{< /katex >}} (옵티멀 벨류 펑션) 또는 {{< katex display=false >}}\pi_*{{< /katex >}} (옵티멀 폴리시)
+ - **control problem** 은 옵티마이징 하는것(best policy와 그에따른 best value function을 구하는것). <br>
+input으로 MDP가 주어지고 output으로 {{< katex display=false >}}v_*{{< /katex >}} (optimal value function) 또는 {{< katex display=false >}}\pi_*{{< /katex >}} (optimal policy)
 
 ### **policy evaluation**
-폴리시가 얼마나 좋은지 평가(mdp로 얼마나 얼마나 많은 reward를 얻을수 있는지?). policy를 업데이트하지 않는다<br>
+policy시가 얼마나 좋은지 평가(MDP로 얼마나 얼마나 많은 reward를 얻을수 있는지?). policy를 업데이트하진 않는다<br>
 bellman expectation equation을 사용
 
 bellman expectation equation을 풀기 위해서,<br>
-이터레이션마다 policy하의 value 펑션을 평가해서, _value 펑션_을 업데이트 한다.<br>
+이터레이션마다 policy하의 value function을 평가해서, value function을 업데이트 한다.<br>
 {{< katex display=false >}}v1 	\rightarrow v2 	\rightarrow ... 	\rightarrow v_\pi{{< /katex >}} 가 되어 true value function 을 얻을 수 있다.
 
+{{% hint info %}}
+이것은 우리가 policy 에 따른(고정된 policy) 정확한 value function을 모르니 (optimal value function을 말하는것이 아님), 그것을 계산하기 위해서 iterative하게 계산한다는 의미. <br>
+여기에서 iterative는 강화학습에서 action하고 reward 받는 iterative(timestep) 과는 다른 의미
+{{% /hint %}}
 
 이때 두가지 방식으로 backup이 가능하다. <br>
 **synchronous backup/asyncronous backup** <br>
@@ -81,23 +85,23 @@ value function을 better 폴리시를 찾아내는데 도음을 준다.
 asyncronous backup =  전체 상태를 한 번에 갱신하는 것이 아니라, 선택된 특정 상태에 대해서만 value function을 갱신하는 방식이다. 이는 계산 효율을 높이고, 빠른 수렴을 가능하게 한다. by GPT
 
 ### **policy iteration**
-폴리시를 inner loop에서 이터레이션마다 평가하면서 policy가 better하도록 적용해나가는 방식; 
+policy를 inner loop에서 iteration마다 평가하면서 policy가 더 나아지도록 적용해나가는 방식; 
 결국 optimal policy를 찾게 된다는 설명.
 
-첫번째 스텝으로 **policy evaluation** : policy {{< katex display=false >}}\pi{{< /katex >}} 를 평가(evaluatiaon) 하면 value 펑션이 나오고, (현재 폴리시로 각상태의 value 를 구하는것)
+첫번째 스텝으로 **policy evaluation** : policy {{< katex display=false >}}\pi{{< /katex >}} 를 평가(evaluation) 하면 value function이 나오고, (현재 policy로 각상태의 value 를 구하는것)
 {{< katex display=true >}}
 v_\pi(s) = \mathbb{E} \left[ R_{t+1} + \gamma R_{t+2} + \dots \mid S_t = s \right]
 {{< /katex >}}
 두번째 스텝으로 **policy improvement**: {{< katex display=false >}}
-v_\pi(s){{< /katex >}} 기반으로 policy 를 greedily 행동하게 improvement 하면 이것이 업데이트된 폴리시다.
+v_\pi(s){{< /katex >}} 기반으로 policy 를 greedily 행동하게 improvement 하면 이것이 업데이트된 policy다.
 {{< katex display=true >}}
 \pi' = \text{greedy}(v_\pi)
 {{< /katex >}}
-이것이 결국 옵티멀한 폴리시다. (value function도 결국 옵티멀한 것으로 수렴한다.)
+이것이 결국 optimal policy다. (value function도 결국 optimal한 것으로 수렴한다.)
 
 > **추가질문:언제 수렴했는지는 어떻게 파악할 수 있는지?**
 > - 정책이 더이상 바뀌지 않거나, 정책간의 차이가 아주 작을때 (10^-4) 수렴했다고 파악 by GTP
-> - DQN (2015)	Validation 환경에서의 평균 reward가 더 이상 증가하지 않을때때
+> - DQN (2015)	Validation 환경에서의 평균 reward가 더 이상 증가하지 않을때
 > - PPO (2017)	평균 reward의 moving average가 안정될때 (변화량 < threshold) 
 > 
 > 이것들은 결국 Modified Policy Iteration. <br>
@@ -110,13 +114,13 @@ v_\pi(s){{< /katex >}} 기반으로 policy 를 greedily 행동하게 improvement
 
 
 만약 policy가 deterministic 한 policy 이라면, {{< katex display=false >}} a = \pi(s){{< /katex >}}.
-improvement가 멈춘다면 수식적으로 수렴한다는것을(벨만 옵티멀 이퀘이션을 만족함을) 증명할 수 있지만, 생략함.
+improvement가 멈춘다면 수식적으로 수렴한다는것을(Bellman Optimal Equation을 만족함을) 증명할 수 있지만, 생략함.
 lecture-3 의 17page
 
 ### **value interation**
 이것은 MDP를 푸는 또 다른 방식이다. 
 
-bellan equation을 통해서 value function이 better 하도록 하는 방식
+bellman equation을 통해서 value function이 better 하도록 하는 방식
 정책 반복보다 계산량이 적고, 수렴 속도가 빠를 수 있습니다.
 
 어떠한 optimal policy도 두개의 컴포넌트로 나뉠수 있다.
@@ -124,15 +128,15 @@ bellan equation을 통해서 value function이 better 하도록 하는 방식
 - 계승되는 state S' 의 optimal policy
 
 이를 다시말하면, <br>
-현재상태에서 다음행동 (첫번째 action)이 옵티멀한 것을 선택하면, <br>
-그다음은 계승 state S' 에서 옵티멀 폴리시따르는것 <br>
+현재상태에서 다음행동 (첫번째 action)이 optimal한 것을 선택하면, <br>
+그다음은 계승 state S' 에서 optimal policy따르는것 <br>
 
 이는  **Principle of Optimality** 를 나타낸다.
 
-한 정책이 어느 한 상태에서 최적이라면,
-그 정책이 앞으로 갈 모든 경로에서도 계속 최적이어야 한다.
+한 policy이 어느 한 상태에서 최적이라면(Optimal이라면), <br>
+그 policy이 앞으로 갈 모든 경로에서도 계속 최적이어야 한다.
 
-이는 아래 수식을 (value fucntion을) 최대화 하는것으로 나타낼수 있다.
+이는 아래 수식을 (value function을) 최대화 하는것으로 나타낼수 있다.
 {{< katex display = true >}}
 v_*(s) \leftarrow \max_{a \in \mathcal{A}} \mathcal{R}_s^a + \gamma \sum_{s' \in \mathcal{S}} \mathcal{P}_{ss'}^a \, v_*(s')
 {{< /katex >}}
@@ -200,7 +204,7 @@ Full-width backup은 너무 비싸서 sample 기반 backup을 한다.
 > **sample** : 에이전트가 환경과 상호작용해서 얻은 한 번의 경험 데이터
 
 이로인한 장점은 다음과 같다.
-1) 이로인해서 궁극적으로 Model-free하게 된다.( envrionment의 모델을 알지 않아도 되게 된다)
+1) 이로인해서 궁극적으로 Model-free하게 된다.( environment 모델을 알지 않아도 되게 된다)
 2) 차원의 저주 해소
 3) backup cost가 줄어듬
 
@@ -369,7 +373,7 @@ Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha \left( R_{t+1} + \gamma Q(S_{t+1}, A
 # **6. value function approximation**
 large MDP를 풀수 없으니 (too many state and action) value function(state-value/action-value function)을 어떻게 근사하게 구하는가?
 - Liner combinations of feature
-- Nueural network
+- Neural network
 
 
 여기서부터 Gradient Descent 가 나온다.
@@ -505,16 +509,16 @@ Balsa는 쿼리 플랜을 순차적으로 구성하는 문제를 **Markov Decisi
 - State s = 현재까지 만들어진 partial query plan
 - Action a = 다음에 어떤 테이블을 조인할지 결정
 - Reward r = 쿼리 플랜의 실행 비용 또는 latency
-- Envrionment = DB 쿼리 시뮬레이터 or Costmodel
+- Environment = DB 쿼리 시뮬레이터 or Costmodel
 
 
 추가적으로 
 - simulation phase(step) 을 가져서 재앙적 plan을 탐험하지 않게하고,
 - Timeout을 둬서 Safe Execution 시간을 보장했다. (재앙적 plan이 선택되더라도 timeout으로 하한보장)
-- policy network를 simple tree convolution networks 로 구성
+- value network를 simple tree convolution networks 로 구성
 
 ```python
-# 여기에서 모델은 강화학습의 environment의 모델이 아니라, policy를 업데이트할(계산할) treeconv 모델을 의미함
+# 여기에서 모델은 강화학습의 environment의 모델이 아니라, value function을 근사할(계산할) treeconv 모델을 의미함
 def MakeModel(p, exp, dataset):
     dev = GetDevice()
     num_label_bins = int(
