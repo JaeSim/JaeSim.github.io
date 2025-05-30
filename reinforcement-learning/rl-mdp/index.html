@@ -16,7 +16,7 @@
   #
 
 MDP는 환경에 대해서 Reinforcement Learning이 이해가능하도록 수식화한다
-거의 모든 RL 관련 문제들은 MDP로 수식화 할 수 있다(Fully observable이나 Partially ovservable이나)
+거의 모든 RL 관련 문제들은 MDP로 수식화 할 수 있다(Fully observable이나 Partially observation이나) 
 Markov Property를 이용하는데, &ndash;이전 강의참조&ndash;
 요약하면, 현재 state만으로 미래를 예측해도 된다는 속성이다.
 (다르게 말하면, 현재 state가 이미 유용한 정보를 포함하고 있다. = memoryless)
@@ -55,8 +55,7 @@ Markov state
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="2. Markov Decision Process">
   <meta property="og:description" content="2. Markov Decision Process#Markov Process(MP) 란?#MP 속성#MDP는 환경에 대해서 Reinforcement Learning이 이해가능하도록 수식화한다
-거의 모든 RL 관련 문제들은 MDP로 수식화 할 수 있다(Fully observable이나 Partially ovservable이나)
-Markov Property를 이용하는데, –이전 강의참조–
+거의 모든 RL 관련 문제들은 MDP로 수식화 할 수 있다(Fully observable이나 Partially observation이나) Markov Property를 이용하는데, –이전 강의참조–
 요약하면, 현재 state만으로 미래를 예측해도 된다는 속성이다. (다르게 말하면, 현재 state가 이미 유용한 정보를 포함하고 있다. = memoryless)
 Markov state \(s\)로부터 \(s&#39;\)으로 변경하는 transition probability 를 하는 수식은 다음과 같다. \[\mathcal{P}_{ss&#39;} = \mathbb{P}[S_{t&#43;1} = s&#39;\mid S_t = s]\]매트릭스로 표현하면 다음과 같다. (합은 1) \[\mathcal{P} = \left[\begin{array}{ccc}\mathcal{P}_{11} &amp; \cdots &amp; \mathcal{P}_{1n} \\\vdots &amp; \ddots &amp; \vdots \\\mathcal{P}_{n1} &amp; \cdots &amp; \mathcal{P}_{nn}\end{array}\right]\]">
   <meta property="og:locale" content="ko_kr">
@@ -75,7 +74,7 @@ Markov state \(s\)로부터 \(s&#39;\)으로 변경하는 transition probabili
 <link rel="canonical" href="https://JaeSim.github.io/reinforcement-learning/rl-mdp/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.22e82a459f3659bd0e8a383183eca3d7705a97c835c61f03d062fc77bc6218f8.js" integrity="sha256-IugqRZ82Wb0Oijgxg&#43;yj13Bal8g1xh8D0GL8d7xiGPg=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.f3d73cc38a9307efbe81ed599d6507776c1c7f0b6c6aa6c1c6c1b33132f2c3a2.js" integrity="sha256-89c8w4qTB&#43;&#43;&#43;ge1ZnWUHd2wcfwtsaqbBxsGzMTLyw6I=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -320,7 +319,7 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#policy"><strong>Policy</strong></a></li>
         <li><a href="#state-value-function"><strong>state-value function</strong></a></li>
         <li><a href="#action-value-q-function"><strong>action-value (q) function</strong></a></li>
-        <li><a href="#optimal-value-function"><strong>optimal value function</strong></a></li>
+        <li><a href="#optimal-value-function"><strong>Optimal Value Function</strong></a></li>
         <li><a href="#solving-bellman-optimality-equation"><strong>Solving Bellman Optimality Equation</strong></a></li>
         <li><a href="#extensions-of-mdps"><strong>Extensions of MDPs</strong></a></li>
       </ul>
@@ -377,7 +376,7 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#mp-%ec%86%8d%ec%84%b1">#</a>
 </h3>
 <p>MDP는 환경에 대해서 Reinforcement Learning이 이해가능하도록 수식화한다</p>
-<p>거의 모든 RL 관련 문제들은 MDP로 수식화 할 수 있다(Fully observable이나 Partially ovservable이나)</p>
+<p><U>거의 모든 RL 관련 문제들은 MDP로 수식화 할 수 있다(Fully observable이나 Partially observation이나) </U></p>
 <p>Markov Property를 이용하는데, &ndash;이전 강의참조&ndash;</p>
 <p>요약하면, 현재 state만으로 미래를 예측해도 된다는 속성이다.
 (다르게 말하면, 현재 state가 이미 유용한 정보를 포함하고 있다. = memoryless)</p>
@@ -444,7 +443,7 @@ MDP를 이용한 실제 사용은 훨신더 많은 state와 probability를 포�
 <p>reward가 추가가 된 것. MP 에 value judgment가 포함된 것 - 여기서 judgment 는 누적 reward가 얼마나 좋아질지</p>
 <blockquote>
 <p>A Markov Rewards Process (or Markov Chain) is a tuple <span>
-  \(\langle \mathcal{S}, \mathcal{P}, \mathcal{R}, \gamma \rangle \)
+  \(\langle \mathcal{S}, \mathcal{P}, \textcolor{red}{\mathcal{R}, \gamma} \rangle \)
 </span>
 </p>
 <ul>
@@ -460,20 +459,20 @@ MDP를 이용한 실제 사용은 훨신더 많은 state와 probability를 포�
   \(\mathcal{P}_{ss'} = \mathbb{P} \left[ S_{t+1} = s' \mid S_t = s \right]\)
 </span>
 </li>
-<li><span>
+<li><span style="color:red"><span>
   \(\mathcal{R}\)
 </span>
  is a reward function, <span>
   \(\mathcal{R}_s = \mathbb{E} \left[ R_{t+1} \mid S_t = s \right]\)
 </span>
-</li>
-<li><span>
+ </span></li>
+<li><span style="color:red"><span>
   \(\gamma\)
 </span>
  is a discount factor, <span>
   \({\gamma \in [0, 1]}\)
 </span>
-</li>
+ </span></li>
 </ul></blockquote>
 <p>timestep t에 대한 goal 은 다음과 같이 표현된다.
 감마는 미래에 대한 discount factor이다. 이것이 필요한 이유는</p>
@@ -514,10 +513,10 @@ v(s) = \mathbb{E} [ G_t \mid S_t = s ]
 <p>Value Function은 크게 두가지 컴포넌트로 나눌수 있다.</p>
 <ul>
 <li>현재의 리워드 <span>
-  \( R_(t+1)\)
+  \( R_{t+1}\)
 </span>
 </li>
-<li>다음계승state의 discounted 상태 <span>
+<li>다음계승 state의 discounted 상태 <span>
   \(\gamma v(S_{t+1})\)
 </span>
 </li>
@@ -529,7 +528,7 @@ v(s) &= \mathbb{E} \left[ G_t \mid S_t = s \right] \\
      &= \mathbb{E} \left[ R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \cdots \mid S_t = s \right] \\
      &= \mathbb{E} \left[ R_{t+1} + \gamma \left( R_{t+2} + \gamma R_{t+3} + \cdots \right) \mid S_t = s \right] \\
      &= \mathbb{E} \left[ R_{t+1} + \gamma G_{t+1} \mid S_t = s \right] \\
-     &= \mathbb{E} \left[ R_{t+1} + \gamma v(S_{t+1}) \mid S_t = s \right]
+     &= \mathbb{E} \left[ \textcolor{red}{R_{t+1} + \gamma v(S_{t+1})} \mid S_t = s \right]
 \end{aligned}
 \]
 </span>
@@ -579,15 +578,20 @@ v(n)
   <strong>Solving the Bellman Equation</strong>
   <a class="anchor" href="#solving-the-bellman-equation">#</a>
 </h4>
-<p>벨만 방정식은 linear equation 이지만 O(n^3) 복잡도를 가지고 있기 때문에 작은것만 풀수 있다.&lt;&gt;
-Large MRP를 풀기위해서 Dynamic Programing 이나 Monte-Carlo evaluation 이나 Temporal-Difference Learning이 있다.</p>
+<p>벨만 방정식은 linear equation 이지만 O(n^3) 복잡도를 가지고 있기 때문에 작은것만 풀수 있다.<br>
+Large MRP를 풀기위해서</p>
+<ul>
+<li>Dynamic Programing 이나</li>
+<li>Monte-Carlo evaluation 이나</li>
+<li>Temporal-Difference Learning이 있다.</li>
+</ul>
 <h2 id="markov-decision-processmdp-란">
   <strong>Markov Decision Process(MDP) 란?</strong>
   <a class="anchor" href="#markov-decision-processmdp-%eb%9e%80">#</a>
 </h2>
 <blockquote>
 <p>A Markov Decision Process (or Markov Chain) is a tuple <span>
-  \(\langle \mathcal{S}, \mathcal{A}, \mathcal{P}, \mathcal{R}, \gamma \rangle \)
+  \(\langle \mathcal{S}, \textcolor{red}{\mathcal{A}}, \mathcal{P}, \mathcal{R}, \gamma \rangle \)
 </span>
 </p>
 <ul>
@@ -595,23 +599,23 @@ Large MRP를 풀기위해서 Dynamic Programing 이나 Monte-Carlo evaluation �
   \(\mathcal{S}\)
 </span>
  is a (finite) set of states</li>
-<li><span>
+<li><span style="color:red"><span>
   \(\mathcal{A}\)
 </span>
- is a (finite) set of actions</li>
+ is a (finite) set of actions </span></li>
 <li><span>
   \(\mathcal{P}\)
 </span>
  is a state transition probability matrix,<br>
 <span>
-  \(\mathcal{P}^a_{ss'} = \mathbb{P} \left[ S_{t+1} = s' \mid S_t = s, A_t = a \right]\)
+  \(\mathcal{P}^a_{ss'} = \mathbb{P} \left[ S_{t+1} = s' \mid S_t = s, A_t = \textcolor{red}a \right]\)
 </span>
 </li>
 <li><span>
   \(\mathcal{R}\)
 </span>
  is a reward function, <span>
-  \(\mathcal{R}^a_s = \mathbb{E} \left[ R_{t+1} \mid S_t = s , A_t =a \right]\)
+  \(\mathcal{R}^a_s = \mathbb{E} \left[ R_{t+1} \mid S_t = s , A_t = \textcolor{red}a \right]\)
 </span>
 </li>
 <li><span>
@@ -640,11 +644,11 @@ Large MRP를 풀기위해서 Dynamic Programing 이나 Monte-Carlo evaluation �
 \]
 </span>
 
-마크로프 속성에 의해서 현재 state는 reward를 fully characterize 한것이기 때문에 위 수식에 reward가 없다</p>
-<p>state 시퀀스(상태전의)에 대해서 폴리시를 넣으면 Markov Process이고,
-state 시퀀에 리워드를 넣으면 Markov reward process 이다.</p>
-<p>마르코프 reward process 에 대해서
-MDP 수식으로  (action으로부터) 다음과 같이 수식으로 표현이 가능하다.
+<em>마크로프 속성에 의해서 현재 state는 reward를 fully characterize 한것이기 때문에 위 수식에 reward가 없다</em></p>
+<p>state 시퀀스(상태전의)에 대해서 policy를 넣으면 Markov Process이고,
+state 시퀀에 Reward를 넣으면 Markov Reward process 이다.</p>
+<p>Markov Reward Process 에 대해서
+MDP 수식으로  (Action으로부터) 다음과 같이 수식으로 표현이 가능하다.
 (MDP 수식으로(policy-action이 포함된 버전으로) MP와 MRP를 표현이 가능하다)</p>
 <p><span>
   \[
@@ -653,27 +657,39 @@ MDP 수식으로  (action으로부터) 다음과 같이 수식으로 표현이 �
 \]
 </span>
 
-이는 모든 action에 갈수 있는 prob를 average로(파이는 0~1의 값이므로) 이해를 쉽게하기 P와 R을 표현한 것.</p>
+이는 모든 action에 갈수 있는 prob를 average로(<span>
+  \(\pi\)
+</span>
+는 0~1의 값이므로) 이해를 쉽게하기 P와 R을 표현한 것.</p>
 <p>MDP에 대한 value function은
-stage-value 펑션과, action-value function 두가지 방식이 있다.</p>
+state-value 펑션과, action-value function 두가지 방식이 있다.</p>
 <h3 id="state-value-function">
   <strong>state-value function</strong>
   <a class="anchor" href="#state-value-function">#</a>
 </h3>
-<p>다음과 같고 이는 <strong>현재 state일때 pi 폴리시를 따를때 얼마나 좋은지</strong>를 나타낸다. (얼마나 리워드를 얻을지)
+<p>다음과 같고 이는 <strong>현재 state일때 <span>
+  \(\pi\)
+</span>
+ policy를 따를때 얼마나 좋은지</strong>를 나타낸다. (얼마나 Reward를 얻을지)
 <span>
   \[
 v_\pi(s) = \mathbb{E}_\pi \left[ G_t \mid S_t = s \right]
 \]
 </span>
 
-여기세 E_pi는 모든 샘플액션에 대한 expectation</p>
+여기서 <span>
+  \(\mathbb{E}_\pi\)
+</span>
+는 모든 샘플액션에 대한 expectation</p>
 <h3 id="action-value-q-function">
   <strong>action-value (q) function</strong>
   <a class="anchor" href="#action-value-q-function">#</a>
 </h3>
-<p>이를 action-value function q_pi 로 나타낼 수 있다.
-이는 <strong>현재 state에서 어떤action을 선택했을때 얼마나 좋은지</strong>를 나타낸다. (얼마나 리워드를 얻을지)
+<p>이를 action-value function <span>
+  \(q_\pi\)
+</span>
+ 로 나타낼 수 있다.
+이는 <strong>현재 state에서 어떤action을 선택했을때 얼마나 좋은지</strong>를 나타낸다. (얼마나 Reward를 얻을지)
 <span>
   \[
 q_\pi(s, a) = \mathbb{E}_\pi \left[ G_t \mid S_t = s, A_t = a \right]
@@ -694,21 +710,21 @@ q_\pi(s, a) = \mathbb{E}_\pi \left[ R_{t+1} + \gamma q_\pi(S_{t+1}, A_{t+1}) \mi
 \]
 </span>
 
-<p>state-value-function 와 action-value function 중 어떤 것을 중점적으로 학습하는지에 따른 학습방법이 달라지는 것 같다.
-왼쪽은 state-value 펑션관점에서의 그림과 수식표현이고, 오른쪽은 action-value 펑션관점에서 수식과 표현이다.
-action-value 펑션에 대해서는, action을 선택함으로써 reward를 통해서 state-value 펑션으로 다시 넘어가는 것을 볼수 있다.</p>
+<p>state-value-function 와 action-value function 중 어떤 것을 중점적으로 학습하는지에 따른 학습방법이 달라지는 것 같다.<br>
+<strong>왼쪽</strong>은 state-value function관점에서의 그림과 수식표현이고, <strong>오른쪽</strong>은 action-value 펑션관점에서 수식과 표현이다.
+action-value function에 대해서는, action을 선택함으로써 reward를 통해서 state-value function으로 다시 넘어가는 것을 볼수 있다.</p>
 <div style="display: flex; gap: 20px;">
   <img src="/images/rl-mdp-bellman-state-value.png" alt="state-value" style="width: 50%;" />
   <img src="/images/rl-mdp-bellman-action-value.png" alt="action-value" style="width: 50%;" />
 </div>
-<p>이두개의 그래프를 합치면 다음과 같다.
-왼쪽은 stae-value 펑션 관점에서의 수식이고, 오른쪽은 action-value 펑션 관점에서의 수식이다.</p>
+<p>이 두개의 그래프를 합치면 다음과 같다.
+왼쪽은 state-value function 관점에서의 수식이고, 오른쪽은 action-value function 관점에서의 수식이다.</p>
 <div style="display: flex; gap: 20px;">
   <img src="/images/rl-mdp-bellman-state-value-merged.png" alt="state-value-merged" style="width: 50%;" />
   <img src="/images/rl-mdp-bellman-action-value-merged.png" alt="action-value-merged" style="width: 50%;" />
 </div>
-<p>이것들은 앞에서 언급했던것처럼 두가지 파트로 나눌수 있고, (이번 스텝에서의 리워드와 미래의 value function 리턴값값)
-다음 수식으로 나타내진다 (maxtrix-form).
+<p>이것들은 앞에서 언급했던것처럼 두 가지 Junk로 나눌수 있고, (이번 Step에서의 Reward와 미래의 value function 리턴값)
+다음 수식으로 나타내진다 (matric-form).
 추가로 모든 MDP는 MRP로 표현이 가능하다.
 <span>
   \[
@@ -724,15 +740,18 @@ v_\pi = \left( I - \gamma \mathcal{P}^\pi \right)^{-1} \mathcal{R}^\pi
 </p>
 <p>우리는 이로부터(state-value, action-value function으로부터) <strong>Optimal Value Function</strong> 을 찾는다</p>
 <h3 id="optimal-value-function">
-  <strong>optimal value function</strong>
+  <strong>Optimal Value Function</strong>
   <a class="anchor" href="#optimal-value-function">#</a>
 </h3>
-<p>mdp에서의 최적 행동을 찾는 방법은 optimal state-value function <span>
+<p>MDP에서의 최적 행동을 찾는 방법은 optimal state-value function <span>
   \(v_*(s)\)
 </span>
- 를 구하는 것이다.
+ 를 구하는 것이다. <br>
 이것은 모든 policy 에 대해서 value function을 최대화 하는것이다. (장기적으로 최대 보상을 얻기 위해서) <br>
-optimal action-value function q_*(s,a) 의 경우 아래와 같이 구할 수 있다.</p>
+optimal action-value function <span>
+  \(q_*(s,a) \)
+</span>
+의 경우 아래와 같이 구할 수 있다.</p>
 <p><span>
   \[
 v_*(s) = \max_\pi v_\pi(s)
@@ -745,7 +764,13 @@ q_*(s, a) = \max_\pi q_\pi(s, a)
 \]
 </span>
 </p>
-<p>optimal policy 는 q_* 를 최대화 함으로써 얻을 수 있다.
+<p>optimal policy (<span>
+  \(\pi_*\)
+</span>
+) 는 <span>
+  \(q_*\)
+</span>
+ 를 최대화 함으로써 얻을 수 있다.
 <span>
   \[
 \pi_*(a \mid s) = 
@@ -769,7 +794,7 @@ q_*(s, a) = \max_\pi q_\pi(s, a)
 아래와 같은 solving method 들이 있음</p>
 <ul>
 <li><strong>value iteration</strong> : Iteratively updates value estimates using the Bellman optimality equation until convergence.</li>
-<li><strong>policy interation</strong> : Alternates between policy evaluation and policy improvement until the policy becomes stable.</li>
+<li><strong>policy iteration</strong> : Alternates between policy evaluation and policy improvement until the policy becomes stable.</li>
 <li><strong>Q-learning</strong> : Off-policy method that directly learns the optimal action-value function from experience.</li>
 <li><strong>Sarsa</strong>(State-Action-Reward-State-Action) : On-policy method that updates action-values based on the action actually taken by the current policy.</li>
 </ul>
@@ -872,7 +897,7 @@ q_*(s, a) = \max_\pi q_\pi(s, a)
         <li><a href="#policy"><strong>Policy</strong></a></li>
         <li><a href="#state-value-function"><strong>state-value function</strong></a></li>
         <li><a href="#action-value-q-function"><strong>action-value (q) function</strong></a></li>
-        <li><a href="#optimal-value-function"><strong>optimal value function</strong></a></li>
+        <li><a href="#optimal-value-function"><strong>Optimal Value Function</strong></a></li>
         <li><a href="#solving-bellman-optimality-equation"><strong>Solving Bellman Optimality Equation</strong></a></li>
         <li><a href="#extensions-of-mdps"><strong>Extensions of MDPs</strong></a></li>
       </ul>

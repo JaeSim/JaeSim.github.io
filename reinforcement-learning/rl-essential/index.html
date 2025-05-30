@@ -48,7 +48,7 @@
 <link rel="canonical" href="https://JaeSim.github.io/reinforcement-learning/rl-essential/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.22e82a459f3659bd0e8a383183eca3d7705a97c835c61f03d062fc77bc6218f8.js" integrity="sha256-IugqRZ82Wb0Oijgxg&#43;yj13Bal8g1xh8D0GL8d7xiGPg=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.f3d73cc38a9307efbe81ed599d6507776c1c7f0b6c6aa6c1c6c1b33132f2c3a2.js" integrity="sha256-89c8w4qTB&#43;&#43;&#43;ge1ZnWUHd2wcfwtsaqbBxsGzMTLyw6I=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -364,26 +364,29 @@ Agent는 미래에 기대되는 cumulative reward가 최대화 되는 방향으�
   <strong>State and MDP</strong>
   <a class="anchor" href="#state-and-mdp">#</a>
 </h3>
-<p><strong>State</strong> 는 다음 action을 결정하기 위한 정보이다</p>
-<div style="text-align: center;">
-<span>
-  \[
-\quad \quad S_t = f(H_t)
-\\
-\]
+<ul>
+<li><strong>Agent</strong>는 학습하는 주체 (뇌, 로봇)</li>
+<li><strong>Environment</strong>는 환경 (지구, 게임)    //우리는 환경이 어떻게 동작하는지 보통 모름</li>
+<li><strong>State</strong> 는 다음 action을 결정하기 위한 정보이다    <span>
+  \[S_t = f(H_t) \]
 </span>
-
-</div>
-<p>Envrionment State, Agent State 가 있고
-각각 Envrionment, Agent관점에서의 수식적/내부적 표현이다.</p>
-<p><strong>Envrionment State</strong>는 Envrionment 관점에서 다음 step에서 Envrionment가 어떻게 변화할지를(어떤 State로 변화할지) 나타낸다.
-Envrionment에서는 microsecond 에서도 수많은 정보가 오기 때문에 불필요한 정보들도 많다.
-Envrionment State는 우리의 알고리즘을 만드는데 유용하진 않다. 왜냐하면 Agent의 정보를 포함하고 있지 않기 때문. (우리의 알고리즘은 Agent에 있을테니 라고 이해함)</p>
+</li>
+</ul>
+<p><strong>Agent가 주어진 상태(State)에서 보상(Reward)을 최대화 할 수 있는 행동(Action)을 학습하는 것</strong></p>
+<p><strong>State</strong> 에는 <br>
+Environment State, Agent State 가 있고
+각각 Environment, Agent관점에서의 수식적/내부적 표현이다.</p>
+<p><strong>Environment State</strong>는 Environment 관점에서 다음 step에서 Environment가 어떻게 변화할지를(어떤 State로 변화할지) 나타낸다.
+Environment에서는 microsecond 에서도 수많은 정보가 오기 때문에 불필요한 정보들도 많다.
+보통의 RL 문제에서 agent는 Environment state를 전부 관측할 수 없다.</p>
+<ul>
+<li>예) 로봇의 움직임을 학습하도록 설계했는데. 이 로봇은 지구의 중력이나, 마찰력 으로 물건이 어디로 움직이는지 정확하게 모른다.</li>
+</ul>
 <p><strong>Agent State</strong>는 다음 step 에서 Agent가 어떤 행동을 선택할지를 나타낸 수식/표현이다.</p>
 <p><strong>Information State</strong>는 과거 history부터 모든 유용한 정보를 포함한 수학적 정의를 가진 State이다. 주로 Markov State라 부른다. (Markov 속성을 만족한다)</p>
 <ul>
 <li><strong>Markov Properties</strong> : <br>
-이전의 모든 스테이트정보를 이용해서 다음 State를 선택하는것이, 현재State만 보고 하는것과 같다
+이전의 모든 State 정보를 이용해서 다음 State를 선택하는것이, 현재 State만 보고 하는것과 같다
 <span>
   \[
 \mathbb{P}[S_{t+1} \mid S_t] = \mathbb{P}[S_{t+1} \mid S_1, \dots, S_t]
@@ -403,7 +406,7 @@ H_{1:t} \rightarrow S_t \rightarrow H_{t+1:\infty}
 \]
 </span>
 
-현재의 State가 충분한 정보를 이미 담고 있다고도 볼 수 잇다.</p>
+현재의 State가 충분한 정보를 이미 담고 있다다.</p>
 <details ><summary>Appendix</summary>
   <div class="markdown-inner">
 <ul>
@@ -452,16 +455,16 @@ H_{1:t} \rightarrow S_t \rightarrow H_{t+1:\infty}
 </div>
   </div>
 </details>
-<p><strong>Fully Observable Envrionments</strong> 는 Agent가 envrionment에서 어떻게 동작하는지 바로 관측이 가능함을 나타내고,
-결과적으로 Envrionment State = Information State = Agent State 상태이다.
-이를 <strong>Markov Desicion Process(MDP)</strong> 라고 한다</p>
-<p><strong>Partial Observabable Envrionments</strong> 는 좀더 현실적인 환경. 로봇이 카메라를 통해서 화면을 보지만 현재 자기의 위치를 모르는 것처럼.
+<p><strong>Fully Observable Environments</strong> 는 Agent가 environment 어떻게 동작하는지 바로 관측이 가능함을 나타내고,
+결과적으로 Environment State = Information State = Agent State 상태이다.
+이를 <strong>Markov Decision Process(MDP)</strong> 라고 한다</p>
+<p><strong>Partial Observable Environments</strong> 는 좀더 현실적인 환경. 로봇이 카메라를 통해서 화면을 보지만 현재 자기의 위치를 모르는 것처럼.
 즉, Agent State <span>
   \( \ne \)
 </span>
  Environment State 이다.
 <strong>Partially Observable Markov Decision Process(POMDP)</strong> 로 수식이 표현된다.</p>
-<p>우리는 환경에 대해서 잘 모르지만</p>
+<p>Agent는 자기의 State에 대한 representation을 가져야만하고, 이는</p>
 <ul>
 <li>이전 History를 이용해서 사용하는 방법이 있고,
 <span>
@@ -483,10 +486,14 @@ H_{1:t} \rightarrow S_t \rightarrow H_{t+1:\infty}
   <strong>Policy, Value Function, Model</strong>
   <a class="anchor" href="#policy-value-function-model">#</a>
 </h3>
-<p>RL은 agent는 아래 components를 한개 이상 포함한다.</p>
+<img src="/images/rl-action-state-reward-with-component.png" alt="rl-essential" style="width:80%;" />
+<p>RL은 agent는 아래 components를 <em><strong>한개 이상</strong></em> 포함한다.</p>
 <blockquote>
-<p><strong>Policy</strong>는 <strong><em>Agent가 어떻게 Action을 선택하는지(=behavior function)</em></strong> 이다.</p></blockquote>
-<p>State로부터 function 파이를 이용해서(policy) 를 통해 action을 결정한다.</p>
+<p><strong>Policy</strong>는 <strong><em>Agent가 어떻게 Action을 선택하는지(=behaviour function)</em></strong> 이다.</p></blockquote>
+<p>State로부터 function <span>
+  \(\pi\)
+</span>
+(policy)를 이용해서를 통해 action을 결정한다.</p>
 <ul>
 <li>Deterministic policy: <span>
   \( a = \pi(s)\)
@@ -521,11 +528,11 @@ v_{\pi}(s) = \mathbb{E}_{\pi} \left[ R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3}
 gamma(<span>
   \( \gamma\)
 </span>
-) 는 다음 스탭에 대한 discounting factor (미래를 예측하는것이니 넣은 변수로 이해함)</p>
+) 는 다음 스탭에 대한 discounting factor (지금은 미래의 값의 영향도 정도로 이해하고 넘어가자)</p>
 <blockquote>
-<p><strong>Model</strong>은 <strong><em>Agent관점에서 Envrionment가 어떻게 동작할지 생각하는 것</em></strong> 을 나타낸다.</p></blockquote>
+<p><strong>Model</strong>은 <strong><em>Agent관점에서 Environment가 어떻게 동작할지 생각하는 것</em></strong> 을 나타낸다.</p></blockquote>
 <p>transitions model, rewards model 전통적으로 두가지로 나뉜다</p>
-<p>transtions 모델은 directly 다음 state를 예측한다.
+<p>transitions 모델은 directly 다음 state를 예측한다.
 <span>
   \[\mathcal{P}_{ss'}^a = \mathbb{P}[S_{t+1} = s' \mid S_t = s, A_t = a]\]
 </span>
@@ -540,24 +547,24 @@ Rewards 모델은 reward를 예측한다.
   <a class="anchor" href="#rl-agent%ec%9d%98-%eb%b6%84%eb%a5%98">#</a>
 </h3>
 <img src="/images/rl-agent-taxonomy.png" alt="rl-agent-taxonomy" style="width:80%;" />
-<p>어떤 key component를 가지고 있는지에 따라서 RL을 분류한다</p>
+<p>어떤 key component를 가지고 학습하고 있는지에 따라서 RL을 분류한다</p>
 <ul>
-<li>value-based RL은 value function을 가지고 있다.</li>
-<li>policy-based RL은 policy를 가지고 있다.</li>
-<li>actor-critic은 value function과 policy를 가지고 잇다.</li>
+<li>value-based RL은 value function을 optimal이 되도록 한다. (묵시적으로 policy 를 가지고 있다.)</li>
+<li>policy-based RL은 policy를 업데이트한다.</li>
+<li>actor-critic은 value function과 policy를 가지고 있다.</li>
 </ul>
 <p>Model base로 구분하는 방법이 있다.</p>
 <ul>
-<li>model free는 모델이 없지만(=환경에 대한 representation이 없지만) value function + policy로 구성된 RL</li>
-<li>model based는 value function + policy, model 이 존재</li>
+<li>model free는 model이 없지만(=환경에 대한 representation이 없지만) value function and/or policy로 구성된 RL</li>
+<li>model based는 model이 존재하고, value function and/or policy 로 구성된 RL</li>
 </ul>
 <h3 id="sequential-decision-making의-두가지-방식">
   <strong>Sequential decision making의 두가지 방식</strong>
   <a class="anchor" href="#sequential-decision-making%ec%9d%98-%eb%91%90%ea%b0%80%ec%a7%80-%eb%b0%a9%ec%8b%9d">#</a>
 </h3>
 <ul>
-<li>Reinforcement Learning은 환경(Environment)을 모르고 상호작용하면서 reward가 최대가 되도록 학습 하는것</li>
-<li>Planning은 환경을 알고(우리가 환경에 해당하는 rule/model을 주고) agent가 계산하는 것</li>
+<li><strong>Reinforcement Learning</strong>은 환경(Environment)을 모르고 상호작용하면서 reward가 최대가 되도록 학습 하는 것</li>
+<li><strong>Planning</strong>은 환경을 알고(우리가 환경에 해당하는 rule/model을 주고) agent가 계산하는 것</li>
 </ul>
 <h3 id="exploration-and-exploitation">
   <strong>Exploration and Exploitation</strong>
@@ -575,8 +582,8 @@ Rewards 모델은 reward를 예측한다.
 </h3>
 <p>RL에서는 prediction problem과 control problem 이 있다.</p>
 <ul>
-<li><strong>prediction</strong> 은 현재 폴리시를 따르면 앞으로 얼마나 미래에 좋을찌 평가하는것</li>
-<li><strong>contorl</strong> 은 bset policy를 찾는것</li>
+<li><strong>prediction</strong> 은 현재 policy 를 따르면 앞으로 얼마나 미래에 좋을지 평가하는것</li>
+<li><strong>contorl</strong> 은 bset policy(=optimal policy)를 찾는것</li>
 </ul>
 <hr>
 <h2 id="머신러닝ml과-딥러닝dl과의-관계">

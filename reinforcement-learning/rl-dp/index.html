@@ -10,12 +10,12 @@
 
   // NOTE: 이 페이지는 임시로 작성되었습니다.
 
-MDP를 푸는 방식들이 여러개가 있다.
-Policy evaluation, Policy iteration, value iteration 등이 있고, 이것들은 환경을 정확하게 안다면 DP가 적용이 가능하다
+MDP를 푸는 방식들이 여러 방법이 있다.
+Policy evaluation, Policy iteration, Value iteration 등이 있고, 이것들은 환경을 정확하게 안다면(=모델을 안다면) DP가 적용이 가능하다
 먼저 간략하게 언급하자면
 
-policy를 평가하고 iteration 하면서 발전해나가는 방식과  (policy evaluation &#43; policy iteration)
-value function을 iteration하면서 옵티멀을 찾아가는 방법 (value iteration)
+policy iteration : policy를 평가하고 iteration 하면서 발전해나가는 방식과  (policy evaluation &#43; policy improvement)
+value iteration : value function을 iteration하면서 옵티멀을 찾아가는 방법
 
 이 있다.
 이번 섹션은 DP로 known MDP를 푸는 방법에 대한것이고, 이것은 강화학습의 flow 와 수식 간의 이해를 위한 섹션이다.
@@ -25,10 +25,10 @@ value function을 iteration하면서 옵티멀을 찾아가는 방법 (value ite
 <meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/reinforcement-learning/rl-dp/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="temp : 3. Planning by Dynamic Programming">
-  <meta property="og:description" content="3. Planning by Dynamic Programming#// NOTE: 이 페이지는 임시로 작성되었습니다.MDP를 푸는 방식들이 여러개가 있다.
-Policy evaluation, Policy iteration, value iteration 등이 있고, 이것들은 환경을 정확하게 안다면 DP가 적용이 가능하다
+  <meta property="og:description" content="3. Planning by Dynamic Programming#// NOTE: 이 페이지는 임시로 작성되었습니다.MDP를 푸는 방식들이 여러 방법이 있다.
+Policy evaluation, Policy iteration, Value iteration 등이 있고, 이것들은 환경을 정확하게 안다면(=모델을 안다면) DP가 적용이 가능하다
 먼저 간략하게 언급하자면
-policy를 평가하고 iteration 하면서 발전해나가는 방식과 (policy evaluation &#43; policy iteration) value function을 iteration하면서 옵티멀을 찾아가는 방법 (value iteration) 이 있다.
+policy iteration : policy를 평가하고 iteration 하면서 발전해나가는 방식과 (policy evaluation &#43; policy improvement) value iteration : value function을 iteration하면서 옵티멀을 찾아가는 방법 이 있다.
 이번 섹션은 DP로 known MDP를 푸는 방법에 대한것이고, 이것은 강화학습의 flow 와 수식 간의 이해를 위한 섹션이다. 4장부터 unknown MDP를 푸는 방법이 기술되어 있다.">
   <meta property="og:locale" content="ko_kr">
   <meta property="og:type" content="article">
@@ -47,7 +47,7 @@ policy를 평가하고 iteration 하면서 발전해나가는 방식과 (policy 
 <link rel="canonical" href="https://JaeSim.github.io/reinforcement-learning/rl-dp/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.22e82a459f3659bd0e8a383183eca3d7705a97c835c61f03d062fc77bc6218f8.js" integrity="sha256-IugqRZ82Wb0Oijgxg&#43;yj13Bal8g1xh8D0GL8d7xiGPg=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.f3d73cc38a9307efbe81ed599d6507776c1c7f0b6c6aa6c1c6c1b33132f2c3a2.js" integrity="sha256-89c8w4qTB&#43;&#43;&#43;ge1ZnWUHd2wcfwtsaqbBxsGzMTLyw6I=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -380,12 +380,12 @@ https://github.com/alex-shpak/hugo-book
 <blockquote class="book-hint warning">
   // NOTE: 이 페이지는 임시로 작성되었습니다.
 </blockquote>
-<p>MDP를 푸는 방식들이 여러개가 있다.</p>
-<p><strong>Policy evaluation, Policy iteration, value iteration</strong> 등이 있고, 이것들은 <strong>환경을 정확하게 안다면</strong> DP가 적용이 가능하다</p>
+<p>MDP를 푸는 방식들이 여러 방법이 있다.</p>
+<p><strong>Policy evaluation, Policy iteration, Value iteration</strong> 등이 있고, 이것들은 <strong>환경을 정확하게 안다면(=모델을 안다면)</strong> DP가 적용이 가능하다</p>
 <p>먼저 간략하게 언급하자면</p>
 <ol>
-<li>policy를 평가하고 iteration 하면서 발전해나가는 방식과  (policy evaluation + policy iteration)</li>
-<li>value function을 iteration하면서 옵티멀을 찾아가는 방법 (value iteration)</li>
+<li><strong>policy iteration</strong> : policy를 평가하고 iteration 하면서 발전해나가는 방식과  (policy evaluation + policy improvement)</li>
+<li><strong>value iteration</strong> : value function을 iteration하면서 옵티멀을 찾아가는 방법</li>
 </ol>
 <p>이 있다.</p>
 <p>이번 섹션은 DP로 known MDP를 푸는 방법에 대한것이고, 이것은 강화학습의 flow 와 수식 간의 이해를 위한 섹션이다.
@@ -400,11 +400,11 @@ https://github.com/alex-shpak/hugo-book
 <li>벨만 방정식(Bellman equation) 은 재귀적 decomposition</li>
 <li>value function 은 값을 저장하고, 재사용한다.</li>
 </ul>
-<p>full environment 정보가 주어지면 이것은 강화학습의 문제가 아니라 planning problem(mdp를)으로써 DP로 풀수 있다. <br>
+<p><U>full environment 정보가 주어지면</U> 이것은 강화학습의 문제가 아니라 planning problem(mdp를)으로써 DP로 풀수 있다. <br>
 MDP planning의 두가지 문제가 있다. (For prediction, For control)</p>
 <ul>
 <li>
-<p>prediction problem은 input MDP(or MRP)와 policy가 주어졌을때, 이것의 output인 value function 
+<p><strong>prediction problem</strong>은 input MDP(or MRP)와 policy가 주어졌을때, 이것의 output인 value function 
 <link rel="stylesheet" href="/katex/katex.min.css" />
 <script defer src="/katex/katex.min.js"></script>
 <script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
@@ -413,28 +413,32 @@ MDP planning의 두가지 문제가 있다. (For prediction, For control)</p>
  을 구하는것</p>
 </li>
 <li>
-<p>control problem 은 옵티마이징 하는것(best policy와 그에따른 best value function을 구하는것). <br>
+<p><strong>control problem</strong> 은 옵티마이징 하는것(best policy와 그에따른 best value function을 구하는것). <br>
 input으로 MDP가 주어지고 output으로 <span>
   \(v_*\)
 </span>
- (옵티멀 벨류 펑션) 또는 <span>
+ (optimal value function) 또는 <span>
   \(\pi_*\)
 </span>
- (옵티멀 폴리시)</p>
+ (optimal policy)</p>
 </li>
 </ul>
 <h3 id="policy-evaluation">
   <strong>policy evaluation</strong>
   <a class="anchor" href="#policy-evaluation">#</a>
 </h3>
-<p>폴리시가 얼마나 좋은지 평가(mdp로 얼마나 얼마나 많은 reward를 얻을수 있는지?). policy를 업데이트하지 않는다<br>
+<p>policy시가 얼마나 좋은지 평가(MDP로 얼마나 얼마나 많은 reward를 얻을수 있는지?). policy를 업데이트하진 않는다<br>
 bellman expectation equation을 사용</p>
 <p>bellman expectation equation을 풀기 위해서,<br>
-이터레이션마다 policy하의 value 펑션을 평가해서, _value 펑션_을 업데이트 한다.<br>
+이터레이션마다 policy하의 value function을 평가해서, value function을 업데이트 한다.<br>
 <span>
   \(v1 	\rightarrow v2 	\rightarrow ... 	\rightarrow v_\pi\)
 </span>
  가 되어 true value function 을 얻을 수 있다.</p>
+<blockquote class="book-hint info">
+  이것은 우리가 policy 에 따른(고정된 policy) 정확한 value function을 모르니 (optimal value function을 말하는것이 아님), 그것을 계산하기 위해서 iterative하게 계산한다는 의미. <br>
+여기에서 iterative는 강화학습에서 action하고 reward 받는 iterative(timestep) 과는 다른 의미
+</blockquote>
 <p>이때 두가지 방식으로 backup이 가능하다. <br>
 <strong>synchronous backup/asyncronous backup</strong> <br>
 synchronous backup <br>=  한 iteration에서 전체 상태들의 값이 한꺼번에 업데이트됨 <br>
@@ -464,12 +468,12 @@ k=2 일때의 1.7 은 1.75가 짤린것. <br>
   <strong>policy iteration</strong>
   <a class="anchor" href="#policy-iteration">#</a>
 </h3>
-<p>폴리시를 inner loop에서 이터레이션마다 평가하면서 policy가 better하도록 적용해나가는 방식;
+<p>policy를 inner loop에서 iteration마다 평가하면서 policy가 더 나아지도록 적용해나가는 방식;
 결국 optimal policy를 찾게 된다는 설명.</p>
 <p>첫번째 스텝으로 <strong>policy evaluation</strong> : policy <span>
   \(\pi\)
 </span>
- 를 평가(evaluatiaon) 하면 value 펑션이 나오고, (현재 폴리시로 각상태의 value 를 구하는것)
+ 를 평가(evaluation) 하면 value function이 나오고, (현재 policy로 각상태의 value 를 구하는것)
 <span>
   \[
 v_\pi(s) = \mathbb{E} \left[ R_{t+1} + \gamma R_{t+2} + \dots \mid S_t = s \right]
@@ -480,19 +484,19 @@ v_\pi(s) = \mathbb{E} \left[ R_{t+1} + \gamma R_{t+2} + \dots \mid S_t = s \righ
   \(
 v_\pi(s)\)
 </span>
- 기반으로 policy 를 greedily 행동하게 improvement 하면 이것이 업데이트된 폴리시다.
+ 기반으로 policy 를 greedily 행동하게 improvement 하면 이것이 업데이트된 policy다.
 <span>
   \[
 \pi' = \text{greedy}(v_\pi)
 \]
 </span>
 
-이것이 결국 옵티멀한 폴리시다. (value function도 결국 옵티멀한 것으로 수렴한다.)</p>
+이것이 결국 optimal policy다. (value function도 결국 optimal한 것으로 수렴한다.)</p>
 <blockquote>
 <p><strong>추가질문:언제 수렴했는지는 어떻게 파악할 수 있는지?</strong></p>
 <ul>
 <li>정책이 더이상 바뀌지 않거나, 정책간의 차이가 아주 작을때 (10^-4) 수렴했다고 파악 by GTP</li>
-<li>DQN (2015)	Validation 환경에서의 평균 reward가 더 이상 증가하지 않을때때</li>
+<li>DQN (2015)	Validation 환경에서의 평균 reward가 더 이상 증가하지 않을때</li>
 <li>PPO (2017)	평균 reward의 moving average가 안정될때 (변화량 &lt; threshold)</li>
 </ul>
 <p>이것들은 결국 Modified Policy Iteration. <br>
@@ -505,14 +509,14 @@ v_\pi(s)\)
   \( a = \pi(s)\)
 </span>
 .
-improvement가 멈춘다면 수식적으로 수렴한다는것을(벨만 옵티멀 이퀘이션을 만족함을) 증명할 수 있지만, 생략함.
+improvement가 멈춘다면 수식적으로 수렴한다는것을(Bellman Optimal Equation을 만족함을) 증명할 수 있지만, 생략함.
 lecture-3 의 17page</p>
 <h3 id="value-interation">
   <strong>value interation</strong>
   <a class="anchor" href="#value-interation">#</a>
 </h3>
 <p>이것은 MDP를 푸는 또 다른 방식이다.</p>
-<p>bellan equation을 통해서 value function이 better 하도록 하는 방식
+<p>bellman equation을 통해서 value function이 better 하도록 하는 방식
 정책 반복보다 계산량이 적고, 수렴 속도가 빠를 수 있습니다.</p>
 <p>어떠한 optimal policy도 두개의 컴포넌트로 나뉠수 있다.</p>
 <ul>
@@ -523,12 +527,12 @@ lecture-3 의 17page</p>
 <li>계승되는 state S&rsquo; 의 optimal policy</li>
 </ul>
 <p>이를 다시말하면, <br>
-현재상태에서 다음행동 (첫번째 action)이 옵티멀한 것을 선택하면, <br>
-그다음은 계승 state S&rsquo; 에서 옵티멀 폴리시따르는것 <br></p>
+현재상태에서 다음행동 (첫번째 action)이 optimal한 것을 선택하면, <br>
+그다음은 계승 state S&rsquo; 에서 optimal policy따르는것 <br></p>
 <p>이는  <strong>Principle of Optimality</strong> 를 나타낸다.</p>
-<p>한 정책이 어느 한 상태에서 최적이라면,
-그 정책이 앞으로 갈 모든 경로에서도 계속 최적이어야 한다.</p>
-<p>이는 아래 수식을 (value fucntion을) 최대화 하는것으로 나타낼수 있다.
+<p>한 policy이 어느 한 상태에서 최적이라면(Optimal이라면), <br>
+그 policy이 앞으로 갈 모든 경로에서도 계속 최적이어야 한다.</p>
+<p>이는 아래 수식을 (value function을) 최대화 하는것으로 나타낼수 있다.
 <span>
   \[
 v_*(s) \leftarrow \max_{a \in \mathcal{A}} \mathcal{R}_s^a + \gamma \sum_{s' \in \mathcal{S}} \mathcal{P}_{ss'}^a \, v_*(s')
@@ -620,7 +624,7 @@ iteration당  <span>
 <p><strong>sample</strong> : 에이전트가 환경과 상호작용해서 얻은 한 번의 경험 데이터</p></blockquote>
 <p>이로인한 장점은 다음과 같다.</p>
 <ol>
-<li>이로인해서 궁극적으로 Model-free하게 된다.( envrionment의 모델을 알지 않아도 되게 된다)</li>
+<li>이로인해서 궁극적으로 Model-free하게 된다.( environment 모델을 알지 않아도 되게 된다)</li>
 <li>차원의 저주 해소</li>
 <li>backup cost가 줄어듬</li>
 </ol>
@@ -832,7 +836,7 @@ Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha \left( R_{t+1} + \gamma Q(S_{t+1}, A
 <p>large MDP를 풀수 없으니 (too many state and action) value function(state-value/action-value function)을 어떻게 근사하게 구하는가?</p>
 <ul>
 <li>Liner combinations of feature</li>
-<li>Nueural network</li>
+<li>Neural network</li>
 </ul>
 <p>여기서부터 Gradient Descent 가 나온다.</p>
 <blockquote>
@@ -999,15 +1003,15 @@ L^{\text{CLIP}}(\theta) = \hat{\mathbb{E}}_t \left[ \min \left( r_t(\theta) \hat
 <li>State s = 현재까지 만들어진 partial query plan</li>
 <li>Action a = 다음에 어떤 테이블을 조인할지 결정</li>
 <li>Reward r = 쿼리 플랜의 실행 비용 또는 latency</li>
-<li>Envrionment = DB 쿼리 시뮬레이터 or Costmodel</li>
+<li>Environment = DB 쿼리 시뮬레이터 or Costmodel</li>
 </ul>
 <p>추가적으로</p>
 <ul>
 <li>simulation phase(step) 을 가져서 재앙적 plan을 탐험하지 않게하고,</li>
 <li>Timeout을 둬서 Safe Execution 시간을 보장했다. (재앙적 plan이 선택되더라도 timeout으로 하한보장)</li>
-<li>policy network를 simple tree convolution networks 로 구성</li>
+<li>value network를 simple tree convolution networks 로 구성</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 여기에서 모델은 강화학습의 environment의 모델이 아니라, policy를 업데이트할(계산할) treeconv 모델을 의미함</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 여기에서 모델은 강화학습의 environment의 모델이 아니라, value function을 근사할(계산할) treeconv 모델을 의미함</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">MakeModel</span>(p, exp, dataset):
 </span></span><span style="display:flex;"><span>    dev <span style="color:#f92672">=</span> GetDevice()
 </span></span><span style="display:flex;"><span>    num_label_bins <span style="color:#f92672">=</span> int(
