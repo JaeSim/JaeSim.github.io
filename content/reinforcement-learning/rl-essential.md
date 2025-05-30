@@ -43,22 +43,23 @@ Agent는 미래에 기대되는 cumulative reward가 최대화 되는 방향으�
 
 
 ### **State and MDP**
-**State** 는 다음 action을 결정하기 위한 정보이다
 
-<div style="text-align: center;">
-{{< katex display=true >}}
-\quad \quad S_t = f(H_t)
-\\
-{{< /katex >}}
-</div>
+- **Agent**는 학습하는 주체 (뇌, 로봇)
+- **Environment**는 환경 (지구, 게임)    //우리는 환경이 어떻게 동작하는지 보통 모름
+- **State** 는 다음 action을 결정하기 위한 정보이다    {{< katex display= true >}}S_t = f(H_t) {{< /katex >}}
 
-Envrionment State, Agent State 가 있고
-각각 Envrionment, Agent관점에서의 수식적/내부적 표현이다.
 
-**Envrionment State**는 Envrionment 관점에서 다음 step에서 Envrionment가 어떻게 변화할지를(어떤 State로 변화할지) 나타낸다.
-Envrionment에서는 microsecond 에서도 수많은 정보가 오기 때문에 불필요한 정보들도 많다.
-Envrionment State는 우리의 알고리즘을 만드는데 유용하진 않다. 왜냐하면 Agent의 정보를 포함하고 있지 않기 때문. (우리의 알고리즘은 Agent에 있을테니 라고 이해함)
+**Agent가 주어진 상태(State)에서 보상(Reward)을 최대화 할 수 있는 행동(Action)을 학습하는 것**
 
+
+**State** 에는 <br>
+Environment State, Agent State 가 있고
+각각 Environment, Agent관점에서의 수식적/내부적 표현이다.
+
+**Environment State**는 Environment 관점에서 다음 step에서 Environment가 어떻게 변화할지를(어떤 State로 변화할지) 나타낸다.
+Environment에서는 microsecond 에서도 수많은 정보가 오기 때문에 불필요한 정보들도 많다.
+보통의 RL 문제에서 agent는 Environment state를 전부 관측할 수 없다.
+ - 예) 로봇의 움직임을 학습하도록 설계했는데. 이 로봇은 지구의 중력이나, 마찰력 으로 물건이 어디로 움직이는지 정확하게 모른다.
 
 **Agent State**는 다음 step 에서 Agent가 어떤 행동을 선택할지를 나타낸 수식/표현이다.
 
@@ -66,7 +67,7 @@ Envrionment State는 우리의 알고리즘을 만드는데 유용하진 않다.
 **Information State**는 과거 history부터 모든 유용한 정보를 포함한 수학적 정의를 가진 State이다. 주로 Markov State라 부른다. (Markov 속성을 만족한다)
 
 - **Markov Properties** : <br>
-이전의 모든 스테이트정보를 이용해서 다음 State를 선택하는것이, 현재State만 보고 하는것과 같다
+이전의 모든 State 정보를 이용해서 다음 State를 선택하는것이, 현재 State만 보고 하는것과 같다
 {{< katex display=true >}}
 \mathbb{P}[S_{t+1} \mid S_t] = \mathbb{P}[S_{t+1} \mid S_1, \dots, S_t]
 {{< /katex >}}
@@ -77,7 +78,7 @@ Envrionment State는 우리의 알고리즘을 만드는데 유용하진 않다.
 {{< katex display=true >}}
 H_{1:t} \rightarrow S_t \rightarrow H_{t+1:\infty}
 {{< /katex >}}
-현재의 State가 충분한 정보를 이미 담고 있다고도 볼 수 잇다.
+현재의 State가 충분한 정보를 이미 담고 있다다.
 {{% details title="Appendix" open=false %}}
 - history 는 Observation과 actions, rewards의 연속이다
 <div style="text-align: center;">
@@ -113,15 +114,15 @@ H_{1:t} \rightarrow S_t \rightarrow H_{t+1:\infty}
 {{% /details %}}
 
 
-**Fully Observable Envrionments** 는 Agent가 envrionment에서 어떻게 동작하는지 바로 관측이 가능함을 나타내고,
-결과적으로 Envrionment State = Information State = Agent State 상태이다.
-이를 **Markov Desicion Process(MDP)** 라고 한다
+**Fully Observable Environments** 는 Agent가 environment 어떻게 동작하는지 바로 관측이 가능함을 나타내고,
+결과적으로 Environment State = Information State = Agent State 상태이다.
+이를 **Markov Decision Process(MDP)** 라고 한다
 
-**Partial Observabable Envrionments** 는 좀더 현실적인 환경. 로봇이 카메라를 통해서 화면을 보지만 현재 자기의 위치를 모르는 것처럼.
+**Partial Observable Environments** 는 좀더 현실적인 환경. 로봇이 카메라를 통해서 화면을 보지만 현재 자기의 위치를 모르는 것처럼.
 즉, Agent State {{< katex display=false >}} \ne {{< /katex >}} Environment State 이다.
 **Partially Observable Markov Decision Process(POMDP)** 로 수식이 표현된다.
 
-우리는 환경에 대해서 잘 모르지만 
+Agent는 자기의 State에 대한 representation을 가져야만하고, 이는
 - 이전 History를 이용해서 사용하는 방법이 있고,
 {{< katex display=true >}}S_t^a = H_t{{< /katex >}}
 - Probability 로 나타내는 방법이 있고,
@@ -132,10 +133,13 @@ H_{1:t} \rightarrow S_t \rightarrow H_{t+1:\infty}
 
 ### **Policy, Value Function, Model**
 
-RL은 agent는 아래 components를 한개 이상 포함한다.
-> **Policy**는 **_Agent가 어떻게 Action을 선택하는지(=behavior function)_** 이다.
+<img src="/images/rl-action-state-reward-with-component.png" alt="rl-essential" style="width:80%;" />
 
-State로부터 function 파이를 이용해서(policy) 를 통해 action을 결정한다.
+
+RL은 agent는 아래 components를 _**한개 이상**_ 포함한다.
+> **Policy**는 **_Agent가 어떻게 Action을 선택하는지(=behaviour function)_** 이다.
+
+State로부터 function {{< katex display=false >}}\pi{{< /katex >}}(policy)를 이용해서를 통해 action을 결정한다.
 - Deterministic policy: {{< katex display=false >}} a = \pi(s){{< /katex >}} <br>
  state를 넣으면 다음 취할 액션이 튀어나온다
 
@@ -151,13 +155,13 @@ State one과 State two,  action one과 action two를 선택할때 최종 reward�
 {{< katex display=true >}}
 v_{\pi}(s) = \mathbb{E}_{\pi} \left[ R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \dots \mid S_t = s \right]
 {{< /katex >}}
-gamma({{< katex display=false >}} \gamma{{< /katex >}}) 는 다음 스탭에 대한 discounting factor (미래를 예측하는것이니 넣은 변수로 이해함)
+gamma({{< katex display=false >}} \gamma{{< /katex >}}) 는 다음 스탭에 대한 discounting factor (지금은 미래의 값의 영향도 정도로 이해하고 넘어가자)
 
-> **Model**은 **_Agent관점에서 Envrionment가 어떻게 동작할지 생각하는 것_** 을 나타낸다.
+> **Model**은 **_Agent관점에서 Environment가 어떻게 동작할지 생각하는 것_** 을 나타낸다.
 
 transitions model, rewards model 전통적으로 두가지로 나뉜다
 
-transtions 모델은 directly 다음 state를 예측한다.
+transitions 모델은 directly 다음 state를 예측한다.
 {{< katex display=true >}}\mathcal{P}_{ss'}^a = \mathbb{P}[S_{t+1} = s' \mid S_t = s, A_t = a]{{< /katex >}}
 Rewards 모델은 reward를 예측한다.
 {{< katex display=true >}}\mathcal{R}_s^a = \mathbb{E}[R_{t+1} \mid S_t = s, A_t = a]{{< /katex >}}
@@ -166,19 +170,19 @@ Rewards 모델은 reward를 예측한다.
 
 <img src="/images/rl-agent-taxonomy.png" alt="rl-agent-taxonomy" style="width:80%;" />
 
-어떤 key component를 가지고 있는지에 따라서 RL을 분류한다
-- value-based RL은 value function을 가지고 있다. 
-- policy-based RL은 policy를 가지고 있다.
-- actor-critic은 value function과 policy를 가지고 잇다.
+어떤 key component를 가지고 학습하고 있는지에 따라서 RL을 분류한다
+- value-based RL은 value function을 optimal이 되도록 한다. (묵시적으로 policy 를 가지고 있다.)
+- policy-based RL은 policy를 업데이트한다.
+- actor-critic은 value function과 policy를 가지고 있다.
 
 Model base로 구분하는 방법이 있다.
-- model free는 모델이 없지만(=환경에 대한 representation이 없지만) value function + policy로 구성된 RL 
-- model based는 value function + policy, model 이 존재
+- model free는 model이 없지만(=환경에 대한 representation이 없지만) value function and/or policy로 구성된 RL 
+- model based는 model이 존재하고, value function and/or policy 로 구성된 RL
 
 
 ### **Sequential decision making의 두가지 방식**
-- Reinforcement Learning은 환경(Environment)을 모르고 상호작용하면서 reward가 최대가 되도록 학습 하는것
-- Planning은 환경을 알고(우리가 환경에 해당하는 rule/model을 주고) agent가 계산하는 것
+- **Reinforcement Learning**은 환경(Environment)을 모르고 상호작용하면서 reward가 최대가 되도록 학습 하는 것
+- **Planning**은 환경을 알고(우리가 환경에 해당하는 rule/model을 주고) agent가 계산하는 것
 
 
 ### **Exploration and Exploitation**
@@ -191,8 +195,8 @@ Exploration 와 Exploitation 는 trade-off
 ### **Prediction and Control**
 RL에서는 prediction problem과 control problem 이 있다.
 
-- **prediction** 은 현재 폴리시를 따르면 앞으로 얼마나 미래에 좋을찌 평가하는것
-- **contorl** 은 bset policy를 찾는것
+- **prediction** 은 현재 policy 를 따르면 앞으로 얼마나 미래에 좋을지 평가하는것
+- **contorl** 은 bset policy(=optimal policy)를 찾는것
 
 ---
 
