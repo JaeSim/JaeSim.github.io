@@ -1,6 +1,5 @@
 +++
 date = '2025-06-12T11:50:33+09:00'
-draft = true
 title = 'temp-LOGER 코드 분석'
 subtitle =  'LOGER 프로젝트의 코드 분석 내용을 담은 내용입니다.'
 weight = 4
