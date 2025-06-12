@@ -14,6 +14,49 @@
 
   
     
+      temp-LOGER 코드 분석
+    
+
+    
+      LOGER 프로젝트의 코드 분석 내용을 담은 내용입니다.
+    
+
+    2025-06-12 11:50:33 KST
+
+    
+       
+        
+  LOGER 프로젝트의 코드 분석 내용
+  
+
+
+  기본정보
+  
+
+
+LOGER: A Learned Optimizer towards Generating Efficient and Robust Query Execution Plans
+github repository
+https://github.com/TianyiChen0316/LOGER
+
+
+  LOGER 실행을 위한 셋업
+  
+
+# 3.8 이여야한다.
+conda create -n loger python=3.8 -y
+conda activate loger
+pip install -r requirements.txt
+pip install pandas
+pip install dgl
+pip install packaging
+conda install …
+      
+    
+
+  
+
+  
+    
       temp. 4. Model Free Prediction
     
 
@@ -38,7 +81,7 @@
 <meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="Home">
-  <meta property="og:description" content="Recent Posts#temp. 4. Model Free Prediction강화학습의 Model Free Prediction 에 대한 내용2025-06-12 10:57:55 KST4. model-free prediction// NOTE: 이 페이지는 임시로 작성되었습니다.3장 DP에 있는것처럼, Model-free prediction 하고, Model-free control 하는 순서로 진행된다.">
+  <meta property="og:description" content="Recent Posts#temp-LOGER 코드 분석LOGER 프로젝트의 코드 분석 내용을 담은 내용입니다.2025-06-12 11:50:33 KSTLOGER 프로젝트의 코드 분석 내용기본정보LOGER: A Learned Optimizer towards Generating Efficient and Robust Query Execution Plans github repository https://github.com/TianyiChen0316/LOGER LOGER 실행을 위한 셋업# 3.8 이여야한다. conda create -n loger python=3.8 -y conda activate loger pip install -r requirements.txt pip install pandas pip install dgl pip install packaging conda install …temp. 4. Model Free Prediction강화학습의 Model Free Prediction 에 대한 내용2025-06-12 10:57:55 KST4. model-free prediction// NOTE: 이 페이지는 임시로 작성되었습니다.3장 DP에 있는것처럼, Model-free prediction 하고, Model-free control 하는 순서로 진행된다.">
   <meta property="og:locale" content="ko_kr">
   <meta property="og:type" content="website">
 <title>Home | JaeSim&#39;s Workspace</title>
@@ -47,7 +90,7 @@
 <link rel="canonical" href="https://JaeSim.github.io/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.cd8fdad82ebc0a9fd91674c3f25021931c8438f3460432ca8cee03d70aa602e2.js" integrity="sha256-zY/a2C68Cp/ZFnTD8lAhkxyEOPNGBDLKjO4D1wqmAuI=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.d07e27cf6ddab7ddb01615bbc84ba331ee589e6d9272537468f502aa94790b5d.js" integrity="sha256-0H4nz23at92wFhW7yEujMe5Ynm2SclN0aPUCqpR5C10=" crossorigin="anonymous"></script>
 <link rel="alternate" type="application/rss+xml" href="https://JaeSim.github.io/index.xml" title="JaeSim's Workspace" />
 <!--
 Made with Book Theme
@@ -253,6 +296,19 @@ https://github.com/alex-shpak/hugo-book
           
   <ul>
     
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/loger-code/" class="">temp-LOGER 코드 분석</a>
+  
+
+        </li>
+      
+    
   </ul>
 
         </li>
@@ -356,6 +412,49 @@ https://github.com/alex-shpak/hugo-book
 </style>
 
 <ul>
+
+  <li style="margin-bottom: 2rem;">
+    <a href="/learned-query-optimizer/loger-code/">
+      <strong style="font-size: 1.25rem;">temp-LOGER 코드 분석</strong>
+    </a><br/>
+
+    
+      <small style="color: #888;">LOGER 프로젝트의 코드 분석 내용을 담은 내용입니다.</small><br/>
+    
+
+    <small>2025-06-12 11:50:33 KST</small>
+
+    <a href="/learned-query-optimizer/loger-code/" style="text-decoration: none; color: inherit;">
+      <div class="summary-box"> 
+        <h1 id="loger-프로젝트의-코드-분석-내용">
+  <strong>LOGER 프로젝트의 코드 분석 내용</strong>
+  
+</h1>
+<h2 id="기본정보">
+  <strong>기본정보</strong>
+  
+</h2>
+<ul>
+<li>LOGER: A Learned Optimizer towards Generating Efficient and Robust Query Execution Plans</li>
+<li>github repository
+<a href="https://github.com/TianyiChen0316/LOGER">https://github.com/TianyiChen0316/LOGER</a></li>
+</ul>
+<h3 id="loger-실행을-위한-셋업">
+  <strong>LOGER 실행을 위한 셋업</strong>
+  
+</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># 3.8 이여야한다.</span>
+</span></span><span style="display:flex;"><span>conda create -n loger python<span style="color:#f92672">=</span>3.8 -y
+</span></span><span style="display:flex;"><span>conda activate loger
+</span></span><span style="display:flex;"><span>pip install -r requirements.txt
+</span></span><span style="display:flex;"><span>pip install pandas
+</span></span><span style="display:flex;"><span>pip install dgl
+</span></span><span style="display:flex;"><span>pip install packaging
+</span></span><span style="display:flex;"><span>conda install …</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre></div>
+      </div>
+    </a>
+
+  </li>
 
   <li style="margin-bottom: 2rem;">
     <a href="/reinforcement-learning/rl-model-free-prediction/">
@@ -488,46 +587,6 @@ MC는 <strong>하나의 에피소드 전체</strong>(시작 ~ 종료)를 관찰�
 <p>그렇다면, static page를 generation을 해주는 framework로 jekyll 와 hugo를 고민하였고
 ruby 보다 go로 이루어진 hugo를 믿기로 하였다.</p>
 <p>다른 blog들이 생성한 페이지를 주로 참조하였으며, 이 포스팅은 해당 글들의 엮음에 불과한점을 참조 부탁한다.</p>
-      </div>
-    </a>
-
-  </li>
-
-  <li style="margin-bottom: 2rem;">
-    <a href="/reinforcement-learning/rl-essential/">
-      <strong style="font-size: 1.25rem;">1. Reinforcement Learning Essential</strong>
-    </a><br/>
-
-    
-      <small style="color: #888;">강화학습에 대한 기초 내용</small><br/>
-    
-
-    <small>2025-05-22 11:13:00 KST</small>
-
-    <a href="/reinforcement-learning/rl-essential/" style="text-decoration: none; color: inherit;">
-      <div class="summary-box"> 
-        <h1 id="1-강화학습에-대한-기초-내용">
-  <strong>1. 강화학습에 대한 기초 내용</strong>
-  
-</h1>
-<h2 id="들어가기-앞서">
-  <strong>들어가기 앞서</strong>
-  
-</h2>
-<p>강화학습의 기초적인 내용을 학습한 뒤 정리한 것으로,
-남들에게 보여주기 보다는 본인의 이해와 기억을 위해서 기술한 것입니다.</p>
-<p>나만의 방식으로 이해한 것이기 때문에, 주요하다고 생각하는 부분이 다를수 있으며 생략되거나 놓친 부분이 많이 있습니다.</p>
-<h2 id="강화학습rl-reinforcement-learning-이란">
-  <strong>강화학습(RL: Reinforcement Learning) 이란?</strong>
-  
-</h2>
-<h3 id="definition">
-  <strong>Definition</strong>
-  
-</h3>
-<blockquote>
-<p>“Reinforcement learning is learning what to do—how to map <strong>situations</strong> to <strong>actions</strong>—so as to maximize a numerical <strong>reward</strong> signal.”<br>
-— <em>Richard S. …</em></p></blockquote>
       </div>
     </a>
 

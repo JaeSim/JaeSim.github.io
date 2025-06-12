@@ -37,6 +37,11 @@
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>https://JaeSim.github.io/learned-query-optimizer/loger-code/</loc>
+    <lastmod>2025-06-12T11:50:33+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://JaeSim.github.io/reinforcement-learning/rl-essential/</loc>
     <lastmod>2025-05-22T11:13:00+09:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -63,7 +68,42 @@
     <priority>0.5</priority>
   </url><url>
     <loc>https://JaeSim.github.io/categories/</loc>
-    <lastmod>2025-06-12T10:57:55+09:00</lastmod>
+    <lastmod>2025-06-12T11:50:33+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/database/</loc>
+    <lastmod>2025-06-12T11:50:33+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/dbms/</loc>
+    <lastmod>2025-06-12T11:50:33+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/categories/learned-query-optimizer/</loc>
+    <lastmod>2025-06-12T11:50:33+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/learned-query-optimizer/</loc>
+    <lastmod>2025-06-12T11:50:33+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/optimizer/</loc>
+    <lastmod>2025-06-12T11:50:33+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/reinforcement-learning/</loc>
+    <lastmod>2025-06-12T11:50:33+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/</loc>
+    <lastmod>2025-06-12T11:50:33+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -83,16 +123,6 @@
     <priority>0.5</priority>
   </url><url>
     <loc>https://JaeSim.github.io/categories/reinforcement-learning/</loc>
-    <lastmod>2025-06-12T10:57:55+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://JaeSim.github.io/tags/reinforcement-learning/</loc>
-    <lastmod>2025-06-12T10:57:55+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://JaeSim.github.io/tags/</loc>
     <lastmod>2025-06-12T10:57:55+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
