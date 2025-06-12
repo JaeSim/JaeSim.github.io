@@ -14,31 +14,31 @@
 
   
     
-      temp : 3. Planning by Dynamic Programming
+      temp. 4. Model Free Prediction
     
 
     
-      강화학습의 value iteration, policy iteration과 DP 대한 내용
+      강화학습의 Model Free Prediction 에 대한 내용
     
 
-    2025-05-29 12:21:05 KST
+    2025-06-12 10:57:55 KST
 
     
        
         
-  3. Planning by Dynamic Programming
+  4. model-free prediction
   
 
 
   // NOTE: 이 페이지는 임시로 작성되었습니다.
 
-MDP를 푸는 방식들이 여러 방법이 있다.">
+3장 DP에 있는것처럼, Model-free prediction 하고, Model-free control 하는 순서로 진행된다.">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="Home">
-  <meta property="og:description" content="Recent Posts#temp : 3. Planning by Dynamic Programming강화학습의 value iteration, policy iteration과 DP 대한 내용2025-05-29 12:21:05 KST3. Planning by Dynamic Programming// NOTE: 이 페이지는 임시로 작성되었습니다.MDP를 푸는 방식들이 여러 방법이 있다.">
+  <meta property="og:description" content="Recent Posts#temp. 4. Model Free Prediction강화학습의 Model Free Prediction 에 대한 내용2025-06-12 10:57:55 KST4. model-free prediction// NOTE: 이 페이지는 임시로 작성되었습니다.3장 DP에 있는것처럼, Model-free prediction 하고, Model-free control 하는 순서로 진행된다.">
   <meta property="og:locale" content="ko_kr">
   <meta property="og:type" content="website">
 <title>Home | JaeSim&#39;s Workspace</title>
@@ -47,7 +47,7 @@ MDP를 푸는 방식들이 여러 방법이 있다.">
 <link rel="canonical" href="https://JaeSim.github.io/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.f3d73cc38a9307efbe81ed599d6507776c1c7f0b6c6aa6c1c6c1b33132f2c3a2.js" integrity="sha256-89c8w4qTB&#43;&#43;&#43;ge1ZnWUHd2wcfwtsaqbBxsGzMTLyw6I=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.cd8fdad82ebc0a9fd91674c3f25021931c8438f3460432ca8cee03d70aa602e2.js" integrity="sha256-zY/a2C68Cp/ZFnTD8lAhkxyEOPNGBDLKjO4D1wqmAuI=" crossorigin="anonymous"></script>
 <link rel="alternate" type="application/rss+xml" href="https://JaeSim.github.io/index.xml" title="JaeSim's Workspace" />
 <!--
 Made with Book Theme
@@ -216,11 +216,42 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/reinforcement-learning/rl-dp/" class="">temp : 3. Planning by Dynamic Programming</a>
+    <a href="/reinforcement-learning/rl-dp/" class="">3. Planning by Dynamic Programming</a>
   
 
         </li>
       
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-model-free-prediction/" class="">temp. 4. Model Free Prediction</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Learned Query Optimizer</span>
+  
+
+          
+  <ul>
     
   </ul>
 
@@ -327,8 +358,41 @@ https://github.com/alex-shpak/hugo-book
 <ul>
 
   <li style="margin-bottom: 2rem;">
+    <a href="/reinforcement-learning/rl-model-free-prediction/">
+      <strong style="font-size: 1.25rem;">temp. 4. Model Free Prediction</strong>
+    </a><br/>
+
+    
+      <small style="color: #888;">강화학습의 Model Free Prediction 에 대한 내용</small><br/>
+    
+
+    <small>2025-06-12 10:57:55 KST</small>
+
+    <a href="/reinforcement-learning/rl-model-free-prediction/" style="text-decoration: none; color: inherit;">
+      <div class="summary-box"> 
+        <h1 id="4-model-free-prediction">
+  <strong>4. model-free prediction</strong>
+  
+</h1>
+<blockquote class="book-hint warning">
+  // NOTE: 이 페이지는 임시로 작성되었습니다.
+</blockquote>
+<p>3장 DP에 있는것처럼, Model-free prediction 하고, Model-free control 하는 순서로 진행된다.</p>
+<p>episode : 에이전트가 시작 상태에서 행동을 시작해서, 어떤 종료 조건(End state)에 도달할 때까지의 전체 과정</p>
+<p>MC와 TD는 major model-free algo.</p>
+<ul>
+<li><strong>Monte Carlo (MC)</strong> : 한 에피소드가 끝날 때까지 기다린 후, 그 전체 리턴 값을 이용하여 value function을 업데이트<br>
+MC는 <strong>하나의 에피소드 전체</strong>(시작 ~ 종료)를 관찰한 뒤, <br>
+실제로 받은 reward들을 기반으로 학습합니다. <br>
+환경 모델 없이, 경험만 …</li></ul>
+      </div>
+    </a>
+
+  </li>
+
+  <li style="margin-bottom: 2rem;">
     <a href="/reinforcement-learning/rl-dp/">
-      <strong style="font-size: 1.25rem;">temp : 3. Planning by Dynamic Programming</strong>
+      <strong style="font-size: 1.25rem;">3. Planning by Dynamic Programming</strong>
     </a><br/>
 
     
@@ -343,9 +407,6 @@ https://github.com/alex-shpak/hugo-book
   <strong>3. Planning by Dynamic Programming</strong>
   
 </h1>
-<blockquote class="book-hint warning">
-  // NOTE: 이 페이지는 임시로 작성되었습니다.
-</blockquote>
 <p>MDP를 푸는 방식들이 여러 방법이 있다.</p>
 <p><strong>Policy evaluation, Policy iteration, Value iteration</strong> 등이 있고, 이것들은 <strong>환경을 정확하게 안다면(=모델을 안다면)</strong> DP가 적용이 가능하다</p>
 <p>먼저 간략하게 언급하자면</p>
@@ -354,7 +415,7 @@ https://github.com/alex-shpak/hugo-book
 <li><strong>value iteration</strong> : value function을 iteration하면서 옵티멀을 찾아가는 방법</li>
 </ol>
 <p>이 있다.</p>
-<p>이번 섹션은 DP …</p>
+<p>이번 섹션은 DP로 known MDP를 푸는 방법에 대한것이고, …</p>
       </div>
     </a>
 
@@ -467,53 +528,6 @@ ruby 보다 go로 이루어진 hugo를 믿기로 하였다.</p>
 <blockquote>
 <p>“Reinforcement learning is learning what to do—how to map <strong>situations</strong> to <strong>actions</strong>—so as to maximize a numerical <strong>reward</strong> signal.”<br>
 — <em>Richard S. …</em></p></blockquote>
-      </div>
-    </a>
-
-  </li>
-
-  <li style="margin-bottom: 2rem;">
-    <a href="/development/firstpost/">
-      <strong style="font-size: 1.25rem;">할일</strong>
-    </a><br/>
-
-    
-      <small style="color: #888;">첫번째글의 소제목입니다</small><br/>
-    
-
-    <small>2025-05-21 10:26:34 KST</small>
-
-    <a href="/development/firstpost/" style="text-decoration: none; color: inherit;">
-      <div class="summary-box"> 
-        <p>개발 관련 항목을 기록하기 위한 post 입니다.</p>
-<p>Todo List:</p>
-<table>
-  <thead>
-      <tr>
-          <th>상태</th>
-          <th>날짜</th>
-          <th>작업 내용</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>✅</td>
-          <td><em>2025-05-21</em></td>
-          <td>블로그 GitHub Page 연동</td>
-      </tr>
-      <tr>
-          <td>✅</td>
-          <td><em>2025-05-22</em></td>
-          <td>RL 관련 Post 남기기 (on-going)</td>
-      </tr>
-      <tr>
-          <td>✅</td>
-          <td><em>2025-05-22</em></td>
-          <td><em>hugo + github page + giscus</em></td>
-      </tr>
-      <tr>
-          <td>✅</td>
-          <td><em>2025-05-22 …</em></td></tr></tbody></table>
       </div>
     </a>
 
