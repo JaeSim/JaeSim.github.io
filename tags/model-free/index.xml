@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Model Free on JaeSim&#39;s Workspace</title>
+    <link>https://JaeSim.github.io/tags/model-free/</link>
+    <description>Recent content in Model Free on JaeSim&#39;s Workspace</description>
+    <generator>Hugo</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Thu, 12 Jun 2025 10:57:55 +0900</lastBuildDate>
+    <atom:link href="https://JaeSim.github.io/tags/model-free/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>temp. 4. Model Free Prediction</title>
+      <link>https://JaeSim.github.io/reinforcement-learning/rl-model-free-prediction/</link>
+      <pubDate>Thu, 12 Jun 2025 10:57:55 +0900</pubDate>
+      <guid>https://JaeSim.github.io/reinforcement-learning/rl-model-free-prediction/</guid>
+      <description>&lt;h1 id=&#34;4-model-free-prediction&#34;&gt;&#xD;&#xA;  &lt;strong&gt;4. model-free prediction&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#4-model-free-prediction&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;blockquote class=&#34;book-hint warning&#34;&gt;&#xD;&#xA;  // NOTE: 이 페이지는 임시로 작성되었습니다.&#xD;&#xA;&lt;/blockquote&gt;&#xD;&#xA;&lt;p&gt;3장 DP에 있는것처럼, Model-free prediction 하고, Model-free control 하는 순서로 진행된다.&lt;/p&gt;&#xA;&lt;p&gt;episode : 에이전트가 시작 상태에서 행동을 시작해서, 어떤 종료 조건(End state)에 도달할 때까지의 전체 과정&lt;/p&gt;&#xA;&lt;p&gt;MC와 TD는 major model-free algo.&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Monte Carlo (MC)&lt;/strong&gt; : 한 에피소드가 끝날 때까지 기다린 후, 그 전체 리턴 값을 이용하여 value function을 업데이트&lt;br&gt;&#xA;MC는 &lt;strong&gt;하나의 에피소드 전체&lt;/strong&gt;(시작 ~ 종료)를 관찰한 뒤, &lt;br&gt;&#xA;실제로 받은 reward들을 기반으로 학습합니다. &lt;br&gt;&#xA;환경 모델 없이, 경험만으로 value function이나 policy를 추정합니다. &lt;br&gt;&#xA;Monte-Carlo policy evaluation uses &lt;em&gt;empirical mean&lt;/em&gt; return&#xA;instead of expected return &lt;br&gt;&#xA;높은 variance와 zero bias를 가짐&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;즉, 가장 손쉬운 방법으로 epside를 돌려보고 가능서들의 mean 값으로 처리 &lt;br&gt;&#xA;방문할때마다 횟수와 토탈 return을 늘리고, 이것의 평균을 통해 value function을 estimate한다.&#xA;lecture-4, 7 page&#xA;&#xD;&#xA;&lt;link rel=&#34;stylesheet&#34; href=&#34;https://JaeSim.github.io/katex/katex.min.css&#34; /&gt;&#xD;&#xA;&lt;script defer src=&#34;https://JaeSim.github.io/katex/katex.min.js&#34;&gt;&lt;/script&gt;&#xD;&#xA;&lt;script defer src=&#34;https://JaeSim.github.io/katex/auto-render.min.js&#34; onload=&#34;renderMathInElement(document.body);&#34;&gt;&lt;/script&gt;&lt;span&gt;&#xD;&#xA;  \[&#xD;&#xA;V(S_t) \leftarrow V(S_t) + \frac{1}{N(S_t)} \left(G_t - V(S_t)\right)&#xD;&#xA;\]&#xD;&#xA;&lt;/span&gt;&#xD;&#xA;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

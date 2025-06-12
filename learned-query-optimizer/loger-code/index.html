@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="ko-kr" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
+  LOGER 프로젝트의 코드 분석 내용
+  #
+
+
+  기본정보
+  #
+
+
+LOGER: A Learned Optimizer towards Generating Efficient and Robust Query Execution Plans
+github repository
+https://github.com/TianyiChen0316/LOGER
+
+
+  LOGER 실행을 위한 셋업
+  #
+
+# 3.8 이여야한다.
+conda create -n loger python=3.8 -y
+conda activate loger
+pip install -r requirements.txt
+pip install pandas
+pip install dgl
+pip install packaging
+conda install libffi
+export LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$LD_LIBRARY_PATH
+pip install dgl-cu110==0.6.1
+
+mkdir results
+postgre 설치
+아래내용은 balsa 프로젝트에 있는 내용
+  
+cd ~
+wget https://ftp.postgresql.org/pub/source/v12.5/postgresql-12.5.tar.gz
+tar xzvf postgresql-12.5.tar.gz
+cd postgresql-12.5
+
+./configure --prefix=$HOME/postgresql-12.5 --without-readline
+make -j
+make install
+echo &#39;export PATH=/home/jae.sim/postgresql-12.5/bin:$PATH&#39; &gt;&gt; ~/.bashrc
+source ~/.bashrc
+cd ~/
+git clone https://github.com/ossc-db/pg_hint_plan.git -b REL12_1_3_7
+
+cd pg_hint_plan/
+vim Makefile
+###
+# Modify Makefile: change line
+#   PG_CONFIG = pg_config
+# to
+#   PG_CONFIG = /home/jae.sim/postgresql-12.5/bin/pg_config
+
+pg_ctl -D ~/imdb initdb
+pg_ctl -D ~/imdb start -l logfile
+  
+
+아래 내용을 추가">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/learned-query-optimizer/loger-code/">
+  <meta property="og:site_name" content="JaeSim&#39;s Workspace">
+  <meta property="og:title" content="temp-LOGER 코드 분석">
+  <meta property="og:description" content="LOGER 프로젝트의 코드 분석 내용#기본정보#LOGER: A Learned Optimizer towards Generating Efficient and Robust Query Execution Plans github repository https://github.com/TianyiChen0316/LOGER LOGER 실행을 위한 셋업## 3.8 이여야한다. conda create -n loger python=3.8 -y conda activate loger pip install -r requirements.txt pip install pandas pip install dgl pip install packaging conda install libffi export LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$LD_LIBRARY_PATH pip install dgl-cu110==0.6.1 mkdir results postgre 설치
+아래내용은 balsa 프로젝트에 있는 내용cd ~ wget https://ftp.postgresql.org/pub/source/v12.5/postgresql-12.5.tar.gz tar xzvf postgresql-12.5.tar.gz cd postgresql-12.5 ./configure --prefix=$HOME/postgresql-12.5 --without-readline make -j make install echo &#39;export PATH=/home/jae.sim/postgresql-12.5/bin:$PATH&#39; &gt;&gt; ~/.bashrc source ~/.bashrc cd ~/ git clone https://github.com/ossc-db/pg_hint_plan.git -b REL12_1_3_7 cd pg_hint_plan/ vim Makefile ### # Modify Makefile: change line # PG_CONFIG = pg_config # to # PG_CONFIG = /home/jae.sim/postgresql-12.5/bin/pg_config pg_ctl -D ~/imdb initdb pg_ctl -D ~/imdb start -l logfile 아래 내용을 추가">
+  <meta property="og:locale" content="ko_kr">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="learned-query-optimizer">
+    <meta property="article:published_time" content="2025-06-12T11:50:33+09:00">
+    <meta property="article:modified_time" content="2025-06-12T11:50:33+09:00">
+    <meta property="article:tag" content="DBMS">
+    <meta property="article:tag" content="Database">
+    <meta property="article:tag" content="Optimizer">
+    <meta property="article:tag" content="Learned Query Optimizer">
+    <meta property="article:tag" content="Reinforcement Learning">
+<title>temp-LOGER 코드 분석 | JaeSim&#39;s Workspace</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/learned-query-optimizer/loger-code/">
+<link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.0563914654c0bd90aae07ce599e0639fe71f9632db13413b7df327c73b171cd5.js" integrity="sha256-BWORRlTAvZCq4HzlmeBjn&#43;cfljLbE0E7ffMnxzsXHNU=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>JaeSim&#39;s Workspace</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/aboutme/" class="">About Me</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Development / 개발</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/secondpost/" class="">두번째 글입니다. 블로그 실험용 테스트 글입니다.</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/firstpost/" class="">할일</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/blogsetup/" class="">Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Reinforcement Learning / 강화학습</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-essential/" class="">1. Reinforcement Learning Essential</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-mdp/" class="">2. Markov Decision Process</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-dp/" class="">3. Planning by Dynamic Programming</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-model-free-prediction/" class="">temp. 4. Model Free Prediction</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Learned Query Optimizer</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/loger-code/" class="active">temp-LOGER 코드 분석</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>temp-LOGER 코드 분석</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#기본정보"><strong>기본정보</strong></a>
+      <ul>
+        <li><a href="#loger-실행을-위한-셋업"><strong>LOGER 실행을 위한 셋업</strong></a></li>
+        <li><a href="#loger-실행-커맨드"><strong>LOGER 실행 커맨드</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#high-level-flow"><strong>high level flow</strong></a></li>
+    <li><a href="#train_"><strong>train_mode, test_mode of model</strong></a></li>
+    <li><a href="#workload-sql-파싱"><strong>workload sql 파싱</strong></a></li>
+    <li><a href="#상용-db-연결의-흔적"><strong>상용 db 연결의 흔적</strong></a></li>
+  </ul>
+</nav>
+
+  <div class="post-tags">
+    <strong>Tags:</strong>
+    
+      <a href="/tags/dbms" class="tag">DBMS</a>
+    
+      <a href="/tags/database" class="tag">Database</a>
+    
+      <a href="/tags/optimizer" class="tag">Optimizer</a>
+    
+      <a href="/tags/learned-query-optimizer" class="tag">Learned Query Optimizer</a>
+    
+      <a href="/tags/reinforcement-learning" class="tag">Reinforcement Learning</a>
+    
+  </div>
+
+
+
+  <div class="post-categories">
+    <strong>Categories:</strong>
+    
+      <a href="/categories/learned-query-optimizer" class="category">Learned Query Optimizer</a>
+    
+  </div>
+
+
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="loger-프로젝트의-코드-분석-내용">
+  <strong>LOGER 프로젝트의 코드 분석 내용</strong>
+  <a class="anchor" href="#loger-%ed%94%84%eb%a1%9c%ec%a0%9d%ed%8a%b8%ec%9d%98-%ec%bd%94%eb%93%9c-%eb%b6%84%ec%84%9d-%eb%82%b4%ec%9a%a9">#</a>
+</h1>
+<h2 id="기본정보">
+  <strong>기본정보</strong>
+  <a class="anchor" href="#%ea%b8%b0%eb%b3%b8%ec%a0%95%eb%b3%b4">#</a>
+</h2>
+<ul>
+<li>LOGER: A Learned Optimizer towards Generating Efficient and Robust Query Execution Plans</li>
+<li>github repository
+<a href="https://github.com/TianyiChen0316/LOGER">https://github.com/TianyiChen0316/LOGER</a></li>
+</ul>
+<h3 id="loger-실행을-위한-셋업">
+  <strong>LOGER 실행을 위한 셋업</strong>
+  <a class="anchor" href="#loger-%ec%8b%a4%ed%96%89%ec%9d%84-%ec%9c%84%ed%95%9c-%ec%85%8b%ec%97%85">#</a>
+</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># 3.8 이여야한다.</span>
+</span></span><span style="display:flex;"><span>conda create -n loger python<span style="color:#f92672">=</span>3.8 -y
+</span></span><span style="display:flex;"><span>conda activate loger
+</span></span><span style="display:flex;"><span>pip install -r requirements.txt
+</span></span><span style="display:flex;"><span>pip install pandas
+</span></span><span style="display:flex;"><span>pip install dgl
+</span></span><span style="display:flex;"><span>pip install packaging
+</span></span><span style="display:flex;"><span>conda install libffi
+</span></span><span style="display:flex;"><span>export LD_LIBRARY_PATH<span style="color:#f92672">=</span>$CONDA_PREFIX/lib:$LD_LIBRARY_PATH
+</span></span><span style="display:flex;"><span>pip install dgl-cu110<span style="color:#f92672">==</span>0.6.1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mkdir results
+</span></span></code></pre></div><p>postgre 설치</p>
+<details ><summary>아래내용은 balsa 프로젝트에 있는 내용</summary>
+  <div class="markdown-inner">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cd ~
+</span></span><span style="display:flex;"><span>wget https://ftp.postgresql.org/pub/source/v12.5/postgresql-12.5.tar.gz
+</span></span><span style="display:flex;"><span>tar xzvf postgresql-12.5.tar.gz
+</span></span><span style="display:flex;"><span>cd postgresql-12.5
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>./configure --prefix<span style="color:#f92672">=</span>$HOME/postgresql-12.5 --without-readline
+</span></span><span style="display:flex;"><span>make -j
+</span></span><span style="display:flex;"><span>make install
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#39;export PATH=/home/jae.sim/postgresql-12.5/bin:$PATH&#39;</span> &gt;&gt; ~/.bashrc
+</span></span><span style="display:flex;"><span>source ~/.bashrc
+</span></span><span style="display:flex;"><span>cd ~/
+</span></span><span style="display:flex;"><span>git clone https://github.com/ossc-db/pg_hint_plan.git -b REL12_1_3_7
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cd pg_hint_plan/
+</span></span><span style="display:flex;"><span>vim Makefile
+</span></span><span style="display:flex;"><span><span style="color:#75715e">###</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Modify Makefile: change line</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   PG_CONFIG = pg_config</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># to</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   PG_CONFIG = /home/jae.sim/postgresql-12.5/bin/pg_config</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pg_ctl -D ~/imdb initdb
+</span></span><span style="display:flex;"><span>pg_ctl -D ~/imdb start -l logfile
+</span></span></code></pre></div>  </div>
+</details>
+<p>아래 내용을 추가</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># train.py</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 아래 내용을 추가</span>
+</span></span><span style="display:flex;"><span>    parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--host&#39;</span>, type<span style="color:#f92672">=</span>str, default<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;/tmp&#39;</span>,
+</span></span><span style="display:flex;"><span>                        help<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;PostgreSQL host path&#39;</span>)
+</span></span></code></pre></div><h3 id="loger-실행-커맨드">
+  <strong>LOGER 실행 커맨드</strong>
+  <a class="anchor" href="#loger-%ec%8b%a4%ed%96%89-%ec%bb%a4%eb%a7%a8%eb%93%9c">#</a>
+</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># start postgre</span>
+</span></span><span style="display:flex;"><span>pg_ctl -D ~/imdb start -l logfile
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>conda activate loger
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## database  설정은 아래 내용 참조</span>
+</span></span><span style="display:flex;"><span> python train.py --database imdbload --port <span style="color:#ae81ff">5437</span> --host /tmp -U <span style="color:#e6db74">&#34;&#34;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># train.py</span>
+</span></span><span style="display:flex;"><span>    parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;-D&#39;</span>, <span style="color:#e6db74">&#39;--database&#39;</span>, type<span style="color:#f92672">=</span>str, default<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;imdb&#39;</span>,
+</span></span><span style="display:flex;"><span>                        help<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;PostgreSQL database.&#39;</span>)
+</span></span><span style="display:flex;"><span>    parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;-U&#39;</span>, <span style="color:#e6db74">&#39;--user&#39;</span>, type<span style="color:#f92672">=</span>str, default<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;postgres&#39;</span>,
+</span></span><span style="display:flex;"><span>                        help<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;PostgreSQL user.&#39;</span>)
+</span></span><span style="display:flex;"><span>    parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;-P&#39;</span>, <span style="color:#e6db74">&#39;--password&#39;</span>, type<span style="color:#f92672">=</span>str, default<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>,
+</span></span><span style="display:flex;"><span>                        help<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;PostgreSQL user password.&#39;</span>)
+</span></span><span style="display:flex;"><span>    parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--port&#39;</span>, type<span style="color:#f92672">=</span>int, default<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>,
+</span></span><span style="display:flex;"><span>                        help<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;PostgreSQL port.&#39;</span>)
+</span></span></code></pre></div><h2 id="high-level-flow">
+  <strong>high level flow</strong>
+  <a class="anchor" href="#high-level-flow">#</a>
+</h2>
+<p><strong>train.py  .main</strong></p>
+<ul>
+<li>기초 Setup = train_set, test_set ready, database connect, log, cache 등을 설정,</li>
+<li>자체 클래스 <code>DeepQNet</code> 모델 initiailize
+<ul>
+<li><code>DeepQNet</code> 에는 Step1, Step2, PredictTail 총 세개의 Nueral Network를 가짐</li>
+<li><code>Step1</code> : table level feature encoding</li>
+<li><code>Step2</code> : 두 테이블간 embedding을 LSTM 기반으로 join representation을 생성</li>
+<li><code>PredictTail</code> :  생성된 쿼리가 좋은지 판단하는 구조.</li>
+<li>요약</li>
+</ul>
+<blockquote>
+<p>Step1: 테이블 임베딩 생성 (GNN) <br>
+Step2: pairwise join composition (LSTM) <br>
+PredictTail: partial plan value 예측 (value head) <br>
+UseGeneratedPredict: 생성된 plan 검증 (classifier head)  &lt;&ndash; 안씀</p></blockquote>
+</li>
+</ul>
+<blockquote class="book-hint warning">
+  테이블 임베딩을 만들었으니, 새로운 워크로드 에 대해서는 테이블 임베딩이 많이 틀릴테니,
+아예 예측 자체를 못하나?
+</blockquote>
+<p><strong>train.py  .train()</strong></p>
+<ul>
+<li>Step1, Step2, PredictTail 개 를 training</li>
+</ul>
+<p>// 미완</p>
+<h2 id="train_">
+  <strong>train_mode, test_mode of model</strong>
+  <a class="anchor" href="#train_">#</a>
+</h2>
+<p>DeepQNet은 모드별로 동작을 수행하도록 작성됨</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># LOGER/model/dqn.py</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DeepQNet</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">train_mode</span>(self):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>model_step1<span style="color:#f92672">.</span>train()
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>model_step2<span style="color:#f92672">.</span>train()
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>model_tail<span style="color:#f92672">.</span>train()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">eval_mode</span>(self):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>model_step1<span style="color:#f92672">.</span>eval()
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>model_step2<span style="color:#f92672">.</span>eval()
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>model_tail<span style="color:#f92672">.</span>eval()
+</span></span></code></pre></div><h2 id="workload-sql-파싱">
+  <strong>workload sql 파싱</strong>
+  <a class="anchor" href="#workload-sql-%ed%8c%8c%ec%8b%b1">#</a>
+</h2>
+<ol>
+<li>LOGER는 sql을 파싱하는 로직을 별도의 .so 파일로 만들어두고 이를 import해서 사용함</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e">#  LOGER/core/sql.py</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> psqlparse <span style="color:#f92672">import</span> parse_dict
+</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Sql</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>            parse_result_all <span style="color:#f92672">=</span> parse_dict(self<span style="color:#f92672">.</span>sql)
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">...</span>
+</span></span></code></pre></div><p>여기에서 parse_dict는 아래와 같이 되어있으며, <code>parser.cpython-38-x86_64-linux-gnu.so</code> 는 프로젝트에 같이 탑재되어 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># LOGER/psqlparse/parser.py</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__bootstrap__</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">global</span> __bootstrap__, __loader__, __file__
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">import</span> sys<span style="color:#f92672">,</span> pkg_resources<span style="color:#f92672">,</span> importlib.util
+</span></span><span style="display:flex;"><span>    __file__ <span style="color:#f92672">=</span> pkg_resources<span style="color:#f92672">.</span>resource_filename(__name__, <span style="color:#e6db74">&#39;parser.cpython-38-x86_64-linux-gnu.so&#39;</span>)
+</span></span><span style="display:flex;"><span>    __loader__ <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>; <span style="color:#66d9ef">del</span> __bootstrap__, __loader__
+</span></span><span style="display:flex;"><span>    spec <span style="color:#f92672">=</span> importlib<span style="color:#f92672">.</span>util<span style="color:#f92672">.</span>spec_from_file_location(__name__,__file__)
+</span></span><span style="display:flex;"><span>    mod <span style="color:#f92672">=</span> importlib<span style="color:#f92672">.</span>util<span style="color:#f92672">.</span>module_from_spec(spec)
+</span></span><span style="display:flex;"><span>    spec<span style="color:#f92672">.</span>loader<span style="color:#f92672">.</span>exec_module(mod)
+</span></span><span style="display:flex;"><span>__bootstrap__()
+</span></span></code></pre></div><h2 id="상용-db-연결의-흔적">
+  <strong>상용 db 연결의 흔적</strong>
+  <a class="anchor" href="#%ec%83%81%ec%9a%a9-db-%ec%97%b0%ea%b2%b0%ec%9d%98-%ed%9d%94%ec%a0%81">#</a>
+</h2>
+<p>oracle database를 사용한것으로 추정. 어느정도 구현이 되어있는지는 아직 분석 미완료</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># LOGER/train.py</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> args<span style="color:#f92672">.</span>oracle <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        USE_ORACLE <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>        oracle_database<span style="color:#f92672">.</span>setup(args<span style="color:#f92672">.</span>oracle, dbname<span style="color:#f92672">=</span>args<span style="color:#f92672">.</span>database, cache<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        database<span style="color:#f92672">.</span>setup(dbname<span style="color:#f92672">=</span>args<span style="color:#f92672">.</span>database, cache<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
+</span></span></code></pre></div></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+<script src="https://giscus.app/client.js"
+        data-repo="JaeSim/JaeSim.github.io"
+        data-repo-id="R_kgDOOtVVtw"
+        data-category="Comment"
+        data-category-id="DIC_kwDOOtVVt84Cqcxg"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#기본정보"><strong>기본정보</strong></a>
+      <ul>
+        <li><a href="#loger-실행을-위한-셋업"><strong>LOGER 실행을 위한 셋업</strong></a></li>
+        <li><a href="#loger-실행-커맨드"><strong>LOGER 실행 커맨드</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#high-level-flow"><strong>high level flow</strong></a></li>
+    <li><a href="#train_"><strong>train_mode, test_mode of model</strong></a></li>
+    <li><a href="#workload-sql-파싱"><strong>workload sql 파싱</strong></a></li>
+    <li><a href="#상용-db-연결의-흔적"><strong>상용 db 연결의 흔적</strong></a></li>
+  </ul>
+</nav>
+
+  <div class="post-tags">
+    <strong>Tags:</strong>
+    
+      <a href="/tags/dbms" class="tag">DBMS</a>
+    
+      <a href="/tags/database" class="tag">Database</a>
+    
+      <a href="/tags/optimizer" class="tag">Optimizer</a>
+    
+      <a href="/tags/learned-query-optimizer" class="tag">Learned Query Optimizer</a>
+    
+      <a href="/tags/reinforcement-learning" class="tag">Reinforcement Learning</a>
+    
+  </div>
+
+
+
+  <div class="post-categories">
+    <strong>Categories:</strong>
+    
+      <a href="/categories/learned-query-optimizer" class="category">Learned Query Optimizer</a>
+    
+  </div>
+
+
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('pre > code[class^="language-"]').forEach(codeBlock => {
+      const pre = codeBlock.parentElement;
+
+      
+      const button = document.createElement('button');
+      button.innerText = '📋';
+      button.title = 'Copy code';
+      button.style = `
+        position: absolute;
+        top: 0.5em;
+        right: 0.5em;
+        padding: 2px 6px;
+        font-size: 0.8rem;
+        background: #f5f5f5;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+        z-index: 10;
+      `;
+
+      
+      button.addEventListener('click', () => {
+        navigator.clipboard.writeText(codeBlock.innerText);
+        button.innerText = '✔';
+        setTimeout(() => button.innerText = '📋', 1000);
+      });
+
+      
+      pre.style.position = 'relative';
+      pre.appendChild(button);
+    });
+  });
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
