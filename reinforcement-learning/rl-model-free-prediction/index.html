@@ -60,7 +60,7 @@ MC는 하나의 에피소드 전체(시작 ~ 종료)를 관찰한 뒤, 실제로
 <link rel="canonical" href="https://JaeSim.github.io/reinforcement-learning/rl-model-free-prediction/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.d07e27cf6ddab7ddb01615bbc84ba331ee589e6d9272537468f502aa94790b5d.js" integrity="sha256-0H4nz23at92wFhW7yEujMe5Ynm2SclN0aPUCqpR5C10=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.f178f178ea2ce4146b0c866939434613e611e9aa65b60deb95a29b6c794a7941.js" integrity="sha256-8XjxeOos5BRrDIZpOUNGE&#43;YR6apltg3rlaKbbHlKeUE=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -172,6 +172,50 @@ https://github.com/alex-shpak/hugo-book
 
   
     <a href="/development/blogsetup/" class="">Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Item Research</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/item-research/graph/" class="">GNN</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/item-research/learned-index/" class="">Learned Index</a>
   
 
         </li>
@@ -351,7 +395,11 @@ https://github.com/alex-shpak/hugo-book
   </ul>
 
   <ul>
-    <li><a href="#action-value-function-approximation"><strong>Action-value function Approximation</strong></a></li>
+    <li><a href="#action-value-function-approximation"><strong>Action-value function Approximation</strong></a>
+      <ul>
+        <li><a href="#convergence-of-control-algo"><strong>Convergence of Control Algo</strong></a></li>
+      </ul>
+    </li>
     <li><a href="#batch-method"><strong>Batch Method</strong></a>
       <ul>
         <li><a href="#experience-replay"><strong>Experience Replay</strong></a></li>
@@ -661,15 +709,36 @@ J(\mathbf{w}) = \mathbb{E}_{\pi} \left[ \left( q_{\pi}(S, A) - \hat{q}(S, A, \ma
 \]
 </span>
 </p>
+<h3 id="convergence-of-control-algo">
+  <strong>Convergence of Control Algo</strong>
+  <a class="anchor" href="#convergence-of-control-algo">#</a>
+</h3>
+<p>MC은 on-policy, off-policy에서 수렴하나 TD나 어떤 approximation을 사용하는지 따라 수렴하지 않을 수 도있다. <br>
+[관련 표 추가 예정]
+gardient TD 는 TD의 이러한 문제점들을 수정한 것</p>
 <h2 id="batch-method">
   <strong>Batch Method</strong>
   <a class="anchor" href="#batch-method">#</a>
 </h2>
 <p>위의 gradient descent 할때 sampling을 효율적으로 하기 위한 여러가지 방법들</p>
+<p>Oracle이 도와줘서 우리는 못구하는 v_pi 를 정확하게 알수 있다고 가정하자.</p>
+<p>이것들을  dataset에 가지고 있다고 치자.
+D= {} // 수식추가</p>
+<p>그렇다면 우리가 근사하는 value function이 v_pi로부터 얼마나 떨어져 있는지 알수 있다.</p>
+<p>이것을 이용해서 mean square error를 수식으로 나타낼 수 있고,</p>
+<p>이것을 작게 하는것 (=value 근사가 잘되는것) 을 찾아햔다.</p>
+<p>빠른 방법은,
+기존 값들을 저장하고, 학습할때 랜덤하게 샘플링해서, <br>
+stochastic gradient desent update하는 것이고, 이것은 사실 ML이긴 하다. (=Experience Replay)</p>
 <h3 id="experience-replay">
   <strong>Experience Replay</strong>
   <a class="anchor" href="#experience-replay">#</a>
 </h3>
+<p>DQN 은 experience Replay 와 fixed Q-target 의 두가지 테크닉을 써서 수렴한다.<br></p>
+<ul>
+<li>fixed Q-target : 현재 학습중인 네트워크와 타겟을 계산할때 쓰는 네트워크를 분리 (타겟이 너무 자주 바뀌지 않아서 안정적인 학습을 위함)</li>
+<li>수식으로보면 오라클이 알려준다고 가정하는 진실된 value function을 old network가 대체되는셈</li>
+</ul>
 <p>과거의 transition들을 버리지 않고 buffer에 저장해 두었다가,
 학습할 때마다 랜덤하게 샘플링해서 사용</p>
 <h3 id="prioritized-experience-replay-per">
@@ -825,7 +894,7 @@ L^{\text{CLIP}}(\theta) = \hat{\mathbb{E}}_t \left[ \min \left( r_t(\theta) \hat
 <li>loss function reward weighting을 통해서 poor operator에 의한 fluctuation 방지</li>
 <li>log transformation 을 통해서 reward의 범위를 압축 (재앙적 plan의 영향도를 감쇄)</li>
 <li>ROSS Restricted Operator Search Space. (최적을 찾지 않고 최악이 안골라지게 해서 효율적)</li>
-<li>policy nertwork (GNN + LSTM)</li>
+<li>value nertwork (GNN + LSTM)</li>
 </ul>
 <h1 id="c-reload">
   <strong>c. RELOAD</strong>
@@ -923,7 +992,11 @@ L^{\text{CLIP}}(\theta) = \hat{\mathbb{E}}_t \left[ \min \left( r_t(\theta) \hat
   </ul>
 
   <ul>
-    <li><a href="#action-value-function-approximation"><strong>Action-value function Approximation</strong></a></li>
+    <li><a href="#action-value-function-approximation"><strong>Action-value function Approximation</strong></a>
+      <ul>
+        <li><a href="#convergence-of-control-algo"><strong>Convergence of Control Algo</strong></a></li>
+      </ul>
+    </li>
     <li><a href="#batch-method"><strong>Batch Method</strong></a>
       <ul>
         <li><a href="#experience-replay"><strong>Experience Replay</strong></a></li>
