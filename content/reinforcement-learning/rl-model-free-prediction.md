@@ -198,10 +198,37 @@ J(\mathbf{w}) = \mathbb{E}_{\pi} \left[ \left( q_{\pi}(S, A) - \hat{q}(S, A, \ma
 \Delta \mathbf{w} = \alpha \left( q_{\pi}(S, A) - \hat{q}(S, A, \mathbf{w}) \right) \nabla_{\mathbf{w}} \hat{q}(S, A, \mathbf{w})
 {{< /katex >}}
 
+
+### **Convergence of Control Algo**
+MC은 on-policy, off-policy에서 수렴하나 TD나 어떤 approximation을 사용하는지 따라 수렴하지 않을 수 도있다. <br>
+[관련 표 추가 예정]
+gardient TD 는 TD의 이러한 문제점들을 수정한 것
+
+
 ## **Batch Method**
 위의 gradient descent 할때 sampling을 효율적으로 하기 위한 여러가지 방법들
 
+Oracle이 도와줘서 우리는 못구하는 v_pi 를 정확하게 알수 있다고 가정하자.
+
+이것들을  dataset에 가지고 있다고 치자.
+D= {} // 수식추가
+
+그렇다면 우리가 근사하는 value function이 v_pi로부터 얼마나 떨어져 있는지 알수 있다.
+
+이것을 이용해서 mean square error를 수식으로 나타낼 수 있고,
+
+이것을 작게 하는것 (=value 근사가 잘되는것) 을 찾아햔다.
+
+빠른 방법은, 
+기존 값들을 저장하고, 학습할때 랜덤하게 샘플링해서, <br>
+ stochastic gradient desent update하는 것이고, 이것은 사실 ML이긴 하다. (=Experience Replay)
+
 ### **Experience Replay**
+
+DQN 은 experience Replay 와 fixed Q-target 의 두가지 테크닉을 써서 수렴한다.<br>
+ - fixed Q-target : 현재 학습중인 네트워크와 타겟을 계산할때 쓰는 네트워크를 분리 (타겟이 너무 자주 바뀌지 않아서 안정적인 학습을 위함)
+ - 수식으로보면 오라클이 알려준다고 가정하는 진실된 value function을 old network가 대체되는셈
+
 과거의 transition들을 버리지 않고 buffer에 저장해 두었다가,
 학습할 때마다 랜덤하게 샘플링해서 사용
 
@@ -341,7 +368,7 @@ def MakeModel(p, exp, dataset):
 - loss function reward weighting을 통해서 poor operator에 의한 fluctuation 방지
 - log transformation 을 통해서 reward의 범위를 압축 (재앙적 plan의 영향도를 감쇄)
 - ROSS Restricted Operator Search Space. (최적을 찾지 않고 최악이 안골라지게 해서 효율적)
-- policy nertwork (GNN + LSTM)
+- value nertwork (GNN + LSTM)
 
 # **c. RELOAD**
 Balsa + MAML + PER
