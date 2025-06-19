@@ -14,74 +14,38 @@
 
   
     
-      temp-LOGER 코드 분석
+      Learned Index
     
 
     
-      LOGER 프로젝트의 코드 분석 내용을 담은 내용입니다.
+      Learned Index에 대한 직관을 얻기 위한 posting
     
 
-    2025-06-12 11:50:33 KST
-
-    
-       
-        
-  LOGER 프로젝트의 코드 분석 내용
-  
-
-
-  기본정보
-  
-
-
-LOGER: A Learned Optimizer towards Generating Efficient and Robust Query Execution Plans
-github repository
-https://github.com/TianyiChen0316/LOGER
-
-
-  LOGER 실행을 위한 셋업
-  
-
-# 3.8 이여야한다.
-conda create -n loger python=3.8 -y
-conda activate loger
-pip install -r requirements.txt
-pip install pandas
-pip install dgl
-pip install packaging
-conda install …
-      
-    
-
-  
-
-  
-    
-      temp. 4. Model Free Prediction
-    
-
-    
-      강화학습의 Model Free Prediction 에 대한 내용
-    
-
-    2025-06-12 10:57:55 KST
+    2025-06-17 09:50:00 KST
 
     
        
         
-  4. model-free prediction
+  Learned Index 관련 paper 리서치
   
 
 
-  // NOTE: 이 페이지는 임시로 작성되었습니다.
+  The Case for Learend Index Structures (2018)
+  
 
-3장 DP에 있는것처럼, Model-free prediction 하고, Model-free control 하는 순서로 진행된다.">
+
+1346회 인용 SIGMOD. google, MIT
+https://arxiv.org/pdf/1712.01208
+B-tree 등 Index 구조는 Model(Neural Network 포함하여) 변경될 수 있다는 개념을 구체화(증명?)
+RMI(Recursive Model Index) : Learned Index 소개
+
+추가적으로 공부해야하는 것들">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="Home">
-  <meta property="og:description" content="Recent Posts#temp-LOGER 코드 분석LOGER 프로젝트의 코드 분석 내용을 담은 내용입니다.2025-06-12 11:50:33 KSTLOGER 프로젝트의 코드 분석 내용기본정보LOGER: A Learned Optimizer towards Generating Efficient and Robust Query Execution Plans github repository https://github.com/TianyiChen0316/LOGER LOGER 실행을 위한 셋업# 3.8 이여야한다. conda create -n loger python=3.8 -y conda activate loger pip install -r requirements.txt pip install pandas pip install dgl pip install packaging conda install …temp. 4. Model Free Prediction강화학습의 Model Free Prediction 에 대한 내용2025-06-12 10:57:55 KST4. model-free prediction// NOTE: 이 페이지는 임시로 작성되었습니다.3장 DP에 있는것처럼, Model-free prediction 하고, Model-free control 하는 순서로 진행된다.">
+  <meta property="og:description" content="Recent Posts#Learned IndexLearned Index에 대한 직관을 얻기 위한 posting2025-06-17 09:50:00 KSTLearned Index 관련 paper 리서치The Case for Learend Index Structures (2018)1346회 인용 SIGMOD. google, MIT https://arxiv.org/pdf/1712.01208 B-tree 등 Index 구조는 Model(Neural Network 포함하여) 변경될 수 있다는 개념을 구체화(증명?) RMI(Recursive Model Index) : Learned Index 소개 추가적으로 공부해야하는 것들">
   <meta property="og:locale" content="ko_kr">
   <meta property="og:type" content="website">
 <title>Home | JaeSim&#39;s Workspace</title>
@@ -90,7 +54,7 @@ conda install …
 <link rel="canonical" href="https://JaeSim.github.io/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.d07e27cf6ddab7ddb01615bbc84ba331ee589e6d9272537468f502aa94790b5d.js" integrity="sha256-0H4nz23at92wFhW7yEujMe5Ynm2SclN0aPUCqpR5C10=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.f178f178ea2ce4146b0c866939434613e611e9aa65b60deb95a29b6c794a7941.js" integrity="sha256-8XjxeOos5BRrDIZpOUNGE&#43;YR6apltg3rlaKbbHlKeUE=" crossorigin="anonymous"></script>
 <link rel="alternate" type="application/rss+xml" href="https://JaeSim.github.io/index.xml" title="JaeSim's Workspace" />
 <!--
 Made with Book Theme
@@ -203,6 +167,50 @@ https://github.com/alex-shpak/hugo-book
 
   
     <a href="/development/blogsetup/" class="">Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Item Research</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/item-research/graph/" class="">GNN</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/item-research/learned-index/" class="">Learned Index</a>
   
 
         </li>
@@ -391,7 +399,6 @@ https://github.com/alex-shpak/hugo-book
   max-height: 14rem;          
   overflow: hidden;          
   display: -webkit-box;     
-  -webkit-line-clamp: 6;     
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;   
 }
@@ -412,6 +419,83 @@ https://github.com/alex-shpak/hugo-book
 </style>
 
 <ul>
+
+  <li style="margin-bottom: 2rem;">
+    <a href="/item-research/learned-index/">
+      <strong style="font-size: 1.25rem;">Learned Index</strong>
+    </a><br/>
+
+    
+      <small style="color: #888;">Learned Index에 대한 직관을 얻기 위한 posting</small><br/>
+    
+
+    <small>2025-06-17 09:50:00 KST</small>
+
+    <a href="/item-research/learned-index/" style="text-decoration: none; color: inherit;">
+      <div class="summary-box"> 
+        <h2 id="learned-index-관련-paper-리서치">
+  <strong>Learned Index 관련 paper 리서치</strong>
+  
+</h2>
+<h3 id="the-case-for-learend-index-structures-2018">
+  <strong>The Case for Learend Index Structures (2018)</strong>
+  
+</h3>
+<ul>
+<li>1346회 인용 SIGMOD. google, MIT</li>
+<li>https://arxiv.org/pdf/1712.01208</li>
+<li>B-tree 등 Index 구조는 Model(Neural Network 포함하여) 변경될 수 있다는 개념을 구체화(증명?)</li>
+<li>RMI(Recursive Model Index) : Learned Index 소개</li>
+</ul>
+<p>추가적으로 공부해야하는 것들</p>
+<ul>
+<li>bloom filter</li>
+<li>CDF model</li>
+<li>B-tree (recap)</li>
+<li>Hash index (recap)</li>
+<li>해당 논문의 RMI 이 대한 deep dive</li>
+</ul>
+<h3 id="benchmarking-learned-indexes-2020">
+  <strong>Benchmarking Learned …</strong></h3>
+      </div>
+    </a>
+
+  </li>
+
+  <li style="margin-bottom: 2rem;">
+    <a href="/item-research/graph/">
+      <strong style="font-size: 1.25rem;">GNN</strong>
+    </a><br/>
+
+    
+      <small style="color: #888;">GNN에 대한 직관을 얻기 위한 posting</small><br/>
+    
+
+    <small>2025-06-13 14:45:35 KST</small>
+
+    <a href="/item-research/graph/" style="text-decoration: none; color: inherit;">
+      <div class="summary-box"> 
+        <h2 id="직관">
+  <strong>직관</strong>
+  
+</h2>
+<blockquote>
+<p>CNN은 Euclidean 공간에서 행과 열로 배열된 픽셀들로 이루어진 이미지에서 특징을 추출한다. <br>
+LSTM은 자기 자신으로 돌아오는 recurrent 구조를 통해 input으로 주어지는 어떤 한 시계열 데이터인 sequence의 특징을 추출한다. <br>
+Transformer는 self-attention 구조를 통해 어떤 한 부분에서 주의를 기울여야 할 여러 부분을 병렬적으로 함께 처리함으로써 input의 특징을 추출한다. <br>
+감이 오겠지만 마찬가지로 GNN에서도 그래프 구조를 통해 시스템에서의 관계 등 다양한 특징을 추출한다.</p></blockquote>
+<h2 id="keywords">
+  <strong>keywords</strong>
+  
+</h2>
+<ul>
+<li>Graph representation learning
+<ul>
+<li>먼저 시작되고 여기에 NN이 접목된것이 GNN …</li></ul></li></ul>
+      </div>
+    </a>
+
+  </li>
 
   <li style="margin-bottom: 2rem;">
     <a href="/learned-query-optimizer/loger-code/">
@@ -437,12 +521,15 @@ https://github.com/alex-shpak/hugo-book
 <ul>
 <li>LOGER: A Learned Optimizer towards Generating Efficient and Robust Query Execution Plans</li>
 <li>github repository
-<a href="https://github.com/TianyiChen0316/LOGER">https://github.com/TianyiChen0316/LOGER</a></li>
+https://github.com/TianyiChen0316/LOGER</li>
 </ul>
 <h3 id="loger-실행을-위한-셋업">
   <strong>LOGER 실행을 위한 셋업</strong>
   
 </h3>
+<ul>
+<li>기본 패키지 설치</li>
+</ul>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># 3.8 이여야한다.</span>
 </span></span><span style="display:flex;"><span>conda create -n loger python<span style="color:#f92672">=</span>3.8 -y
 </span></span><span style="display:flex;"><span>conda activate loger
@@ -450,7 +537,7 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span>pip install pandas
 </span></span><span style="display:flex;"><span>pip install dgl
 </span></span><span style="display:flex;"><span>pip install packaging
-</span></span><span style="display:flex;"><span>conda install …</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre></div>
+</span></span><span style="display:flex;"><span>conda …</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre></div>
       </div>
     </a>
 
@@ -515,78 +602,6 @@ MC는 <strong>하나의 에피소드 전체</strong>(시작 ~ 종료)를 관찰�
 </ol>
 <p>이 있다.</p>
 <p>이번 섹션은 DP로 known MDP를 푸는 방법에 대한것이고, …</p>
-      </div>
-    </a>
-
-  </li>
-
-  <li style="margin-bottom: 2rem;">
-    <a href="/reinforcement-learning/rl-mdp/">
-      <strong style="font-size: 1.25rem;">2. Markov Decision Process</strong>
-    </a><br/>
-
-    
-      <small style="color: #888;">강화학습의 MP, MRP, MDP에 대한 내용</small><br/>
-    
-
-    <small>2025-05-27 16:43:57 KST</small>
-
-    <a href="/reinforcement-learning/rl-mdp/" style="text-decoration: none; color: inherit;">
-      <div class="summary-box"> 
-        <h1 id="2-markov-decision-process">
-  <strong>2. Markov Decision Process</strong>
-  
-</h1>
-<h2 id="markov-processmp-란">
-  <strong>Markov Process(MP) 란?</strong>
-  
-</h2>
-<h3 id="mp-속성">
-  <strong>MP 속성</strong>
-  
-</h3>
-<p>MDP는 환경에 대해서 Reinforcement Learning이 이해가능하도록 수식화한다</p>
-<p><U>거의 모든 RL 관련 문제들은 MDP로 수식화 할 수 있다(Fully observable이나 Partially observation이나) </U></p>
-<p>Markov Property를 이용하는데, &ndash;이전 강의참조&ndash;</p>
-<p>요약하면, 현재 state만으로 미래를 예측해도 된다는 속성이다.
-(다르게 말하면, 현재 state가 이미 유용한 정보를 포함하고 있다. = memoryless)</p>
-<p>Markov state 
-<link rel="stylesheet" href="/katex/katex.min.css" />
-<script defer src="/katex/katex.min.js"></script>
-<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
-  \(s\)
-</span>
-로부터 <span>
-  \(s'\) …</span></p>
-      </div>
-    </a>
-
-  </li>
-
-  <li style="margin-bottom: 2rem;">
-    <a href="/development/blogsetup/">
-      <strong style="font-size: 1.25rem;">Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus</strong>
-    </a><br/>
-
-    
-
-    <small>2025-05-23 11:06:13 KST</small>
-
-    <a href="/development/blogsetup/" style="text-decoration: none; color: inherit;">
-      <div class="summary-box"> 
-        <h1 id="github-pages-를-이용한-blog-setting-hugo--hugo-book-theme--giscus">
-  <strong>Github pages 를 이용한 blog Setting (hugo + hugo-book theme + giscus</strong>
-  
-</h1>
-<h2 id="0-blog-host-방식-선택">
-  <strong>0. blog host 방식 선택</strong>
-  
-</h2>
-<p>여러 블로그 host방식을 고려하였으나, 유지보수가 손이 덜가며, 오랫동안 hosting이 되는것이 우선 순위였고.</p>
-<p><strong>Github pages</strong>를 통한 호스팅 방법을 선택하였다.</p>
-<p>그렇다면, static page를 generation을 해주는 framework로 jekyll 와 hugo를 고민하였고
-ruby 보다 go로 이루어진 hugo를 믿기로 하였다.</p>
-<p>다른 blog들이 생성한 페이지를 주로 참조하였으며, 이 포스팅은 해당 글들의 엮음에 불과한점을 참조 부탁한다.</p>
       </div>
     </a>
 
