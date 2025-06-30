@@ -21,3 +21,6 @@ enableRobotsTXT = true
 [taxonomies]
   tag = "tags"
   category = "categories"
+
+[markup.tableOfContents]
+  endLevel = 4

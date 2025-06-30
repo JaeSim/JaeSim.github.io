@@ -9,7 +9,7 @@ categories = ["Graph Neural Network"]
 
 
 
-## **직관**
+## **GNN 직관**
 
 
 > CNN은 Euclidean 공간에서 행과 열로 배열된 픽셀들로 이루어진 이미지에서 특징을 추출한다. <br>
