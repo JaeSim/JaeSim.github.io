@@ -81,7 +81,7 @@ https://github.com/nuko-yokohama/ssb-postgres/tree/master">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/learned-query-optimizer/loger-code/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
-  <meta property="og:title" content="temp-LOGER 코드 분석">
+  <meta property="og:title" content="LOGER 코드 분석">
   <meta property="og:description" content="LOGER 프로젝트의 코드 분석 내용#기본정보#LOGER: A Learned Optimizer towards Generating Efficient and Robust Query Execution Plans github repository https://github.com/TianyiChen0316/LOGER LOGER 실행을 위한 셋업#기본 패키지 설치 # 3.8 이여야한다. conda create -n loger python=3.8 -y conda activate loger pip install -r requirements.txt pip install pandas pip install dgl pip install packaging conda install libffi export LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$LD_LIBRARY_PATH pip install dgl-cu110==0.6.1 pip install pyodbc mkdir results postgre 설치 아래내용은 balsa 프로젝트에 있는 내용cd ~ wget https://ftp.postgresql.org/pub/source/v12.5/postgresql-12.5.tar.gz tar xzvf postgresql-12.5.tar.gz cd postgresql-12.5 ./configure --prefix=$HOME/postgresql-12.5 --without-readline make -j make install echo &#39;export PATH=/home/jae.sim/postgresql-12.5/bin:$PATH&#39; &gt;&gt; ~/.bashrc source ~/.bashrc cd ~/ git clone https://github.com/ossc-db/pg_hint_plan.git -b REL12_1_3_7 cd pg_hint_plan/ vim Makefile ### # Modify Makefile: change line # PG_CONFIG = pg_config # to # PG_CONFIG = /home/jae.sim/postgresql-12.5/bin/pg_config pg_ctl -D ~/imdb initdb pg_ctl -D ~/imdb start -l logfile # 실행확인 psql imdbload -p 5437 postgre 에 dataset ready ssb 타 db로 테스트하여도 로직상 postgre에 데이터셋이 설정되어 있어야한다. ssb setup 내용_postgre based on balsahttps://github.com/nuko-yokohama/ssb-postgres/tree/master">
   <meta property="og:locale" content="ko_kr">
   <meta property="og:type" content="article">
@@ -93,13 +93,13 @@ https://github.com/nuko-yokohama/ssb-postgres/tree/master">
     <meta property="article:tag" content="Optimizer">
     <meta property="article:tag" content="Learned Query Optimizer">
     <meta property="article:tag" content="Reinforcement Learning">
-<title>temp-LOGER 코드 분석 | JaeSim&#39;s Workspace</title>
+<title>LOGER 코드 분석 | JaeSim&#39;s Workspace</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
 <link rel="canonical" href="https://JaeSim.github.io/learned-query-optimizer/loger-code/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.f178f178ea2ce4146b0c866939434613e611e9aa65b60deb95a29b6c794a7941.js" integrity="sha256-8XjxeOos5BRrDIZpOUNGE&#43;YR6apltg3rlaKbbHlKeUE=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.929c51ac4da7e0a52ea084376e80ef3299529dfc28dd4204d6a5a5f119091537.js" integrity="sha256-kpxRrE2n4KUuoIQ3boDvMplSnfwo3UIE1qWl8RkJFTc=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -145,24 +145,6 @@ https://github.com/alex-shpak/hugo-book
 
   
   <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/aboutme/" class="">About Me</a>
-  
-
-          
-  <ul>
-    
-  </ul>
-
-        </li>
-      
     
       
         <li>
@@ -255,6 +237,19 @@ https://github.com/alex-shpak/hugo-book
 
   
     <a href="/item-research/learned-index/" class="">Learned Index</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/item-research/learned-scheduler/" class="">Learned Scheduler</a>
   
 
         </li>
@@ -355,7 +350,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/learned-query-optimizer/loger-code/" class="active">temp-LOGER 코드 분석</a>
+    <a href="/learned-query-optimizer/loger-code/" class="active">LOGER 코드 분석</a>
   
 
         </li>
@@ -401,7 +396,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <h3>temp-LOGER 코드 분석</h3>
+  <h3>LOGER 코드 분석</h3>
 
   <label for="toc-control">
     
@@ -423,16 +418,25 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#loger-실행-커맨드"><strong>LOGER 실행 커맨드</strong></a></li>
       </ul>
     </li>
-    <li><a href="#high-level-flow"><strong>high level flow</strong></a></li>
-    <li><a href="#sql-parse-and-composition"><strong>SQL parse and composition</strong></a></li>
-    <li><a href="#train_"><strong>train_mode, test_mode of model</strong></a></li>
-    <li><a href="#workload-sql-파싱"><strong>workload sql 파싱</strong></a></li>
-    <li><a href="#상용-db-연결의-흔적"><strong>상용 db 연결의 흔적</strong></a>
+    <li><a href="#high-level-flow"><strong>High level flow</strong></a></li>
+    <li><a href="#내부-특성"><strong>내부 특성</strong></a>
       <ul>
+        <li><a href="#loger는-join-order-와-join-op만-설정"><strong>LOGER는 Join Order 와 Join Op만 설정</strong></a></li>
+        <li><a href="#no_"><strong>NO_USE_HASH, NO_USE_MERGE 등이 ROSS 개념을 이용하여 학습</strong></a></li>
+        <li><a href="#train_"><strong>train_mode, test_mode of model</strong></a></li>
+        <li><a href="#workload-sql-파싱-위치"><strong>workload sql 파싱 위치</strong></a></li>
+        <li><a href="#sql-parse-and-composition-위치"><strong>SQL parse and composition 위치</strong></a></li>
+        <li><a href="#상용-db-연결의-흔적"><strong>상용 db 연결의 흔적</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#주요-구현-이슈"><strong>주요 구현 이슈</strong></a>
+      <ul>
+        <li><a href="#no_-1"><strong>NO_USE_HASH, NO_USE_MERGE 등이 MSSQL에 없음</strong></a></li>
+        <li><a href="#node-구조가-balsa와-다름"><strong>Node 구조가 Balsa와 다름</strong></a></li>
         <li><a href="#상용-db을-위한-postgre-세팅"><strong>상용 db을 위한 postgre 세팅</strong></a></li>
       </ul>
     </li>
-    <li><a href="#작업일지"><strong>작업일지</strong></a></li>
+    <li><a href="#mssql-포팅을-위한-작업일지"><strong>mssql 포팅을 위한 작업일지</strong></a></li>
   </ul>
 </nav>
 
@@ -601,6 +605,8 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span><span style="color:#75715e">## database  설정은 아래 내용 참조</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">## postgres</span>
 </span></span><span style="display:flex;"><span>python train.py --database imdbload --port <span style="color:#ae81ff">5437</span> --host /tmp -U <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>python train.py --database ssb --port <span style="color:#ae81ff">5437</span> --host /tmp -U <span style="color:#e6db74">&#34;&#34;</span> --dataset dataset/ssb_train dataset/ssb_test
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">## mssql</span>
 </span></span><span style="display:flex;"><span>python train.py --database ssb --port <span style="color:#ae81ff">5437</span> --host /tmp -U <span style="color:#e6db74">&#34;&#34;</span> --mssql <span style="color:#e6db74">&#34;mssql&#34;</span> --dataset dataset/ssb_train dataset/ssb_test
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># train.py</span>
@@ -613,7 +619,7 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span>    parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--port&#39;</span>, type<span style="color:#f92672">=</span>int, default<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>,
 </span></span><span style="display:flex;"><span>                        help<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;PostgreSQL port.&#39;</span>)
 </span></span></code></pre></div><h2 id="high-level-flow">
-  <strong>high level flow</strong>
+  <strong>High level flow</strong>
   <a class="anchor" href="#high-level-flow">#</a>
 </h2>
 <p><strong>train.py  .main</strong></p>
@@ -642,31 +648,29 @@ UseGeneratedPredict: 생성된 plan 검증 (classifier head)  &lt;&ndash; 안씀
 <ul>
 <li>Step1, Step2, PredictTail 개 를 training</li>
 </ul>
-<p>// 미완</p>
-<h2 id="sql-parse-and-composition">
-  <strong>SQL parse and composition</strong>
-  <a class="anchor" href="#sql-parse-and-composition">#</a>
+<h2 id="내부-특성">
+  <strong>내부 특성</strong>
+  <a class="anchor" href="#%eb%82%b4%eb%b6%80-%ed%8a%b9%ec%84%b1">#</a>
 </h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># LOGER/core/sql.py</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Sql</span>:
-</span></span><span style="display:flex;"><span>    _re_like <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>compile(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;^%([^%]+)%$&#39;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, sql, feature_length<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, filename<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>, device<span style="color:#f92672">=</span>torch<span style="color:#f92672">.</span>device(<span style="color:#e6db74">&#39;cpu&#39;</span>), table_space<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>):
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span>
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>parse_join()
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__str__</span>(self):
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> isinstance(self<span style="color:#f92672">.</span>sql, str):
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>sql
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>__str()
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__str</span>(self):
-</span></span><span style="display:flex;"><span>        edges <span style="color:#f92672">=</span> list(map(<span style="color:#66d9ef">lambda</span> x: x[<span style="color:#ae81ff">2</span>], self<span style="color:#f92672">.</span>edge_list))
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span>
-</span></span></code></pre></div><h2 id="train_">
+<h3 id="loger는-join-order-와-join-op만-설정">
+  <strong>LOGER는 Join Order 와 Join Op만 설정</strong>
+  <a class="anchor" href="#loger%eb%8a%94-join-order-%ec%99%80-join-op%eb%a7%8c-%ec%84%a4%ec%a0%95">#</a>
+</h3>
+<ul>
+<li><em>Scan Op 에 대한 학습은 진행하지 않음</em></li>
+</ul>
+<h3 id="no_">
+  <strong>NO_USE_HASH, NO_USE_MERGE 등이 ROSS 개념을 이용하여 학습</strong>
+  <a class="anchor" href="#no_">#</a>
+</h3>
+<ul>
+<li>실제 학습이 되어서 호출되는 hint 들을 보면, NO_USE_HASH, NO_USE_MERGE, NO_USE_NL 을 사용.</li>
+<li>이는 논문에 언급된 ROSS(Restricted Operator Search Space) 의 구현.</li>
+</ul>
+<h3 id="train_">
   <strong>train_mode, test_mode of model</strong>
   <a class="anchor" href="#train_">#</a>
-</h2>
+</h3>
 <p>DeepQNet은 모드별로 동작을 수행하도록 작성됨</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># LOGER/model/dqn.py</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DeepQNet</span>:
@@ -680,10 +684,10 @@ UseGeneratedPredict: 생성된 plan 검증 (classifier head)  &lt;&ndash; 안씀
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>model_step1<span style="color:#f92672">.</span>eval()
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>model_step2<span style="color:#f92672">.</span>eval()
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>model_tail<span style="color:#f92672">.</span>eval()
-</span></span></code></pre></div><h2 id="workload-sql-파싱">
-  <strong>workload sql 파싱</strong>
-  <a class="anchor" href="#workload-sql-%ed%8c%8c%ec%8b%b1">#</a>
-</h2>
+</span></span></code></pre></div><h3 id="workload-sql-파싱-위치">
+  <strong>workload sql 파싱 위치</strong>
+  <a class="anchor" href="#workload-sql-%ed%8c%8c%ec%8b%b1-%ec%9c%84%ec%b9%98">#</a>
+</h3>
 <ol>
 <li>LOGER는 sql을 파싱하는 로직을 별도의 .so 파일로 만들어두고 이를 import해서 사용함</li>
 </ol>
@@ -705,11 +709,60 @@ UseGeneratedPredict: 생성된 plan 검증 (classifier head)  &lt;&ndash; 안씀
 </span></span><span style="display:flex;"><span>    mod <span style="color:#f92672">=</span> importlib<span style="color:#f92672">.</span>util<span style="color:#f92672">.</span>module_from_spec(spec)
 </span></span><span style="display:flex;"><span>    spec<span style="color:#f92672">.</span>loader<span style="color:#f92672">.</span>exec_module(mod)
 </span></span><span style="display:flex;"><span>__bootstrap__()
-</span></span></code></pre></div><h2 id="상용-db-연결의-흔적">
+</span></span></code></pre></div><h3 id="sql-parse-and-composition-위치">
+  <strong>SQL parse and composition 위치</strong>
+  <a class="anchor" href="#sql-parse-and-composition-%ec%9c%84%ec%b9%98">#</a>
+</h3>
+<ul>
+<li>처음 train, test workload의 path를 읽으면, 이후 Sql class로 변환하는데 (위에 언급된 파서를 이용), 이것은 각 요소를 분해해서 각기 요소로 가지고 있음(e.g., SelectStmt, fromClause, whereClause&hellip;)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># LOGER/core/sql.py</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Sql</span>:
+</span></span><span style="display:flex;"><span>    _re_like <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>compile(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;^%([^%]+)%$&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, sql, feature_length<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, filename<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>, device<span style="color:#f92672">=</span>torch<span style="color:#f92672">.</span>device(<span style="color:#e6db74">&#39;cpu&#39;</span>), table_space<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>parse_join()
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__str__</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> isinstance(self<span style="color:#f92672">.</span>sql, str):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>sql
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>__str()
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__str</span>(self):
+</span></span><span style="display:flex;"><span>        edges <span style="color:#f92672">=</span> list(map(<span style="color:#66d9ef">lambda</span> x: x[<span style="color:#ae81ff">2</span>], self<span style="color:#f92672">.</span>edge_list))
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span>
+</span></span></code></pre></div><ul>
+<li>plan.py에도 동일하게 분해해서 값들이 있고, 학습을 통해서 각각의 요소의 (join order, join method) 구성을 바꾼다. <br>
+그리고 _str 할때 이러한 각 요소를 다시 조립해서 hint + sql 을 만든다. (DBMS에 호출할 최종 SQL)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># LOGER/core/plan.py</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Plan</span>:
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__reset</span>(self):
+</span></span><span style="display:flex;"><span>       self<span style="color:#f92672">.</span>root_nodes <span style="color:#f92672">=</span> set(self<span style="color:#f92672">.</span>sql<span style="color:#f92672">.</span>aliases)
+</span></span><span style="display:flex;"><span>       self<span style="color:#f92672">.</span>parent <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span>       self<span style="color:#f92672">.</span>direct_parent <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span>       self<span style="color:#f92672">.</span>left_children <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span>       self<span style="color:#f92672">.</span>right_children <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span>       self<span style="color:#f92672">.</span>total_branch_nodes <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>       self<span style="color:#f92672">.</span>join_on_left <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span>       self<span style="color:#f92672">.</span>join_on_right <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span>       self<span style="color:#f92672">.</span>children_table_aliases <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__str__</span>(self):
+</span></span><span style="display:flex;"><span>       hints <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>       self<span style="color:#f92672">.</span>_hint_str(hints)
+</span></span><span style="display:flex;"><span>       hints <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;/*+ </span><span style="color:#e6db74">{</span><span style="color:#e6db74">&#34; &#34;</span><span style="color:#f92672">.</span>join(hints)<span style="color:#e6db74">}</span><span style="color:#e6db74"> */ &#39;</span>
+</span></span></code></pre></div><h3 id="상용-db-연결의-흔적">
   <strong>상용 db 연결의 흔적</strong>
   <a class="anchor" href="#%ec%83%81%ec%9a%a9-db-%ec%97%b0%ea%b2%b0%ec%9d%98-%ed%9d%94%ec%a0%81">#</a>
-</h2>
-<p>oracle database를 사용한것으로 추정. 어느정도 구현이 되어있는지는 아직 분석 미완료</p>
+</h3>
+<ul>
+<li>oracle database를 사용한것으로 추정.</li>
+<li>oracle database에 모두 동작하지는 않고, postgres 먼저 구현뒤 oracle을 구현한 것으로 추정.</li>
+<li><strong>mssql 도 oracle db 포팅 코드를 기반으로 작성</strong></li>
+</ul>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># LOGER/train.py</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> args<span style="color:#f92672">.</span>oracle <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span>:
@@ -718,11 +771,140 @@ UseGeneratedPredict: 생성된 plan 검증 (classifier head)  &lt;&ndash; 안씀
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
 </span></span><span style="display:flex;"><span>        database<span style="color:#f92672">.</span>setup(dbname<span style="color:#f92672">=</span>args<span style="color:#f92672">.</span>database, cache<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
 </span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
-</span></span></code></pre></div><h3 id="상용-db을-위한-postgre-세팅">
+</span></span></code></pre></div><h2 id="주요-구현-이슈">
+  <strong>주요 구현 이슈</strong>
+  <a class="anchor" href="#%ec%a3%bc%ec%9a%94-%ea%b5%ac%ed%98%84-%ec%9d%b4%ec%8a%88">#</a>
+</h2>
+<h3 id="no_-1">
+  <strong>NO_USE_HASH, NO_USE_MERGE 등이 MSSQL에 없음</strong>
+  <a class="anchor" href="#no_-1">#</a>
+</h3>
+<ul>
+<li>LOGER의 restrict operation 은 postgre 에서는 지원이 되나, oracle, MSSQL 은 NO_* Op가 없음</li>
+<li>지원해야할 Op
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>  ALL_JOIN <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  NO_NEST_LOOP_JOIN <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  NO_MERGE_JOIN <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>  NO_HASH_JOIN <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>  NEST_LOOP_JOIN <span style="color:#f92672">=</span> <span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span>  MERGE_JOIN <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>  HASH_JOIN <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># postgre</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">@classmethod</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">str_join_method</span>(cls, type):
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> type <span style="color:#f92672">==</span> cls<span style="color:#f92672">.</span>NO_NEST_LOOP_JOIN:
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;NoNestLoop&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">elif</span> type <span style="color:#f92672">==</span> cls<span style="color:#f92672">.</span>NO_MERGE_JOIN:
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;NoMergeJoin&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">elif</span> type <span style="color:#f92672">==</span> cls<span style="color:#f92672">.</span>NO_HASH_JOIN:
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;NoHashJoin&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">elif</span> type <span style="color:#f92672">==</span> cls<span style="color:#f92672">.</span>NEST_LOOP_JOIN:
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;NestLoop&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">elif</span> type <span style="color:#f92672">==</span> cls<span style="color:#f92672">.</span>MERGE_JOIN:
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;MergeJoin&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">elif</span> type <span style="color:#f92672">==</span> cls<span style="color:#f92672">.</span>HASH_JOIN:
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;HashJoin&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># oracle</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">@classmethod</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">oracle_join_method</span>(cls, type):
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> type <span style="color:#f92672">==</span> cls<span style="color:#f92672">.</span>NO_NEST_LOOP_JOIN:
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;NO_USE_NL&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">elif</span> type <span style="color:#f92672">==</span> cls<span style="color:#f92672">.</span>NO_MERGE_JOIN:
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;NO_USE_MERGE&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">elif</span> type <span style="color:#f92672">==</span> cls<span style="color:#f92672">.</span>NO_HASH_JOIN:
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;NO_USE_HASH&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">elif</span> type <span style="color:#f92672">==</span> cls<span style="color:#f92672">.</span>NEST_LOOP_JOIN:
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;USE_NL&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">elif</span> type <span style="color:#f92672">==</span> cls<span style="color:#f92672">.</span>MERGE_JOIN:
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;USE_MERGE&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">elif</span> type <span style="color:#f92672">==</span> cls<span style="color:#f92672">.</span>HASH_JOIN:
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;USE_HASH&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># mssql</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">@classmethod</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">mssql_join_method</span>(cls, type):
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> type <span style="color:#f92672">==</span> cls<span style="color:#f92672">.</span>NO_NEST_LOOP_JOIN:
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">return</span> <span style="color:#960050;background-color:#1e0010">???</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">elif</span> type <span style="color:#f92672">==</span> cls<span style="color:#f92672">.</span>NO_MERGE_JOIN:
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">return</span> <span style="color:#960050;background-color:#1e0010">???</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">elif</span> type <span style="color:#f92672">==</span> cls<span style="color:#f92672">.</span>NO_HASH_JOIN:
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">return</span> <span style="color:#960050;background-color:#1e0010">???</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">elif</span> type <span style="color:#f92672">==</span> cls<span style="color:#f92672">.</span>NEST_LOOP_JOIN:
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;USE_NL&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">elif</span> type <span style="color:#f92672">==</span> cls<span style="color:#f92672">.</span>MERGE_JOIN:
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;USE_MERGE&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">elif</span> type <span style="color:#f92672">==</span> cls<span style="color:#f92672">.</span>HASH_JOIN:
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;USE_HASH&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">None</span>
+</span></span></code></pre></div></li>
+<li>postgresql = pg_hint_plan  : <a href="https://github.com/ossc-db/pg_hint_plan/blob/master/pg_hint_plan.c">https://github.com/ossc-db/pg_hint_plan/blob/master/pg_hint_plan.c</a></li>
+<li>oracle docu</li>
+<li>hanadb   <a href="https://help.sap.com/docs/hana-cloud-database/sap-hana-cloud-sap-hana-database-sql-reference-guide/hint-details#loio4ba9edce1f2347a0b9fcda99879c17a1__hints_for_controlling_join1">https://help.sap.com/docs/hana-cloud-database/sap-hana-cloud-sap-hana-database-sql-reference-guide/hint-details#loio4ba9edce1f2347a0b9fcda99879c17a1__hints_for_controlling_join1</a></li>
+</ul>
+<pre tabindex="0"><code>INDEX_JOIN
+Guides the optimizer to join input relations through index searches.
+
+NO_INDEX_JOIN
+Guides the optimizer to avoid joining the input relations through index searches.
+
+HASH_JOIN
+Guides the optimizer to join the input relations through probing the hash table.
+
+NO_HASH_JOIN
+Guides the optimizer to avoid joining the input relations through probing the hash table
+</code></pre><ul>
+<li>mssql 일 경우 중간에 adaptive layer를 두는 방식으로 추가 구현
+<ol>
+<li>별도의 keyword를 주입하고,</li>
+<li>execute 할때 두번 나뉘어 호출 (예. NO_USE_NL 이라면 HASH 와 MERGE를 주입한 query를 실행)</li>
+<li>이중 더 나은 execution time을 cost로 사용.</li>
+</ol>
+<ul>
+<li><strong>이는 향후 논문에서 추가 기술이 필요</strong></li>
+<li>__latency 와 cost 안에서 구현하기 vs __execute 안에서 구현하기</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># _mssql_db.py 안의</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__latency</span>(self, sql, cache<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, detail<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>):
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> Timer() <span style="color:#66d9ef">as</span> timer:
+</span></span><span style="display:flex;"><span>    res <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>__execute(sql)
+</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">cost</span>(self, sql, cache<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>):
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">assert</span> self<span style="color:#f92672">.</span>__db <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> cache <span style="color:#f92672">and</span> sql <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>__cost_cache:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>__cost_cache[sql]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># self.__execute(f&#34;explain plan set statement_id = &#39;current&#39; for {sql}&#34;)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> Cursor(timeout<span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>statement_timeout <span style="color:#f92672">/</span> <span style="color:#ae81ff">1000</span>) <span style="color:#66d9ef">as</span> (wrapped_cursor, conn):
+</span></span><span style="display:flex;"><span>    cur <span style="color:#f92672">=</span> wrapped_cursor
+</span></span><span style="display:flex;"><span>    res <span style="color:#f92672">=</span> ExplainSql(cur, sql)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#cost = self.first_element(f&#34;select cost from plan_table where statement_id = &#39;current&#39;&#34;)</span>
+</span></span><span style="display:flex;"><span>    cost <span style="color:#f92672">=</span> float(res<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34;cost=&#34;</span>)[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34;..&#34;</span>)[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34; &#34;</span>)[<span style="color:#ae81ff">0</span>])
+</span></span><span style="display:flex;"><span>    self<span style="color:#f92672">.</span>__db<span style="color:#f92672">.</span>commit()
+</span></span><span style="display:flex;"><span>    self<span style="color:#f92672">.</span>__cost_cache[sql] <span style="color:#f92672">=</span> cost
+</span></span><span style="display:flex;"><span>    self<span style="color:#f92672">.</span>__auto_save()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> cost
+</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="node-구조가-balsa와-다름">
+  <strong>Node 구조가 Balsa와 다름</strong>
+  <a class="anchor" href="#node-%ea%b5%ac%ec%a1%b0%ea%b0%80-balsa%ec%99%80-%eb%8b%a4%eb%a6%84">#</a>
+</h3>
+<ul>
+<li>발사의 경우 graph 구조 형태로 Node를 가지고 있으며, 이것들이 각기 하나의 Scan Op 또는 Join Op를 가지고 있음. 이 Node들을 조합하면서, 하나의 Hint를 만들어내는데,</li>
+<li>LOGER의 경우 Plan.py 안에 node 들이 <em>배열</em> 형태로 있고, 이것들을 좌우로 참조해내가는 식으로 합쳐나감</li>
+<li>따라서, Balsa에서 코드 내부에서 (Node로 부터) Hint를 만드는 기존 방식과 다르게, LOGER에서는 만들어진</li>
+</ul>
+<h3 id="상용-db을-위한-postgre-세팅">
   <strong>상용 db을 위한 postgre 세팅</strong>
   <a class="anchor" href="#%ec%83%81%ec%9a%a9-db%ec%9d%84-%ec%9c%84%ed%95%9c-postgre-%ec%84%b8%ed%8c%85">#</a>
 </h3>
-<p>LOGER는 oracle로 테스트 한것으로 보이는데, 독특한점은 oracle로 train을 시작해도 postgre에 동일한 dataset이 ready되어 있어야한다. <br>
+<p><strong>LOGER는 oracle로 테스트 한것으로 보이는데, 독특한점은 oracle로 train을 시작해도 postgre에 동일한 dataset이 ready되어 있어야한다.</strong> <br>
 아마 postgre 에 먼저 구현한뒤에 급하게 oracle을 붙여서 그런것 같다..</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> args<span style="color:#f92672">.</span>oracle <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span>:
 </span></span><span style="display:flex;"><span>        <span style="color:#75715e"># USE_ORACLE = True</span>
@@ -752,9 +934,9 @@ UseGeneratedPredict: 생성된 plan 검증 (classifier head)  &lt;&ndash; 안씀
 </span></span><span style="display:flex;"><span>            database<span style="color:#f92672">.</span>setup(<span style="color:#f92672">**</span>database_args, cache<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span>:
 </span></span><span style="display:flex;"><span>            database<span style="color:#f92672">.</span>assistant_setup(dbname<span style="color:#f92672">=</span>args<span style="color:#f92672">.</span>database, cache<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
-</span></span></code></pre></div><h2 id="작업일지">
-  <strong>작업일지</strong>
-  <a class="anchor" href="#%ec%9e%91%ec%97%85%ec%9d%bc%ec%a7%80">#</a>
+</span></span></code></pre></div><h2 id="mssql-포팅을-위한-작업일지">
+  <strong>mssql 포팅을 위한 작업일지</strong>
+  <a class="anchor" href="#mssql-%ed%8f%ac%ed%8c%85%ec%9d%84-%ec%9c%84%ed%95%9c-%ec%9e%91%ec%97%85%ec%9d%bc%ec%a7%80">#</a>
 </h2>
 <ol>
 <li>mssql.py 생성 (based oracle.py)</li>
@@ -846,7 +1028,67 @@ UseGeneratedPredict: 생성된 plan 검증 (classifier head)  &lt;&ndash; 안씀
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">###</span>
 </span></span><span style="display:flex;"><span>                        log(<span style="color:#e6db74">&#39;Resampling&#39;</span>)
-</span></span></code></pre></div></article>
+</span></span></code></pre></div><ol start="9">
+<li>mssql_hint용 힌트 만들기 로직을, 기존 postgre 와 동일하게 만든 뒤에 (mssql은 이해하지 못함)<br>
+이후 추가적은 sql을 execution 하는 방식으로 구현<br>
+<ul>
+<li><strong>NO_HASH, NO_MERGE 등이 MSSQL에 없음</strong> 항목을 우회하기 위함</li>
+<li>예시) A, B, C를 조인할때 , USE_ALL (NO_USE_NL(A,B), C) 이라고 가정하면 <br>
+SQL 쿼리를 총 2번 호출하여 우선 cost가 낮은 값으로 기록 <br>
+<ol>
+<li>USE_ALL (USE_HASH(A,B), C)</li>
+<li>USE_ALL (USE_MERGE(A,B), C)</li>
+</ol>
+</li>
+<li>모호한 JOIN( NO_USE* ) 의 갯수만큼 
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \(2^n\)
+</span>
+ 개의 쿼리 호출이 필요</li>
+<li><code>reassemblage_sql</code> method 구현</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__latency</span>(self, sql, cache<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, detail<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>):
+</span></span><span style="display:flex;"><span>     modified_sqls, need_duplicated_execute <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>reassemblage_sql(sql)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     best_cost <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>     best_res <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span> need_duplicated_execute :
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">for</span> i, query <span style="color:#f92672">in</span> enumerate(modified_sqls):
+</span></span><span style="display:flex;"><span>             cost, res <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>__latency_inner(query, cache, detail)
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">if</span> best_res <span style="color:#f92672">==</span> <span style="color:#66d9ef">None</span> : 
+</span></span><span style="display:flex;"><span>                 best_cost <span style="color:#f92672">=</span> cost
+</span></span><span style="display:flex;"><span>                 best_res <span style="color:#f92672">=</span> res
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">else</span> :
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">if</span> cost <span style="color:#f92672">&lt;</span> best_cost :
+</span></span><span style="display:flex;"><span>                     best_cost <span style="color:#f92672">=</span> cost
+</span></span><span style="display:flex;"><span>                     best_res <span style="color:#f92672">=</span> res
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">if</span> best_cost <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> : <span style="color:#75715e"># error case</span>
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">NotImplementedError</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">else</span> : 
+</span></span><span style="display:flex;"><span>         best_cost, best_res <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>__latency_inner(modified_sqls, cache, detail)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     self<span style="color:#f92672">.</span>__executed[sql] <span style="color:#f92672">=</span> best_res
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">return</span> best_cost
+</span></span></code></pre></div><ul>
+<li>이를 위해서, postgres hint에서 join 되어야할 target table 구분을 하도록 수정 (, 로 구분) <br>
+(e.g., /*+ NO_USE_MERGE(s , lo) NO_USE_MERGE(lo s , d) NO_USE_NL(d lo s , p) */ )</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># LOGER/core/plan.py</span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__mssql_hint</span>(self, node, hints : list):
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">if</span> join_method <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>             hints<span style="color:#f92672">.</span>append(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">{</span>join_method<span style="color:#e6db74">}</span><span style="color:#e6db74">(</span><span style="color:#e6db74">{</span><span style="color:#e6db74">&#34; &#34;</span><span style="color:#f92672">.</span>join(sorted(self<span style="color:#f92672">.</span>_descendants[left_alias]))<span style="color:#e6db74">}</span><span style="color:#e6db74"> , </span><span style="color:#e6db74">{</span><span style="color:#e6db74">&#34; &#34;</span><span style="color:#f92672">.</span>join(sorted(self<span style="color:#f92672">.</span>_descendants[right_alias]))<span style="color:#e6db74">}</span><span style="color:#e6db74">)&#39;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">...</span>
+</span></span></code></pre></div><ul>
+<li>이후 reassemble_sql 에서 , 기준으로 파싱해서 재조립</li>
+</ul>
+</li>
+</ol>
+</article>
  
       
 
@@ -908,16 +1150,25 @@ UseGeneratedPredict: 생성된 plan 검증 (classifier head)  &lt;&ndash; 안씀
         <li><a href="#loger-실행-커맨드"><strong>LOGER 실행 커맨드</strong></a></li>
       </ul>
     </li>
-    <li><a href="#high-level-flow"><strong>high level flow</strong></a></li>
-    <li><a href="#sql-parse-and-composition"><strong>SQL parse and composition</strong></a></li>
-    <li><a href="#train_"><strong>train_mode, test_mode of model</strong></a></li>
-    <li><a href="#workload-sql-파싱"><strong>workload sql 파싱</strong></a></li>
-    <li><a href="#상용-db-연결의-흔적"><strong>상용 db 연결의 흔적</strong></a>
+    <li><a href="#high-level-flow"><strong>High level flow</strong></a></li>
+    <li><a href="#내부-특성"><strong>내부 특성</strong></a>
       <ul>
+        <li><a href="#loger는-join-order-와-join-op만-설정"><strong>LOGER는 Join Order 와 Join Op만 설정</strong></a></li>
+        <li><a href="#no_"><strong>NO_USE_HASH, NO_USE_MERGE 등이 ROSS 개념을 이용하여 학습</strong></a></li>
+        <li><a href="#train_"><strong>train_mode, test_mode of model</strong></a></li>
+        <li><a href="#workload-sql-파싱-위치"><strong>workload sql 파싱 위치</strong></a></li>
+        <li><a href="#sql-parse-and-composition-위치"><strong>SQL parse and composition 위치</strong></a></li>
+        <li><a href="#상용-db-연결의-흔적"><strong>상용 db 연결의 흔적</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#주요-구현-이슈"><strong>주요 구현 이슈</strong></a>
+      <ul>
+        <li><a href="#no_-1"><strong>NO_USE_HASH, NO_USE_MERGE 등이 MSSQL에 없음</strong></a></li>
+        <li><a href="#node-구조가-balsa와-다름"><strong>Node 구조가 Balsa와 다름</strong></a></li>
         <li><a href="#상용-db을-위한-postgre-세팅"><strong>상용 db을 위한 postgre 세팅</strong></a></li>
       </ul>
     </li>
-    <li><a href="#작업일지"><strong>작업일지</strong></a></li>
+    <li><a href="#mssql-포팅을-위한-작업일지"><strong>mssql 포팅을 위한 작업일지</strong></a></li>
   </ul>
 </nav>
 

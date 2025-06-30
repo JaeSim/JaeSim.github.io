@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Learned Scheduler on JaeSim&#39;s Workspace</title>
+    <link>https://JaeSim.github.io/categories/learned-scheduler/</link>
+    <description>Recent content in Learned Scheduler on JaeSim&#39;s Workspace</description>
+    <generator>Hugo</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Mon, 23 Jun 2025 10:01:40 +0900</lastBuildDate>
+    <atom:link href="https://JaeSim.github.io/categories/learned-scheduler/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Learned Scheduler</title>
+      <link>https://JaeSim.github.io/item-research/learned-scheduler/</link>
+      <pubDate>Mon, 23 Jun 2025 10:01:40 +0900</pubDate>
+      <guid>https://JaeSim.github.io/item-research/learned-scheduler/</guid>
+      <description>&lt;h2 id=&#34;learned-scheduler-관련-paper-리서치&#34;&gt;&#xD;&#xA;  &lt;strong&gt;Learned Scheduler 관련 paper 리서치&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#learned-scheduler-%ea%b4%80%eb%a0%a8-paper-%eb%a6%ac%ec%84%9c%ec%b9%98&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;h3 id=&#34;lsched-a-workload-aware-learned-query-scheduler-for-analytical-database-systems2022&#34;&gt;&#xD;&#xA;  &lt;strong&gt;LSched: A Workload-Aware Learned Query Scheduler for Analytical Database Systems(2022)&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#lsched-a-workload-aware-learned-query-scheduler-for-analytical-database-systems2022&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h3&gt;&#xD;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;읽어봐야할 논문&lt;/strong&gt;&lt;/li&gt;&#xA;&lt;li&gt;SIGMOD22, 28회 인용 MIT 팀.&lt;/li&gt;&#xA;&lt;li&gt;a fully RL-based learned workload-aware query scheduler for in-memory analytical database systems.&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://dl.acm.org/doi/10.1145/3514221.3526158&#34;&gt;https://dl.acm.org/doi/10.1145/3514221.3526158&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;LS(Learned Scheduler)를 처음 논문. (RL을 적용했던 Decima와는 학습 대상이 다름)&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;추가적으로 논문 내용에 &lt;em&gt;Decima 와 다르게&lt;/em&gt; 라는 언급이 매우 많이 되어 있음&lt;/strong&gt;&lt;/li&gt;&#xA;&lt;li&gt;Decima가 비슷하게 RL 베이스드 learning이라고 related works에 언급&lt;br&gt;&#xA;저자에 따르면, Decima는 cluster간의 스케쥴링이고, LSched는 단일 데이터베이스 내부를 말하지만, 여러가지 비교언급이 되어있음.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Decima [34], which uses RL to fully-learn a jobs scheduler on large clusters, &lt;br&gt;&#xA;is the closest to LSched in the approach, but different in the scheduling objective. &lt;br&gt;&#xA;Decima aims to schedule tasks among large cluster nodes,&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
