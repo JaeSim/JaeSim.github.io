@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Private on JaeSim&#39;s Workspace</title>
-    <link>https://JaeSim.github.io/categories/private/</link>
+    <link>http://localhost:1313/categories/private/</link>
     <description>Recent content in Private on JaeSim&#39;s Workspace</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Tue, 20 May 2025 16:43:50 +0900</lastBuildDate>
-    <atom:link href="https://JaeSim.github.io/categories/private/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 23 Jun 2025 14:05:50 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/private/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About Me</title>
-      <link>https://JaeSim.github.io/aboutme/</link>
-      <pubDate>Tue, 20 May 2025 16:43:50 +0900</pubDate>
-      <guid>https://JaeSim.github.io/aboutme/</guid>
-      <description>&lt;h1 id=&#34;profile&#34;&gt;&#xD;&#xA;  &lt;strong&gt;Profile&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#profile&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;Name : Jaeyoung Sim&lt;/p&gt;</description>
+      <link>http://localhost:1313/aboutme/</link>
+      <pubDate>Mon, 23 Jun 2025 14:05:50 +0900</pubDate>
+      <guid>http://localhost:1313/aboutme/</guid>
+      <description>&lt;h1 id=&#34;profile&#34;&gt;&#xD;&#xA;  &lt;strong&gt;Profile&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#profile&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Name : Jaeyoung Sim&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Affiliation : { Samsung Electronics, Yonsei University }&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Email : { &lt;a href=&#34;mailto:jae.sim@samsung.com&#34;&gt;jae.sim@samsung.com&lt;/a&gt;, &lt;a href=&#34;mailto:jaeyoung.sim@yonsei.ac.kr&#34;&gt;jaeyoung.sim@yonsei.ac.kr&lt;/a&gt;, &lt;a href=&#34;mailto:tlawo0113@naver.com&#34;&gt;tlawo0113@naver.com&lt;/a&gt; }&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Education :&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;2025.03 - Present&lt;/code&gt; Yonsei University , M.S. in Artificial Intelligence&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;2009.03 - 2015.02&lt;/code&gt; Dongguk University , B.S. in Electronics and Electrical Engineering&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Work Experience :&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;2015.03 - Present&lt;/code&gt; Samsung Electronics MX(Mobile eXperience) division&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;2014.02 - 2014.10&lt;/code&gt; KEIT(Korea Electronics Technology Institute) IoT Research Center Part-time contract worker&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Extracurricular Experience :&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;2013.02 - 2014.12&lt;/code&gt; Samsung Software Membership&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Certificates and License :&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

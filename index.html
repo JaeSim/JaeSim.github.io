@@ -21,7 +21,7 @@
       Learned Index에 대한 직관을 얻기 위한 posting
     
 
-    2025-06-17 09:50:00 KST
+    2025-06-30 09:50:00 KST
 
     
        
@@ -30,22 +30,90 @@
   
 
 
-  The Case for Learend Index Structures (2018)
+  Evaluation or Insight
   
 
 
-1346회 인용 SIGMOD. google, MIT
-https://arxiv.org/pdf/1712.01208
-B-tree 등 Index 구조는 Model(Neural Network 포함하여) 변경될 수 있다는 개념을 구체화(증명?)
-RMI(Recursive Model Index) : Learned Index 소개
+  Learned Index: A Comprehensive Experimental Evaluation(2023)
+  
 
-추가적으로 공부해야하는 것들">
+
+  Summary
+  
+
+
+62회 인용 VLDB. 칭화대
+그동안 나온 Learned Index를 망라하고, 다양한 벤치마크에서 성능을 비교 분석. 
+많은 항목에 대해서, Traditional Index가 더 뛰어나다는 것을 적시하고, Learned Index 의 구현별 장-단점을 총망라, 및 여러가지 Insight 제공 
+Learned Index의 목적 workload 구분
+
+아직 특정 워크로드들은 Traditional Index …
+      
+    
+
+  
+
+  
+    
+      Learned Scheduler
+    
+
+    
+      Learned Scheduler에 대한 직관을 얻기 위한 posting
+    
+
+    2025-06-23 10:01:40 KST
+
+    
+       
+        
+  Learned Scheduler 관련 paper 리서치
+  
+
+
+  LSched: A Workload-Aware Learned Query Scheduler for Analytical Database Systems(2022)
+  
+
+
+읽어봐야할 논문
+SIGMOD22, 28회 인용 MIT 팀.
+a fully RL-based learned workload-aware query scheduler for in-memory analytical database systems.
+https://dl.acm.org/doi/10.1145/3514221.3526158
+LS(Learned Scheduler)를 처음 논문. (RL을 적용했던 Decima와는 학습 대상이 다름)
+추가적으로 논문 내용에 Decima  …
+      
+    
+
+  
+
+  
+    
+      GNN
+    
+
+    
+      GNN에 대한 직관을 얻기 위한 posting
+    
+
+    2025-06-13 14:45:35 KST
+
+    
+       
+        
+  GNN 직관
+  
+
+
+CNN은 Euclidean 공간에서 행과 열로 배열된 픽셀들로 이루어진 이미지에서 특징을 추출한다. 
+LSTM은 자기 자신으로 돌아오는 recurrent 구조를 통해 input으로 주어지는 어떤 한 시계열 데이터인 sequence의 특징을 추출한다. 
+Transformer는 self-attention 구조를 통해 어떤 한 부분에서 주의를 기울여야 할 여러 부분을 병렬적으로 함께 처리함으로써 input의 특징을 추출한다. 
+감이 오겠지만 마찬가지로 GNN에서도 그래프 구조를 통해 시스템에서의 관계 등 다양한 특징을 추출한다.">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="Home">
-  <meta property="og:description" content="Recent Posts#Learned IndexLearned Index에 대한 직관을 얻기 위한 posting2025-06-17 09:50:00 KSTLearned Index 관련 paper 리서치The Case for Learend Index Structures (2018)1346회 인용 SIGMOD. google, MIT https://arxiv.org/pdf/1712.01208 B-tree 등 Index 구조는 Model(Neural Network 포함하여) 변경될 수 있다는 개념을 구체화(증명?) RMI(Recursive Model Index) : Learned Index 소개 추가적으로 공부해야하는 것들">
+  <meta property="og:description" content="Recent Posts#Learned IndexLearned Index에 대한 직관을 얻기 위한 posting2025-06-30 09:50:00 KSTLearned Index 관련 paper 리서치Evaluation or InsightLearned Index: A Comprehensive Experimental Evaluation(2023)Summary62회 인용 VLDB. 칭화대 그동안 나온 Learned Index를 망라하고, 다양한 벤치마크에서 성능을 비교 분석. 많은 항목에 대해서, Traditional Index가 더 뛰어나다는 것을 적시하고, Learned Index 의 구현별 장-단점을 총망라, 및 여러가지 Insight 제공 Learned Index의 목적 workload 구분 아직 특정 워크로드들은 Traditional Index …Learned SchedulerLearned Scheduler에 대한 직관을 얻기 위한 posting2025-06-23 10:01:40 KSTLearned Scheduler 관련 paper 리서치LSched: A Workload-Aware Learned Query Scheduler for Analytical Database Systems(2022)읽어봐야할 논문 SIGMOD22, 28회 인용 MIT 팀. a fully RL-based learned workload-aware query scheduler for in-memory analytical database systems. https://dl.acm.org/doi/10.1145/3514221.3526158 LS(Learned Scheduler)를 처음 논문. (RL을 적용했던 Decima와는 학습 대상이 다름) 추가적으로 논문 내용에 Decima …GNNGNN에 대한 직관을 얻기 위한 posting2025-06-13 14:45:35 KSTGNN 직관CNN은 Euclidean 공간에서 행과 열로 배열된 픽셀들로 이루어진 이미지에서 특징을 추출한다. LSTM은 자기 자신으로 돌아오는 recurrent 구조를 통해 input으로 주어지는 어떤 한 시계열 데이터인 sequence의 특징을 추출한다. Transformer는 self-attention 구조를 통해 어떤 한 부분에서 주의를 기울여야 할 여러 부분을 병렬적으로 함께 처리함으로써 input의 특징을 추출한다. 감이 오겠지만 마찬가지로 GNN에서도 그래프 구조를 통해 시스템에서의 관계 등 다양한 특징을 추출한다.">
   <meta property="og:locale" content="ko_kr">
   <meta property="og:type" content="website">
 <title>Home | JaeSim&#39;s Workspace</title>
@@ -54,7 +122,7 @@ RMI(Recursive Model Index) : Learned Index 소개
 <link rel="canonical" href="https://JaeSim.github.io/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.f178f178ea2ce4146b0c866939434613e611e9aa65b60deb95a29b6c794a7941.js" integrity="sha256-8XjxeOos5BRrDIZpOUNGE&#43;YR6apltg3rlaKbbHlKeUE=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.929c51ac4da7e0a52ea084376e80ef3299529dfc28dd4204d6a5a5f119091537.js" integrity="sha256-kpxRrE2n4KUuoIQ3boDvMplSnfwo3UIE1qWl8RkJFTc=" crossorigin="anonymous"></script>
 <link rel="alternate" type="application/rss+xml" href="https://JaeSim.github.io/index.xml" title="JaeSim's Workspace" />
 <!--
 Made with Book Theme
@@ -101,24 +169,6 @@ https://github.com/alex-shpak/hugo-book
 
   
   <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/aboutme/" class="">About Me</a>
-  
-
-          
-  <ul>
-    
-  </ul>
-
-        </li>
-      
     
       
         <li>
@@ -211,6 +261,19 @@ https://github.com/alex-shpak/hugo-book
 
   
     <a href="/item-research/learned-index/" class="">Learned Index</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/item-research/learned-scheduler/" class="">Learned Scheduler</a>
   
 
         </li>
@@ -311,7 +374,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/learned-query-optimizer/loger-code/" class="">temp-LOGER 코드 분석</a>
+    <a href="/learned-query-optimizer/loger-code/" class="">LOGER 코드 분석</a>
   
 
         </li>
@@ -429,34 +492,66 @@ https://github.com/alex-shpak/hugo-book
       <small style="color: #888;">Learned Index에 대한 직관을 얻기 위한 posting</small><br/>
     
 
-    <small>2025-06-17 09:50:00 KST</small>
+    <small>2025-06-30 09:50:00 KST</small>
 
     <a href="/item-research/learned-index/" style="text-decoration: none; color: inherit;">
       <div class="summary-box"> 
-        <h2 id="learned-index-관련-paper-리서치">
+        <h1 id="learned-index-관련-paper-리서치">
   <strong>Learned Index 관련 paper 리서치</strong>
   
+</h1>
+<h2 id="evaluation-or-insight">
+  <strong>Evaluation or Insight</strong>
+  
 </h2>
-<h3 id="the-case-for-learend-index-structures-2018">
-  <strong>The Case for Learend Index Structures (2018)</strong>
+<h3 id="learned-index-a-comprehensive-experimental-evaluation2023">
+  <strong>Learned Index: A Comprehensive Experimental Evaluation(2023)</strong>
+  
+</h3>
+<h4 id="summary">
+  <strong>Summary</strong>
+  
+</h4>
+<ul>
+<li>62회 인용 VLDB. 칭화대</li>
+<li>그동안 나온 Learned Index를 망라하고, 다양한 벤치마크에서 성능을 비교 분석. <br>
+많은 항목에 대해서, Traditional Index가 더 뛰어나다는 것을 적시하고, Learned Index 의 구현별 장-단점을 총망라, 및 여러가지 Insight 제공 <br></li>
+<li>Learned Index의 목적 workload 구분
+<img src="/images/lis_category_as_purpose.png" alt="lis_category_as_purpose" style="width:80%;" /></li>
+<li>아직 특정 워크로드들은 Traditional Index …</li></ul>
+      </div>
+    </a>
+
+  </li>
+
+  <li style="margin-bottom: 2rem;">
+    <a href="/item-research/learned-scheduler/">
+      <strong style="font-size: 1.25rem;">Learned Scheduler</strong>
+    </a><br/>
+
+    
+      <small style="color: #888;">Learned Scheduler에 대한 직관을 얻기 위한 posting</small><br/>
+    
+
+    <small>2025-06-23 10:01:40 KST</small>
+
+    <a href="/item-research/learned-scheduler/" style="text-decoration: none; color: inherit;">
+      <div class="summary-box"> 
+        <h2 id="learned-scheduler-관련-paper-리서치">
+  <strong>Learned Scheduler 관련 paper 리서치</strong>
+  
+</h2>
+<h3 id="lsched-a-workload-aware-learned-query-scheduler-for-analytical-database-systems2022">
+  <strong>LSched: A Workload-Aware Learned Query Scheduler for Analytical Database Systems(2022)</strong>
   
 </h3>
 <ul>
-<li>1346회 인용 SIGMOD. google, MIT</li>
-<li>https://arxiv.org/pdf/1712.01208</li>
-<li>B-tree 등 Index 구조는 Model(Neural Network 포함하여) 변경될 수 있다는 개념을 구체화(증명?)</li>
-<li>RMI(Recursive Model Index) : Learned Index 소개</li>
-</ul>
-<p>추가적으로 공부해야하는 것들</p>
-<ul>
-<li>bloom filter</li>
-<li>CDF model</li>
-<li>B-tree (recap)</li>
-<li>Hash index (recap)</li>
-<li>해당 논문의 RMI 이 대한 deep dive</li>
-</ul>
-<h3 id="benchmarking-learned-indexes-2020">
-  <strong>Benchmarking Learned …</strong></h3>
+<li><strong>읽어봐야할 논문</strong></li>
+<li>SIGMOD22, 28회 인용 MIT 팀.</li>
+<li>a fully RL-based learned workload-aware query scheduler for in-memory analytical database systems.</li>
+<li>https://dl.acm.org/doi/10.1145/3514221.3526158</li>
+<li>LS(Learned Scheduler)를 처음 논문. (RL을 적용했던 Decima와는 학습 대상이 다름)</li>
+<li><strong>추가적으로 논문 내용에 <em>Decima  …</em></strong></li></ul>
       </div>
     </a>
 
@@ -475,8 +570,8 @@ https://github.com/alex-shpak/hugo-book
 
     <a href="/item-research/graph/" style="text-decoration: none; color: inherit;">
       <div class="summary-box"> 
-        <h2 id="직관">
-  <strong>직관</strong>
+        <h2 id="gnn-직관">
+  <strong>GNN 직관</strong>
   
 </h2>
 <blockquote>
@@ -499,7 +594,7 @@ Transformer는 self-attention 구조를 통해 어떤 한 부분에서 주의를
 
   <li style="margin-bottom: 2rem;">
     <a href="/learned-query-optimizer/loger-code/">
-      <strong style="font-size: 1.25rem;">temp-LOGER 코드 분석</strong>
+      <strong style="font-size: 1.25rem;">LOGER 코드 분석</strong>
     </a><br/>
 
     
@@ -571,37 +666,6 @@ https://github.com/TianyiChen0316/LOGER</li>
 MC는 <strong>하나의 에피소드 전체</strong>(시작 ~ 종료)를 관찰한 뒤, <br>
 실제로 받은 reward들을 기반으로 학습합니다. <br>
 환경 모델 없이, 경험만 …</li></ul>
-      </div>
-    </a>
-
-  </li>
-
-  <li style="margin-bottom: 2rem;">
-    <a href="/reinforcement-learning/rl-dp/">
-      <strong style="font-size: 1.25rem;">3. Planning by Dynamic Programming</strong>
-    </a><br/>
-
-    
-      <small style="color: #888;">강화학습의 value iteration, policy iteration과 DP 대한 내용</small><br/>
-    
-
-    <small>2025-05-29 12:21:05 KST</small>
-
-    <a href="/reinforcement-learning/rl-dp/" style="text-decoration: none; color: inherit;">
-      <div class="summary-box"> 
-        <h1 id="3-planning-by-dynamic-programming">
-  <strong>3. Planning by Dynamic Programming</strong>
-  
-</h1>
-<p>MDP를 푸는 방식들이 여러 방법이 있다.</p>
-<p><strong>Policy evaluation, Policy iteration, Value iteration</strong> 등이 있고, 이것들은 <strong>환경을 정확하게 안다면(=모델을 안다면)</strong> DP가 적용이 가능하다</p>
-<p>먼저 간략하게 언급하자면</p>
-<ol>
-<li><strong>policy iteration</strong> : policy를 평가하고 iteration 하면서 발전해나가는 방식과  (policy evaluation + policy improvement)</li>
-<li><strong>value iteration</strong> : value function을 iteration하면서 옵티멀을 찾아가는 방법</li>
-</ol>
-<p>이 있다.</p>
-<p>이번 섹션은 DP로 known MDP를 푸는 방법에 대한것이고, …</p>
       </div>
     </a>
 

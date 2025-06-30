@@ -9,7 +9,7 @@
     <lastBuildDate>Thu, 12 Jun 2025 11:50:33 +0900</lastBuildDate>
     <atom:link href="https://JaeSim.github.io/tags/dbms/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>temp-LOGER 코드 분석</title>
+      <title>LOGER 코드 분석</title>
       <link>https://JaeSim.github.io/learned-query-optimizer/loger-code/</link>
       <pubDate>Thu, 12 Jun 2025 11:50:33 +0900</pubDate>
       <guid>https://JaeSim.github.io/learned-query-optimizer/loger-code/</guid>
