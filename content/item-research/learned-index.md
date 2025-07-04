@@ -1,5 +1,5 @@
 +++
-date = '2025-06-30T09:50:00+09:00'
+date = '2025-07-02T13:01:23+09:00'
 title = 'Learned Index'
 subtitle =  'Learned Index에 대한 직관을 얻기 위한 posting'
 weight = 5
@@ -9,7 +9,16 @@ categories = ["Learned Index"]
 
 # **Learned Index 관련 paper 리서치**
 
-## **Evaluation or Insight**
+## **Total Summary**
+ - MIT의 Tim Kraska 교수연구팀이 제시한 Learned Index Structure ([RMI](#the-case-for-learned-index-structures-2018--rmi-소개-및-learned-index-개요-소개)) 공개 이후 (2018~) 여러가지 workload 를 위한 Learned Index 연구들이 제시되어 있다. (e.g., multi dimension, spatial index..) 
+ - **Learned Index: A Comprehensive Experimental Evaluation(2023)** [[이동]](#learned-index-a-comprehensive-experimental-evaluation2023) 에서 여러 Learned Index들을 평가했는데, 몇몇 분야에서는 아직 Tranditional Index 솔루션이 더 나은 성능을 지녔다고 실험되었다.
+   - Learned Index가 극복해야할 부분들은 다음과 같다. (2023기준..) <br> String Key, Concurrency performance, Write-heavy workload...
+ - 위 논문이 나온 이후에 추가적으로 각기 workload를 극복하기 위한 논문들이 ***경쟁적*** 으로 나오고 있다.
+ - **결론**<br>
+  이미 충분히 연구되어온 분야로, 연구주제로 선정하려면 기존 연구들을 충분히 이해하고, 아직 해결하지못한 부분을 파악하여 workload를 설정해야하며,
+  실험결과를 제시할때 기존 연구들도 실험 결과로 제시해야함.
+
+## **Evaluation or Insight Paper**
 ### **Learned Index: A Comprehensive Experimental Evaluation(2023)**
 #### **Summary**
  - 62회 인용 VLDB. 칭화대
@@ -113,7 +122,7 @@ categories = ["Learned Index"]
  - Other Method로는, RMI는 non-tree structure 이다. (two-layer structure를 사용)
 
 
-### **The Case for Learend Index Structures (2018) : RMI 소개 및 Learned Index 개요 소개**
+### **The Case for Learned Index Structures (2018) : RMI 소개 및 Learned Index 개요 소개**
 
 #### **Summary**
 - 1346회 인용 SIGMOD. google, MIT
@@ -164,12 +173,18 @@ categories = ["Learned Index"]
  - https://dl.acm.org/doi/10.14778/3421424.3421425
  - RMI(Recursive Model Index), RS(Radix Spline), PGM (Picevewise Geometric Model) 등과 같은 솔루션과 전통 솔루션들 벤치마크 제공
    - Learned Index 는 CDF를 근사한다 
- - _읽기_ workload 에만 초점이 맞춰져 있어, _쓰기_ 워크로드는 future work으로 언급
- - PGM연구팀이 RMI보다 좋다는 언급에 긁혀서,, 쓴 논문으로 보임
+ - ***읽기 workload 에만 초점이 맞춰져 있어, 쓰기 워크로드는 future work으로 언급***
+ - ***PGM연구팀이 RMI보다 좋다는 언급에 긁혀서,, 쓴 논문으로 보임***
  - Learned Index 를 평가할수 있는 benchmark에 대한 것, 각각의 size등 종합 평가.
- - 후에 나온 **Learned Index: A Comprehensive Experimental Evaluation(2023)** 으로 대신하면 될것 같음
- 
+ - 후에 나온 **Learned Index: A Comprehensive Experimental Evaluation(2023)** [[이동]](#learned-index-a-comprehensive-experimental-evaluation2023) 으로 대신하면 될것 같음
 
+### **SOSD: A Benchmark for Learned Indexes (2019)**
+- 118회 인용 VLDB. MIT, Intel, TUM(뮌휀 공과대학) 공동 연구
+- https://arxiv.org/abs/1911.13014
+- Learned Index의 가능성들을 제시하고 실제 적용을 위해서는 어떤 선택을 해야할지 실험하고 제시한 논문 (옛날 논문)
+- 후에 나온 다른 Benchmark/evaluation 논문을 참조해도 될것 같음
+
+* * * 
 ## **Single dimention**
 ### **The PGM-index: a fully-dynamic compressed learned index with provable worst-case bounds (2020)**
 - 187회 인용 VLDB. Pisa (이탈리아) 연구
@@ -177,24 +192,16 @@ categories = ["Learned Index"]
 - RMI 대비 top-down 방식.
 - Learned Index의 초기방식으로, RMI비교 분석을 하고 있음.
 
-
 ### **RadixSpline: A Single-Pass Learned Index (2020)**
 - 114회 인용 SIGMOD. MIT, Intel, TUM(뮌휀 공과대학) 공동 연구
 - 5 page
 - https://dl.acm.org/doi/10.1145/3401071.3401659
 - **아직 읽지 않음**
 
-
-### **SOSD: A Benchmark for Learned Indexes (2019)**
-- 118회 인용 VLDB. MIT, Intel, TUM(뮌휀 공과대학) 공동 연구
-- https://arxiv.org/abs/1911.13014
-- **아직 읽지 않음**
-
-
-### **A New Paradigm in Tuning Learned Indexes: A Reinforcement Learning-Enhanced Approach**
- -  SIGMOD 2025
- -  읽어봐야할거같은데
- -  Taiyi Wang (University of Cambridge)*; Liang Liang (Imperial College London); Guang Yang (Neo4j); Thomas Heinis (Imperial College); Eiko Yoneki (University of Cambridge)
+### **BT-Tree: A Reinforcement Learning Based Index for Big Trajectory Data(2025)**
+ - SIGMOD 2025
+ - 강화학습으로 이해
+ - Trajectory Data (시간에 따른 경로 이동 정보 같은 것)에 대해서, 강화학습을 이용해서 비용함수를 구축하여, range 및 KNN query에 효과적인 BT-Tree Index를 제시
 
 ## **Multi dimention**
 ### **Learning Multi-dimensional Indexes(2020)**
@@ -203,49 +210,73 @@ categories = ["Learned Index"]
 ### **Tsunami: A Learned Multi-Dimensional Index for Correlated Data and Skewed Workloads**
  - multi dimention
 
-### **LSI: A Learned Secondary Index Structure**
+### **LSI: A Learned Secondary Index Structure(2022)**
+ - aiDM 2022 (workshop paper (5 page)), MIT Kraska 팀
  - https://dl.acm.org/doi/pdf/10.1145/3533702.3534912
 
-
-### **VEGA: An Active-tuning Learned Index with Group-Wise Learning Granularity**
+### **VEGA: An Active-tuning Learned Index with Group-Wise Learning Granularity(2025)**
  - SIGMOD 2025
  -  읽어봐야할거같은데
  -  위에 것이랑 비슷하게 online tunning 을 가능하게 하는것 같은데..? 맞나
  
-
-### **BT-Tree: A Reinforcement Learning Based Index for Big Trajectory Data**
- - SIGMOD 2025
- - 강화학습으로 이해
-
-
-### **How good are multi-dimensional learned indexes? An experimental survey**
+### **How good are multi-dimensional learned indexes? An experimental survey(2025)**
   - VLDB 2025
   -  https://dl.acm.org/doi/10.1007/s00778-024-00893-6
 
 ## **String Task**
-### **LITS: An Optimized Learned Index for Strings**
-  - VLDB 2024
+### **LITS: An Optimized Learned Index for Strings(2024)**
+  - VLDB 2024, 중국과학원대학교
   - https://dl.acm.org/doi/10.14778/3681954.3682010
+  - (Extended version) https://arxiv.org/abs/2407.11556
 
+### **SIndex: A Scalable Learned Index for String Keys(2020)**
+ - SIGOPS 2020, 상하이교통 대학
+ - https://dl.acm.org/doi/10.1145/3409963.3410496
+ - string에 특화된 Learned Index로, 공통 prefix를 사용하는 키를 그룹화하고, unique 부분만 학습
+
+
+### **Bounding the Last Mile: Efficient Learned String Indexing(2021)**
+ - AIDB 2021 (workshop paper (5page) ), MIT Kraska 팀
+ - RadixSpline을 String에 특화되도록 RadixStringSpline 을 소개
+ - RSS에 대해서, 해당 논문의 저자인 Benjamin Spector 가 Learned String Index Structures for In-Memory Database 라는 석사 졸업 논문을 썼는데, 더 상세히 설명되어 있는것 같음
+
+### **Accelerating String-key Learned Index Structures via Memoization-based Incremental Training(2024)**
+ - VLDB (2024), KAIST
+ - String-key 에 대한 Learned Index를 위해서, 알고리즘-하드웨어 co-designed 제시.
+ - key-position pair의 retraining 시에 전체 key 수와 string len에 선형적으로 증가하여 병목을 야기하는것을 극복하기 위함
+ - 알고리즘 적으로 계산을 줄이고, FPGA로 오프로딩하여 가속하는 방안 제시
+ 
+### **SLIPP: A Space-Efficient Learned Index for String Keys(2024)**
+ - BDSIC(학회정보를 잘 못찾겠음) 2024, Guangzhou
 
 ## **Updatable**
 ### **ALEX: An Updatable Adaptive Learned Index(2020)**
  - https://arxiv.org/pdf/1905.08898
- - MIT Krask 교수팀
+ - MIT Kraska 교수팀, with Microsoft
 
+## **Spatial Index or Composite Keys**
+### **CK-index: A Distribution-Aware Learned Index for Composite Keys(2024)**
+ - ISPA 2024(학회정보를 잘 못찾겠음), Nanjing 대
 
-## **Spatial Index**
-### **LISA:ALearnedIndex Structure for Spatial Data**
+### **LISA:A LearnedIndex Structure for Spatial Data**
  - Spatial index. 공간
 
 ### **Effectively Learning Spatial Indices**
   - 공간
 
-### **The Case for Learned Spatial Indexes**
+### **The Case for Learned Spatial Indexes(2020)**
  - https://arxiv.org/abs/2008.10349
  - 공간
 
 ## **Extra**
-### **Morphtree: a polymorphic main-memory learned index for dynamic workloads**
+### **A New Paradigm in Tuning Learned Indexes: A Reinforcement Learning-Enhanced Approach(2025)**
+ - SIGMOD 2025
+ - https://arxiv.org/abs/2502.05001
+ - ***LIS(Learned Index Structure) 의 Tunning을 Reinforcement Learning으로 하자는 내용***
+ - LIS는 Split Policy 와 Gap Ratio, Max Node Size 등 튜닝해야할 것들이 많음. 튜닝에 의해서 결정되는 성능향상 요지가 많고, <br>
+  이것들이 고차원적이고 연속적이므로 정밀 튜닝에 강화학습이 효과적이다 라는 내용
+ - Taiyi Wang (University of Cambridge)*; Liang Liang (Imperial College London); Guang Yang (Neo4j); Thomas Heinis (Imperial College); Eiko Yoneki (University of Cambridge)
+
+### **Morphtree: a polymorphic main-memory learned index for dynamic workloads(2025)**
   - VLDB 2025
   - https://dl.acm.org/doi/10.1007/s00778-023-00823-y

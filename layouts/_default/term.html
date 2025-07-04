@@ -3,7 +3,7 @@
         <h1>{{ .Title }}</h1>
         <ul>
         {{ range .Pages }}
-            <li><a href="{{ .RelPermalink }}">{{ .Title }}</a> {{ .Date }}</li>
+            <li><a href="{{ .RelPermalink }}">{{ .Title }}</a>  <small style="color: #888; margin-left: 10px;">{{ .Date }}</small></li>
         {{ else }}
             <li><em>No posts found.</em></li>
         {{ end }}
