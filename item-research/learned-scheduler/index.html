@@ -12,15 +12,17 @@
   #
 
 
-읽어봐야할 논문
-SIGMOD22, 28회 인용 MIT 팀.
+SIGMOD22, 28회 인용 MIT 팀. (Non-open source)
 a fully RL-based learned workload-aware query scheduler for in-memory analytical database systems.
 https://dl.acm.org/doi/10.1145/3514221.3526158
-LS(Learned Scheduler)를 처음 논문. (RL을 적용했던 Decima와는 학습 대상이 다름)
+LS(Learned Scheduler)를 처음 언급. (RL을 적용했던 Decima와는 학습 대상이 다름)
 추가적으로 논문 내용에 Decima 와 다르게 라는 언급이 매우 많이 되어 있음
-Decima가 비슷하게 RL 베이스드 learning이라고 related works에 언급
-저자에 따르면, Decima는 cluster간의 스케쥴링이고, LSched는 단일 데이터베이스 내부를 말하지만, 여러가지 비교언급이 되어있음.
+Decima 가 database-specific characteristics를 고려하지 않은 한계점을 언급 (query structure, operator)
+이로인한 pipelining 기회를 날린다고 주장.
+Decima 와의 비교
 
+Decima가 비슷하게 RL baseed learning이라고 related works에 언급
+저자에 따르면, Decima는 cluster간의 스케쥴링이고, LSched는 단일 데이터베이스 내부를 말하지만, 여러가지 비교언급이 되어있음.
 
 Decima [34], which uses RL to fully-learn a jobs scheduler on large clusters, 
 is the closest to LSched in the approach, but different in the scheduling objective. 
@@ -30,13 +32,14 @@ Decima aims to schedule tasks among large cluster nodes,">
 <meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/item-research/learned-scheduler/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="Learned Scheduler">
-  <meta property="og:description" content="Learned Scheduler 관련 paper 리서치#LSched: A Workload-Aware Learned Query Scheduler for Analytical Database Systems(2022)#읽어봐야할 논문 SIGMOD22, 28회 인용 MIT 팀. a fully RL-based learned workload-aware query scheduler for in-memory analytical database systems. https://dl.acm.org/doi/10.1145/3514221.3526158 LS(Learned Scheduler)를 처음 논문. (RL을 적용했던 Decima와는 학습 대상이 다름) 추가적으로 논문 내용에 Decima 와 다르게 라는 언급이 매우 많이 되어 있음 Decima가 비슷하게 RL 베이스드 learning이라고 related works에 언급
+  <meta property="og:description" content="Learned Scheduler 관련 paper 리서치#LSched: A Workload-Aware Learned Query Scheduler for Analytical Database Systems(2022)#SIGMOD22, 28회 인용 MIT 팀. (Non-open source) a fully RL-based learned workload-aware query scheduler for in-memory analytical database systems. https://dl.acm.org/doi/10.1145/3514221.3526158 LS(Learned Scheduler)를 처음 언급. (RL을 적용했던 Decima와는 학습 대상이 다름) 추가적으로 논문 내용에 Decima 와 다르게 라는 언급이 매우 많이 되어 있음 Decima 가 database-specific characteristics를 고려하지 않은 한계점을 언급 (query structure, operator)
+이로인한 pipelining 기회를 날린다고 주장. Decima 와의 비교 Decima가 비슷하게 RL baseed learning이라고 related works에 언급
 저자에 따르면, Decima는 cluster간의 스케쥴링이고, LSched는 단일 데이터베이스 내부를 말하지만, 여러가지 비교언급이 되어있음. Decima [34], which uses RL to fully-learn a jobs scheduler on large clusters, is the closest to LSched in the approach, but different in the scheduling objective. Decima aims to schedule tasks among large cluster nodes,">
   <meta property="og:locale" content="ko_kr">
   <meta property="og:type" content="article">
     <meta property="article:section" content="item-research">
-    <meta property="article:published_time" content="2025-06-23T10:01:40+09:00">
-    <meta property="article:modified_time" content="2025-06-23T10:01:40+09:00">
+    <meta property="article:published_time" content="2025-07-03T10:53:40+09:00">
+    <meta property="article:modified_time" content="2025-07-03T10:53:40+09:00">
     <meta property="article:tag" content="RL">
     <meta property="article:tag" content="ML">
     <meta property="article:tag" content="NN">
@@ -47,7 +50,7 @@ Decima aims to schedule tasks among large cluster nodes,">
 <link rel="canonical" href="https://JaeSim.github.io/item-research/learned-scheduler/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.929c51ac4da7e0a52ea084376e80ef3299529dfc28dd4204d6a5a5f119091537.js" integrity="sha256-kpxRrE2n4KUuoIQ3boDvMplSnfwo3UIE1qWl8RkJFTc=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.59aa98a9591e0f83b3b1173c28d9f29a2928404e1ca6a7a6dcff16d2e06999ca.js" integrity="sha256-WaqYqVkeD4OzsRc8KNnymikoQE4cpqem3P8W0uBpmco=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -363,9 +366,10 @@ https://github.com/alex-shpak/hugo-book
     <li><a href="#learned-scheduler-관련-paper-리서치"><strong>Learned Scheduler 관련 paper 리서치</strong></a>
       <ul>
         <li><a href="#lsched-a-workload-aware-learned-query-scheduler-for-analytical-database-systems2022"><strong>LSched: A Workload-Aware Learned Query Scheduler for Analytical Database Systems(2022)</strong></a></li>
+        <li><a href="#learning-scheduling-algorithms-for-data-processing-clusters2019"><strong>Learning scheduling algorithms for data processing clusters(2019)</strong></a></li>
+        <li><a href="#bqsched-a-non-intrusive-scheduler-for-batch-concurrent-queries-via-reinforcement-learning2025"><strong>BQSched: A Non-intrusive Scheduler for Batch Concurrent Queries via Reinforcement Learning(2025)</strong></a></li>
       </ul>
     </li>
-    <li><a href="#learning-scheduling-algorithms-for-data-processing-clusters2018"><strong>Learning scheduling algorithms for data processing clusters(2018)</strong></a></li>
   </ul>
 </nav>
 
@@ -402,7 +406,13 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown book-article"><h2 id="learned-scheduler-관련-paper-리서치">
+<article class="markdown book-post">
+  <h1 style="font-weight: bold;">
+    <span style="font-weight: normal; font-size: 0.6em; color: #888;">
+      2025-07-03 10:53 KST
+    </span>
+  </h1>
+  <div class="book-post-content"><h2 id="learned-scheduler-관련-paper-리서치">
   <strong>Learned Scheduler 관련 paper 리서치</strong>
   <a class="anchor" href="#learned-scheduler-%ea%b4%80%eb%a0%a8-paper-%eb%a6%ac%ec%84%9c%ec%b9%98">#</a>
 </h2>
@@ -411,28 +421,29 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#lsched-a-workload-aware-learned-query-scheduler-for-analytical-database-systems2022">#</a>
 </h3>
 <ul>
-<li><strong>읽어봐야할 논문</strong></li>
-<li>SIGMOD22, 28회 인용 MIT 팀.</li>
-<li>a fully RL-based learned workload-aware query scheduler for in-memory analytical database systems.</li>
+<li>SIGMOD22, 28회 인용 MIT 팀. (<em><strong>Non-open source</strong></em>)</li>
+<li>a fully RL-based learned workload-aware query scheduler for <em><strong>in-memory analytical database systems</strong></em>.</li>
 <li><a href="https://dl.acm.org/doi/10.1145/3514221.3526158">https://dl.acm.org/doi/10.1145/3514221.3526158</a></li>
-<li>LS(Learned Scheduler)를 처음 논문. (RL을 적용했던 Decima와는 학습 대상이 다름)</li>
+<li>LS(Learned Scheduler)를 처음 언급. (RL을 적용했던 Decima와는 학습 대상이 다름)</li>
 <li><strong>추가적으로 논문 내용에 <em>Decima 와 다르게</em> 라는 언급이 매우 많이 되어 있음</strong></li>
-<li>Decima가 비슷하게 RL 베이스드 learning이라고 related works에 언급<br>
-저자에 따르면, Decima는 cluster간의 스케쥴링이고, LSched는 단일 데이터베이스 내부를 말하지만, 여러가지 비교언급이 되어있음.</li>
-</ul>
+<li><em><strong>Decima 가 database-specific characteristics를 고려하지 않은 한계점을 언급 (query structure, operator)<br>
+이로인한 pipelining 기회를 날린다고 주장.</strong></em></li>
+<li>Decima 와의 비교
+<ul>
+<li>Decima가 비슷하게 RL baseed learning이라고 related works에 언급<br>
+저자에 따르면, Decima는 cluster간의 스케쥴링이고, LSched는 단일 데이터베이스 내부를 말하지만, 여러가지 비교언급이 되어있음.
 <blockquote>
 <p>Decima [34], which uses RL to fully-learn a jobs scheduler on large clusters, <br>
 is the closest to LSched in the approach, but different in the scheduling objective. <br>
 Decima aims to schedule tasks among large cluster nodes,</p></blockquote>
-<ul>
+</li>
 <li>In-memory 까지만 적용범위</li>
 <li>최신 Query Encoder 기법을 제시 (with Graph Attention Network)</li>
-<li>최초의 operation pipeline을 한 논문이라고 언급</li>
-</ul>
+<li>최초의 operation pipeline을 한 논문이라고 언급
 <blockquote>
 <p>As far as we know, automatically controlling the operators pipelining was never introduced before by previous schedulers including Decima.</p></blockquote>
-<ul>
-<li>Decima 는 black-box feature(number of tasks)를 사용, LsChed는 white-box feature를 사용(fine-gained level work orders)</li>
+</li>
+<li>Decima 는 black-box feature(number of tasks)를 사용, LSched는 white-box feature를 사용(fine-gained level work orders)</li>
 <li>by GPT</li>
 </ul>
 <table>
@@ -466,20 +477,62 @@ Decima aims to schedule tasks among large cluster nodes,</p></blockquote>
       </tr>
   </tbody>
 </table>
-<ul>
-<li>느낀점. Decima 에서 많이 대비하여 설명</li>
+</li>
+<li>느낀점. <br>
+Decima 에서 많이 대비하여 설명. <br>
+후에 나온 BQSched(2025)는 오히려 다시 Black-box가 좋다는식으로 나와서&hellip; 흠;</li>
 </ul>
-<h2 id="learning-scheduling-algorithms-for-data-processing-clusters2018">
-  <strong>Learning scheduling algorithms for data processing clusters(2018)</strong>
-  <a class="anchor" href="#learning-scheduling-algorithms-for-data-processing-clusters2018">#</a>
-</h2>
+<h3 id="learning-scheduling-algorithms-for-data-processing-clusters2019">
+  <strong>Learning scheduling algorithms for data processing clusters(2019)</strong>
+  <a class="anchor" href="#learning-scheduling-algorithms-for-data-processing-clusters2019">#</a>
+</h3>
 <ul>
-<li>SIGMOD19, 870회 인용, MIT와 칭화대</li>
-<li>= Decima</li>
+<li>SIGMOD19, 870회 인용, MIT와 칭화대. Project 명 : <strong>Decima</strong></li>
 <li><a href="https://dl.acm.org/doi/10.1145/3341302.3342080">https://dl.acm.org/doi/10.1145/3341302.3342080</a></li>
 <li><a href="https://www.themoonlight.io/ko/review/learning-interpretable-scheduling-algorithms-for-data-processing-clusters">https://www.themoonlight.io/ko/review/learning-interpretable-scheduling-algorithms-for-data-processing-clusters</a></li>
 <li><a href="https://ita9naiwa.github.io/reinforcement%20learning/2019/02/20/scheduling-dpc.html">https://ita9naiwa.github.io/reinforcement%20learning/2019/02/20/scheduling-dpc.html</a></li>
+<li><a href="https://github.com/hongzimao/decima-sim">https://github.com/hongzimao/decima-sim</a></li>
+<li>Spark 에서 실험했으며, 한정된 자원속에서 DAG문제를 RL로 푸는 방법을 제시</li>
+<li>Query Job에 대한 새로운 representation 을 제시
+<ul>
+<li>per-node embbeding, per-job and global embbeding</li>
 </ul>
+</li>
+<li>여러가지 RL 테크닉 접목 (&ldquo;streaming scenario&rdquo; 에서 오는 problem 우회)
+<ul>
+<li>curriculum learning 기반 초기화 전략 &amp; random termination
+<ul>
+<li>Batch 시나리오로 학습시 streaming 에서 성능이 떨어지도록 학습됨 <br>
+streaming일경우 queue에 작업이 과도하게 쌓이니 , 이를 방지하기 위해서 초반에는 early terminate함. <br>
+이후에는 더 긴 시퀀스 및 어려운 문제를 해결하도록 유도 (2009. Curriculum learning)</li>
+<li><strong>이경우 언제 종료될지 학습할수 있어 항상 종료시간직전까지 미루는 전략으로 학습될 수 있음</strong></li>
+<li>memoryless 종료 방식을 사용해서, 지수 분포에서 무작위 샘플링으로 특정 시간이후 종료되도록 하고, <br>
+실험이 지속될수록 이 평균시간을 늘려나감</li>
+</ul>
+</li>
+<li>variance reduction technique 접목 (2019. Variance Reduction for Reinforcement Learning in Input-Driven Environments.)
+<ul>
+<li>각 작업의 도작(task 수행의 종료시점)의 randomness에 의해서, (행하는 task자체가 원래 짧게 걸리는 쿼리거나, 원래 수행시간이 오래걸리는 쿼리거나), 보상이 무작위함</li>
+<li>각 도착마다 baseline을 별도로 계산하여 정확하게 평가</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>느낀점<br>
+실시간 online RL 에 대해서는? 유기적으로 동작하는 것을 만드는건 어떠한가?</li>
+</ul>
+<h3 id="bqsched-a-non-intrusive-scheduler-for-batch-concurrent-queries-via-reinforcement-learning2025">
+  <strong>BQSched: A Non-intrusive Scheduler for Batch Concurrent Queries via Reinforcement Learning(2025)</strong>
+  <a class="anchor" href="#bqsched-a-non-intrusive-scheduler-for-batch-concurrent-queries-via-reinforcement-learning2025">#</a>
+</h3>
+<ul>
+<li>ICDE2025,</li>
+<li>RL 기반 query job scheduler</li>
+<li>기존 방식들 (LSched 등) 은 instrusive (침습적?) 이라고 말함. (DBMS와 통합해야한다.) 따라서 DBMS가 blackbox라 가정하고, 할수 있는 방법으로 제시</li>
+<li>dbms 에 전달하기 전에 별도의 scheduler를 만들어서 돌리고, 이로인한 결과를 DBMS에 plan된 batch 순서에 맞게 전달</li>
+<li>attention + PPO 기반 scheduler</li>
+</ul>
+</div>
 </article>
  
       
@@ -539,9 +592,10 @@ Decima aims to schedule tasks among large cluster nodes,</p></blockquote>
     <li><a href="#learned-scheduler-관련-paper-리서치"><strong>Learned Scheduler 관련 paper 리서치</strong></a>
       <ul>
         <li><a href="#lsched-a-workload-aware-learned-query-scheduler-for-analytical-database-systems2022"><strong>LSched: A Workload-Aware Learned Query Scheduler for Analytical Database Systems(2022)</strong></a></li>
+        <li><a href="#learning-scheduling-algorithms-for-data-processing-clusters2019"><strong>Learning scheduling algorithms for data processing clusters(2019)</strong></a></li>
+        <li><a href="#bqsched-a-non-intrusive-scheduler-for-batch-concurrent-queries-via-reinforcement-learning2025"><strong>BQSched: A Non-intrusive Scheduler for Batch Concurrent Queries via Reinforcement Learning(2025)</strong></a></li>
       </ul>
     </li>
-    <li><a href="#learning-scheduling-algorithms-for-data-processing-clusters2018"><strong>Learning scheduling algorithms for data processing clusters(2018)</strong></a></li>
   </ul>
 </nav>
 

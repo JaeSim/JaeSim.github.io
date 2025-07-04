@@ -14,47 +14,6 @@
 
   
     
-      Learned Index
-    
-
-    
-      Learned Index에 대한 직관을 얻기 위한 posting
-    
-
-    2025-06-30 09:50:00 KST
-
-    
-       
-        
-  Learned Index 관련 paper 리서치
-  
-
-
-  Evaluation or Insight
-  
-
-
-  Learned Index: A Comprehensive Experimental Evaluation(2023)
-  
-
-
-  Summary
-  
-
-
-62회 인용 VLDB. 칭화대
-그동안 나온 Learned Index를 망라하고, 다양한 벤치마크에서 성능을 비교 분석. 
-많은 항목에 대해서, Traditional Index가 더 뛰어나다는 것을 적시하고, Learned Index 의 구현별 장-단점을 총망라, 및 여러가지 Insight 제공 
-Learned Index의 목적 workload 구분
-
-아직 특정 워크로드들은 Traditional Index …
-      
-    
-
-  
-
-  
-    
       Learned Scheduler
     
 
@@ -62,7 +21,7 @@ Learned Index의 목적 workload 구분
       Learned Scheduler에 대한 직관을 얻기 위한 posting
     
 
-    2025-06-23 10:01:40 KST
+    2025-07-03 10:53:40 KST
 
     
        
@@ -75,12 +34,42 @@ Learned Index의 목적 workload 구분
   
 
 
-읽어봐야할 논문
-SIGMOD22, 28회 인용 MIT 팀.
+SIGMOD22, 28회 인용 MIT 팀. (Non-open source)
 a fully RL-based learned workload-aware query scheduler for in-memory analytical database systems.
 https://dl.acm.org/doi/10.1145/3514221.3526158
-LS(Learned Scheduler)를 처음 논문. (RL을 적용했던 Decima와는 학습 대상이 다름)
-추가적으로 논문 내용에 Decima  …
+LS(Learned Scheduler)를 처음 언급. (RL을 적용했던 Decima와는 학습 대상이 다름)
+추가적으로 논문 내용 …
+      
+    
+
+  
+
+  
+    
+      Learned Index
+    
+
+    
+      Learned Index에 대한 직관을 얻기 위한 posting
+    
+
+    2025-07-02 13:01:23 KST
+
+    
+       
+        
+  Learned Index 관련 paper 리서치
+  
+
+
+  Total Summary
+  
+
+
+MIT의 Tim Kraska 교수연구팀이 제시한 Learned Index Structure (RMI) 공개 이후 (2018~) 여러가지 workload 를 위한 Learned Index 연구들이 제시되어 있다. (e.g., multi dimension, spatial index..)
+Learned Index: A Comprehensive Experimental Evaluation(2023) [이동] 에서 여러 Learned Index들을 평가했는데, 몇몇 분야에서는 아직 Tranditional Index 솔루션이 더 나은 성능을 지녔다고 실험되었다.
+
+Learned Index가 극복해야할 부분들 …
       
     
 
@@ -113,7 +102,7 @@ Transformer는 self-attention 구조를 통해 어떤 한 부분에서 주의를
 <meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="Home">
-  <meta property="og:description" content="Recent Posts#Learned IndexLearned Index에 대한 직관을 얻기 위한 posting2025-06-30 09:50:00 KSTLearned Index 관련 paper 리서치Evaluation or InsightLearned Index: A Comprehensive Experimental Evaluation(2023)Summary62회 인용 VLDB. 칭화대 그동안 나온 Learned Index를 망라하고, 다양한 벤치마크에서 성능을 비교 분석. 많은 항목에 대해서, Traditional Index가 더 뛰어나다는 것을 적시하고, Learned Index 의 구현별 장-단점을 총망라, 및 여러가지 Insight 제공 Learned Index의 목적 workload 구분 아직 특정 워크로드들은 Traditional Index …Learned SchedulerLearned Scheduler에 대한 직관을 얻기 위한 posting2025-06-23 10:01:40 KSTLearned Scheduler 관련 paper 리서치LSched: A Workload-Aware Learned Query Scheduler for Analytical Database Systems(2022)읽어봐야할 논문 SIGMOD22, 28회 인용 MIT 팀. a fully RL-based learned workload-aware query scheduler for in-memory analytical database systems. https://dl.acm.org/doi/10.1145/3514221.3526158 LS(Learned Scheduler)를 처음 논문. (RL을 적용했던 Decima와는 학습 대상이 다름) 추가적으로 논문 내용에 Decima …GNNGNN에 대한 직관을 얻기 위한 posting2025-06-13 14:45:35 KSTGNN 직관CNN은 Euclidean 공간에서 행과 열로 배열된 픽셀들로 이루어진 이미지에서 특징을 추출한다. LSTM은 자기 자신으로 돌아오는 recurrent 구조를 통해 input으로 주어지는 어떤 한 시계열 데이터인 sequence의 특징을 추출한다. Transformer는 self-attention 구조를 통해 어떤 한 부분에서 주의를 기울여야 할 여러 부분을 병렬적으로 함께 처리함으로써 input의 특징을 추출한다. 감이 오겠지만 마찬가지로 GNN에서도 그래프 구조를 통해 시스템에서의 관계 등 다양한 특징을 추출한다.">
+  <meta property="og:description" content="Recent Posts#Learned SchedulerLearned Scheduler에 대한 직관을 얻기 위한 posting2025-07-03 10:53:40 KSTLearned Scheduler 관련 paper 리서치LSched: A Workload-Aware Learned Query Scheduler for Analytical Database Systems(2022)SIGMOD22, 28회 인용 MIT 팀. (Non-open source) a fully RL-based learned workload-aware query scheduler for in-memory analytical database systems. https://dl.acm.org/doi/10.1145/3514221.3526158 LS(Learned Scheduler)를 처음 언급. (RL을 적용했던 Decima와는 학습 대상이 다름) 추가적으로 논문 내용 …Learned IndexLearned Index에 대한 직관을 얻기 위한 posting2025-07-02 13:01:23 KSTLearned Index 관련 paper 리서치Total SummaryMIT의 Tim Kraska 교수연구팀이 제시한 Learned Index Structure (RMI) 공개 이후 (2018~) 여러가지 workload 를 위한 Learned Index 연구들이 제시되어 있다. (e.g., multi dimension, spatial index..) Learned Index: A Comprehensive Experimental Evaluation(2023) [이동] 에서 여러 Learned Index들을 평가했는데, 몇몇 분야에서는 아직 Tranditional Index 솔루션이 더 나은 성능을 지녔다고 실험되었다. Learned Index가 극복해야할 부분들 …GNNGNN에 대한 직관을 얻기 위한 posting2025-06-13 14:45:35 KSTGNN 직관CNN은 Euclidean 공간에서 행과 열로 배열된 픽셀들로 이루어진 이미지에서 특징을 추출한다. LSTM은 자기 자신으로 돌아오는 recurrent 구조를 통해 input으로 주어지는 어떤 한 시계열 데이터인 sequence의 특징을 추출한다. Transformer는 self-attention 구조를 통해 어떤 한 부분에서 주의를 기울여야 할 여러 부분을 병렬적으로 함께 처리함으로써 input의 특징을 추출한다. 감이 오겠지만 마찬가지로 GNN에서도 그래프 구조를 통해 시스템에서의 관계 등 다양한 특징을 추출한다.">
   <meta property="og:locale" content="ko_kr">
   <meta property="og:type" content="website">
 <title>Home | JaeSim&#39;s Workspace</title>
@@ -122,7 +111,7 @@ Transformer는 self-attention 구조를 통해 어떤 한 부분에서 주의를
 <link rel="canonical" href="https://JaeSim.github.io/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.929c51ac4da7e0a52ea084376e80ef3299529dfc28dd4204d6a5a5f119091537.js" integrity="sha256-kpxRrE2n4KUuoIQ3boDvMplSnfwo3UIE1qWl8RkJFTc=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.59aa98a9591e0f83b3b1173c28d9f29a2928404e1ca6a7a6dcff16d2e06999ca.js" integrity="sha256-WaqYqVkeD4OzsRc8KNnymikoQE4cpqem3P8W0uBpmco=" crossorigin="anonymous"></script>
 <link rel="alternate" type="application/rss+xml" href="https://JaeSim.github.io/index.xml" title="JaeSim's Workspace" />
 <!--
 Made with Book Theme
@@ -484,47 +473,6 @@ https://github.com/alex-shpak/hugo-book
 <ul>
 
   <li style="margin-bottom: 2rem;">
-    <a href="/item-research/learned-index/">
-      <strong style="font-size: 1.25rem;">Learned Index</strong>
-    </a><br/>
-
-    
-      <small style="color: #888;">Learned Index에 대한 직관을 얻기 위한 posting</small><br/>
-    
-
-    <small>2025-06-30 09:50:00 KST</small>
-
-    <a href="/item-research/learned-index/" style="text-decoration: none; color: inherit;">
-      <div class="summary-box"> 
-        <h1 id="learned-index-관련-paper-리서치">
-  <strong>Learned Index 관련 paper 리서치</strong>
-  
-</h1>
-<h2 id="evaluation-or-insight">
-  <strong>Evaluation or Insight</strong>
-  
-</h2>
-<h3 id="learned-index-a-comprehensive-experimental-evaluation2023">
-  <strong>Learned Index: A Comprehensive Experimental Evaluation(2023)</strong>
-  
-</h3>
-<h4 id="summary">
-  <strong>Summary</strong>
-  
-</h4>
-<ul>
-<li>62회 인용 VLDB. 칭화대</li>
-<li>그동안 나온 Learned Index를 망라하고, 다양한 벤치마크에서 성능을 비교 분석. <br>
-많은 항목에 대해서, Traditional Index가 더 뛰어나다는 것을 적시하고, Learned Index 의 구현별 장-단점을 총망라, 및 여러가지 Insight 제공 <br></li>
-<li>Learned Index의 목적 workload 구분
-<img src="/images/lis_category_as_purpose.png" alt="lis_category_as_purpose" style="width:80%;" /></li>
-<li>아직 특정 워크로드들은 Traditional Index …</li></ul>
-      </div>
-    </a>
-
-  </li>
-
-  <li style="margin-bottom: 2rem;">
     <a href="/item-research/learned-scheduler/">
       <strong style="font-size: 1.25rem;">Learned Scheduler</strong>
     </a><br/>
@@ -533,7 +481,7 @@ https://github.com/alex-shpak/hugo-book
       <small style="color: #888;">Learned Scheduler에 대한 직관을 얻기 위한 posting</small><br/>
     
 
-    <small>2025-06-23 10:01:40 KST</small>
+    <small>2025-07-03 10:53:40 KST</small>
 
     <a href="/item-research/learned-scheduler/" style="text-decoration: none; color: inherit;">
       <div class="summary-box"> 
@@ -546,12 +494,42 @@ https://github.com/alex-shpak/hugo-book
   
 </h3>
 <ul>
-<li><strong>읽어봐야할 논문</strong></li>
-<li>SIGMOD22, 28회 인용 MIT 팀.</li>
-<li>a fully RL-based learned workload-aware query scheduler for in-memory analytical database systems.</li>
+<li>SIGMOD22, 28회 인용 MIT 팀. (<em><strong>Non-open source</strong></em>)</li>
+<li>a fully RL-based learned workload-aware query scheduler for <em><strong>in-memory analytical database systems</strong></em>.</li>
 <li>https://dl.acm.org/doi/10.1145/3514221.3526158</li>
-<li>LS(Learned Scheduler)를 처음 논문. (RL을 적용했던 Decima와는 학습 대상이 다름)</li>
-<li><strong>추가적으로 논문 내용에 <em>Decima  …</em></strong></li></ul>
+<li>LS(Learned Scheduler)를 처음 언급. (RL을 적용했던 Decima와는 학습 대상이 다름)</li>
+<li><strong>추가적으로 논문 내용 …</strong></li></ul>
+      </div>
+    </a>
+
+  </li>
+
+  <li style="margin-bottom: 2rem;">
+    <a href="/item-research/learned-index/">
+      <strong style="font-size: 1.25rem;">Learned Index</strong>
+    </a><br/>
+
+    
+      <small style="color: #888;">Learned Index에 대한 직관을 얻기 위한 posting</small><br/>
+    
+
+    <small>2025-07-02 13:01:23 KST</small>
+
+    <a href="/item-research/learned-index/" style="text-decoration: none; color: inherit;">
+      <div class="summary-box"> 
+        <h1 id="learned-index-관련-paper-리서치">
+  <strong>Learned Index 관련 paper 리서치</strong>
+  
+</h1>
+<h2 id="total-summary">
+  <strong>Total Summary</strong>
+  
+</h2>
+<ul>
+<li>MIT의 Tim Kraska 교수연구팀이 제시한 Learned Index Structure (RMI) 공개 이후 (2018~) 여러가지 workload 를 위한 Learned Index 연구들이 제시되어 있다. (e.g., multi dimension, spatial index..)</li>
+<li><strong>Learned Index: A Comprehensive Experimental Evaluation(2023)</strong> [이동] 에서 여러 Learned Index들을 평가했는데, 몇몇 분야에서는 아직 Tranditional Index 솔루션이 더 나은 성능을 지녔다고 실험되었다.
+<ul>
+<li>Learned Index가 극복해야할 부분들 …</li></ul></li></ul>
       </div>
     </a>
 
