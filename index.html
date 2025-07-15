@@ -14,6 +14,43 @@
 
   
     
+      HANA Database Porting
+    
+
+    
+      HANA DB에 Leanred Query Optimizer 솔루션들을 포팅하기 위한 분석
+    
+
+    2025-07-04 13:26:47 KST
+
+    
+       
+        
+  Learned Query Optimizer 포팅을 위한 HANA DB의 분석 내용
+  
+
+
+  설치
+  
+
+
+  Trial 다운로드
+  
+
+
+평가판(trial) 다운로드 위치 : https://www.sap.com/products/data-cloud/hana/express-trial.html
+관련 참조 페이지
+
+https://pages.community.sap.com/topics/hana
+https://tools.hana.ondemand.com/#hanatools
+https://gist.github.com/tlinnet/4196fd9c7aa43e37ea71e69bdc40a7dd …
+      
+    
+
+  
+
+  
+    
       Learned Scheduler
     
 
@@ -102,7 +139,7 @@ Transformer는 self-attention 구조를 통해 어떤 한 부분에서 주의를
 <meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="Home">
-  <meta property="og:description" content="Recent Posts#Learned SchedulerLearned Scheduler에 대한 직관을 얻기 위한 posting2025-07-03 10:53:40 KSTLearned Scheduler 관련 paper 리서치LSched: A Workload-Aware Learned Query Scheduler for Analytical Database Systems(2022)SIGMOD22, 28회 인용 MIT 팀. (Non-open source) a fully RL-based learned workload-aware query scheduler for in-memory analytical database systems. https://dl.acm.org/doi/10.1145/3514221.3526158 LS(Learned Scheduler)를 처음 언급. (RL을 적용했던 Decima와는 학습 대상이 다름) 추가적으로 논문 내용 …Learned IndexLearned Index에 대한 직관을 얻기 위한 posting2025-07-02 13:01:23 KSTLearned Index 관련 paper 리서치Total SummaryMIT의 Tim Kraska 교수연구팀이 제시한 Learned Index Structure (RMI) 공개 이후 (2018~) 여러가지 workload 를 위한 Learned Index 연구들이 제시되어 있다. (e.g., multi dimension, spatial index..) Learned Index: A Comprehensive Experimental Evaluation(2023) [이동] 에서 여러 Learned Index들을 평가했는데, 몇몇 분야에서는 아직 Tranditional Index 솔루션이 더 나은 성능을 지녔다고 실험되었다. Learned Index가 극복해야할 부분들 …GNNGNN에 대한 직관을 얻기 위한 posting2025-06-13 14:45:35 KSTGNN 직관CNN은 Euclidean 공간에서 행과 열로 배열된 픽셀들로 이루어진 이미지에서 특징을 추출한다. LSTM은 자기 자신으로 돌아오는 recurrent 구조를 통해 input으로 주어지는 어떤 한 시계열 데이터인 sequence의 특징을 추출한다. Transformer는 self-attention 구조를 통해 어떤 한 부분에서 주의를 기울여야 할 여러 부분을 병렬적으로 함께 처리함으로써 input의 특징을 추출한다. 감이 오겠지만 마찬가지로 GNN에서도 그래프 구조를 통해 시스템에서의 관계 등 다양한 특징을 추출한다.">
+  <meta property="og:description" content="Recent Posts#HANA Database PortingHANA DB에 Leanred Query Optimizer 솔루션들을 포팅하기 위한 분석2025-07-04 13:26:47 KSTLearned Query Optimizer 포팅을 위한 HANA DB의 분석 내용설치Trial 다운로드평가판(trial) 다운로드 위치 : https://www.sap.com/products/data-cloud/hana/express-trial.html 관련 참조 페이지 https://pages.community.sap.com/topics/hana https://tools.hana.ondemand.com/#hanatools https://gist.github.com/tlinnet/4196fd9c7aa43e37ea71e69bdc40a7dd …Learned SchedulerLearned Scheduler에 대한 직관을 얻기 위한 posting2025-07-03 10:53:40 KSTLearned Scheduler 관련 paper 리서치LSched: A Workload-Aware Learned Query Scheduler for Analytical Database Systems(2022)SIGMOD22, 28회 인용 MIT 팀. (Non-open source) a fully RL-based learned workload-aware query scheduler for in-memory analytical database systems. https://dl.acm.org/doi/10.1145/3514221.3526158 LS(Learned Scheduler)를 처음 언급. (RL을 적용했던 Decima와는 학습 대상이 다름) 추가적으로 논문 내용 …Learned IndexLearned Index에 대한 직관을 얻기 위한 posting2025-07-02 13:01:23 KSTLearned Index 관련 paper 리서치Total SummaryMIT의 Tim Kraska 교수연구팀이 제시한 Learned Index Structure (RMI) 공개 이후 (2018~) 여러가지 workload 를 위한 Learned Index 연구들이 제시되어 있다. (e.g., multi dimension, spatial index..) Learned Index: A Comprehensive Experimental Evaluation(2023) [이동] 에서 여러 Learned Index들을 평가했는데, 몇몇 분야에서는 아직 Tranditional Index 솔루션이 더 나은 성능을 지녔다고 실험되었다. Learned Index가 극복해야할 부분들 …GNNGNN에 대한 직관을 얻기 위한 posting2025-06-13 14:45:35 KSTGNN 직관CNN은 Euclidean 공간에서 행과 열로 배열된 픽셀들로 이루어진 이미지에서 특징을 추출한다. LSTM은 자기 자신으로 돌아오는 recurrent 구조를 통해 input으로 주어지는 어떤 한 시계열 데이터인 sequence의 특징을 추출한다. Transformer는 self-attention 구조를 통해 어떤 한 부분에서 주의를 기울여야 할 여러 부분을 병렬적으로 함께 처리함으로써 input의 특징을 추출한다. 감이 오겠지만 마찬가지로 GNN에서도 그래프 구조를 통해 시스템에서의 관계 등 다양한 특징을 추출한다.">
   <meta property="og:locale" content="ko_kr">
   <meta property="og:type" content="website">
 <title>Home | JaeSim&#39;s Workspace</title>
@@ -111,7 +148,7 @@ Transformer는 self-attention 구조를 통해 어떤 한 부분에서 주의를
 <link rel="canonical" href="https://JaeSim.github.io/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.59aa98a9591e0f83b3b1173c28d9f29a2928404e1ca6a7a6dcff16d2e06999ca.js" integrity="sha256-WaqYqVkeD4OzsRc8KNnymikoQE4cpqem3P8W0uBpmco=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.78b3830cc58585d285c6c9e2f4cea6b6240aa98bdbc9222f781e74202ad6fe67.js" integrity="sha256-eLODDMWFhdKFxsni9M6mtiQKqYvbySIveB50ICrW/mc=" crossorigin="anonymous"></script>
 <link rel="alternate" type="application/rss+xml" href="https://JaeSim.github.io/index.xml" title="JaeSim's Workspace" />
 <!--
 Made with Book Theme
@@ -369,6 +406,19 @@ https://github.com/alex-shpak/hugo-book
         </li>
       
     
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/hana-database-porting/" class="">HANA Database Porting</a>
+  
+
+        </li>
+      
+    
   </ul>
 
         </li>
@@ -471,6 +521,43 @@ https://github.com/alex-shpak/hugo-book
 </style>
 
 <ul>
+
+  <li style="margin-bottom: 2rem;">
+    <a href="/learned-query-optimizer/hana-database-porting/">
+      <strong style="font-size: 1.25rem;">HANA Database Porting</strong>
+    </a><br/>
+
+    
+      <small style="color: #888;">HANA DB에 Leanred Query Optimizer 솔루션들을 포팅하기 위한 분석</small><br/>
+    
+
+    <small>2025-07-04 13:26:47 KST</small>
+
+    <a href="/learned-query-optimizer/hana-database-porting/" style="text-decoration: none; color: inherit;">
+      <div class="summary-box"> 
+        <h1 id="learned-query-optimizer-포팅을-위한-hana-db의-분석-내용">
+  <strong>Learned Query Optimizer 포팅을 위한 HANA DB의 분석 내용</strong>
+  
+</h1>
+<h2 id="설치">
+  <strong>설치</strong>
+  
+</h2>
+<h3 id="trial-다운로드">
+  <strong>Trial 다운로드</strong>
+  
+</h3>
+<ul>
+<li>평가판(trial) 다운로드 위치 : https://www.sap.com/products/data-cloud/hana/express-trial.html</li>
+<li>관련 참조 페이지
+<ul>
+<li>https://pages.community.sap.com/topics/hana</li>
+<li>https://tools.hana.ondemand.com/#hanatools</li>
+<li>https://gist.github.com/tlinnet/4196fd9c7aa43e37ea71e69bdc40a7dd …</li></ul></li></ul>
+      </div>
+    </a>
+
+  </li>
 
   <li style="margin-bottom: 2rem;">
     <a href="/item-research/learned-scheduler/">
@@ -611,39 +698,6 @@ https://github.com/TianyiChen0316/LOGER</li>
 </span></span><span style="display:flex;"><span>pip install dgl
 </span></span><span style="display:flex;"><span>pip install packaging
 </span></span><span style="display:flex;"><span>conda …</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre></div>
-      </div>
-    </a>
-
-  </li>
-
-  <li style="margin-bottom: 2rem;">
-    <a href="/reinforcement-learning/rl-model-free-prediction/">
-      <strong style="font-size: 1.25rem;">temp. 4. Model Free Prediction</strong>
-    </a><br/>
-
-    
-      <small style="color: #888;">강화학습의 Model Free Prediction 에 대한 내용</small><br/>
-    
-
-    <small>2025-06-12 10:57:55 KST</small>
-
-    <a href="/reinforcement-learning/rl-model-free-prediction/" style="text-decoration: none; color: inherit;">
-      <div class="summary-box"> 
-        <h1 id="4-model-free-prediction">
-  <strong>4. model-free prediction</strong>
-  
-</h1>
-<blockquote class="book-hint warning">
-  // NOTE: 이 페이지는 임시로 작성되었습니다.
-</blockquote>
-<p>3장 DP에 있는것처럼, Model-free prediction 하고, Model-free control 하는 순서로 진행된다.</p>
-<p>episode : 에이전트가 시작 상태에서 행동을 시작해서, 어떤 종료 조건(End state)에 도달할 때까지의 전체 과정</p>
-<p>MC와 TD는 major model-free algo.</p>
-<ul>
-<li><strong>Monte Carlo (MC)</strong> : 한 에피소드가 끝날 때까지 기다린 후, 그 전체 리턴 값을 이용하여 value function을 업데이트<br>
-MC는 <strong>하나의 에피소드 전체</strong>(시작 ~ 종료)를 관찰한 뒤, <br>
-실제로 받은 reward들을 기반으로 학습합니다. <br>
-환경 모델 없이, 경험만 …</li></ul>
       </div>
     </a>
 
