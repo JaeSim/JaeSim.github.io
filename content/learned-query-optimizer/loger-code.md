@@ -3,11 +3,9 @@ date = '2025-06-12T11:50:33+09:00'
 title = 'LOGER 코드 분석'
 subtitle =  'LOGER 프로젝트의 코드 분석 내용을 담은 내용입니다.'
 weight = 4
-tags = ["DBMS", "Database", "Optimizer", "Learned Query Optimizer", "Reinforcement Learning"]
+tags = ["DBMS", "Database", "Optimizer", "Learned Query Optimizer", "Reinforcement Learning", "LOGER"]
 categories = ["Learned Query Optimizer"]
 +++
-
-
 
 # **LOGER 프로젝트의 코드 분석 내용**
 
