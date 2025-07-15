@@ -1,6 +1,5 @@
 +++
 date = '2025-07-04T13:48:30+09:00'
-draft = true
 title = 'BAO 코드 분석'
 subtitle =  'BAO 프로젝트의 코드 분석 내용을 담은 내용입니다.'
 weight = 5
