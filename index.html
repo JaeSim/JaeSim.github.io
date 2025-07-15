@@ -14,132 +14,49 @@
 
   
     
-      HANA Database Porting
+      BAO 코드 분석
     
 
     
-      HANA DB에 Leanred Query Optimizer 솔루션들을 포팅하기 위한 분석
+      BAO 프로젝트의 코드 분석 내용을 담은 내용입니다.
     
 
-    2025-07-04 13:26:47 KST
-
-    
-       
-        
-  Learned Query Optimizer 포팅을 위한 HANA DB의 분석 내용
-  
-
-
-  설치
-  
-
-
-  Trial 다운로드
-  
-
-
-평가판(trial) 다운로드 위치 : https://www.sap.com/products/data-cloud/hana/express-trial.html
-관련 참조 페이지
-
-https://pages.community.sap.com/topics/hana
-https://tools.hana.ondemand.com/#hanatools
-https://gist.github.com/tlinnet/4196fd9c7aa43e37ea71e69bdc40a7dd …
-      
-    
-
-  
-
-  
-    
-      Learned Scheduler
-    
-
-    
-      Learned Scheduler에 대한 직관을 얻기 위한 posting
-    
-
-    2025-07-03 10:53:40 KST
+    2025-07-04 13:48:30 KST
 
     
        
         
-  Learned Scheduler 관련 paper 리서치
+  BAO 프로젝트의 코드 분석 내용
   
 
 
-  LSched: A Workload-Aware Learned Query Scheduler for Analytical Database Systems(2022)
+  기본정보
   
 
 
-SIGMOD22, 28회 인용 MIT 팀. (Non-open source)
-a fully RL-based learned workload-aware query scheduler for in-memory analytical database systems.
-https://dl.acm.org/doi/10.1145/3514221.3526158
-LS(Learned Scheduler)를 처음 언급. (RL을 적용했던 Decima와는 학습 대상이 다름)
-추가적으로 논문 내용 …
-      
-    
+Bao: Making Learned Query Optimization Practical
+github repository
+https://github.com/learnedsystems/BaoForPostgreSQL
 
-  
 
-  
-    
-      Learned Index
-    
-
-    
-      Learned Index에 대한 직관을 얻기 위한 posting
-    
-
-    2025-07-02 13:01:23 KST
-
-    
-       
-        
-  Learned Index 관련 paper 리서치
+  BAO 실행을 위한 셋업
   
 
 
-  Total Summary
-  
+extension 설치
+
+cd pg_extension
+sudo chown -R $(whoami) /home/{User}/data/postgresql-12.5/
+make USE_PGXS=1 install
 
 
-MIT의 Tim Kraska 교수연구팀이 제시한 Learned Index Structure (RMI) 공개 이후 (2018~) 여러가지 workload 를 위한 Learned Index 연구들이 제시되어 있다. (e.g., multi dimension, spatial index..)
-Learned Index: A Comprehensive Experimental Evaluation(2023) [이동] 에서 여러 Learned Index들을 평가했는데, 몇몇 분야에서는 아직 Tranditional Index 솔루션이 더 나은 성능을 지녔다고 실험되었다.
-
-Learned Index가 극복해야할 부분들 …
-      
-    
-
-  
-
-  
-    
-      GNN
-    
-
-    
-      GNN에 대한 직관을 얻기 위한 posting
-    
-
-    2025-06-13 14:45:35 KST
-
-    
-       
-        
-  GNN 직관
-  
-
-
-CNN은 Euclidean 공간에서 행과 열로 배열된 픽셀들로 이루어진 이미지에서 특징을 추출한다. 
-LSTM은 자기 자신으로 돌아오는 recurrent 구조를 통해 input으로 주어지는 어떤 한 시계열 데이터인 sequence의 특징을 추출한다. 
-Transformer는 self-attention 구조를 통해 어떤 한 부분에서 주의를 기울여야 할 여러 부분을 병렬적으로 함께 처리함으로써 input의 특징을 추출한다. 
-감이 오겠지만 마찬가지로 GNN에서도 그래프 구조를 통해 시스템에서의 관계 등 다양한 특징을 추출한다.">
+postgresql.conf 에 shared_preload_libraries 에 추가하기">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="Home">
-  <meta property="og:description" content="Recent Posts#HANA Database PortingHANA DB에 Leanred Query Optimizer 솔루션들을 포팅하기 위한 분석2025-07-04 13:26:47 KSTLearned Query Optimizer 포팅을 위한 HANA DB의 분석 내용설치Trial 다운로드평가판(trial) 다운로드 위치 : https://www.sap.com/products/data-cloud/hana/express-trial.html 관련 참조 페이지 https://pages.community.sap.com/topics/hana https://tools.hana.ondemand.com/#hanatools https://gist.github.com/tlinnet/4196fd9c7aa43e37ea71e69bdc40a7dd …Learned SchedulerLearned Scheduler에 대한 직관을 얻기 위한 posting2025-07-03 10:53:40 KSTLearned Scheduler 관련 paper 리서치LSched: A Workload-Aware Learned Query Scheduler for Analytical Database Systems(2022)SIGMOD22, 28회 인용 MIT 팀. (Non-open source) a fully RL-based learned workload-aware query scheduler for in-memory analytical database systems. https://dl.acm.org/doi/10.1145/3514221.3526158 LS(Learned Scheduler)를 처음 언급. (RL을 적용했던 Decima와는 학습 대상이 다름) 추가적으로 논문 내용 …Learned IndexLearned Index에 대한 직관을 얻기 위한 posting2025-07-02 13:01:23 KSTLearned Index 관련 paper 리서치Total SummaryMIT의 Tim Kraska 교수연구팀이 제시한 Learned Index Structure (RMI) 공개 이후 (2018~) 여러가지 workload 를 위한 Learned Index 연구들이 제시되어 있다. (e.g., multi dimension, spatial index..) Learned Index: A Comprehensive Experimental Evaluation(2023) [이동] 에서 여러 Learned Index들을 평가했는데, 몇몇 분야에서는 아직 Tranditional Index 솔루션이 더 나은 성능을 지녔다고 실험되었다. Learned Index가 극복해야할 부분들 …GNNGNN에 대한 직관을 얻기 위한 posting2025-06-13 14:45:35 KSTGNN 직관CNN은 Euclidean 공간에서 행과 열로 배열된 픽셀들로 이루어진 이미지에서 특징을 추출한다. LSTM은 자기 자신으로 돌아오는 recurrent 구조를 통해 input으로 주어지는 어떤 한 시계열 데이터인 sequence의 특징을 추출한다. Transformer는 self-attention 구조를 통해 어떤 한 부분에서 주의를 기울여야 할 여러 부분을 병렬적으로 함께 처리함으로써 input의 특징을 추출한다. 감이 오겠지만 마찬가지로 GNN에서도 그래프 구조를 통해 시스템에서의 관계 등 다양한 특징을 추출한다.">
+  <meta property="og:description" content="Recent Posts#BAO 코드 분석BAO 프로젝트의 코드 분석 내용을 담은 내용입니다.2025-07-04 13:48:30 KSTBAO 프로젝트의 코드 분석 내용기본정보Bao: Making Learned Query Optimization Practical github repository https://github.com/learnedsystems/BaoForPostgreSQL BAO 실행을 위한 셋업extension 설치 cd pg_extension sudo chown -R $(whoami) /home/{User}/data/postgresql-12.5/ make USE_PGXS=1 install postgresql.conf 에 shared_preload_libraries 에 추가하기">
   <meta property="og:locale" content="ko_kr">
   <meta property="og:type" content="website">
 <title>Home | JaeSim&#39;s Workspace</title>
@@ -148,7 +65,7 @@ Transformer는 self-attention 구조를 통해 어떤 한 부분에서 주의를
 <link rel="canonical" href="https://JaeSim.github.io/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.78b3830cc58585d285c6c9e2f4cea6b6240aa98bdbc9222f781e74202ad6fe67.js" integrity="sha256-eLODDMWFhdKFxsni9M6mtiQKqYvbySIveB50ICrW/mc=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.8c740b2a0b0ee5ca044549d9d9d0e6c4e3492e8ce79ccb039c86eab6c3145a68.js" integrity="sha256-jHQLKgsO5coERUnZ2dDmxONJLoznnMsDnIbqtsMUWmg=" crossorigin="anonymous"></script>
 <link rel="alternate" type="application/rss+xml" href="https://JaeSim.github.io/index.xml" title="JaeSim's Workspace" />
 <!--
 Made with Book Theme
@@ -413,6 +330,19 @@ https://github.com/alex-shpak/hugo-book
   
 
   
+    <a href="/learned-query-optimizer/bao-code/" class="">BAO 코드 분석</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/learned-query-optimizer/hana-database-porting/" class="">HANA Database Porting</a>
   
 
@@ -521,6 +451,52 @@ https://github.com/alex-shpak/hugo-book
 </style>
 
 <ul>
+
+  <li style="margin-bottom: 2rem;">
+    <a href="/learned-query-optimizer/bao-code/">
+      <strong style="font-size: 1.25rem;">BAO 코드 분석</strong>
+    </a><br/>
+
+    
+      <small style="color: #888;">BAO 프로젝트의 코드 분석 내용을 담은 내용입니다.</small><br/>
+    
+
+    <small>2025-07-04 13:48:30 KST</small>
+
+    <a href="/learned-query-optimizer/bao-code/" style="text-decoration: none; color: inherit;">
+      <div class="summary-box"> 
+        <h1 id="bao-프로젝트의-코드-분석-내용">
+  <strong>BAO 프로젝트의 코드 분석 내용</strong>
+  
+</h1>
+<h2 id="기본정보">
+  <strong>기본정보</strong>
+  
+</h2>
+<ul>
+<li>Bao: Making Learned Query Optimization Practical</li>
+<li>github repository
+https://github.com/learnedsystems/BaoForPostgreSQL</li>
+</ul>
+<h3 id="bao-실행을-위한-셋업">
+  <strong>BAO 실행을 위한 셋업</strong>
+  
+</h3>
+<ul>
+<li>extension 설치</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cd pg_extension
+</span></span><span style="display:flex;"><span>sudo chown -R <span style="color:#66d9ef">$(</span>whoami<span style="color:#66d9ef">)</span> /home/<span style="color:#f92672">{</span>User<span style="color:#f92672">}</span>/data/postgresql-12.5/
+</span></span><span style="display:flex;"><span>make USE_PGXS<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> install
+</span></span></code></pre></div><ul>
+<li>
+<p>postgresql.conf 에 shared_preload_libraries 에 추가하기</p>
+<pre tabindex="0"><code class="language-conf" data-lang="conf"># postgresql.conf
+# …</code></pre></li></ul>
+      </div>
+    </a>
+
+  </li>
 
   <li style="margin-bottom: 2rem;">
     <a href="/learned-query-optimizer/hana-database-porting/">
@@ -652,52 +628,6 @@ Transformer는 self-attention 구조를 통해 어떤 한 부분에서 주의를
 <li>Graph representation learning
 <ul>
 <li>먼저 시작되고 여기에 NN이 접목된것이 GNN …</li></ul></li></ul>
-      </div>
-    </a>
-
-  </li>
-
-  <li style="margin-bottom: 2rem;">
-    <a href="/learned-query-optimizer/loger-code/">
-      <strong style="font-size: 1.25rem;">LOGER 코드 분석</strong>
-    </a><br/>
-
-    
-      <small style="color: #888;">LOGER 프로젝트의 코드 분석 내용을 담은 내용입니다.</small><br/>
-    
-
-    <small>2025-06-12 11:50:33 KST</small>
-
-    <a href="/learned-query-optimizer/loger-code/" style="text-decoration: none; color: inherit;">
-      <div class="summary-box"> 
-        <h1 id="loger-프로젝트의-코드-분석-내용">
-  <strong>LOGER 프로젝트의 코드 분석 내용</strong>
-  
-</h1>
-<h2 id="기본정보">
-  <strong>기본정보</strong>
-  
-</h2>
-<ul>
-<li>LOGER: A Learned Optimizer towards Generating Efficient and Robust Query Execution Plans</li>
-<li>github repository
-https://github.com/TianyiChen0316/LOGER</li>
-</ul>
-<h3 id="loger-실행을-위한-셋업">
-  <strong>LOGER 실행을 위한 셋업</strong>
-  
-</h3>
-<ul>
-<li>기본 패키지 설치</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># 3.8 이여야한다.</span>
-</span></span><span style="display:flex;"><span>conda create -n loger python<span style="color:#f92672">=</span>3.8 -y
-</span></span><span style="display:flex;"><span>conda activate loger
-</span></span><span style="display:flex;"><span>pip install -r requirements.txt
-</span></span><span style="display:flex;"><span>pip install pandas
-</span></span><span style="display:flex;"><span>pip install dgl
-</span></span><span style="display:flex;"><span>pip install packaging
-</span></span><span style="display:flex;"><span>conda …</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre></div>
       </div>
     </a>
 
