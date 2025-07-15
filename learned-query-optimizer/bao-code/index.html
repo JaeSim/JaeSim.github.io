@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="ko-kr" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
+  BAO 프로젝트의 코드 분석 내용
+  #
+
+
+  기본정보
+  #
+
+
+Bao: Making Learned Query Optimization Practical
+github repository
+https://github.com/learnedsystems/BaoForPostgreSQL
+
+
+  BAO 실행을 위한 셋업
+  #
+
+
+extension 설치
+
+cd pg_extension
+sudo chown -R $(whoami) /home/{User}/data/postgresql-12.5/
+make USE_PGXS=1 install
+
+
+postgresql.conf 에 shared_preload_libraries 에 추가하기
+# postgresql.conf
+# shared_preload_libraries = &#39;pg_hint_plan&#39;
+shared_preload_libraries = &#39;pg_bao&#39;
+
+bao는 하나의 hook만 가질수 있도록 되어있음
+
+  // extension/main.c
+  if (prev_planner_hook) {
+    elog(WARNING, &#34;Skipping Bao hook, another planner hook is installed.&#34;);
+    return prev_planner_hook(parse, cursorOptions,
+                            boundParams);
+  }
+
+
+postgre 시작 (balsa github) 및 확인">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/learned-query-optimizer/bao-code/">
+  <meta property="og:site_name" content="JaeSim&#39;s Workspace">
+  <meta property="og:title" content="BAO 코드 분석">
+  <meta property="og:description" content="BAO 프로젝트의 코드 분석 내용#기본정보#Bao: Making Learned Query Optimization Practical github repository https://github.com/learnedsystems/BaoForPostgreSQL BAO 실행을 위한 셋업#extension 설치 cd pg_extension sudo chown -R $(whoami) /home/{User}/data/postgresql-12.5/ make USE_PGXS=1 install postgresql.conf 에 shared_preload_libraries 에 추가하기
+# postgresql.conf# shared_preload_libraries = &#39;pg_hint_plan&#39;shared_preload_libraries = &#39;pg_bao&#39; bao는 하나의 hook만 가질수 있도록 되어있음 // extension/main.c if (prev_planner_hook) { elog(WARNING, &#34;Skipping Bao hook, another planner hook is installed.&#34;); return prev_planner_hook(parse, cursorOptions, boundParams); } postgre 시작 (balsa github) 및 확인">
+  <meta property="og:locale" content="ko_kr">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="learned-query-optimizer">
+    <meta property="article:published_time" content="2025-07-04T13:48:30+09:00">
+    <meta property="article:modified_time" content="2025-07-04T13:48:30+09:00">
+    <meta property="article:tag" content="DBMS">
+    <meta property="article:tag" content="Database">
+    <meta property="article:tag" content="Optimizer">
+    <meta property="article:tag" content="Learned Query Optimizer">
+    <meta property="article:tag" content="Reinforcement Learning">
+    <meta property="article:tag" content="BAO">
+<title>BAO 코드 분석 | JaeSim&#39;s Workspace</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/learned-query-optimizer/bao-code/">
+<link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.1d04d718dc4ce267b4a6a172473aa3587646541e56390bb36ec07f4c91de92f0.js" integrity="sha256-HQTXGNxM4me0pqFyRzqjWHZGVB5WOQuzbsB/TJHekvA=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>JaeSim&#39;s Workspace</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/aboutme/" class="">About Me</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Development / 개발</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/secondpost/" class="">두번째 글입니다. 블로그 실험용 테스트 글입니다.</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/firstpost/" class="">할일</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/blogsetup/" class="">Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Item Research</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/item-research/graph/" class="">GNN</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/item-research/learned-index/" class="">Learned Index</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/item-research/learned-scheduler/" class="">Learned Scheduler</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Reinforcement Learning / 강화학습</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-essential/" class="">1. Reinforcement Learning Essential</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-mdp/" class="">2. Markov Decision Process</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-dp/" class="">3. Planning by Dynamic Programming</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-model-free-prediction/" class="">temp. 4. Model Free Prediction</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Learned Query Optimizer</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/loger-code/" class="">LOGER 코드 분석</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/bao-code/" class="active">BAO 코드 분석</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/hana-database-porting/" class="">HANA Database Porting</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>BAO 코드 분석</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#기본정보"><strong>기본정보</strong></a>
+      <ul>
+        <li><a href="#bao-실행을-위한-셋업"><strong>BAO 실행을 위한 셋업</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#내부-특성"><strong>내부 특성</strong></a>
+      <ul>
+        <li><a href="#학습-범위"><strong>학습 범위</strong></a></li>
+        <li><a href="#pg_"><strong>pg_extension으로 connector layer(가칭) 구현</strong></a></li>
+        <li><a href="#모델-및-cli-등은-python으로-구현"><strong>모델 및 cli 등은 python으로 구현</strong></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+  <div class="post-tags">
+    <strong>Tags:</strong>
+    
+      <a href="/tags/dbms" class="tag">DBMS</a>
+    
+      <a href="/tags/database" class="tag">Database</a>
+    
+      <a href="/tags/optimizer" class="tag">Optimizer</a>
+    
+      <a href="/tags/learned-query-optimizer" class="tag">Learned Query Optimizer</a>
+    
+      <a href="/tags/reinforcement-learning" class="tag">Reinforcement Learning</a>
+    
+      <a href="/tags/bao" class="tag">BAO</a>
+    
+  </div>
+
+
+
+  <div class="post-categories">
+    <strong>Categories:</strong>
+    
+      <a href="/categories/learned-query-optimizer" class="category">Learned Query Optimizer</a>
+    
+  </div>
+
+
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+<article class="markdown book-post">
+  <h1 style="font-weight: bold;">
+    <span style="font-weight: normal; font-size: 0.6em; color: #888;">
+      2025-07-04 13:48 KST
+    </span>
+  </h1>
+  <div class="book-post-content"><h1 id="bao-프로젝트의-코드-분석-내용">
+  <strong>BAO 프로젝트의 코드 분석 내용</strong>
+  <a class="anchor" href="#bao-%ed%94%84%eb%a1%9c%ec%a0%9d%ed%8a%b8%ec%9d%98-%ec%bd%94%eb%93%9c-%eb%b6%84%ec%84%9d-%eb%82%b4%ec%9a%a9">#</a>
+</h1>
+<h2 id="기본정보">
+  <strong>기본정보</strong>
+  <a class="anchor" href="#%ea%b8%b0%eb%b3%b8%ec%a0%95%eb%b3%b4">#</a>
+</h2>
+<ul>
+<li>Bao: Making Learned Query Optimization Practical</li>
+<li>github repository
+<a href="https://github.com/learnedsystems/BaoForPostgreSQL">https://github.com/learnedsystems/BaoForPostgreSQL</a></li>
+</ul>
+<h3 id="bao-실행을-위한-셋업">
+  <strong>BAO 실행을 위한 셋업</strong>
+  <a class="anchor" href="#bao-%ec%8b%a4%ed%96%89%ec%9d%84-%ec%9c%84%ed%95%9c-%ec%85%8b%ec%97%85">#</a>
+</h3>
+<ul>
+<li>extension 설치</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cd pg_extension
+</span></span><span style="display:flex;"><span>sudo chown -R <span style="color:#66d9ef">$(</span>whoami<span style="color:#66d9ef">)</span> /home/<span style="color:#f92672">{</span>User<span style="color:#f92672">}</span>/data/postgresql-12.5/
+</span></span><span style="display:flex;"><span>make USE_PGXS<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> install
+</span></span></code></pre></div><ul>
+<li>
+<p>postgresql.conf 에 shared_preload_libraries 에 추가하기</p>
+<pre tabindex="0"><code class="language-conf" data-lang="conf"># postgresql.conf
+# shared_preload_libraries = &#39;pg_hint_plan&#39;
+shared_preload_libraries = &#39;pg_bao&#39;
+</code></pre><ul>
+<li>bao는 하나의 hook만 가질수 있도록 되어있음</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span>  <span style="color:#75715e">// extension/main.c
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">if</span> (prev_planner_hook) {
+</span></span><span style="display:flex;"><span>    elog(WARNING, <span style="color:#e6db74">&#34;Skipping Bao hook, another planner hook is installed.&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">prev_planner_hook</span>(parse, cursorOptions,
+</span></span><span style="display:flex;"><span>                            boundParams);
+</span></span><span style="display:flex;"><span>  }
+</span></span></code></pre></div></li>
+<li>
+<p>postgre 시작 (balsa github) 및 확인</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>pg_ctl -D ~/imdb start -l logfile
+</span></span><span style="display:flex;"><span>psql imdbload -p <span style="color:#ae81ff">5437</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>imdbload<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SHOW</span> enable_bao;
+</span></span><span style="display:flex;"><span> enable_bao
+</span></span><span style="display:flex;"><span><span style="color:#75715e">------------
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">off</span>
+</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span>)
+</span></span></code></pre></div><ul>
+<li>conda 세팅</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cd <span style="color:#f92672">{</span>bao path<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>conda create -n bao python<span style="color:#f92672">=</span>3.8 -y
+</span></span><span style="display:flex;"><span>conda activate bao
+</span></span><span style="display:flex;"><span>pip3 install scikit-learn numpy joblib
+</span></span><span style="display:flex;"><span>pip3 install torch<span style="color:#f92672">==</span>1.5.0+cu101 torchvision<span style="color:#f92672">==</span>0.6.0+cu101 -f https://download.pytorch.org/whl/torch_stable.html
+</span></span></code></pre></div><ul>
+<li>bao_server 시작</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cd bao_server
+</span></span><span style="display:flex;"><span>python3 main.py
+</span></span></code></pre></div><ul>
+<li>확인 커맨드. 아래 커맨드 시작시 bao_server log에 <code>Logged reward of 2103.556027</code> format의 글귀가 나옴</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>SET enable_bao TO on;
+</span></span><span style="display:flex;"><span>SET
+</span></span><span style="display:flex;"><span>EXPLAIN SELECT count<span style="color:#f92672">(</span>*<span style="color:#f92672">)</span> FROM title;
+</span></span><span style="display:flex;"><span>SELECT count<span style="color:#f92672">(</span>*<span style="color:#f92672">)</span> FROM title;
+</span></span></code></pre></div><h2 id="내부-특성">
+  <strong>내부 특성</strong>
+  <a class="anchor" href="#%eb%82%b4%eb%b6%80-%ed%8a%b9%ec%84%b1">#</a>
+</h2>
+<h3 id="학습-범위">
+  <strong>학습 범위</strong>
+  <a class="anchor" href="#%ed%95%99%ec%8a%b5-%eb%b2%94%ec%9c%84">#</a>
+</h3>
+<ul>
+<li><em><strong>BAO는 Join order에 대해서 학습하지는 않음</strong></em></li>
+<li>전체 쿼리에 대해서 Join Op, Scan Op를 강제할지 정함</li>
+<li>지원하는 hint list. <em><strong>default는 모두 ON</strong></em></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SET</span> enable_nestloop <span style="color:#66d9ef">TO</span> <span style="color:#66d9ef">off</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SET</span> enable_hashjoin <span style="color:#66d9ef">TO</span> <span style="color:#66d9ef">off</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SET</span> enable_mergejoin <span style="color:#66d9ef">TO</span> <span style="color:#66d9ef">off</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SET</span> enable_seqscan <span style="color:#66d9ef">TO</span> <span style="color:#66d9ef">off</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SET</span> enable_indexscan <span style="color:#66d9ef">TO</span> <span style="color:#66d9ef">off</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SET</span> enable_indexonlyscan <span style="color:#66d9ef">TO</span> <span style="color:#66d9ef">off</span>;
+</span></span></code></pre></div><h3 id="pg_">
+  <strong>pg_extension으로 connector layer(가칭) 구현</strong>
+  <a class="anchor" href="#pg_">#</a>
+</h3>
+<ul>
+<li>일부 기능이 <em><strong>postgres pg_extension 으로 구현됨</strong></em> (=postgres에 강하게 커플링 되어있음). c언어</li>
+<li><strong>기능1</strong>: SQL을 호출하면 extension 이 hook으로 먼저 받아서, original SQL을 실행전에 hint statement를 주입하는 동작을 한다.
+<ul>
+<li>예시
+<ul>
+<li>기존 : 1) SQL 호출 &ndash;&gt; 2) DBMS SQL 실행</li>
+<li>BAO : 1) SQL 호출 &ndash;{extension hook}&ndash;&gt; 2) hint statement 수행 &ndash;&gt; 3) DBMS SQL 실행</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>기능2</strong>: 이후 나온 결과를 BAO Server에도 전달한다 (latency 전달)</li>
+</ul>
+<h3 id="모델-및-cli-등은-python으로-구현">
+  <strong>모델 및 cli 등은 python으로 구현</strong>
+  <a class="anchor" href="#%eb%aa%a8%eb%8d%b8-%eb%b0%8f-cli-%eb%93%b1%ec%9d%80-python%ec%9c%bc%eb%a1%9c-%ea%b5%ac%ed%98%84">#</a>
+</h3>
+<ul>
+<li>python layer에서는 학습된 parameter 들이 있고, trainset load 및 SQL 호출등은 python 모듈의 layer에서 실행됨
+<ul>
+<li>이때 전달되는 paramter는 boolen으로 전달되는것으로 보이고, connector layer 에서 boolen을 hint statement로 변환함.</li>
+</ul>
+</li>
+</ul>
+</div>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+<script src="https://giscus.app/client.js"
+        data-repo="JaeSim/JaeSim.github.io"
+        data-repo-id="R_kgDOOtVVtw"
+        data-category="Comment"
+        data-category-id="DIC_kwDOOtVVt84Cqcxg"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#기본정보"><strong>기본정보</strong></a>
+      <ul>
+        <li><a href="#bao-실행을-위한-셋업"><strong>BAO 실행을 위한 셋업</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#내부-특성"><strong>내부 특성</strong></a>
+      <ul>
+        <li><a href="#학습-범위"><strong>학습 범위</strong></a></li>
+        <li><a href="#pg_"><strong>pg_extension으로 connector layer(가칭) 구현</strong></a></li>
+        <li><a href="#모델-및-cli-등은-python으로-구현"><strong>모델 및 cli 등은 python으로 구현</strong></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+  <div class="post-tags">
+    <strong>Tags:</strong>
+    
+      <a href="/tags/dbms" class="tag">DBMS</a>
+    
+      <a href="/tags/database" class="tag">Database</a>
+    
+      <a href="/tags/optimizer" class="tag">Optimizer</a>
+    
+      <a href="/tags/learned-query-optimizer" class="tag">Learned Query Optimizer</a>
+    
+      <a href="/tags/reinforcement-learning" class="tag">Reinforcement Learning</a>
+    
+      <a href="/tags/bao" class="tag">BAO</a>
+    
+  </div>
+
+
+
+  <div class="post-categories">
+    <strong>Categories:</strong>
+    
+      <a href="/categories/learned-query-optimizer" class="category">Learned Query Optimizer</a>
+    
+  </div>
+
+
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('pre > code[class^="language-"]').forEach(codeBlock => {
+      const pre = codeBlock.parentElement;
+
+      
+      const button = document.createElement('button');
+      button.innerText = '📋';
+      button.title = 'Copy code';
+      button.style = `
+        position: absolute;
+        top: 0.5em;
+        right: 0.5em;
+        padding: 2px 6px;
+        font-size: 0.8rem;
+        background: #f5f5f5;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+        z-index: 10;
+      `;
+
+      
+      button.addEventListener('click', () => {
+        navigator.clipboard.writeText(codeBlock.innerText);
+        button.innerText = '✔';
+        setTimeout(() => button.innerText = '📋', 1000);
+      });
+
+      
+      pre.style.position = 'relative';
+      pre.appendChild(button);
+    });
+  });
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

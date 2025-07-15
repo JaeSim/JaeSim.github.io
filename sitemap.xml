@@ -62,6 +62,11 @@
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>https://JaeSim.github.io/learned-query-optimizer/hana-database-porting/</loc>
+    <lastmod>2025-07-04T13:26:47+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://JaeSim.github.io/item-research/learned-scheduler/</loc>
     <lastmod>2025-07-03T10:53:40+09:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -77,18 +82,53 @@
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>https://JaeSim.github.io/</loc>
+    <lastmod>2025-07-04T13:48:30+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://JaeSim.github.io/categories/</loc>
-    <lastmod>2025-07-03T10:53:40+09:00</lastmod>
+    <lastmod>2025-07-04T13:26:47+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>https://JaeSim.github.io/tags/database/</loc>
-    <lastmod>2025-07-03T10:53:40+09:00</lastmod>
+    <lastmod>2025-07-04T13:26:47+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://JaeSim.github.io/</loc>
-    <lastmod>2025-07-03T10:53:40+09:00</lastmod>
+    <loc>https://JaeSim.github.io/tags/dbms/</loc>
+    <lastmod>2025-07-04T13:26:47+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/hana-database/</loc>
+    <lastmod>2025-07-04T13:26:47+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/categories/learned-query-optimizer/</loc>
+    <lastmod>2025-07-04T13:26:47+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/learned-query-optimizer/</loc>
+    <lastmod>2025-07-04T13:26:47+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/optimizer/</loc>
+    <lastmod>2025-07-04T13:26:47+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/reinforcement-learning/</loc>
+    <lastmod>2025-07-04T13:26:47+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/</loc>
+    <lastmod>2025-07-04T13:26:47+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -108,11 +148,6 @@
     <priority>0.5</priority>
   </url><url>
     <loc>https://JaeSim.github.io/tags/rl/</loc>
-    <lastmod>2025-07-03T10:53:40+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://JaeSim.github.io/tags/</loc>
     <lastmod>2025-07-03T10:53:40+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -142,27 +177,7 @@
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://JaeSim.github.io/tags/dbms/</loc>
-    <lastmod>2025-06-12T11:50:33+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://JaeSim.github.io/categories/learned-query-optimizer/</loc>
-    <lastmod>2025-06-12T11:50:33+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://JaeSim.github.io/tags/learned-query-optimizer/</loc>
-    <lastmod>2025-06-12T11:50:33+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://JaeSim.github.io/tags/optimizer/</loc>
-    <lastmod>2025-06-12T11:50:33+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://JaeSim.github.io/tags/reinforcement-learning/</loc>
+    <loc>https://JaeSim.github.io/tags/loger/</loc>
     <lastmod>2025-06-12T11:50:33+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
