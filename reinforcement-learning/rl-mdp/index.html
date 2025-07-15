@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="ko-kr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
+  2. Markov Decision Process
+  #
+
+
+  Markov Process(MP) 란?
+  #
+
+
+  MP 속성
+  #
+
+MDP는 환경에 대해서 Reinforcement Learning이 이해가능하도록 수식화한다
+거의 모든 RL 관련 문제들은 MDP로 수식화 할 수 있다(Fully observable이나 Partially observation이나) 
+Markov Property를 이용하는데, &ndash;이전 강의참조&ndash;
+요약하면, 현재 state만으로 미래를 예측해도 된다는 속성이다.
+(다르게 말하면, 현재 state가 이미 유용한 정보를 포함하고 있다. = memoryless)
+Markov state 
+
+
+
+  \(s\)
+
+로부터 
+  \(s&#39;\)
+
+ 으로 변경하는 transition probability 를 하는 수식은 다음과 같다.
+
+  \[
+\mathcal{P}_{ss&#39;}  = \mathbb{P}[S_{t&#43;1} = s&#39;\mid S_t = s]
+\]
+
+
+매트릭스로 표현하면 다음과 같다. (합은 1)
+
+  \[
+\mathcal{P} =  \left[
+\begin{array}{ccc}
+\mathcal{P}_{11} & \cdots & \mathcal{P}_{1n} \\
+\vdots & \ddots & \vdots \\
+\mathcal{P}_{n1} & \cdots & \mathcal{P}_{nn}
+\end{array}
+\right]
+\]
+
+">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/reinforcement-learning/rl-mdp/">
+  <meta property="og:site_name" content="JaeSim&#39;s Workspace">
+  <meta property="og:title" content="2. Markov Decision Process">
+  <meta property="og:description" content="2. Markov Decision Process#Markov Process(MP) 란?#MP 속성#MDP는 환경에 대해서 Reinforcement Learning이 이해가능하도록 수식화한다
+거의 모든 RL 관련 문제들은 MDP로 수식화 할 수 있다(Fully observable이나 Partially observation이나) Markov Property를 이용하는데, –이전 강의참조–
+요약하면, 현재 state만으로 미래를 예측해도 된다는 속성이다. (다르게 말하면, 현재 state가 이미 유용한 정보를 포함하고 있다. = memoryless)
+Markov state \(s\)로부터 \(s&#39;\)으로 변경하는 transition probability 를 하는 수식은 다음과 같다. \[\mathcal{P}_{ss&#39;} = \mathbb{P}[S_{t&#43;1} = s&#39;\mid S_t = s]\]매트릭스로 표현하면 다음과 같다. (합은 1) \[\mathcal{P} = \left[\begin{array}{ccc}\mathcal{P}_{11} &amp; \cdots &amp; \mathcal{P}_{1n} \\\vdots &amp; \ddots &amp; \vdots \\\mathcal{P}_{n1} &amp; \cdots &amp; \mathcal{P}_{nn}\end{array}\right]\]">
+  <meta property="og:locale" content="ko_kr">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="reinforcement-learning">
+    <meta property="article:published_time" content="2025-05-27T16:43:57+09:00">
+    <meta property="article:modified_time" content="2025-05-27T16:43:57+09:00">
+    <meta property="article:tag" content="Definition">
+    <meta property="article:tag" content="Markov">
+    <meta property="article:tag" content="Markov Process">
+    <meta property="article:tag" content="Markov Decision Process">
+    <meta property="article:tag" content="Reinforcement Learning">
+<title>2. Markov Decision Process | JaeSim&#39;s Workspace</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="https://JaeSim.github.io/reinforcement-learning/rl-mdp/">
+<link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.8c740b2a0b0ee5ca044549d9d9d0e6c4e3492e8ce79ccb039c86eab6c3145a68.js" integrity="sha256-jHQLKgsO5coERUnZ2dDmxONJLoznnMsDnIbqtsMUWmg=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>JaeSim&#39;s Workspace</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Development / 개발</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/secondpost/" class="">두번째 글입니다. 블로그 실험용 테스트 글입니다.</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/firstpost/" class="">할일</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/blogsetup/" class="">Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Item Research</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/item-research/graph/" class="">GNN</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/item-research/learned-index/" class="">Learned Index</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/item-research/learned-scheduler/" class="">Learned Scheduler</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Reinforcement Learning / 강화학습</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-essential/" class="">1. Reinforcement Learning Essential</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-mdp/" class="active">2. Markov Decision Process</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-dp/" class="">3. Planning by Dynamic Programming</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-model-free-prediction/" class="">temp. 4. Model Free Prediction</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Learned Query Optimizer</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/loger-code/" class="">LOGER 코드 분석</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/bao-code/" class="">BAO 코드 분석</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/hana-database-porting/" class="">HANA Database Porting</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>2. Markov Decision Process</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#markov-processmp-란"><strong>Markov Process(MP) 란?</strong></a>
+      <ul>
+        <li><a href="#mp-속성"><strong>MP 속성</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#markov-reward-processmrp-란"><strong>Markov Reward Process(MRP) 란?</strong></a>
+      <ul>
+        <li><a href="#mrp-속성"><strong>MRP 속성</strong></a>
+          <ul>
+            <li><a href="#value-function"><strong>Value Function</strong></a></li>
+            <li><a href="#bellman-equation-for-mrp"><strong>Bellman Equation for MRP</strong></a></li>
+            <li><a href="#solving-the-bellman-equation"><strong>Solving the Bellman Equation</strong></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#markov-decision-processmdp-란"><strong>Markov Decision Process(MDP) 란?</strong></a>
+      <ul>
+        <li><a href="#policy"><strong>Policy</strong></a></li>
+        <li><a href="#state-value-function"><strong>state-value function</strong></a></li>
+        <li><a href="#action-value-q-function"><strong>action-value (q) function</strong></a></li>
+        <li><a href="#optimal-value-function"><strong>Optimal Value Function</strong></a></li>
+        <li><a href="#solving-bellman-optimality-equation"><strong>Solving Bellman Optimality Equation</strong></a></li>
+        <li><a href="#extensions-of-mdps"><strong>Extensions of MDPs</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#참조"><strong>참조</strong></a></li>
+  </ul>
+</nav>
+
+  <div class="post-tags">
+    <strong>Tags:</strong>
+    
+      <a href="/tags/definition" class="tag">Definition</a>
+    
+      <a href="/tags/markov" class="tag">Markov</a>
+    
+      <a href="/tags/markov-process" class="tag">Markov Process</a>
+    
+      <a href="/tags/markov-decision-process" class="tag">Markov Decision Process</a>
+    
+      <a href="/tags/reinforcement-learning" class="tag">Reinforcement Learning</a>
+    
+  </div>
+
+
+
+  <div class="post-categories">
+    <strong>Categories:</strong>
+    
+      <a href="/categories/reinforcement-learning" class="category">Reinforcement Learning</a>
+    
+  </div>
+
+
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+<article class="markdown book-post">
+  <h1 style="font-weight: bold;">
+    <span style="font-weight: normal; font-size: 0.6em; color: #888;">
+      2025-05-27 16:43 KST
+    </span>
+  </h1>
+  <div class="book-post-content"><h1 id="2-markov-decision-process">
+  <strong>2. Markov Decision Process</strong>
+  <a class="anchor" href="#2-markov-decision-process">#</a>
+</h1>
+<h2 id="markov-processmp-란">
+  <strong>Markov Process(MP) 란?</strong>
+  <a class="anchor" href="#markov-processmp-%eb%9e%80">#</a>
+</h2>
+<h3 id="mp-속성">
+  <strong>MP 속성</strong>
+  <a class="anchor" href="#mp-%ec%86%8d%ec%84%b1">#</a>
+</h3>
+<p>MDP는 환경에 대해서 Reinforcement Learning이 이해가능하도록 수식화한다</p>
+<p><U>거의 모든 RL 관련 문제들은 MDP로 수식화 할 수 있다(Fully observable이나 Partially observation이나) </U></p>
+<p>Markov Property를 이용하는데, &ndash;이전 강의참조&ndash;</p>
+<p>요약하면, 현재 state만으로 미래를 예측해도 된다는 속성이다.
+(다르게 말하면, 현재 state가 이미 유용한 정보를 포함하고 있다. = memoryless)</p>
+<p>Markov state 
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \(s\)
+</span>
+로부터 <span>
+  \(s'\)
+</span>
+ 으로 변경하는 transition probability 를 하는 수식은 다음과 같다.
+<span>
+  \[
+\mathcal{P}_{ss'}  = \mathbb{P}[S_{t+1} = s'\mid S_t = s]
+\]
+</span>
+
+매트릭스로 표현하면 다음과 같다. (합은 1)
+<span>
+  \[
+\mathcal{P} =  \left[
+\begin{array}{ccc}
+\mathcal{P}_{11} & \cdots & \mathcal{P}_{1n} \\
+\vdots & \ddots & \vdots \\
+\mathcal{P}_{n1} & \cdots & \mathcal{P}_{nn}
+\end{array}
+\right]
+\]
+</span>
+</p>
+<p>MP는 tuple로 이루어져 있다.</p>
+<blockquote>
+<p>A Markov Process (or Markov Chain) is a tuple <span>
+  \(\langle \mathcal{S}, \mathcal{P} \rangle \)
+</span>
+</p>
+<ul>
+<li><span>
+  \(\mathcal{S}\)
+</span>
+ is a (finite) set of states</li>
+<li><span>
+  \(\mathcal{P}\)
+</span>
+ is a state transition probability matrix,<br>
+<span>
+  \(\mathcal{P}_{ss'} = \mathbb{P} \left[ S_{t+1} = s' \mid S_t = s \right]\)
+</span>
+</li>
+</ul></blockquote>
+<p>이 예제는 단순화한 state 변화를 나타내는 것이고,
+MDP를 이용한 실제 사용은 훨신더 많은 state와 probability를 포함한다.</p>
+<img src="/images/rl-mp-example.png" alt="mp-example" style="width:100%;" />
+<h2 id="markov-reward-processmrp-란">
+  <strong>Markov Reward Process(MRP) 란?</strong>
+  <a class="anchor" href="#markov-reward-processmrp-%eb%9e%80">#</a>
+</h2>
+<h3 id="mrp-속성">
+  <strong>MRP 속성</strong>
+  <a class="anchor" href="#mrp-%ec%86%8d%ec%84%b1">#</a>
+</h3>
+<p>reward가 추가가 된 것. MP 에 value judgment가 포함된 것 - 여기서 judgment 는 누적 reward가 얼마나 좋아질지</p>
+<blockquote>
+<p>A Markov Rewards Process (or Markov Chain) is a tuple <span>
+  \(\langle \mathcal{S}, \mathcal{P}, \textcolor{red}{\mathcal{R}, \gamma} \rangle \)
+</span>
+</p>
+<ul>
+<li><span>
+  \(\mathcal{S}\)
+</span>
+ is a (finite) set of states</li>
+<li><span>
+  \(\mathcal{P}\)
+</span>
+ is a state transition probability matrix,<br>
+<span>
+  \(\mathcal{P}_{ss'} = \mathbb{P} \left[ S_{t+1} = s' \mid S_t = s \right]\)
+</span>
+</li>
+<li><span style="color:red"><span>
+  \(\mathcal{R}\)
+</span>
+ is a reward function, <span>
+  \(\mathcal{R}_s = \mathbb{E} \left[ R_{t+1} \mid S_t = s \right]\)
+</span>
+ </span></li>
+<li><span style="color:red"><span>
+  \(\gamma\)
+</span>
+ is a discount factor, <span>
+  \({\gamma \in [0, 1]}\)
+</span>
+ </span></li>
+</ul></blockquote>
+<p>timestep t에 대한 goal 은 다음과 같이 표현된다.
+감마는 미래에 대한 discount factor이다. 이것이 필요한 이유는</p>
+<ul>
+<li>우리는 퍼팩한 모델이 없기 때문에</li>
+<li>수학적 max 바운드(수학적 편의성을 위해)</li>
+<li>MP의 무한 루프를 하지 피하기 위해</li>
+<li>근접 미래의 가치가 비근접(먼미래) 미래의 가치보다 크기 때문</li>
+<li>시퀀스의 끝이 보장된다면 discount factor를 안쓸수도 있다</li>
+</ul>
+<span>
+  \[
+G_t = R_{t+1} + \gamma R_{t+2} + \dots = \sum_{k=0}^{\infty} \gamma^k R_{t+k+1}
+\]
+</span>
+
+<p>MP는 시간이 지남에 따라 확률에 의해서 state가 변경되는 것이고.<br>
+MRP 에서는 그 변화된 시간에서 state에 도달할때마다 reward가 획득된다고 이해했다.<br>
+이로써 현재 state 에서 바라본다면 앞으로 나의 미래 total reward를 계산할 수 있다.(discount factor 0~1)
+<img src="/images/rl-mrp-example.png" alt="mp-example" style="width:80%;" /></p>
+<h4 id="value-function">
+  <strong>Value Function</strong>
+  <a class="anchor" href="#value-function">#</a>
+</h4>
+<p>현재상태(s)에서의 terminated 상태에서의 Expected return
+이것은 Expectation 이다. 왜냐하면 environment는 stochastic 이니까
+<span>
+  \[
+v(s) = \mathbb{E} [ G_t \mid S_t = s ]
+\]
+</span>
+</p>
+<p>이는 밸망방정식으로 표현될 수 있다.</p>
+<h4 id="bellman-equation-for-mrp">
+  <strong>Bellman Equation for MRP</strong>
+  <a class="anchor" href="#bellman-equation-for-mrp">#</a>
+</h4>
+<p>Value Function은 크게 두가지 컴포넌트로 나눌수 있다.</p>
+<ul>
+<li>현재의 리워드 <span>
+  \( R_{t+1}\)
+</span>
+</li>
+<li>다음계승 state의 discounted 상태 <span>
+  \(\gamma v(S_{t+1})\)
+</span>
+</li>
+</ul>
+<span>
+  \[
+\begin{aligned}
+v(s) &= \mathbb{E} \left[ G_t \mid S_t = s \right] \\
+     &= \mathbb{E} \left[ R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \cdots \mid S_t = s \right] \\
+     &= \mathbb{E} \left[ R_{t+1} + \gamma \left( R_{t+2} + \gamma R_{t+3} + \cdots \right) \mid S_t = s \right] \\
+     &= \mathbb{E} \left[ R_{t+1} + \gamma G_{t+1} \mid S_t = s \right] \\
+     &= \mathbb{E} \left[ \textcolor{red}{R_{t+1} + \gamma v(S_{t+1})} \mid S_t = s \right]
+\end{aligned}
+\]
+</span>
+
+<span>
+  \[
+v(s) = \mathbb{E} \left[ R_{t+1} + \gamma v(S_{t+1}) \mid S_t = s \right]
+\]
+</span>
+
+<span>
+  \[
+v(s) = \mathcal{R}_s + \gamma \sum_{s' \in \mathcal{S}} \mathcal{P}_{ss'} v(s')
+\]
+</span>
+
+<p>이를 벡터 매트릭스로 표현하면 아래와 같다.</p>
+<span>
+  \[
+\begin{bmatrix}
+v(1) \\
+\vdots \\
+v(n)
+\end{bmatrix}
+=
+\begin{bmatrix}
+\mathcal{R}_1 \\
+\vdots \\
+\mathcal{R}_n
+\end{bmatrix}
++
+\gamma
+\begin{bmatrix}
+\mathcal{P}_{11} & \cdots & \mathcal{P}_{1n} \\
+\vdots & \ddots & \vdots \\
+\mathcal{P}_{n1} & \cdots & \mathcal{P}_{nn}
+\end{bmatrix}
+\begin{bmatrix}
+v(1) \\
+\vdots \\
+v(n)
+\end{bmatrix}
+\]
+</span>
+
+<h4 id="solving-the-bellman-equation">
+  <strong>Solving the Bellman Equation</strong>
+  <a class="anchor" href="#solving-the-bellman-equation">#</a>
+</h4>
+<p>벨만 방정식은 linear equation 이지만 O(n^3) 복잡도를 가지고 있기 때문에 작은것만 풀수 있다.<br>
+Large MRP를 풀기위해서</p>
+<ul>
+<li>Dynamic Programing 이나</li>
+<li>Monte-Carlo evaluation 이나</li>
+<li>Temporal-Difference Learning이 있다.</li>
+</ul>
+<h2 id="markov-decision-processmdp-란">
+  <strong>Markov Decision Process(MDP) 란?</strong>
+  <a class="anchor" href="#markov-decision-processmdp-%eb%9e%80">#</a>
+</h2>
+<blockquote>
+<p>A Markov Decision Process (or Markov Chain) is a tuple <span>
+  \(\langle \mathcal{S}, \textcolor{red}{\mathcal{A}}, \mathcal{P}, \mathcal{R}, \gamma \rangle \)
+</span>
+</p>
+<ul>
+<li><span>
+  \(\mathcal{S}\)
+</span>
+ is a (finite) set of states</li>
+<li><span style="color:red"><span>
+  \(\mathcal{A}\)
+</span>
+ is a (finite) set of actions </span></li>
+<li><span>
+  \(\mathcal{P}\)
+</span>
+ is a state transition probability matrix,<br>
+<span>
+  \(\mathcal{P}^a_{ss'} = \mathbb{P} \left[ S_{t+1} = s' \mid S_t = s, A_t = \textcolor{red}a \right]\)
+</span>
+</li>
+<li><span>
+  \(\mathcal{R}\)
+</span>
+ is a reward function, <span>
+  \(\mathcal{R}^a_s = \mathbb{E} \left[ R_{t+1} \mid S_t = s , A_t = \textcolor{red}a \right]\)
+</span>
+</li>
+<li><span>
+  \(\gamma\)
+</span>
+ is a discount factor, <span>
+  \({\gamma \in [0, 1]}\)
+</span>
+</li>
+</ul></blockquote>
+<p>위 MP MRP 예제와 다르게 action이 추가됨. <br>
+그림에서는 잘 안표현되어있지만, 액션을 하면. 그 액션으로인해 특정 state로 전이되는 것은 확률이다.<br>
+밑에 pub에 가는것 액션을 수행하면 확률적으로 class1, class2, class3에 도달한다.
+<img src="/images/rl-mdp-example.png" alt="mp-example" style="width:80%;" /></p>
+<h3 id="policy">
+  <strong>Policy</strong>
+  <a class="anchor" href="#policy">#</a>
+</h3>
+<p>정책(Policy <span>
+  \(\pi\)
+</span>
+) 는 주어진 state에 대한 action의 분포
+<span>
+  \[
+\pi(a \mid s) = \mathbb{P}[A_t = a \mid S_t = s]
+\]
+</span>
+
+<em>마크로프 속성에 의해서 현재 state는 reward를 fully characterize 한것이기 때문에 위 수식에 reward가 없다</em></p>
+<p>state 시퀀스(상태전의)에 대해서 policy를 넣으면 Markov Process이고,
+state 시퀀에 Reward를 넣으면 Markov Reward process 이다.</p>
+<p>Markov Reward Process 에 대해서
+MDP 수식으로  (Action으로부터) 다음과 같이 수식으로 표현이 가능하다.
+(MDP 수식으로(policy-action이 포함된 버전으로) MP와 MRP를 표현이 가능하다)</p>
+<p><span>
+  \[
+\mathcal{P}^\pi_{s, s'} = \sum_{a \in \mathcal{A}} \pi(a \mid s) \mathcal{P}^{a}_{s s'} \\
+\mathcal{R}^\pi_s = \sum_{a \in \mathcal{A}} \pi(a \mid s) \mathcal{R}^a_s
+\]
+</span>
+
+이는 모든 action에 갈수 있는 prob를 average로(<span>
+  \(\pi\)
+</span>
+는 0~1의 값이므로) 이해를 쉽게하기 P와 R을 표현한 것.</p>
+<p>MDP에 대한 value function은
+state-value 펑션과, action-value function 두가지 방식이 있다.</p>
+<h3 id="state-value-function">
+  <strong>state-value function</strong>
+  <a class="anchor" href="#state-value-function">#</a>
+</h3>
+<p>다음과 같고 이는 <strong>현재 state일때 <span>
+  \(\pi\)
+</span>
+ policy를 따를때 얼마나 좋은지</strong>를 나타낸다. (얼마나 Reward를 얻을지)
+<span>
+  \[
+v_\pi(s) = \mathbb{E}_\pi \left[ G_t \mid S_t = s \right]
+\]
+</span>
+
+여기서 <span>
+  \(\mathbb{E}_\pi\)
+</span>
+는 모든 샘플액션에 대한 expectation</p>
+<h3 id="action-value-q-function">
+  <strong>action-value (q) function</strong>
+  <a class="anchor" href="#action-value-q-function">#</a>
+</h3>
+<p>이를 action-value function <span>
+  \(q_\pi\)
+</span>
+ 로 나타낼 수 있다.
+이는 <strong>현재 state에서 어떤action을 선택했을때 얼마나 좋은지</strong>를 나타낸다. (얼마나 Reward를 얻을지)
+<span>
+  \[
+q_\pi(s, a) = \mathbb{E}_\pi \left[ G_t \mid S_t = s, A_t = a \right]
+\]
+</span>
+</p>
+<p>state-value function과 action-value function의 Bellman Expectation 방정식을
+다음과 같이 나타낼수 있다.
+<span>
+  \[
+v_\pi(s) = \mathbb{E}_\pi \left[ R_{t+1} + \gamma v_\pi(S_{t+1}) \mid S_t = s \right]
+\]
+</span>
+</p>
+<span>
+  \[
+q_\pi(s, a) = \mathbb{E}_\pi \left[ R_{t+1} + \gamma q_\pi(S_{t+1}, A_{t+1}) \mid S_t = s, A_t = a \right]
+\]
+</span>
+
+<p>state-value-function 와 action-value function 중 어떤 것을 중점적으로 학습하는지에 따른 학습방법이 달라지는 것 같다.<br>
+<strong>왼쪽</strong>은 state-value function관점에서의 그림과 수식표현이고, <strong>오른쪽</strong>은 action-value 펑션관점에서 수식과 표현이다.
+action-value function에 대해서는, action을 선택함으로써 reward를 통해서 state-value function으로 다시 넘어가는 것을 볼수 있다.</p>
+<div style="display: flex; gap: 20px;">
+  <img src="/images/rl-mdp-bellman-state-value.png" alt="state-value" style="width: 50%;" />
+  <img src="/images/rl-mdp-bellman-action-value.png" alt="action-value" style="width: 50%;" />
+</div>
+<p>이 두개의 그래프를 합치면 다음과 같다.
+왼쪽은 state-value function 관점에서의 수식이고, 오른쪽은 action-value function 관점에서의 수식이다.</p>
+<div style="display: flex; gap: 20px;">
+  <img src="/images/rl-mdp-bellman-state-value-merged.png" alt="state-value-merged" style="width: 50%;" />
+  <img src="/images/rl-mdp-bellman-action-value-merged.png" alt="action-value-merged" style="width: 50%;" />
+</div>
+<p>이것들은 앞에서 언급했던것처럼 두 가지 Junk로 나눌수 있고, (이번 Step에서의 Reward와 미래의 value function 리턴값)
+다음 수식으로 나타내진다 (matric-form).
+추가로 모든 MDP는 MRP로 표현이 가능하다.
+<span>
+  \[
+v_\pi = \mathcal{R}^\pi + \gamma \mathcal{P}^\pi v_\pi
+\]
+</span>
+
+<span>
+  \[
+v_\pi = \left( I - \gamma \mathcal{P}^\pi \right)^{-1} \mathcal{R}^\pi
+\]
+</span>
+</p>
+<p>우리는 이로부터(state-value, action-value function으로부터) <strong>Optimal Value Function</strong> 을 찾는다</p>
+<h3 id="optimal-value-function">
+  <strong>Optimal Value Function</strong>
+  <a class="anchor" href="#optimal-value-function">#</a>
+</h3>
+<p>MDP에서의 최적 행동을 찾는 방법은 optimal state-value function <span>
+  \(v_*(s)\)
+</span>
+ 를 구하는 것이다. <br>
+이것은 모든 policy 에 대해서 value function을 최대화 하는것이다. (장기적으로 최대 보상을 얻기 위해서) <br>
+optimal action-value function <span>
+  \(q_*(s,a) \)
+</span>
+의 경우 아래와 같이 구할 수 있다.</p>
+<p><span>
+  \[
+v_*(s) = \max_\pi v_\pi(s)
+\]
+</span>
+
+<span>
+  \[
+q_*(s, a) = \max_\pi q_\pi(s, a)
+\]
+</span>
+</p>
+<p>optimal policy (<span>
+  \(\pi_*\)
+</span>
+) 는 <span>
+  \(q_*\)
+</span>
+ 를 최대화 함으로써 얻을 수 있다.
+<span>
+  \[
+\pi_*(a \mid s) = 
+\begin{cases}
+1 & \text{if } a = \arg\max\limits_{a \in \mathcal{A}} q_*(s, a) \\
+0 & \text{otherwise}
+\end{cases}
+\]
+</span>
+</p>
+<p>옵티멀한 해는 위에 구한 도식과 같은 형식으로 아래 모형과 수식으로 나타낼 수 있다.</p>
+<div style="display: flex; gap: 20px;">
+  <img src="/images/rl-mdp-bellman-state-value-opt-merged.png" alt="state-value-merged" style="width: 50%;" />
+  <img src="/images/rl-mdp-bellman-action-value-opt-merged.png" alt="action-value-merged" style="width: 50%;" />
+</div>
+<h3 id="solving-bellman-optimality-equation">
+  <strong>Solving Bellman Optimality Equation</strong>
+  <a class="anchor" href="#solving-bellman-optimality-equation">#</a>
+</h3>
+<p>Bellman Optimality Equation은 non-linear 하고 보통 No closed form 으로 제공됨.
+아래와 같은 solving method 들이 있음</p>
+<ul>
+<li><strong>value iteration</strong> : Iteratively updates value estimates using the Bellman optimality equation until convergence.</li>
+<li><strong>policy iteration</strong> : Alternates between policy evaluation and policy improvement until the policy becomes stable.</li>
+<li><strong>Q-learning</strong> : Off-policy method that directly learns the optimal action-value function from experience.</li>
+<li><strong>Sarsa</strong>(State-Action-Reward-State-Action) : On-policy method that updates action-values based on the action actually taken by the current policy.</li>
+</ul>
+<h3 id="extensions-of-mdps">
+  <strong>Extensions of MDPs</strong>
+  <a class="anchor" href="#extensions-of-mdps">#</a>
+</h3>
+<ul>
+<li>infinite and continous MDPs
+<ul>
+<li>무한한 기존 방법을 그대로 적용이 가능하다(Straightforward). 연속적인 숫자라면 편미분 해야한다.</li>
+</ul>
+</li>
+<li>Partially observable MDPs
+<ul>
+<li>(finite sets of Observation:O 와 Observation function:Z) 추가요소가 있으며. 상태를 직접적으로 알 수 없으니 관측값으로부터 추정하는 hidden stage가 있는 MDP로 해결</li>
+</ul>
+</li>
+<li>Undiscounted, average reward MDPs
+<ul>
+<li>ergodic markvo process 로 처리할수 있다. ergodic은 Recuurent: 각 state는 무한 시간 동안에 방문, Aperiodic : 어떤 주기성 없이 방문 하는 속성을 가지고 있다.이것은 average reward MDP이다 (discount 되지 않으니, 큰수의 법칙에 의해서). 따러서 average bellman equation 을 풀면 된다.</li>
+</ul>
+</li>
+</ul>
+<h2 id="참조">
+  <strong>참조</strong>
+  <a class="anchor" href="#%ec%b0%b8%ec%a1%b0">#</a>
+</h2>
+<p><a href="https://davidstarsilver.wordpress.com/wp-content/uploads/2025/04/lecture-2-mdp.pdf">https://davidstarsilver.wordpress.com/wp-content/uploads/2025/04/lecture-2-mdp.pdf</a></p>
+<p><a href="https://www.youtube.com/watch?v=lfHX2hHRMVQ">https://www.youtube.com/watch?v=lfHX2hHRMVQ</a></p>
+<p><a href="https://trivia-starage.tistory.com/280">https://trivia-starage.tistory.com/280</a></p>
+</div>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+<script src="https://giscus.app/client.js"
+        data-repo="JaeSim/JaeSim.github.io"
+        data-repo-id="R_kgDOOtVVtw"
+        data-category="Comment"
+        data-category-id="DIC_kwDOOtVVt84Cqcxg"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#markov-processmp-란"><strong>Markov Process(MP) 란?</strong></a>
+      <ul>
+        <li><a href="#mp-속성"><strong>MP 속성</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#markov-reward-processmrp-란"><strong>Markov Reward Process(MRP) 란?</strong></a>
+      <ul>
+        <li><a href="#mrp-속성"><strong>MRP 속성</strong></a>
+          <ul>
+            <li><a href="#value-function"><strong>Value Function</strong></a></li>
+            <li><a href="#bellman-equation-for-mrp"><strong>Bellman Equation for MRP</strong></a></li>
+            <li><a href="#solving-the-bellman-equation"><strong>Solving the Bellman Equation</strong></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#markov-decision-processmdp-란"><strong>Markov Decision Process(MDP) 란?</strong></a>
+      <ul>
+        <li><a href="#policy"><strong>Policy</strong></a></li>
+        <li><a href="#state-value-function"><strong>state-value function</strong></a></li>
+        <li><a href="#action-value-q-function"><strong>action-value (q) function</strong></a></li>
+        <li><a href="#optimal-value-function"><strong>Optimal Value Function</strong></a></li>
+        <li><a href="#solving-bellman-optimality-equation"><strong>Solving Bellman Optimality Equation</strong></a></li>
+        <li><a href="#extensions-of-mdps"><strong>Extensions of MDPs</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#참조"><strong>참조</strong></a></li>
+  </ul>
+</nav>
+
+  <div class="post-tags">
+    <strong>Tags:</strong>
+    
+      <a href="/tags/definition" class="tag">Definition</a>
+    
+      <a href="/tags/markov" class="tag">Markov</a>
+    
+      <a href="/tags/markov-process" class="tag">Markov Process</a>
+    
+      <a href="/tags/markov-decision-process" class="tag">Markov Decision Process</a>
+    
+      <a href="/tags/reinforcement-learning" class="tag">Reinforcement Learning</a>
+    
+  </div>
+
+
+
+  <div class="post-categories">
+    <strong>Categories:</strong>
+    
+      <a href="/categories/reinforcement-learning" class="category">Reinforcement Learning</a>
+    
+  </div>
+
+
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('pre > code[class^="language-"]').forEach(codeBlock => {
+      const pre = codeBlock.parentElement;
+
+      
+      const button = document.createElement('button');
+      button.innerText = '📋';
+      button.title = 'Copy code';
+      button.style = `
+        position: absolute;
+        top: 0.5em;
+        right: 0.5em;
+        padding: 2px 6px;
+        font-size: 0.8rem;
+        background: #f5f5f5;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+        z-index: 10;
+      `;
+
+      
+      button.addEventListener('click', () => {
+        navigator.clipboard.writeText(codeBlock.innerText);
+        button.innerText = '✔';
+        setTimeout(() => button.innerText = '📋', 1000);
+      });
+
+      
+      pre.style.position = 'relative';
+      pre.appendChild(button);
+    });
+  });
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="ko-kr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
+  Learned Query Optimizer 포팅을 위한 HANA DB의 분석 내용
+  #
+
+
+  설치
+  #
+
+
+  Trial 다운로드
+  #
+
+
+평가판(trial) 다운로드 위치 : https://www.sap.com/products/data-cloud/hana/express-trial.html
+관련 참조 페이지
+
+https://pages.community.sap.com/topics/hana
+https://tools.hana.ondemand.com/#hanatools
+https://gist.github.com/tlinnet/4196fd9c7aa43e37ea71e69bdc40a7dd
+https://developers.sap.com/tutorial-navigator.html?search=install&tag=software-product%3Atechnology-platform%2Fsap-hana
+
+
+
+
+  설치 커맨드
+  #
+
+
+JAVA_HOME export as version 8
+
+vim ~/.bashrc
+# 하단에 아레 정보 입력
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+
+source ~/.bashrc
+
+설치 파일 실행 권한 부여
+
+chmod &#43;x HXEDownloadManager_linux.bin
+./HXEDownloadManager_linux.bin
+
+server only installer 선택
+binary installer -&gt; [ server only installer , Clients (Linux x86/64) 두개 선택 ]
+압축 해제 및 실행
+
+tar -xvzf hxe.tgz
+
+sudo mv /bin/sh /bin/sh.orig
+sudo ln -s /bin/bash /bin/sh
+
+sudo setup_hxe.sh
+
+sudo 권한을 주지 않고 하려면 아래 수행을 해야하는데, 차라리 sudo 권한을 주는것을 권장. ㅔ
+
+vim setupo_hxe.sh
+  // checkRootuser 주석
+  // checkBash 주석
+Enter SAP HANA system ID [HXE]:
+
+Enter instance number [90]:
+
+Enter local host name [bdai-ThinkStation-P920]:
+
+password 설정 (SAP**** 로 설정함)
+
+- 8 or more letters
+- At least 1 uppercase letter
+- At least 1 lowercase letter
+- At least 1 number
+
+우분투 설치하려면 아래 가이드 따를것 
+https://gist.github.com/tlinnet/4196fd9c7aa43e37ea71e69bdc40a7dd
+가이드에 있는 내용
+
+sudo cp /usr/sbin/update-rc.d /usr/sbin/update-rc.d.orig
+sudo sed -i &#39;/^        usage(&#34;unknown option&#34;);/i \        \if (/^-n$/) { next }&#39; /usr/sbin/update-rc.d
+
+password 설정
+실행을 통해서 확인 (아래커맨드로 접속가능)
+
+
+#export /usr/sap/&lt;SID&gt;/HDB&lt;instance&gt;/exe
+export PATH=/usr/sap/HXE/HDB90/exe:$PATH
+source ~/.bashrc
+# ./hdbsql -n localhost:39013 -u System -p {Password}
+
+sudo /usr/sap/HXE/HDB90/exe/hdbsql -n localhost:39013 -u System -p {Password}
+
+HANA_EXPRESS_20\hxe_info.tx 에서 아래 정보 확인가능
+
+ 1 [hxe_version]
+ 2 HANA, express edition=2.00.082.00.20250528.1
+ 3 #
+ 4 HDB_AFL=2.00.082.00
+ 5 HDB_LCM=2.00.082.00
+ 6 HDB_SERVER=2.00.082.00
+ 7 HANA_CLIENT=2.24.19
+ 8 #
+ 9 XSA_RT=1.3.7
+10 XSAC_COCKPIT=2.18.0
+11 XSAC_HRTT=2.16.250401
+12 XSAC_SAP_WEB_IDE=4.8.2
+13 XSAC_PORTAL_SERV=2.8.0
+14 XSAC_SERVICES=1.7.31
+15 XSAC_UI5_FESV6=1.71.68
+16 XSAC_UI5_FESV9=1.108.31
+17 XSAC_XSA_COCKPIT=1.1.44
+18 #
+19 [hxe_installation]
+20 INSTALL_TYPE=Binary
+21 INSTALL_DATE=
+~
+
+  동작 내용
+  #
+
+
+  explain 관련 short 테스트
+  #
+
+
+TEST1, TEST2, TEST3 테이블을 만들고 임시 data를 넣고, EXPLAIN을 했을때 응답을 출력해본 것
+
+SQL 수행
+  
+hdbsql SYSTEMDB=&gt; SELECT TABLE_NAME  FROM M_TABLES  WHERE SCHEMA_NAME = CURRENT_SCHEMA;
+TABLE_NAME
+&#34;TEST1&#34;
+&#34;TEST2&#34;
+&#34;TEST3&#34;
+
+CREATE COLUMN TABLE TEST1 ( id VARCHAR(10), text VARCHAR(10) );
+
+CREATE COLUMN TABLE TEST2 ( id VARCHAR(10), content VARCHAR(10) );
+
+CREATE COLUMN TABLE TEST3 ( id VARCHAR(10), comment VARCHAR(10) );
+
+CREATE INDEX idx_test3_id ON TEST3(id);
+
+
+INSERT INTO TEST1 (id, text) VALUES (&#39;A001&#39;, &#39;Text1&#39;);  -- TEST2, TEST3에도 존재
+INSERT INTO TEST1 (id, text) VALUES (&#39;A002&#39;, &#39;Text2&#39;);  -- TEST2, TEST3에도 존재
+INSERT INTO TEST1 (id, text) VALUES (&#39;A003&#39;, &#39;Text3&#39;);  -- TEST2, TEST3에도 존재
+INSERT INTO TEST1 (id, text) VALUES (&#39;A005&#39;, &#39;Text5&#39;);  -- TEST2에는 있지만 TEST3에는 없음
+INSERT INTO TEST1 (id, text) VALUES (&#39;A007&#39;, &#39;Text7&#39;);  -- TEST2에는 있지만 TEST3에는 없음
+INSERT INTO TEST1 (id, text) VALUES (&#39;A009&#39;, &#39;Text9&#39;);  -- TEST3에는 있지만 TEST2에는 없음
+INSERT INTO TEST1 (id, text) VALUES (&#39;A011&#39;, &#39;Text11&#39;); -- TEST2, TEST3에는 없는 새로운 ID
+INSERT INTO TEST1 (id, text) VALUES (&#39;A012&#39;, &#39;Text12&#39;); -- TEST2, TEST3에는 없는 새로운 ID
+
+
+INSERT INTO TEST2 (id, content) VALUES (&#39;A001&#39;, &#39;c1&#39;);
+INSERT INTO TEST2 (id, content) VALUES (&#39;A002&#39;, &#39;c2&#39;);
+INSERT INTO TEST2 (id, content) VALUES (&#39;A003&#39;, &#39;c3&#39;);
+INSERT INTO TEST2 (id, content) VALUES (&#39;A004&#39;, &#39;c4&#39;);
+INSERT INTO TEST2 (id, content) VALUES (&#39;A005&#39;, &#39;c5&#39;);
+INSERT INTO TEST2 (id, content) VALUES (&#39;A006&#39;, &#39;c6&#39;); -- TEST3에 없는 ID
+INSERT INTO TEST2 (id, content) VALUES (&#39;A007&#39;, &#39;c7&#39;); -- TEST3에 없는 ID
+
+INSERT INTO TEST3 (id, comment) VALUES (&#39;A001&#39;, &#39;p1&#39;);
+INSERT INTO TEST3 (id, comment) VALUES (&#39;A002&#39;, &#39;p2&#39;);
+INSERT INTO TEST3 (id, comment) VALUES (&#39;A003&#39;, &#39;p3&#39;);
+INSERT INTO TEST3 (id, comment) VALUES (&#39;A008&#39;, &#39;p8&#39;); -- TEST2에 없는 ID
+INSERT INTO TEST3 (id, comment) VALUES (&#39;A009&#39;, &#39;p9&#39;); -- TEST2에 없는 ID
+INSERT INTO TEST3 (id, comment) VALUES (&#39;A010&#39;, &#39;p10&#39;); -- TEST2에 없는 ID
+
+
+SELECT T1.id, T1.text, T2.content, T3.comment FROM TEST1 T1 INNER JOIN TEST2 T2 ON T1.id = T2.id INNER JOIN TEST3 T3 ON T1.id = T3.id;
+
+
+hdbsql SYSTEMDB=&gt; SELECT T1.id, T1.text, T2.content, T3.comment FROM TEST1 T1 INNER JOIN TEST2 T2 ON T
+1.id = T2.id INNER JOIN TEST3 T3 ON T1.id = T3.id;
+ID,TEXT,CONTENT,COMMENT
+&#34;A001&#34;,&#34;Text1&#34;,&#34;c1&#34;,&#34;p1&#34;
+&#34;A002&#34;,&#34;Text2&#34;,&#34;c2&#34;,&#34;p2&#34;
+&#34;A003&#34;,&#34;Text3&#34;,&#34;c3&#34;,&#34;p3&#34;
+3 rows selected (overall time 35.804 msec; server time 29.875 msec)
+
+
+
+EXPLAIN PLAN SET STATEMENT_NAME = &#39;ORIG&#39; FOR SELECT T1.id, T1.text, T3.comment FROM TEST1 T1 INNER JOIN TEST3 T3 ON T1.id = T3.id;
+SELECT * FROM EXPLAIN_PLAN_TABLE ORDER BY TIMESTAMP DESC;
+
+STATEMENT_NAME,OPERATOR_NAME,OPERATOR_DETAILS,OPERATOR_PROPERTIES,EXECUTION_ENGINE,DATABASE_NAME,SCHEM
+A_NAME,TABLE_NAME,TABLE_TYPE,TABLE_SIZE,OUTPUT_SIZE,SUBTREE_COST,OPERATOR_ID,PARENT_OPERATOR_ID,LEVEL,
+POSITION,HOST,PORT,TIMESTAMP,CONNECTION_ID
+
+&#34;ORIG&#34;,&#34;PROJECT&#34;,&#34;T1.ID, T1.TEXT, T3.COMMENT&#34;,&#34;PHYSICAL_ENUM_BY: HEX_PROJECT&#34;,&#34;HEX&#34;,?,?,?,?,?                            ,4,0.000000781081778845808,1,?          ,1,1,&#34;bdai-thinkstation-p920&#34;,39001,&#34;2025-03-20 12:23:54.078000000&#34;,117755
+&#34;ORIG&#34;,&#34;  INDEX JOIN&#34;,&#34;INDEX JOIN CONDITION: T1.ID = T3.ID&#34;,&#34;PHYSICAL_ENUM_BY: HEX_INDEX_JOIN&#34;,&#34;HEX&#34;,&#34;SYSTEMDB&#34;,&#34;SYSTEM&#34;,&#34;TEST3&#34;,&#34;COLUMN TABLE&#34;,6,4,0.000000781081778845808,2,1,2,1,&#34;bdai-thinkstation-p920&#34;,39001,&#34;2025-03-20 12:23:54.078000000&#34;,117755
+&#34;ORIG&#34;,&#34;    TABLE SCAN&#34;,&#34;&#34;,&#34;PHYSICAL_ENUM_BY: HEX_TABLE_SCAN&#34;,&#34;HEX&#34;,&#34;SYSTEMDB&#34;,&#34;SYSTEM&#34;,&#34;TEST1&#34;,&#34;COLUMN TABLE&#34;,8,8,0.000000024,3,2,3,1,&#34;bdai-thinkstation-p920&#34;
+,39001,&#34;2025-03-20 12:23:54.078000000&#34;,117755
+
+
+
+EXPLAIN PLAN SET STATEMENT_NAME = &#39;FORCE_HSJO&#39; FOR SELECT T1.id, T1.text, T3.comment FROM TEST1 T1 INNER JOIN TEST3 T3 ON T1.id = T3.id WITH HINT( HASH_JOIN );
+4 rows selected (overall time 10.147 msec; server time 4031 usec)
+
+
+&#34;FORCE_HSJO&#34;,&#34;PROJECT&#34;,&#34;T1.ID, T1.TEXT, T3.COMMENT&#34;,&#34;ATTACHED HINT LIST (HASH_JOIN), PHYSICAL_ENUM_BY: HEX_PROJECT&#34;,&#34;HEX&#34;,?,?,?,?,? ,20,0.000003031119839811333,1,?                  ,1,1,&#34;bdai-thinkstation-p920&#34;,39001,&#34;2025-03-20 12:36:14.827000000&#34;,118106
+&#34;FORCE_HSJO&#34;,&#34;  INDEX JOIN&#34;,&#34;INDEX JOIN CONDITION: T1.ID = T3.ID&#34;,&#34;TRANSLATION TABLE (LEFT): T1.ID = T3.ID, PHYSICAL_ENUM_BY: HEX_INDEX_JOIN&#34;,&#34;HEX&#34;,&#34;SYSTEMDB&#34;,&#34;SYSTEM&#34;,&#34;TEST3&#34;,&#34;COLUMN TABLE&#34;,22,20,0.000003031119839811333,2,1,2,1,&#34;bdai-thinkstation-p920&#34;,39001,&#34;2025-03-20 12:36:14.827000000&#34;,118106
+&#34;FORCE_HSJO&#34;,&#34;    TABLE SCAN&#34;,&#34;&#34;,&#34;PHYSICAL_ENUM_BY: HEX_TABLE_SCAN&#34;,&#34;HEX&#34;,&#34;SYSTEMDB&#34;,&#34;SYSTEM&#34;,&#34;TEST1&#34;,&#34;COLUMN TABLE&#34;,29,29,0.000000087,3,2,3,1,&#34;bdai-thinkstat
+ion-p920&#34;,39001,&#34;2025-03-20 12:36:14.827000000&#34;,118106
+  
+
+
+  dataset을 IMPORT를 하기 위해서 수정해야 했던 것들
+  #
+
+
+어느것이 정확하게 동작하는지 기억x
+
+ALTER SYSTEM ALTER CONFIGURATION (&#39;indexserver.ini&#39;, &#39;SYSTEM&#39;)  SET (&#39;import_export&#39;, &#39;csv_import_path_filter&#39;) = &#39;/home/jae.sim/hanadb/datasets/job/&#39;  WITH RECONFIGURE;
+ALTER SYSTEM ALTER CONFIGURATION (&#39;indexserver.ini&#39;, &#39;SYSTEM&#39;) set (&#39;import&#39;, &#39;enable_csv_import_path_filter&#39;) = &#39;true&#39; with reconfigure;
+SELECT FILE_NAME, SECTION, KEY, VALUE FROM M_INIFILE_CONTENTS WHERE SECTION = &#39;import&#39;  AND KEY = &#39;csv_import_path_filter&#39;;
+SELECT FILE_NAME, SECTION, KEY, VALUE FROM M_INIFILE_CONTENTS WHERE SECTION = &#39;import_export&#39;  ;
+alter system alter configuration ( &#39;indexserver.ini&#39;,&#39;SYSTEM&#39; ) set ( &#39;import_export&#39;,&#39;enable_csv_import_path_filter&#39; ) = &#39;false&#39; with reconfigure
+ALTER SYSTEM ALTER CONFIGURATION (&#39;indexserver.ini&#39;, &#39;SYSTEM&#39;) SET (&#39;import&#39;, &#39;csv_import_path_filter&#39;) = &#39;/home/jae.sim/hanadb/datasets/job/&#39;  WITH RECONFIGURE;
+
+  HANA DB 지원
+  #
+
+
+  EXPLAIN and ANALYZE 지원 관련
+  #
+
+
+EXPLAIN의 경우 EXPLAIN PLAN keyword로 지원
+
+https://help.sap.com/docs/SAP_HANA_PLATFORM/bed8c14f9f024763b0777aa72b5436f6/c0d42fd3bb571014a0688254f3de593f.html
+Join order 와 physical Op를 확인 가능
+
+
+ANALYZE의 경우 SQL Level에서는 미지원
+
+M_SQL_PLAN_CACHE 로 수행한 결과를 분석해야함
+해당 cache안에 join order등 어떠한 정보들을 볼 수 있는지
+
+
+
+제공되는 정보
+  
+TOTAL_EXECUTION_TIME 을 제공. 그러나 sub-tree에 대한 정보는 제공하지 않음.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/learned-query-optimizer/hana-database-porting/">
+  <meta property="og:site_name" content="JaeSim&#39;s Workspace">
+  <meta property="og:title" content="HANA Database Porting">
+  <meta property="og:description" content="Learned Query Optimizer 포팅을 위한 HANA DB의 분석 내용#설치#Trial 다운로드#평가판(trial) 다운로드 위치 : https://www.sap.com/products/data-cloud/hana/express-trial.html 관련 참조 페이지 https://pages.community.sap.com/topics/hana https://tools.hana.ondemand.com/#hanatools https://gist.github.com/tlinnet/4196fd9c7aa43e37ea71e69bdc40a7dd https://developers.sap.com/tutorial-navigator.html?search=install&amp;tag=software-product%3Atechnology-platform%2Fsap-hana 설치 커맨드#JAVA_HOME export as version 8 vim ~/.bashrc # 하단에 아레 정보 입력 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 source ~/.bashrc 설치 파일 실행 권한 부여 chmod &#43;x HXEDownloadManager_linux.bin ./HXEDownloadManager_linux.bin server only installer 선택
+binary installer -&gt; [ server only installer , Clients (Linux x86/64) 두개 선택 ] 압축 해제 및 실행 tar -xvzf hxe.tgz sudo mv /bin/sh /bin/sh.orig sudo ln -s /bin/bash /bin/sh sudo setup_hxe.sh sudo 권한을 주지 않고 하려면 아래 수행을 해야하는데, 차라리 sudo 권한을 주는것을 권장. ㅔ vim setupo_hxe.sh // checkRootuser 주석 // checkBash 주석 Enter SAP HANA system ID [HXE]: Enter instance number [90]: Enter local host name [bdai-ThinkStation-P920]: password 설정 (SAP**** 로 설정함) - 8 or more letters- At least 1 uppercase letter- At least 1 lowercase letter- At least 1 number 우분투 설치하려면 아래 가이드 따를것 https://gist.github.com/tlinnet/4196fd9c7aa43e37ea71e69bdc40a7dd 가이드에 있는 내용 sudo cp /usr/sbin/update-rc.d /usr/sbin/update-rc.d.orig sudo sed -i &#39;/^ usage(&#34;unknown option&#34;);/i \ \if (/^-n$/) { next }&#39; /usr/sbin/update-rc.d password 설정 실행을 통해서 확인 (아래커맨드로 접속가능) #export /usr/sap/&lt;SID&gt;/HDB&lt;instance&gt;/exe export PATH=/usr/sap/HXE/HDB90/exe:$PATH source ~/.bashrc # ./hdbsql -n localhost:39013 -u System -p {Password} sudo /usr/sap/HXE/HDB90/exe/hdbsql -n localhost:39013 -u System -p {Password} HANA_EXPRESS_20\hxe_info.tx 에서 아래 정보 확인가능 1 [hxe_version] 2 HANA, express edition=2.00.082.00.20250528.1 3 # 4 HDB_AFL=2.00.082.00 5 HDB_LCM=2.00.082.00 6 HDB_SERVER=2.00.082.00 7 HANA_CLIENT=2.24.19 8 # 9 XSA_RT=1.3.7 10 XSAC_COCKPIT=2.18.0 11 XSAC_HRTT=2.16.250401 12 XSAC_SAP_WEB_IDE=4.8.2 13 XSAC_PORTAL_SERV=2.8.0 14 XSAC_SERVICES=1.7.31 15 XSAC_UI5_FESV6=1.71.68 16 XSAC_UI5_FESV9=1.108.31 17 XSAC_XSA_COCKPIT=1.1.44 18 # 19 [hxe_installation] 20 INSTALL_TYPE=Binary 21 INSTALL_DATE= ~ 동작 내용#explain 관련 short 테스트#TEST1, TEST2, TEST3 테이블을 만들고 임시 data를 넣고, EXPLAIN을 했을때 응답을 출력해본 것 SQL 수행hdbsql SYSTEMDB=&gt; SELECT TABLE_NAME FROM M_TABLES WHERE SCHEMA_NAME = CURRENT_SCHEMA; TABLE_NAME &#34;TEST1&#34; &#34;TEST2&#34; &#34;TEST3&#34; CREATE COLUMN TABLE TEST1 ( id VARCHAR(10), text VARCHAR(10) ); CREATE COLUMN TABLE TEST2 ( id VARCHAR(10), content VARCHAR(10) ); CREATE COLUMN TABLE TEST3 ( id VARCHAR(10), comment VARCHAR(10) ); CREATE INDEX idx_test3_id ON TEST3(id); INSERT INTO TEST1 (id, text) VALUES (&#39;A001&#39;, &#39;Text1&#39;); -- TEST2, TEST3에도 존재 INSERT INTO TEST1 (id, text) VALUES (&#39;A002&#39;, &#39;Text2&#39;); -- TEST2, TEST3에도 존재 INSERT INTO TEST1 (id, text) VALUES (&#39;A003&#39;, &#39;Text3&#39;); -- TEST2, TEST3에도 존재 INSERT INTO TEST1 (id, text) VALUES (&#39;A005&#39;, &#39;Text5&#39;); -- TEST2에는 있지만 TEST3에는 없음 INSERT INTO TEST1 (id, text) VALUES (&#39;A007&#39;, &#39;Text7&#39;); -- TEST2에는 있지만 TEST3에는 없음 INSERT INTO TEST1 (id, text) VALUES (&#39;A009&#39;, &#39;Text9&#39;); -- TEST3에는 있지만 TEST2에는 없음 INSERT INTO TEST1 (id, text) VALUES (&#39;A011&#39;, &#39;Text11&#39;); -- TEST2, TEST3에는 없는 새로운 ID INSERT INTO TEST1 (id, text) VALUES (&#39;A012&#39;, &#39;Text12&#39;); -- TEST2, TEST3에는 없는 새로운 ID INSERT INTO TEST2 (id, content) VALUES (&#39;A001&#39;, &#39;c1&#39;); INSERT INTO TEST2 (id, content) VALUES (&#39;A002&#39;, &#39;c2&#39;); INSERT INTO TEST2 (id, content) VALUES (&#39;A003&#39;, &#39;c3&#39;); INSERT INTO TEST2 (id, content) VALUES (&#39;A004&#39;, &#39;c4&#39;); INSERT INTO TEST2 (id, content) VALUES (&#39;A005&#39;, &#39;c5&#39;); INSERT INTO TEST2 (id, content) VALUES (&#39;A006&#39;, &#39;c6&#39;); -- TEST3에 없는 ID INSERT INTO TEST2 (id, content) VALUES (&#39;A007&#39;, &#39;c7&#39;); -- TEST3에 없는 ID INSERT INTO TEST3 (id, comment) VALUES (&#39;A001&#39;, &#39;p1&#39;); INSERT INTO TEST3 (id, comment) VALUES (&#39;A002&#39;, &#39;p2&#39;); INSERT INTO TEST3 (id, comment) VALUES (&#39;A003&#39;, &#39;p3&#39;); INSERT INTO TEST3 (id, comment) VALUES (&#39;A008&#39;, &#39;p8&#39;); -- TEST2에 없는 ID INSERT INTO TEST3 (id, comment) VALUES (&#39;A009&#39;, &#39;p9&#39;); -- TEST2에 없는 ID INSERT INTO TEST3 (id, comment) VALUES (&#39;A010&#39;, &#39;p10&#39;); -- TEST2에 없는 ID SELECT T1.id, T1.text, T2.content, T3.comment FROM TEST1 T1 INNER JOIN TEST2 T2 ON T1.id = T2.id INNER JOIN TEST3 T3 ON T1.id = T3.id; hdbsql SYSTEMDB=&gt; SELECT T1.id, T1.text, T2.content, T3.comment FROM TEST1 T1 INNER JOIN TEST2 T2 ON T 1.id = T2.id INNER JOIN TEST3 T3 ON T1.id = T3.id; ID,TEXT,CONTENT,COMMENT &#34;A001&#34;,&#34;Text1&#34;,&#34;c1&#34;,&#34;p1&#34; &#34;A002&#34;,&#34;Text2&#34;,&#34;c2&#34;,&#34;p2&#34; &#34;A003&#34;,&#34;Text3&#34;,&#34;c3&#34;,&#34;p3&#34; 3 rows selected (overall time 35.804 msec; server time 29.875 msec) EXPLAIN PLAN SET STATEMENT_NAME = &#39;ORIG&#39; FOR SELECT T1.id, T1.text, T3.comment FROM TEST1 T1 INNER JOIN TEST3 T3 ON T1.id = T3.id; SELECT * FROM EXPLAIN_PLAN_TABLE ORDER BY TIMESTAMP DESC; STATEMENT_NAME,OPERATOR_NAME,OPERATOR_DETAILS,OPERATOR_PROPERTIES,EXECUTION_ENGINE,DATABASE_NAME,SCHEM A_NAME,TABLE_NAME,TABLE_TYPE,TABLE_SIZE,OUTPUT_SIZE,SUBTREE_COST,OPERATOR_ID,PARENT_OPERATOR_ID,LEVEL, POSITION,HOST,PORT,TIMESTAMP,CONNECTION_ID &#34;ORIG&#34;,&#34;PROJECT&#34;,&#34;T1.ID, T1.TEXT, T3.COMMENT&#34;,&#34;PHYSICAL_ENUM_BY: HEX_PROJECT&#34;,&#34;HEX&#34;,?,?,?,?,? ,4,0.000000781081778845808,1,? ,1,1,&#34;bdai-thinkstation-p920&#34;,39001,&#34;2025-03-20 12:23:54.078000000&#34;,117755 &#34;ORIG&#34;,&#34; INDEX JOIN&#34;,&#34;INDEX JOIN CONDITION: T1.ID = T3.ID&#34;,&#34;PHYSICAL_ENUM_BY: HEX_INDEX_JOIN&#34;,&#34;HEX&#34;,&#34;SYSTEMDB&#34;,&#34;SYSTEM&#34;,&#34;TEST3&#34;,&#34;COLUMN TABLE&#34;,6,4,0.000000781081778845808,2,1,2,1,&#34;bdai-thinkstation-p920&#34;,39001,&#34;2025-03-20 12:23:54.078000000&#34;,117755 &#34;ORIG&#34;,&#34; TABLE SCAN&#34;,&#34;&#34;,&#34;PHYSICAL_ENUM_BY: HEX_TABLE_SCAN&#34;,&#34;HEX&#34;,&#34;SYSTEMDB&#34;,&#34;SYSTEM&#34;,&#34;TEST1&#34;,&#34;COLUMN TABLE&#34;,8,8,0.000000024,3,2,3,1,&#34;bdai-thinkstation-p920&#34; ,39001,&#34;2025-03-20 12:23:54.078000000&#34;,117755 EXPLAIN PLAN SET STATEMENT_NAME = &#39;FORCE_HSJO&#39; FOR SELECT T1.id, T1.text, T3.comment FROM TEST1 T1 INNER JOIN TEST3 T3 ON T1.id = T3.id WITH HINT( HASH_JOIN ); 4 rows selected (overall time 10.147 msec; server time 4031 usec) &#34;FORCE_HSJO&#34;,&#34;PROJECT&#34;,&#34;T1.ID, T1.TEXT, T3.COMMENT&#34;,&#34;ATTACHED HINT LIST (HASH_JOIN), PHYSICAL_ENUM_BY: HEX_PROJECT&#34;,&#34;HEX&#34;,?,?,?,?,? ,20,0.000003031119839811333,1,? ,1,1,&#34;bdai-thinkstation-p920&#34;,39001,&#34;2025-03-20 12:36:14.827000000&#34;,118106 &#34;FORCE_HSJO&#34;,&#34; INDEX JOIN&#34;,&#34;INDEX JOIN CONDITION: T1.ID = T3.ID&#34;,&#34;TRANSLATION TABLE (LEFT): T1.ID = T3.ID, PHYSICAL_ENUM_BY: HEX_INDEX_JOIN&#34;,&#34;HEX&#34;,&#34;SYSTEMDB&#34;,&#34;SYSTEM&#34;,&#34;TEST3&#34;,&#34;COLUMN TABLE&#34;,22,20,0.000003031119839811333,2,1,2,1,&#34;bdai-thinkstation-p920&#34;,39001,&#34;2025-03-20 12:36:14.827000000&#34;,118106 &#34;FORCE_HSJO&#34;,&#34; TABLE SCAN&#34;,&#34;&#34;,&#34;PHYSICAL_ENUM_BY: HEX_TABLE_SCAN&#34;,&#34;HEX&#34;,&#34;SYSTEMDB&#34;,&#34;SYSTEM&#34;,&#34;TEST1&#34;,&#34;COLUMN TABLE&#34;,29,29,0.000000087,3,2,3,1,&#34;bdai-thinkstat ion-p920&#34;,39001,&#34;2025-03-20 12:36:14.827000000&#34;,118106 dataset을 IMPORT를 하기 위해서 수정해야 했던 것들#어느것이 정확하게 동작하는지 기억x ALTER SYSTEM ALTER CONFIGURATION (&#39;indexserver.ini&#39;, &#39;SYSTEM&#39;) SET (&#39;import_export&#39;, &#39;csv_import_path_filter&#39;) = &#39;/home/jae.sim/hanadb/datasets/job/&#39; WITH RECONFIGURE; ALTER SYSTEM ALTER CONFIGURATION (&#39;indexserver.ini&#39;, &#39;SYSTEM&#39;) set (&#39;import&#39;, &#39;enable_csv_import_path_filter&#39;) = &#39;true&#39; with reconfigure; SELECT FILE_NAME, SECTION, KEY, VALUE FROM M_INIFILE_CONTENTS WHERE SECTION = &#39;import&#39; AND KEY = &#39;csv_import_path_filter&#39;; SELECT FILE_NAME, SECTION, KEY, VALUE FROM M_INIFILE_CONTENTS WHERE SECTION = &#39;import_export&#39; ; alter system alter configuration ( &#39;indexserver.ini&#39;,&#39;SYSTEM&#39; ) set ( &#39;import_export&#39;,&#39;enable_csv_import_path_filter&#39; ) = &#39;false&#39; with reconfigure ALTER SYSTEM ALTER CONFIGURATION (&#39;indexserver.ini&#39;, &#39;SYSTEM&#39;) SET (&#39;import&#39;, &#39;csv_import_path_filter&#39;) = &#39;/home/jae.sim/hanadb/datasets/job/&#39; WITH RECONFIGURE; HANA DB 지원#EXPLAIN and ANALYZE 지원 관련#EXPLAIN의 경우 EXPLAIN PLAN keyword로 지원 https://help.sap.com/docs/SAP_HANA_PLATFORM/bed8c14f9f024763b0777aa72b5436f6/c0d42fd3bb571014a0688254f3de593f.html Join order 와 physical Op를 확인 가능 ANALYZE의 경우 SQL Level에서는 미지원 M_SQL_PLAN_CACHE 로 수행한 결과를 분석해야함 해당 cache안에 join order등 어떠한 정보들을 볼 수 있는지 제공되는 정보TOTAL_EXECUTION_TIME 을 제공. 그러나 sub-tree에 대한 정보는 제공하지 않음.">
+  <meta property="og:locale" content="ko_kr">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="learned-query-optimizer">
+    <meta property="article:published_time" content="2025-07-04T13:26:47+09:00">
+    <meta property="article:modified_time" content="2025-07-04T13:26:47+09:00">
+    <meta property="article:tag" content="DBMS">
+    <meta property="article:tag" content="Database">
+    <meta property="article:tag" content="Optimizer">
+    <meta property="article:tag" content="Learned Query Optimizer">
+    <meta property="article:tag" content="Reinforcement Learning">
+    <meta property="article:tag" content="HANA Database">
+<title>HANA Database Porting | JaeSim&#39;s Workspace</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="https://JaeSim.github.io/learned-query-optimizer/hana-database-porting/">
+<link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.8c740b2a0b0ee5ca044549d9d9d0e6c4e3492e8ce79ccb039c86eab6c3145a68.js" integrity="sha256-jHQLKgsO5coERUnZ2dDmxONJLoznnMsDnIbqtsMUWmg=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>JaeSim&#39;s Workspace</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Development / 개발</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/secondpost/" class="">두번째 글입니다. 블로그 실험용 테스트 글입니다.</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/firstpost/" class="">할일</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/blogsetup/" class="">Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Item Research</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/item-research/graph/" class="">GNN</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/item-research/learned-index/" class="">Learned Index</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/item-research/learned-scheduler/" class="">Learned Scheduler</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Reinforcement Learning / 강화학습</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-essential/" class="">1. Reinforcement Learning Essential</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-mdp/" class="">2. Markov Decision Process</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-dp/" class="">3. Planning by Dynamic Programming</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-model-free-prediction/" class="">temp. 4. Model Free Prediction</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Learned Query Optimizer</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/loger-code/" class="">LOGER 코드 분석</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/bao-code/" class="">BAO 코드 분석</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/hana-database-porting/" class="active">HANA Database Porting</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>HANA Database Porting</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#설치"><strong>설치</strong></a>
+      <ul>
+        <li><a href="#trial-다운로드"><strong>Trial 다운로드</strong></a></li>
+        <li><a href="#설치-커맨드"><strong>설치 커맨드</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#동작-내용"><strong>동작 내용</strong></a>
+      <ul>
+        <li><a href="#explain-관련-short-테스트"><strong>explain 관련 short 테스트</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#dataset을-import를-하기-위해서-수정해야-했던-것들"><strong>dataset을 IMPORT를 하기 위해서 수정해야 했던 것들</strong></a></li>
+    <li><a href="#hana-db-지원"><strong>HANA DB 지원</strong></a>
+      <ul>
+        <li><a href="#explain-and-analyze-지원-관련"><strong>EXPLAIN and ANALYZE 지원 관련</strong></a></li>
+        <li><a href="#timeout-setting"><strong>Timeout Setting</strong></a></li>
+        <li><a href="#hanadb-join에-대한-키워드"><strong>hanadb join에 대한 키워드</strong></a></li>
+        <li><a href="#hana-db-로그-관련-위치"><strong>HANA DB 로그 관련 위치</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#쿼리-샘플들"><strong>쿼리 샘플들</strong></a></li>
+    <li><a href="#sap-hana-studio-다운로드"><strong>SAP HANA studio 다운로드</strong></a></li>
+  </ul>
+</nav>
+
+  <div class="post-tags">
+    <strong>Tags:</strong>
+    
+      <a href="/tags/dbms" class="tag">DBMS</a>
+    
+      <a href="/tags/database" class="tag">Database</a>
+    
+      <a href="/tags/optimizer" class="tag">Optimizer</a>
+    
+      <a href="/tags/learned-query-optimizer" class="tag">Learned Query Optimizer</a>
+    
+      <a href="/tags/reinforcement-learning" class="tag">Reinforcement Learning</a>
+    
+      <a href="/tags/hana-database" class="tag">HANA database</a>
+    
+  </div>
+
+
+
+  <div class="post-categories">
+    <strong>Categories:</strong>
+    
+      <a href="/categories/learned-query-optimizer" class="category">Learned Query Optimizer</a>
+    
+  </div>
+
+
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+<article class="markdown book-post">
+  <h1 style="font-weight: bold;">
+    <span style="font-weight: normal; font-size: 0.6em; color: #888;">
+      2025-07-04 13:26 KST
+    </span>
+  </h1>
+  <div class="book-post-content"><h1 id="learned-query-optimizer-포팅을-위한-hana-db의-분석-내용">
+  <strong>Learned Query Optimizer 포팅을 위한 HANA DB의 분석 내용</strong>
+  <a class="anchor" href="#learned-query-optimizer-%ed%8f%ac%ed%8c%85%ec%9d%84-%ec%9c%84%ed%95%9c-hana-db%ec%9d%98-%eb%b6%84%ec%84%9d-%eb%82%b4%ec%9a%a9">#</a>
+</h1>
+<h2 id="설치">
+  <strong>설치</strong>
+  <a class="anchor" href="#%ec%84%a4%ec%b9%98">#</a>
+</h2>
+<h3 id="trial-다운로드">
+  <strong>Trial 다운로드</strong>
+  <a class="anchor" href="#trial-%eb%8b%a4%ec%9a%b4%eb%a1%9c%eb%93%9c">#</a>
+</h3>
+<ul>
+<li>평가판(trial) 다운로드 위치 : <a href="https://www.sap.com/products/data-cloud/hana/express-trial.html">https://www.sap.com/products/data-cloud/hana/express-trial.html</a></li>
+<li>관련 참조 페이지
+<ul>
+<li><a href="https://pages.community.sap.com/topics/hana">https://pages.community.sap.com/topics/hana</a></li>
+<li><a href="https://tools.hana.ondemand.com/#hanatools">https://tools.hana.ondemand.com/#hanatools</a></li>
+<li><a href="https://gist.github.com/tlinnet/4196fd9c7aa43e37ea71e69bdc40a7dd">https://gist.github.com/tlinnet/4196fd9c7aa43e37ea71e69bdc40a7dd</a></li>
+<li><a href="https://developers.sap.com/tutorial-navigator.html?search=install&amp;tag=software-product%3Atechnology-platform%2Fsap-hana">https://developers.sap.com/tutorial-navigator.html?search=install&tag=software-product%3Atechnology-platform%2Fsap-hana</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="설치-커맨드">
+  <strong>설치 커맨드</strong>
+  <a class="anchor" href="#%ec%84%a4%ec%b9%98-%ec%bb%a4%eb%a7%a8%eb%93%9c">#</a>
+</h3>
+<ul>
+<li>JAVA_HOME export as version 8</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>vim ~/.bashrc
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 하단에 아레 정보 입력</span>
+</span></span><span style="display:flex;"><span>export JAVA_HOME<span style="color:#f92672">=</span>/usr/lib/jvm/java-8-openjdk-amd64
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>source ~/.bashrc
+</span></span></code></pre></div><ul>
+<li>설치 파일 실행 권한 부여</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>chmod +x HXEDownloadManager_linux.bin
+</span></span><span style="display:flex;"><span>./HXEDownloadManager_linux.bin
+</span></span></code></pre></div><ul>
+<li>server only installer 선택<br>
+binary installer -&gt; [ server only installer , Clients (Linux x86/64) 두개 선택 ]</li>
+<li>압축 해제 및 실행</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>tar -xvzf hxe.tgz
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sudo mv /bin/sh /bin/sh.orig
+</span></span><span style="display:flex;"><span>sudo ln -s /bin/bash /bin/sh
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sudo setup_hxe.sh
+</span></span></code></pre></div><ul>
+<li>sudo 권한을 주지 않고 하려면 아래 수행을 해야하는데, 차라리 sudo 권한을 주는것을 권장. ㅔ</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>vim setupo_hxe.sh
+</span></span><span style="display:flex;"><span>  // checkRootuser 주석
+</span></span><span style="display:flex;"><span>  // checkBash 주석
+</span></span><span style="display:flex;"><span>Enter SAP HANA system ID <span style="color:#f92672">[</span>HXE<span style="color:#f92672">]</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Enter instance number <span style="color:#f92672">[</span>90<span style="color:#f92672">]</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Enter local host name <span style="color:#f92672">[</span>bdai-ThinkStation-P920<span style="color:#f92672">]</span>:
+</span></span></code></pre></div><ul>
+<li>password 설정 (SAP**** 로 설정함)</li>
+</ul>
+<pre tabindex="0"><code>- 8 or more letters
+- At least 1 uppercase letter
+- At least 1 lowercase letter
+- At least 1 number
+</code></pre><ul>
+<li>우분투 설치하려면 아래 가이드 따를것 <br>
+<a href="https://gist.github.com/tlinnet/4196fd9c7aa43e37ea71e69bdc40a7dd">https://gist.github.com/tlinnet/4196fd9c7aa43e37ea71e69bdc40a7dd</a></li>
+<li>가이드에 있는 내용</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo cp /usr/sbin/update-rc.d /usr/sbin/update-rc.d.orig
+</span></span><span style="display:flex;"><span>sudo sed -i <span style="color:#e6db74">&#39;/^        usage(&#34;unknown option&#34;);/i \        \if (/^-n$/) { next }&#39;</span> /usr/sbin/update-rc.d
+</span></span></code></pre></div><ul>
+<li>password 설정</li>
+<li>실행을 통해서 확인 (아래커맨드로 접속가능)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#export /usr/sap/&lt;SID&gt;/HDB&lt;instance&gt;/exe</span>
+</span></span><span style="display:flex;"><span>export PATH<span style="color:#f92672">=</span>/usr/sap/HXE/HDB90/exe:$PATH
+</span></span><span style="display:flex;"><span>source ~/.bashrc
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ./hdbsql -n localhost:39013 -u System -p {Password}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sudo /usr/sap/HXE/HDB90/exe/hdbsql -n localhost:39013 -u System -p <span style="color:#f92672">{</span>Password<span style="color:#f92672">}</span>
+</span></span></code></pre></div><ul>
+<li>HANA_EXPRESS_20\hxe_info.tx 에서 아래 정보 확인가능</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-vim" data-lang="vim"><span style="display:flex;"><span> <span style="color:#ae81ff">1</span> [<span style="color:#a6e22e">hxe_version</span>]
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">2</span> <span style="color:#a6e22e">HANA</span>, <span style="color:#a6e22e">express</span> <span style="color:#a6e22e">edition</span>=<span style="color:#ae81ff">2</span>.<span style="color:#ae81ff">00</span>.<span style="color:#ae81ff">082</span>.<span style="color:#ae81ff">00</span>.<span style="color:#ae81ff">20250528</span>.<span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">3</span> #
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">4</span> <span style="color:#a6e22e">HDB_AFL</span>=<span style="color:#ae81ff">2</span>.<span style="color:#ae81ff">00</span>.<span style="color:#ae81ff">082</span>.<span style="color:#ae81ff">00</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">5</span> <span style="color:#a6e22e">HDB_LCM</span>=<span style="color:#ae81ff">2</span>.<span style="color:#ae81ff">00</span>.<span style="color:#ae81ff">082</span>.<span style="color:#ae81ff">00</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">6</span> <span style="color:#a6e22e">HDB_SERVER</span>=<span style="color:#ae81ff">2</span>.<span style="color:#ae81ff">00</span>.<span style="color:#ae81ff">082</span>.<span style="color:#ae81ff">00</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">7</span> <span style="color:#a6e22e">HANA_CLIENT</span>=<span style="color:#ae81ff">2</span>.<span style="color:#ae81ff">24</span>.<span style="color:#ae81ff">19</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">8</span> #
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">9</span> <span style="color:#a6e22e">XSA_RT</span>=<span style="color:#ae81ff">1</span>.<span style="color:#ae81ff">3</span>.<span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span> <span style="color:#a6e22e">XSAC_COCKPIT</span>=<span style="color:#ae81ff">2</span>.<span style="color:#ae81ff">18</span>.<span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">11</span> <span style="color:#a6e22e">XSAC_HRTT</span>=<span style="color:#ae81ff">2</span>.<span style="color:#ae81ff">16</span>.<span style="color:#ae81ff">250401</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">12</span> <span style="color:#a6e22e">XSAC_SAP_WEB_IDE</span>=<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">8</span>.<span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">13</span> <span style="color:#a6e22e">XSAC_PORTAL_SERV</span>=<span style="color:#ae81ff">2</span>.<span style="color:#ae81ff">8</span>.<span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">14</span> <span style="color:#a6e22e">XSAC_SERVICES</span>=<span style="color:#ae81ff">1</span>.<span style="color:#ae81ff">7</span>.<span style="color:#ae81ff">31</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15</span> <span style="color:#a6e22e">XSAC_UI5_FESV6</span>=<span style="color:#ae81ff">1</span>.<span style="color:#ae81ff">71</span>.<span style="color:#ae81ff">68</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">16</span> <span style="color:#a6e22e">XSAC_UI5_FESV9</span>=<span style="color:#ae81ff">1</span>.<span style="color:#ae81ff">108</span>.<span style="color:#ae81ff">31</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">17</span> <span style="color:#a6e22e">XSAC_XSA_COCKPIT</span>=<span style="color:#ae81ff">1</span>.<span style="color:#ae81ff">1</span>.<span style="color:#ae81ff">44</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">18</span> #
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">19</span> [<span style="color:#a6e22e">hxe_installation</span>]
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">20</span> <span style="color:#a6e22e">INSTALL_TYPE</span>=<span style="color:#a6e22e">Binary</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">21</span> <span style="color:#a6e22e">INSTALL_DATE</span>=
+</span></span><span style="display:flex;"><span>~
+</span></span></code></pre></div><h2 id="동작-내용">
+  <strong>동작 내용</strong>
+  <a class="anchor" href="#%eb%8f%99%ec%9e%91-%eb%82%b4%ec%9a%a9">#</a>
+</h2>
+<h3 id="explain-관련-short-테스트">
+  <strong>explain 관련 short 테스트</strong>
+  <a class="anchor" href="#explain-%ea%b4%80%eb%a0%a8-short-%ed%85%8c%ec%8a%a4%ed%8a%b8">#</a>
+</h3>
+<ul>
+<li>TEST1, TEST2, TEST3 테이블을 만들고 임시 data를 넣고, EXPLAIN을 했을때 응답을 출력해본 것</li>
+</ul>
+<details ><summary>SQL 수행</summary>
+  <div class="markdown-inner">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>hdbsql SYSTEMDB<span style="color:#f92672">=</span>&gt; SELECT TABLE_NAME  FROM M_TABLES  WHERE SCHEMA_NAME <span style="color:#f92672">=</span> CURRENT_SCHEMA;
+</span></span><span style="display:flex;"><span>TABLE_NAME
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;TEST1&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;TEST2&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;TEST3&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>CREATE COLUMN TABLE TEST1 <span style="color:#f92672">(</span> id VARCHAR<span style="color:#f92672">(</span>10<span style="color:#f92672">)</span>, text VARCHAR<span style="color:#f92672">(</span>10<span style="color:#f92672">)</span> <span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>CREATE COLUMN TABLE TEST2 <span style="color:#f92672">(</span> id VARCHAR<span style="color:#f92672">(</span>10<span style="color:#f92672">)</span>, content VARCHAR<span style="color:#f92672">(</span>10<span style="color:#f92672">)</span> <span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>CREATE COLUMN TABLE TEST3 <span style="color:#f92672">(</span> id VARCHAR<span style="color:#f92672">(</span>10<span style="color:#f92672">)</span>, comment VARCHAR<span style="color:#f92672">(</span>10<span style="color:#f92672">)</span> <span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>CREATE INDEX idx_test3_id ON TEST3<span style="color:#f92672">(</span>id<span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>INSERT INTO TEST1 <span style="color:#f92672">(</span>id, text<span style="color:#f92672">)</span> VALUES <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;A001&#39;</span>, <span style="color:#e6db74">&#39;Text1&#39;</span><span style="color:#f92672">)</span>;  -- TEST2, TEST3에도 존재
+</span></span><span style="display:flex;"><span>INSERT INTO TEST1 <span style="color:#f92672">(</span>id, text<span style="color:#f92672">)</span> VALUES <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;A002&#39;</span>, <span style="color:#e6db74">&#39;Text2&#39;</span><span style="color:#f92672">)</span>;  -- TEST2, TEST3에도 존재
+</span></span><span style="display:flex;"><span>INSERT INTO TEST1 <span style="color:#f92672">(</span>id, text<span style="color:#f92672">)</span> VALUES <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;A003&#39;</span>, <span style="color:#e6db74">&#39;Text3&#39;</span><span style="color:#f92672">)</span>;  -- TEST2, TEST3에도 존재
+</span></span><span style="display:flex;"><span>INSERT INTO TEST1 <span style="color:#f92672">(</span>id, text<span style="color:#f92672">)</span> VALUES <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;A005&#39;</span>, <span style="color:#e6db74">&#39;Text5&#39;</span><span style="color:#f92672">)</span>;  -- TEST2에는 있지만 TEST3에는 없음
+</span></span><span style="display:flex;"><span>INSERT INTO TEST1 <span style="color:#f92672">(</span>id, text<span style="color:#f92672">)</span> VALUES <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;A007&#39;</span>, <span style="color:#e6db74">&#39;Text7&#39;</span><span style="color:#f92672">)</span>;  -- TEST2에는 있지만 TEST3에는 없음
+</span></span><span style="display:flex;"><span>INSERT INTO TEST1 <span style="color:#f92672">(</span>id, text<span style="color:#f92672">)</span> VALUES <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;A009&#39;</span>, <span style="color:#e6db74">&#39;Text9&#39;</span><span style="color:#f92672">)</span>;  -- TEST3에는 있지만 TEST2에는 없음
+</span></span><span style="display:flex;"><span>INSERT INTO TEST1 <span style="color:#f92672">(</span>id, text<span style="color:#f92672">)</span> VALUES <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;A011&#39;</span>, <span style="color:#e6db74">&#39;Text11&#39;</span><span style="color:#f92672">)</span>; -- TEST2, TEST3에는 없는 새로운 ID
+</span></span><span style="display:flex;"><span>INSERT INTO TEST1 <span style="color:#f92672">(</span>id, text<span style="color:#f92672">)</span> VALUES <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;A012&#39;</span>, <span style="color:#e6db74">&#39;Text12&#39;</span><span style="color:#f92672">)</span>; -- TEST2, TEST3에는 없는 새로운 ID
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>INSERT INTO TEST2 <span style="color:#f92672">(</span>id, content<span style="color:#f92672">)</span> VALUES <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;A001&#39;</span>, <span style="color:#e6db74">&#39;c1&#39;</span><span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span>INSERT INTO TEST2 <span style="color:#f92672">(</span>id, content<span style="color:#f92672">)</span> VALUES <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;A002&#39;</span>, <span style="color:#e6db74">&#39;c2&#39;</span><span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span>INSERT INTO TEST2 <span style="color:#f92672">(</span>id, content<span style="color:#f92672">)</span> VALUES <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;A003&#39;</span>, <span style="color:#e6db74">&#39;c3&#39;</span><span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span>INSERT INTO TEST2 <span style="color:#f92672">(</span>id, content<span style="color:#f92672">)</span> VALUES <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;A004&#39;</span>, <span style="color:#e6db74">&#39;c4&#39;</span><span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span>INSERT INTO TEST2 <span style="color:#f92672">(</span>id, content<span style="color:#f92672">)</span> VALUES <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;A005&#39;</span>, <span style="color:#e6db74">&#39;c5&#39;</span><span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span>INSERT INTO TEST2 <span style="color:#f92672">(</span>id, content<span style="color:#f92672">)</span> VALUES <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;A006&#39;</span>, <span style="color:#e6db74">&#39;c6&#39;</span><span style="color:#f92672">)</span>; -- TEST3에 없는 ID
+</span></span><span style="display:flex;"><span>INSERT INTO TEST2 <span style="color:#f92672">(</span>id, content<span style="color:#f92672">)</span> VALUES <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;A007&#39;</span>, <span style="color:#e6db74">&#39;c7&#39;</span><span style="color:#f92672">)</span>; -- TEST3에 없는 ID
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>INSERT INTO TEST3 <span style="color:#f92672">(</span>id, comment<span style="color:#f92672">)</span> VALUES <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;A001&#39;</span>, <span style="color:#e6db74">&#39;p1&#39;</span><span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span>INSERT INTO TEST3 <span style="color:#f92672">(</span>id, comment<span style="color:#f92672">)</span> VALUES <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;A002&#39;</span>, <span style="color:#e6db74">&#39;p2&#39;</span><span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span>INSERT INTO TEST3 <span style="color:#f92672">(</span>id, comment<span style="color:#f92672">)</span> VALUES <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;A003&#39;</span>, <span style="color:#e6db74">&#39;p3&#39;</span><span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span>INSERT INTO TEST3 <span style="color:#f92672">(</span>id, comment<span style="color:#f92672">)</span> VALUES <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;A008&#39;</span>, <span style="color:#e6db74">&#39;p8&#39;</span><span style="color:#f92672">)</span>; -- TEST2에 없는 ID
+</span></span><span style="display:flex;"><span>INSERT INTO TEST3 <span style="color:#f92672">(</span>id, comment<span style="color:#f92672">)</span> VALUES <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;A009&#39;</span>, <span style="color:#e6db74">&#39;p9&#39;</span><span style="color:#f92672">)</span>; -- TEST2에 없는 ID
+</span></span><span style="display:flex;"><span>INSERT INTO TEST3 <span style="color:#f92672">(</span>id, comment<span style="color:#f92672">)</span> VALUES <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;A010&#39;</span>, <span style="color:#e6db74">&#39;p10&#39;</span><span style="color:#f92672">)</span>; -- TEST2에 없는 ID
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>SELECT T1.id, T1.text, T2.content, T3.comment FROM TEST1 T1 INNER JOIN TEST2 T2 ON T1.id <span style="color:#f92672">=</span> T2.id INNER JOIN TEST3 T3 ON T1.id <span style="color:#f92672">=</span> T3.id;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>hdbsql SYSTEMDB<span style="color:#f92672">=</span>&gt; SELECT T1.id, T1.text, T2.content, T3.comment FROM TEST1 T1 INNER JOIN TEST2 T2 ON T
+</span></span><span style="display:flex;"><span>1.id <span style="color:#f92672">=</span> T2.id INNER JOIN TEST3 T3 ON T1.id <span style="color:#f92672">=</span> T3.id;
+</span></span><span style="display:flex;"><span>ID,TEXT,CONTENT,COMMENT
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;A001&#34;</span>,<span style="color:#e6db74">&#34;Text1&#34;</span>,<span style="color:#e6db74">&#34;c1&#34;</span>,<span style="color:#e6db74">&#34;p1&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;A002&#34;</span>,<span style="color:#e6db74">&#34;Text2&#34;</span>,<span style="color:#e6db74">&#34;c2&#34;</span>,<span style="color:#e6db74">&#34;p2&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;A003&#34;</span>,<span style="color:#e6db74">&#34;Text3&#34;</span>,<span style="color:#e6db74">&#34;c3&#34;</span>,<span style="color:#e6db74">&#34;p3&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span> rows selected <span style="color:#f92672">(</span>overall time 35.804 msec; server time 29.875 msec<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>EXPLAIN PLAN SET STATEMENT_NAME <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;ORIG&#39;</span> FOR SELECT T1.id, T1.text, T3.comment FROM TEST1 T1 INNER JOIN TEST3 T3 ON T1.id <span style="color:#f92672">=</span> T3.id;
+</span></span><span style="display:flex;"><span>SELECT * FROM EXPLAIN_PLAN_TABLE ORDER BY TIMESTAMP DESC;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>STATEMENT_NAME,OPERATOR_NAME,OPERATOR_DETAILS,OPERATOR_PROPERTIES,EXECUTION_ENGINE,DATABASE_NAME,SCHEM
+</span></span><span style="display:flex;"><span>A_NAME,TABLE_NAME,TABLE_TYPE,TABLE_SIZE,OUTPUT_SIZE,SUBTREE_COST,OPERATOR_ID,PARENT_OPERATOR_ID,LEVEL,
+</span></span><span style="display:flex;"><span>POSITION,HOST,PORT,TIMESTAMP,CONNECTION_ID
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;ORIG&#34;</span>,<span style="color:#e6db74">&#34;PROJECT&#34;</span>,<span style="color:#e6db74">&#34;T1.ID, T1.TEXT, T3.COMMENT&#34;</span>,<span style="color:#e6db74">&#34;PHYSICAL_ENUM_BY: HEX_PROJECT&#34;</span>,<span style="color:#e6db74">&#34;HEX&#34;</span>,?,?,?,?,?                            ,4,0.000000781081778845808,1,?          ,1,1,<span style="color:#e6db74">&#34;bdai-thinkstation-p920&#34;</span>,39001,<span style="color:#e6db74">&#34;2025-03-20 12:23:54.078000000&#34;</span>,117755
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;ORIG&#34;</span>,<span style="color:#e6db74">&#34;  INDEX JOIN&#34;</span>,<span style="color:#e6db74">&#34;INDEX JOIN CONDITION: T1.ID = T3.ID&#34;</span>,<span style="color:#e6db74">&#34;PHYSICAL_ENUM_BY: HEX_INDEX_JOIN&#34;</span>,<span style="color:#e6db74">&#34;HEX&#34;</span>,<span style="color:#e6db74">&#34;SYSTEMDB&#34;</span>,<span style="color:#e6db74">&#34;SYSTEM&#34;</span>,<span style="color:#e6db74">&#34;TEST3&#34;</span>,<span style="color:#e6db74">&#34;COLUMN TABLE&#34;</span>,6,4,0.000000781081778845808,2,1,2,1,<span style="color:#e6db74">&#34;bdai-thinkstation-p920&#34;</span>,39001,<span style="color:#e6db74">&#34;2025-03-20 12:23:54.078000000&#34;</span>,117755
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;ORIG&#34;</span>,<span style="color:#e6db74">&#34;    TABLE SCAN&#34;</span>,<span style="color:#e6db74">&#34;&#34;</span>,<span style="color:#e6db74">&#34;PHYSICAL_ENUM_BY: HEX_TABLE_SCAN&#34;</span>,<span style="color:#e6db74">&#34;HEX&#34;</span>,<span style="color:#e6db74">&#34;SYSTEMDB&#34;</span>,<span style="color:#e6db74">&#34;SYSTEM&#34;</span>,<span style="color:#e6db74">&#34;TEST1&#34;</span>,<span style="color:#e6db74">&#34;COLUMN TABLE&#34;</span>,8,8,0.000000024,3,2,3,1,<span style="color:#e6db74">&#34;bdai-thinkstation-p920&#34;</span>
+</span></span><span style="display:flex;"><span>,39001,<span style="color:#e6db74">&#34;2025-03-20 12:23:54.078000000&#34;</span>,117755
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>EXPLAIN PLAN SET STATEMENT_NAME <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;FORCE_HSJO&#39;</span> FOR SELECT T1.id, T1.text, T3.comment FROM TEST1 T1 INNER JOIN TEST3 T3 ON T1.id <span style="color:#f92672">=</span> T3.id WITH HINT<span style="color:#f92672">(</span> HASH_JOIN <span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> rows selected <span style="color:#f92672">(</span>overall time 10.147 msec; server time <span style="color:#ae81ff">4031</span> usec<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;FORCE_HSJO&#34;</span>,<span style="color:#e6db74">&#34;PROJECT&#34;</span>,<span style="color:#e6db74">&#34;T1.ID, T1.TEXT, T3.COMMENT&#34;</span>,<span style="color:#e6db74">&#34;ATTACHED HINT LIST (HASH_JOIN), PHYSICAL_ENUM_BY: HEX_PROJECT&#34;</span>,<span style="color:#e6db74">&#34;HEX&#34;</span>,?,?,?,?,? ,20,0.000003031119839811333,1,?                  ,1,1,<span style="color:#e6db74">&#34;bdai-thinkstation-p920&#34;</span>,39001,<span style="color:#e6db74">&#34;2025-03-20 12:36:14.827000000&#34;</span>,118106
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;FORCE_HSJO&#34;</span>,<span style="color:#e6db74">&#34;  INDEX JOIN&#34;</span>,<span style="color:#e6db74">&#34;INDEX JOIN CONDITION: T1.ID = T3.ID&#34;</span>,<span style="color:#e6db74">&#34;TRANSLATION TABLE (LEFT): T1.ID = T3.ID, PHYSICAL_ENUM_BY: HEX_INDEX_JOIN&#34;</span>,<span style="color:#e6db74">&#34;HEX&#34;</span>,<span style="color:#e6db74">&#34;SYSTEMDB&#34;</span>,<span style="color:#e6db74">&#34;SYSTEM&#34;</span>,<span style="color:#e6db74">&#34;TEST3&#34;</span>,<span style="color:#e6db74">&#34;COLUMN TABLE&#34;</span>,22,20,0.000003031119839811333,2,1,2,1,<span style="color:#e6db74">&#34;bdai-thinkstation-p920&#34;</span>,39001,<span style="color:#e6db74">&#34;2025-03-20 12:36:14.827000000&#34;</span>,118106
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;FORCE_HSJO&#34;</span>,<span style="color:#e6db74">&#34;    TABLE SCAN&#34;</span>,<span style="color:#e6db74">&#34;&#34;</span>,<span style="color:#e6db74">&#34;PHYSICAL_ENUM_BY: HEX_TABLE_SCAN&#34;</span>,<span style="color:#e6db74">&#34;HEX&#34;</span>,<span style="color:#e6db74">&#34;SYSTEMDB&#34;</span>,<span style="color:#e6db74">&#34;SYSTEM&#34;</span>,<span style="color:#e6db74">&#34;TEST1&#34;</span>,<span style="color:#e6db74">&#34;COLUMN TABLE&#34;</span>,29,29,0.000000087,3,2,3,1,<span style="color:#e6db74">&#34;bdai-thinkstat
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">ion-p920&#34;</span>,39001,<span style="color:#e6db74">&#34;2025-03-20 12:36:14.827000000&#34;</span>,118106
+</span></span></code></pre></div>  </div>
+</details>
+<h2 id="dataset을-import를-하기-위해서-수정해야-했던-것들">
+  <strong>dataset을 IMPORT를 하기 위해서 수정해야 했던 것들</strong>
+  <a class="anchor" href="#dataset%ec%9d%84-import%eb%a5%bc-%ed%95%98%ea%b8%b0-%ec%9c%84%ed%95%b4%ec%84%9c-%ec%88%98%ec%a0%95%ed%95%b4%ec%95%bc-%ed%96%88%eb%8d%98-%ea%b2%83%eb%93%a4">#</a>
+</h2>
+<ul>
+<li>어느것이 정확하게 동작하는지 기억x</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">SYSTEM</span> <span style="color:#66d9ef">ALTER</span> CONFIGURATION (<span style="color:#e6db74">&#39;indexserver.ini&#39;</span>, <span style="color:#e6db74">&#39;SYSTEM&#39;</span>)  <span style="color:#66d9ef">SET</span> (<span style="color:#e6db74">&#39;import_export&#39;</span>, <span style="color:#e6db74">&#39;csv_import_path_filter&#39;</span>) <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;/home/jae.sim/hanadb/datasets/job/&#39;</span>  <span style="color:#66d9ef">WITH</span> RECONFIGURE;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">SYSTEM</span> <span style="color:#66d9ef">ALTER</span> CONFIGURATION (<span style="color:#e6db74">&#39;indexserver.ini&#39;</span>, <span style="color:#e6db74">&#39;SYSTEM&#39;</span>) <span style="color:#66d9ef">set</span> (<span style="color:#e6db74">&#39;import&#39;</span>, <span style="color:#e6db74">&#39;enable_csv_import_path_filter&#39;</span>) <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;true&#39;</span> <span style="color:#66d9ef">with</span> reconfigure;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> FILE_NAME, SECTION, <span style="color:#66d9ef">KEY</span>, VALUE <span style="color:#66d9ef">FROM</span> M_INIFILE_CONTENTS <span style="color:#66d9ef">WHERE</span> SECTION <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;import&#39;</span>  <span style="color:#66d9ef">AND</span> <span style="color:#66d9ef">KEY</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;csv_import_path_filter&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> FILE_NAME, SECTION, <span style="color:#66d9ef">KEY</span>, VALUE <span style="color:#66d9ef">FROM</span> M_INIFILE_CONTENTS <span style="color:#66d9ef">WHERE</span> SECTION <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;import_export&#39;</span>  ;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">alter</span> <span style="color:#66d9ef">system</span> <span style="color:#66d9ef">alter</span> configuration ( <span style="color:#e6db74">&#39;indexserver.ini&#39;</span>,<span style="color:#e6db74">&#39;SYSTEM&#39;</span> ) <span style="color:#66d9ef">set</span> ( <span style="color:#e6db74">&#39;import_export&#39;</span>,<span style="color:#e6db74">&#39;enable_csv_import_path_filter&#39;</span> ) <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;false&#39;</span> <span style="color:#66d9ef">with</span> reconfigure
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">SYSTEM</span> <span style="color:#66d9ef">ALTER</span> CONFIGURATION (<span style="color:#e6db74">&#39;indexserver.ini&#39;</span>, <span style="color:#e6db74">&#39;SYSTEM&#39;</span>) <span style="color:#66d9ef">SET</span> (<span style="color:#e6db74">&#39;import&#39;</span>, <span style="color:#e6db74">&#39;csv_import_path_filter&#39;</span>) <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;/home/jae.sim/hanadb/datasets/job/&#39;</span>  <span style="color:#66d9ef">WITH</span> RECONFIGURE;
+</span></span></code></pre></div><h2 id="hana-db-지원">
+  <strong>HANA DB 지원</strong>
+  <a class="anchor" href="#hana-db-%ec%a7%80%ec%9b%90">#</a>
+</h2>
+<h3 id="explain-and-analyze-지원-관련">
+  <strong>EXPLAIN and ANALYZE 지원 관련</strong>
+  <a class="anchor" href="#explain-and-analyze-%ec%a7%80%ec%9b%90-%ea%b4%80%eb%a0%a8">#</a>
+</h3>
+<ul>
+<li>EXPLAIN의 경우 <code>EXPLAIN PLAN</code> keyword로 지원
+<ul>
+<li><a href="https://help.sap.com/docs/SAP_HANA_PLATFORM/bed8c14f9f024763b0777aa72b5436f6/c0d42fd3bb571014a0688254f3de593f.html">https://help.sap.com/docs/SAP_HANA_PLATFORM/bed8c14f9f024763b0777aa72b5436f6/c0d42fd3bb571014a0688254f3de593f.html</a></li>
+<li>Join order 와 physical Op를 확인 가능</li>
+</ul>
+</li>
+<li><em><strong>ANALYZE의 경우 SQL Level에서는 미지원</strong></em>
+<ul>
+<li><code>M_SQL_PLAN_CACHE</code> 로 수행한 결과를 분석해야함</li>
+<li>해당 cache안에 join order등 어떠한 정보들을 볼 수 있는지</li>
+</ul>
+</li>
+</ul>
+<details ><summary>제공되는 정보</summary>
+  <div class="markdown-inner">
+<p><strong>TOTAL_EXECUTION_TIME</strong> 을 제공. 그러나 sub-tree에 대한 정보는 제공하지 않음.</p>
+<pre tabindex="0"><code>HOST	PORT	VOLUME_ID	STATEMENT_STRING	STATEMENT_HASH	USER_NAME	SESSION_USER_NAME
+SCHEMA_NAME	SESSION_PROPERTIES	IS_VALID	LAST_INVALIDATION_REASON	IS_INTERNAL	IS_DISTRIBUTED_EXECUTION
+COMPILATION_OPTIONS	IS_PINNED_PLAN	PINNED_PLAN_ID	ABAP_VARCHAR_MODE	APPLICATION_NAME	APPLICATION_SOURCE
+ACCESSED_TABLES	ACCESSED_TABLE_NAMES	ACCESSED_OBJECTS	ACCESSED_OBJECT_NAMES	TABLE_LOCATIONS	TABLE_TYPES
+EXECUTION_ENGINE	HEX_REJECTION_REASON	PLAN_SHARING_TYPE	OWNER_CONNECTION_ID	PLAN_ID	PLAN_MEMORY_SIZE
+REFERENCE_COUNT	PARAMETER_COUNT	UPDATED_TABLE_OID	LOGICAL_CONNECTION_VOLUME_ID	EXECUTION_COUNT
+EXECUTION_COUNT_BY_ROUTING	PREFERRED_ROUTING_VOLUME_IDS	TOTAL_CURSOR_DURATION	AVG_CURSOR_DURATION
+MIN_CURSOR_DURATION	MAX_CURSOR_DURATION	TOTAL_EXECUTION_TIME	AVG_EXECUTION_TIME	MIN_EXECUTION_TIME
+MAX_EXECUTION_TIME	TOTAL_EXECUTION_OPEN_TIME	AVG_EXECUTION_OPEN_TIME	MIN_EXECUTION_OPEN_TIME	MAX_EXECUTION_OPEN_TIME	
+TOTAL_EXECUTION_FETCH_TIME	AVG_EXECUTION_FETCH_TIME	MIN_EXECUTION_FETCH_TIME	MAX_EXECUTION_FETCH_TIME	
+TOTAL_EXECUTION_CLOSE_TIME	AVG_EXECUTION_CLOSE_TIME	MIN_EXECUTION_CLOSE_TIME	MAX_EXECUTION_CLOSE_TIME
+TOTAL_METADATA_CACHE_MISS_COUNT	TOTAL_TABLE_LOAD_TIME_DURING_PREPARATION	AVG_TABLE_LOAD_TIME_DURING_PREPARATION	
+MIN_TABLE_LOAD_TIME_DURING_PREPARATION	MAX_TABLE_LOAD_TIME_DURING_PREPARATION	PREPARATION_COUNT
+TOTAL_PREPARATION_TIME	AVG_PREPARATION_TIME	MIN_PREPARATION_TIME	MAX_PREPARATION_TIME
+TOTAL_RESULT_RECORD_COUNT	TOTAL_LOCK_WAIT_COUNT	TOTAL_LOCK_WAIT_DURATION	LAST_CONNECTION_ID
+LAST_EXECUTION_TIMESTAMP	LAST_PREPARATION_TIMESTAMP	TOTAL_EXECUTION_MEMORY_SIZE	AVG_EXECUTION_MEMORY_SIZE	
+MIN_EXECUTION_MEMORY_SIZE	MAX_EXECUTION_MEMORY_SIZE	TOTAL_EXECUTION_CPU_TIME	AVG_EXECUTION_CPU_TIME
+MIN_EXECUTION_CPU_TIME	MAX_EXECUTION_CPU_TIME	AVG_SERVICE_NETWORK_REQUEST_COUNT	MAX_SERVICE_NETWORK_REQUEST_COUNT
+TOTAL_SERVICE_NETWORK_REQUEST_COUNT	AVG_CALLED_THREAD_COUNT	MAX_CALLED_THREAD_COUNT	TOTAL_CALLED_THREAD_COUNT
+TOTAL_BATCH_EXECUTION_COUNT	AVG_BATCH_EXECUTION_COUNT	MIN_BATCH_EXECUTION_COUNT	MAX_BATCH_EXECUTION_COUNT
+AVG_SERVICE_NETWORK_REQUEST_DURATION	MAX_SERVICE_NETWORK_REQUEST_DURATION	TOTAL_SERVICE_NETWORK_REQUEST_DURATION
+AVG_SERVICE_NETWORK_REQUEST_SIZE	MAX_SERVICE_NETWORK_REQUEST_SIZE	TOTAL_SERVICE_NETWORK_REQUEST_SIZE
+TOTAL_BUFFER_CACHE_PAGE_HIT_COUNT	AVG_BUFFER_CACHE_PAGE_HIT_COUNT	MIN_BUFFER_CACHE_PAGE_HIT_COUNT	MAX_BUFFER_CACHE_PAGE_HIT_COUNT
+TOTAL_BUFFER_CACHE_PAGE_MISS_COUNT	AVG_BUFFER_CACHE_PAGE_MISS_COUNT	MIN_BUFFER_CACHE_PAGE_MISS_COUNT
+MAX_BUFFER_CACHE_PAGE_MISS_COUNT	TOTAL_BUFFER_CACHE_IO_READ_SIZE	AVG_BUFFER_CACHE_IO_READ_SIZE
+MIN_BUFFER_CACHE_IO_READ_SIZE	MAX_BUFFER_CACHE_IO_READ_SIZE	TOTAL_BUFFER_CACHE_PINNED_MEMORY_SIZE
+AVG_BUFFER_CACHE_PINNED_MEMORY_SIZE	MIN_BUFFER_CACHE_PINNED_MEMORY_SIZE
+</code></pre>  </div>
+</details>
+<h3 id="timeout-setting">
+  <strong>Timeout Setting</strong>
+  <a class="anchor" href="#timeout-setting">#</a>
+</h3>
+<ul>
+<li>Python</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> hdbcli <span style="color:#f92672">import</span> dbapi
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>conn <span style="color:#f92672">=</span> dbapi<span style="color:#f92672">.</span>connect(address<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;hana_host&#39;</span>, port<span style="color:#f92672">=</span><span style="color:#ae81ff">30015</span>, user<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;user&#39;</span>, password<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;pw&#39;</span>)
+</span></span><span style="display:flex;"><span>cursor <span style="color:#f92672">=</span> conn<span style="color:#f92672">.</span>cursor()
+</span></span><span style="display:flex;"><span>cursor<span style="color:#f92672">.</span>execute(<span style="color:#e6db74">&#34;SET STATEMENT_TIMEOUT = 30000&#34;</span>)  <span style="color:#75715e"># 30초</span>
+</span></span><span style="display:flex;"><span>cursor<span style="color:#f92672">.</span>execute(<span style="color:#e6db74">&#34;SELECT ...&#34;</span>)
+</span></span></code></pre></div><ul>
+<li>database level</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SET</span> STATEMENT_TIMEOUT <span style="color:#f92672">=</span> <span style="color:#ae81ff">60000</span>;  <span style="color:#75715e">-- 60초 
+</span></span></span></code></pre></div><h3 id="hanadb-join에-대한-키워드">
+  <strong>hanadb join에 대한 키워드</strong>
+  <a class="anchor" href="#hanadb-join%ec%97%90-%eb%8c%80%ed%95%9c-%ed%82%a4%ec%9b%8c%eb%93%9c">#</a>
+</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>HEX_HASH_JOIN
+</span></span><span style="display:flex;"><span>Guides the optimizer to prefer HEX hash joins over other joins.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NO_HEX_HASH_JOIN
+</span></span><span style="display:flex;"><span>Guides the optimizer to avoid HEX hash joins.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>HEX_INDEX_JOIN
+</span></span><span style="display:flex;"><span>Guides the optimizer to prefer HEX index joins over other joins.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NO_HEX_INDEX_JOIN
+</span></span><span style="display:flex;"><span>Guides the optimizer to avoid HEX index joins.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>HEX_NESTED_LOOP_JOIN
+</span></span><span style="display:flex;"><span>Guides the optimizer to prefer HEX nested loop joins over other joins.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NO_HEX_NESTED_LOOP_JOIN
+</span></span><span style="display:flex;"><span>Guides the optimizer to avoid HEX nested loop joins.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>CONCAT_FILTER
+</span></span><span style="display:flex;"><span>Guides the optimizer to prefer HEX concat replacements.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NO_CONCAT_FILTER
+</span></span><span style="display:flex;"><span>Guides the optimizer to avoid HEX concat replacements.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>HEX_RANGE_JOIN
+</span></span><span style="display:flex;"><span>Guides the optimizer to prefer HEX range joins over other joins.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NO_HEX_RANGE_JOIN
+</span></span><span style="display:flex;"><span>Guides the optimizer to avoid HEX range joins.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>HEX_HASHED_RANGE_JOIN
+</span></span><span style="display:flex;"><span>Guides the optimizer to prefer HEX hashed range joins over other joins.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NO_HEX_HASHED_RANGE_JOIN
+</span></span><span style="display:flex;"><span>Guides the optimizer to avoid HEX hashed range joins.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>HEX_TABLE_SCAN
+</span></span><span style="display:flex;"><span>Guides the optimizer to prefer HEX table scans over unique index searches.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NO_HEX_TABLE_SCAN
+</span></span><span style="display:flex;"><span>Guides the optimizer to avoid HEX table scans.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>HEX_UNIQUE_INDEX_SEARCH
+</span></span><span style="display:flex;"><span>Guides the optimizer to prefer HEX unique index searches over table scans.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NO_HEX_UNIQUE_INDEX_SEARCH
+</span></span><span style="display:flex;"><span>Guides the optimizer to avoid HEX unique index searches.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>HEX_LIMIT
+</span></span><span style="display:flex;"><span>Guides the optimizer to prefer HEX limits over top K sorts.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NO_HEX_LIMIT
+</span></span><span style="display:flex;"><span>Guides the optimizer to avoid HEX limits.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>HEX_TOPK_SORT
+</span></span><span style="display:flex;"><span>Guides the optimizer to prefer HEX top K sorts over HEX limits.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NO_HEX_TOPK_SORT
+</span></span><span style="display:flex;"><span>Guides the optimizer to avoid HEX top K sorts.
+</span></span></code></pre></div><h3 id="hana-db-로그-관련-위치">
+  <strong>HANA DB 로그 관련 위치</strong>
+  <a class="anchor" href="#hana-db-%eb%a1%9c%ea%b7%b8-%ea%b4%80%eb%a0%a8-%ec%9c%84%ec%b9%98">#</a>
+</h3>
+<ul>
+<li>아래 위치에 각각의 core log가 나옴</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>      <span style="color:#f92672">[</span>1<span style="color:#f92672">]</span> /hana/shared/HXE/HDB90/bdai-thinkstation-p920/log/*
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">[</span>2<span style="color:#f92672">]</span> /hana/shared/HXE/HDB90/bdai-thinkstation-p920/log/grmg/*
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">[</span>3<span style="color:#f92672">]</span> /hana/shared/HXE/HDB90/bdai-thinkstation-p920/trace/*
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">[</span>4<span style="color:#f92672">]</span> /hana/shared/HXE/profile/HXE_HDB90_bdai-thinkstation-p920
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">[</span>5<span style="color:#f92672">]</span> /hana/shared/HXE/profile/*
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>-rw-r----- <span style="color:#ae81ff">1</span> hxeadm sapsys  <span style="color:#ae81ff">1359872</span>  3월 <span style="color:#ae81ff">21</span> 11:04 logsegment_000_directory.dat
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>base<span style="color:#f92672">)</span> jae.sim@bdai-ThinkStation-P920:/hana/shared/log$ sudo vim HXE/mnt00001/hdb00001/logsegment_000_directory.dat
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>0:/hana/shared/HXE$ sudo tail -F HDB90/bdai-thinkstation-p920/trace/daemon__0144876__children.trc
+</span></span></code></pre></div><ul>
+<li>log trace 관련 정보
+<ul>
+<li><a href="https://help.sap.com/docs/SAP_HANA_PLATFORM/6b94445c94ae495c83a19646e7c3fd56/7e31247372fb4dd7b8c6bbac758b8c91.html">https://help.sap.com/docs/SAP_HANA_PLATFORM/6b94445c94ae495c83a19646e7c3fd56/7e31247372fb4dd7b8c6bbac758b8c91.html</a> <br>
+SQL trace	Collect information about all SQL statements executed on the index server	SAP HANA database explorer</li>
+</ul>
+</li>
+</ul>
+<h2 id="쿼리-샘플들">
+  <strong>쿼리 샘플들</strong>
+  <a class="anchor" href="#%ec%bf%bc%eb%a6%ac-%ec%83%98%ed%94%8c%eb%93%a4">#</a>
+</h2>
+<ul>
+<li>실험용 데이터 적재, 및 clear 용 쿼리 모음집</li>
+</ul>
+<details ><summary>SQL 샘플</summary>
+  <div class="markdown-inner">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">SYSTEM</span> <span style="color:#66d9ef">ALTER</span> CONFIGURATION (<span style="color:#e6db74">&#39;nameserver.ini&#39;</span>, <span style="color:#e6db74">&#39;SYSTEM&#39;</span>)  <span style="color:#66d9ef">SET</span> (<span style="color:#e6db74">&#39;import_export&#39;</span>, <span style="color:#e6db74">&#39;csv_import_path_filter&#39;</span>) <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;/home/jae.sim/hanadb/datasets/job/&#39;</span>  <span style="color:#66d9ef">WITH</span> RECONFIGURE;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;aka_name&#39;</span> <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">table_name</span>, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">row_count</span> <span style="color:#66d9ef">FROM</span> aka_name;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;aka_title&#39;</span> <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">table_name</span>, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">row_count</span> <span style="color:#66d9ef">FROM</span> aka_title;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;cast_info&#39;</span> <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">table_name</span>, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">row_count</span> <span style="color:#66d9ef">FROM</span> cast_info;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;char_name&#39;</span> <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">table_name</span>, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">row_count</span> <span style="color:#66d9ef">FROM</span> char_name;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;comp_cast_type&#39;</span> <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">table_name</span>, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">row_count</span> <span style="color:#66d9ef">FROM</span> comp_cast_type;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;company_name&#39;</span> <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">table_name</span>, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">row_count</span> <span style="color:#66d9ef">FROM</span> company_name;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;company_type&#39;</span> <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">table_name</span>, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">row_count</span> <span style="color:#66d9ef">FROM</span> company_type;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;complete_cast&#39;</span> <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">table_name</span>, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">row_count</span> <span style="color:#66d9ef">FROM</span> complete_cast;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;info_type&#39;</span> <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">table_name</span>, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">row_count</span> <span style="color:#66d9ef">FROM</span> info_type;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;keyword&#39;</span> <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">table_name</span>, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">row_count</span> <span style="color:#66d9ef">FROM</span> keyword;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;kind_type&#39;</span> <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">table_name</span>, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">row_count</span> <span style="color:#66d9ef">FROM</span> kind_type;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;link_type&#39;</span> <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">table_name</span>, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">row_count</span> <span style="color:#66d9ef">FROM</span> link_type;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;movie_companies&#39;</span> <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">table_name</span>, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">row_count</span> <span style="color:#66d9ef">FROM</span> movie_companies;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;movie_info_idx&#39;</span> <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">table_name</span>, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">row_count</span> <span style="color:#66d9ef">FROM</span> movie_info_idx;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;movie_keyword&#39;</span> <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">table_name</span>, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">row_count</span> <span style="color:#66d9ef">FROM</span> movie_keyword;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;movie_link&#39;</span> <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">table_name</span>, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">row_count</span> <span style="color:#66d9ef">FROM</span> movie_link;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;name&#39;</span> <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">table_name</span>, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">row_count</span> <span style="color:#66d9ef">FROM</span> name;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;role_type&#39;</span> <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">table_name</span>, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">row_count</span> <span style="color:#66d9ef">FROM</span> role_type;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;title&#39;</span> <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">table_name</span>, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">row_count</span> <span style="color:#66d9ef">FROM</span> title;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;movie_info&#39;</span> <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">table_name</span>, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">row_count</span> <span style="color:#66d9ef">FROM</span> movie_info;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;person_info&#39;</span> <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">table_name</span>, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">row_count</span> <span style="color:#66d9ef">FROM</span> person_info;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">truncate</span> <span style="color:#66d9ef">table</span> aka_name;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">truncate</span> <span style="color:#66d9ef">table</span> aka_title;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">truncate</span> <span style="color:#66d9ef">table</span> cast_info;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">truncate</span> <span style="color:#66d9ef">table</span> char_name;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">truncate</span> <span style="color:#66d9ef">table</span> comp_cast_type;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">truncate</span> <span style="color:#66d9ef">table</span> company_name;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">truncate</span> <span style="color:#66d9ef">table</span> company_type;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">truncate</span> <span style="color:#66d9ef">table</span> complete_cast;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">truncate</span> <span style="color:#66d9ef">table</span> info_type;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">truncate</span> <span style="color:#66d9ef">table</span> keyword;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">truncate</span> <span style="color:#66d9ef">table</span> kind_type;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">truncate</span> <span style="color:#66d9ef">table</span> link_type;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">truncate</span> <span style="color:#66d9ef">table</span> movie_companies;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">truncate</span> <span style="color:#66d9ef">table</span> movie_info_idx;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">truncate</span> <span style="color:#66d9ef">table</span> movie_keyword;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">truncate</span> <span style="color:#66d9ef">table</span> movie_link;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">truncate</span> <span style="color:#66d9ef">table</span> name;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">truncate</span> <span style="color:#66d9ef">table</span> role_type;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">truncate</span> <span style="color:#66d9ef">table</span> title;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">truncate</span> <span style="color:#66d9ef">table</span> movie_info;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">truncate</span> <span style="color:#66d9ef">table</span> person_info;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">insert</span> <span style="color:#66d9ef">into</span> aka_name <span style="color:#66d9ef">values</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">4061927</span>,<span style="color:#e6db74">&#34;Smithl&#34;</span>,<span style="color:#ae81ff">55</span>,S5325,J2542,S53,<span style="color:#ae81ff">25</span>c9d464e3ff2957533546aa92b397ed);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> aka_name1 (id integer <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span>,person_id integer <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,name nvchar(<span style="color:#ae81ff">50</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">insert</span> <span style="color:#66d9ef">into</span> aka_name1 <span style="color:#66d9ef">values</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">4061927</span>,<span style="color:#e6db74">&#39;Smithl&#39;</span>);
+</span></span></code></pre></div>  </div>
+</details>
+<h2 id="sap-hana-studio-다운로드">
+  <strong>SAP HANA studio 다운로드</strong>
+  <a class="anchor" href="#sap-hana-studio-%eb%8b%a4%ec%9a%b4%eb%a1%9c%eb%93%9c">#</a>
+</h2>
+<ul>
+<li>HANA DB는 SQL 분석을 위해서 <code>SAP HANA studio</code> 라는 것을 지원함</li>
+<li>다운로드 위치
+<ul>
+<li><a href="https://help.sap.com/docs/SAP_Commissions_K8s/021635a4731e40f4a2784f4613e632d2/bd2eec401f7c47cf9d2dbed0d0b24233.html">https://help.sap.com/docs/SAP_Commissions_K8s/021635a4731e40f4a2784f4613e632d2/bd2eec401f7c47cf9d2dbed0d0b24233.html</a></li>
+<li><a href="https://launchpad.support.sap.com/#/softwarecenter/">https://launchpad.support.sap.com/#/softwarecenter/</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+<script src="https://giscus.app/client.js"
+        data-repo="JaeSim/JaeSim.github.io"
+        data-repo-id="R_kgDOOtVVtw"
+        data-category="Comment"
+        data-category-id="DIC_kwDOOtVVt84Cqcxg"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#설치"><strong>설치</strong></a>
+      <ul>
+        <li><a href="#trial-다운로드"><strong>Trial 다운로드</strong></a></li>
+        <li><a href="#설치-커맨드"><strong>설치 커맨드</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#동작-내용"><strong>동작 내용</strong></a>
+      <ul>
+        <li><a href="#explain-관련-short-테스트"><strong>explain 관련 short 테스트</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#dataset을-import를-하기-위해서-수정해야-했던-것들"><strong>dataset을 IMPORT를 하기 위해서 수정해야 했던 것들</strong></a></li>
+    <li><a href="#hana-db-지원"><strong>HANA DB 지원</strong></a>
+      <ul>
+        <li><a href="#explain-and-analyze-지원-관련"><strong>EXPLAIN and ANALYZE 지원 관련</strong></a></li>
+        <li><a href="#timeout-setting"><strong>Timeout Setting</strong></a></li>
+        <li><a href="#hanadb-join에-대한-키워드"><strong>hanadb join에 대한 키워드</strong></a></li>
+        <li><a href="#hana-db-로그-관련-위치"><strong>HANA DB 로그 관련 위치</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#쿼리-샘플들"><strong>쿼리 샘플들</strong></a></li>
+    <li><a href="#sap-hana-studio-다운로드"><strong>SAP HANA studio 다운로드</strong></a></li>
+  </ul>
+</nav>
+
+  <div class="post-tags">
+    <strong>Tags:</strong>
+    
+      <a href="/tags/dbms" class="tag">DBMS</a>
+    
+      <a href="/tags/database" class="tag">Database</a>
+    
+      <a href="/tags/optimizer" class="tag">Optimizer</a>
+    
+      <a href="/tags/learned-query-optimizer" class="tag">Learned Query Optimizer</a>
+    
+      <a href="/tags/reinforcement-learning" class="tag">Reinforcement Learning</a>
+    
+      <a href="/tags/hana-database" class="tag">HANA database</a>
+    
+  </div>
+
+
+
+  <div class="post-categories">
+    <strong>Categories:</strong>
+    
+      <a href="/categories/learned-query-optimizer" class="category">Learned Query Optimizer</a>
+    
+  </div>
+
+
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('pre > code[class^="language-"]').forEach(codeBlock => {
+      const pre = codeBlock.parentElement;
+
+      
+      const button = document.createElement('button');
+      button.innerText = '📋';
+      button.title = 'Copy code';
+      button.style = `
+        position: absolute;
+        top: 0.5em;
+        right: 0.5em;
+        padding: 2px 6px;
+        font-size: 0.8rem;
+        background: #f5f5f5;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+        z-index: 10;
+      `;
+
+      
+      button.addEventListener('click', () => {
+        navigator.clipboard.writeText(codeBlock.innerText);
+        button.innerText = '✔';
+        setTimeout(() => button.innerText = '📋', 1000);
+      });
+
+      
+      pre.style.position = 'relative';
+      pre.appendChild(button);
+    });
+  });
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

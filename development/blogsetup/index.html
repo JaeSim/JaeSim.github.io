@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="ko-kr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
+  Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus
+  #
+
+
+  0. blog host 방식 선택
+  #
+
+여러 블로그 host방식을 고려하였으나, 유지보수가 손이 덜가며, 오랫동안 hosting이 되는것이 우선 순위였고.
+Github pages를 통한 호스팅 방법을 선택하였다.
+그렇다면, static page를 generation을 해주는 framework로 jekyll 와 hugo를 고민하였고
+ruby 보다 go로 이루어진 hugo를 믿기로 하였다.
+다른 blog들이 생성한 페이지를 주로 참조하였으며, 이 포스팅은 해당 글들의 엮음에 불과한점을 참조 부탁한다.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/development/blogsetup/">
+  <meta property="og:site_name" content="JaeSim&#39;s Workspace">
+  <meta property="og:title" content="Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus">
+  <meta property="og:description" content="Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus#0. blog host 방식 선택#여러 블로그 host방식을 고려하였으나, 유지보수가 손이 덜가며, 오랫동안 hosting이 되는것이 우선 순위였고.
+Github pages를 통한 호스팅 방법을 선택하였다.
+그렇다면, static page를 generation을 해주는 framework로 jekyll 와 hugo를 고민하였고 ruby 보다 go로 이루어진 hugo를 믿기로 하였다.
+다른 blog들이 생성한 페이지를 주로 참조하였으며, 이 포스팅은 해당 글들의 엮음에 불과한점을 참조 부탁한다.">
+  <meta property="og:locale" content="ko_kr">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="development">
+    <meta property="article:published_time" content="2025-05-23T11:06:13+09:00">
+    <meta property="article:modified_time" content="2025-05-23T11:06:13+09:00">
+    <meta property="article:tag" content="Blog">
+    <meta property="article:tag" content="Github">
+    <meta property="article:tag" content="Github Pages">
+    <meta property="article:tag" content="Setup">
+    <meta property="article:tag" content="Hugo">
+    <meta property="article:tag" content="Giscus">
+<title>Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus | JaeSim&#39;s Workspace</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="https://JaeSim.github.io/development/blogsetup/">
+<link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.8c740b2a0b0ee5ca044549d9d9d0e6c4e3492e8ce79ccb039c86eab6c3145a68.js" integrity="sha256-jHQLKgsO5coERUnZ2dDmxONJLoznnMsDnIbqtsMUWmg=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>JaeSim&#39;s Workspace</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Development / 개발</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/secondpost/" class="">두번째 글입니다. 블로그 실험용 테스트 글입니다.</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/firstpost/" class="">할일</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/blogsetup/" class="active">Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Item Research</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/item-research/graph/" class="">GNN</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/item-research/learned-index/" class="">Learned Index</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/item-research/learned-scheduler/" class="">Learned Scheduler</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Reinforcement Learning / 강화학습</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-essential/" class="">1. Reinforcement Learning Essential</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-mdp/" class="">2. Markov Decision Process</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-dp/" class="">3. Planning by Dynamic Programming</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-model-free-prediction/" class="">temp. 4. Model Free Prediction</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Learned Query Optimizer</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/loger-code/" class="">LOGER 코드 분석</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/bao-code/" class="">BAO 코드 분석</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/hana-database-porting/" class="">HANA Database Porting</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#0-blog-host-방식-선택"><strong>0. blog host 방식 선택</strong></a></li>
+    <li><a href="#1-setup-git-hugo"><strong>1. Setup git, hugo</strong></a>
+      <ul>
+        <li><a href="#git-설치"><strong>git 설치</strong></a></li>
+        <li><a href="#hugo-설치"><strong>hugo 설치</strong></a></li>
+        <li><a href="#github-repository-생성"><strong>github repository 생성</strong></a></li>
+        <li><a href="#hugo-theme--hugo-book"><strong>hugo Theme : hugo-book</strong></a></li>
+        <li><a href="#github-설정"><strong>Github 설정</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#2-블로그-배포-방법"><strong>2. 블로그 배포 방법</strong></a>
+      <ul>
+        <li><a href="#hugo-static-page-생성"><strong>hugo static page 생성</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#3-추가-hugo-세팅팁"><strong>3. 추가 hugo 세팅팁</strong></a>
+      <ul>
+        <li><a href="#recent-post-용-home-만들기"><strong>recent-post 용 home 만들기</strong></a></li>
+        <li><a href="#markdown-code-block-copy-버튼-만들기"><strong>MarkDown code block copy 버튼 만들기</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#4-giscus-연동하기"><strong>4. giscus 연동하기</strong></a>
+      <ul>
+        <li><a href="#giscus-github에-설치-및-discuss-활성화"><strong>giscus github에 설치 및 discuss 활성화</strong></a></li>
+        <li><a href="#hugo-에서-보이게-설정"><strong>hugo 에서 보이게 설정</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#5-tag-설정"><strong>5. tag 설정</strong></a></li>
+    <li><a href="#6-검색-연동"><strong>6. 검색 연동</strong></a>
+      <ul>
+        <li><a href="#구굴-서치-콘솔"><strong>구굴 서치 콘솔</strong></a></li>
+        <li><a href="#네이버-서치-어드바이져"><strong>네이버 서치 어드바이져</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#참조"><strong>참조</strong></a></li>
+  </ul>
+</nav>
+
+  <div class="post-tags">
+    <strong>Tags:</strong>
+    
+      <a href="/tags/blog" class="tag">blog</a>
+    
+      <a href="/tags/github" class="tag">Github</a>
+    
+      <a href="/tags/github-pages" class="tag">Github Pages</a>
+    
+      <a href="/tags/setup" class="tag">setup</a>
+    
+      <a href="/tags/hugo" class="tag">hugo</a>
+    
+      <a href="/tags/giscus" class="tag">giscus</a>
+    
+      <a href="/tags/hugo-book" class="tag">hugo-book</a>
+    
+  </div>
+
+
+
+  <div class="post-categories">
+    <strong>Categories:</strong>
+    
+      <a href="/categories/development" class="category">development</a>
+    
+  </div>
+
+
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+<article class="markdown book-post">
+  <h1 style="font-weight: bold;">
+    <span style="font-weight: normal; font-size: 0.6em; color: #888;">
+      2025-05-23 11:06 KST
+    </span>
+  </h1>
+  <div class="book-post-content"><h1 id="github-pages-를-이용한-blog-setting-hugo--hugo-book-theme--giscus">
+  <strong>Github pages 를 이용한 blog Setting (hugo + hugo-book theme + giscus</strong>
+  <a class="anchor" href="#github-pages-%eb%a5%bc-%ec%9d%b4%ec%9a%a9%ed%95%9c-blog-setting-hugo--hugo-book-theme--giscus">#</a>
+</h1>
+<h2 id="0-blog-host-방식-선택">
+  <strong>0. blog host 방식 선택</strong>
+  <a class="anchor" href="#0-blog-host-%eb%b0%a9%ec%8b%9d-%ec%84%a0%ed%83%9d">#</a>
+</h2>
+<p>여러 블로그 host방식을 고려하였으나, 유지보수가 손이 덜가며, 오랫동안 hosting이 되는것이 우선 순위였고.</p>
+<p><strong>Github pages</strong>를 통한 호스팅 방법을 선택하였다.</p>
+<p>그렇다면, static page를 generation을 해주는 framework로 jekyll 와 hugo를 고민하였고
+ruby 보다 go로 이루어진 hugo를 믿기로 하였다.</p>
+<p>다른 blog들이 생성한 페이지를 주로 참조하였으며, 이 포스팅은 해당 글들의 엮음에 불과한점을 참조 부탁한다.</p>
+<h2 id="1-setup-git-hugo">
+  <strong>1. Setup git, hugo</strong>
+  <a class="anchor" href="#1-setup-git-hugo">#</a>
+</h2>
+<p>개발환경은 window 11 (Intel processor) 이므로 이를 기반으로 작성되었다.</p>
+<h3 id="git-설치">
+  <strong>git 설치</strong>
+  <a class="anchor" href="#git-%ec%84%a4%ec%b9%98">#</a>
+</h3>
+<p><a href="https://git-scm.com/downloads">https://git-scm.com/downloads</a> 사이트에서  <code>Git for Windows/x64 Setup.</code> 항목을 클릭하여 github을 설치하였다.
+각 설정은 default를 그대로 사용하였다.</p>
+<h3 id="hugo-설치">
+  <strong>hugo 설치</strong>
+  <a class="anchor" href="#hugo-%ec%84%a4%ec%b9%98">#</a>
+</h3>
+<p><a href="https://github.com/gohugoio/hugo/releases">https://github.com/gohugoio/hugo/releases</a>
+에서 본인에 맞는 최신 버전을 받는다.  (hugo_extended_0.147.4_windows-amd64.zip)</p>
+<p>후에 언급하겠지만 <code>hugo-book</code> theme 의 경우 hugp-extended 버전을 받아야했다.</p>
+<p>hugo 명령어를 치는 경우가 많으므로, 환경변수에 등록하였다. (되도록 path 파싱에 에러가 없도록 폴더들을 영어로 구성하였다.)</p>
+<h3 id="github-repository-생성">
+  <strong>github repository 생성</strong>
+  <a class="anchor" href="#github-repository-%ec%83%9d%ec%84%b1">#</a>
+</h3>
+<p><a href="https://minyeamer.github.io/blog/hugo-blog-1/">https://minyeamer.github.io/blog/hugo-blog-1/</a> 에서 언급된것 같이 하나의 repository를 branch로 나누어서 submodule로 활용하는 방안을 채택했다.</p>
+<ol>
+<li>
+<p><code>&lt;USERNAME&gt;.github.io</code> 인 repository를 하나 생성한다. <br>
+UserName이 Jon 이라면 다음과 같이 생성될 것이다. <code>Jon/Jon.github.io</code></p>
+</li>
+<li>
+<p>hugo를 통한 기본 뼈대 만들기. 여기서 폴더명을 생성한 repository로 맞춘다.</p>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>hugo new site &lt;USERNAME&gt;.github.io
+</span></span><span style="display:flex;"><span>cd &lt;USERNAME&gt;.github.io
+</span></span><span style="display:flex;"><span>git init
+</span></span><span style="display:flex;"><span>git add .
+</span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;feat: new site&#34;</span>
+</span></span><span style="display:flex;"><span>git branch -M main
+</span></span><span style="display:flex;"><span>git remote add origin https://github.com/&lt;USERNAME&gt;/&lt;USERNAME&gt;.github.io.git
+</span></span><span style="display:flex;"><span>git push -u origin main
+</span></span></code></pre></div><ol start="3">
+<li>branch 만들기</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>git branch gh-pages main
+</span></span><span style="display:flex;"><span>git checkout gh-pages
+</span></span><span style="display:flex;"><span>git push origin gh-pages
+</span></span><span style="display:flex;"><span>git checkout main
+</span></span></code></pre></div><ol start="4">
+<li>gh-pages를 submoudle로 연동하기</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>rm -rf public
+</span></span><span style="display:flex;"><span>git submodule add -b gh-pages https://github.com/&lt;USERNAME&gt;/&lt;USERNAME&gt;.github.io.git public 
+</span></span><span style="display:flex;"><span>git add public
+</span></span><span style="display:flex;"><span>git add .gitmodules
+</span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;feat: add submodule for github pages&#34;</span>
+</span></span><span style="display:flex;"><span>git push
+</span></span></code></pre></div><h3 id="hugo-theme--hugo-book">
+  <strong>hugo Theme : hugo-book</strong>
+  <a class="anchor" href="#hugo-theme--hugo-book">#</a>
+</h3>
+<p><a href="https://themes.gohugo.io/">https://themes.gohugo.io/</a> 에서 여러 테마가 선택이 가능하고, 가벼워보이는 hugo-book theme 를 채택하였다</p>
+<p><a href="https://github.com/alex-shpak/hugo-book">https://github.com/alex-shpak/hugo-book</a> 에 Read.md를 참조하였다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>git submodule add https://github.com/alex-shpak/hugo-book themes/hugo-book
+</span></span><span style="display:flex;"><span>git add .
+</span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;feat: import hugo theme&#34;</span>
+</span></span></code></pre></div><p>root path 에 있는 hugo.toml 파일에 아래 내용을 삽입한다.</p>
+<pre tabindex="0"><code>baseURL = &#39;https://&lt;USERNAME&gt;.github.io&#39;
+languageCode = &#39;ko-kr&#39;
+title = &#34;&lt; title what you want&gt;&#34;
+theme = &#39;hugo-book&#39;
+</code></pre><h3 id="github-설정">
+  <strong>Github 설정</strong>
+  <a class="anchor" href="#github-%ec%84%a4%ec%a0%95">#</a>
+</h3>
+<p>Github -&gt; <USERNAME>.github.io -&gt; Settings -&gt; Pages -&gt; Branch -&gt; <code>gh-pages</code> 로 변경</p>
+<h2 id="2-블로그-배포-방법">
+  <strong>2. 블로그 배포 방법</strong>
+  <a class="anchor" href="#2-%eb%b8%94%eb%a1%9c%ea%b7%b8-%eb%b0%b0%ed%8f%ac-%eb%b0%a9%eb%b2%95">#</a>
+</h2>
+<h3 id="hugo-static-page-생성">
+  <strong>hugo static page 생성</strong>
+  <a class="anchor" href="#hugo-static-page-%ec%83%9d%ec%84%b1">#</a>
+</h3>
+<p>아래 명령어로 <code>&lt;root-path&gt;/content/</code> path에 firstPost.md 파일이 생성된다</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>hugo new firstPost.md
+</span></span></code></pre></div><p>아래 커맨드를 이용하면 현재 static 페이지를 <code>127.0.0.1:1313</code> 에서 확인이 가능하다</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>hugo server -D
+</span></span></code></pre></div><p>아래와 같이 draft가 true가 있다면 디버깅은 가능하지만 최종 산출물에서 빠지게 된다. 따라서 나중에 빼놓지 말고
+<code>draft = true</code> 문구를 지우던 false로 변경한다</p>
+<pre tabindex="0"><code>// firstPost.md
++++
+title = &#39;firstPost&#39;
+draft = true
++++
+</code></pre><p>아래 명령어를 통해서 public/ 폴더 밑에 산출물들을 생성한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>hugo
+</span></span></code></pre></div><p>아래 명령어를 통해서 github repository에 산출물들을 배포한다. 이 산출물들은 gitub action 에 의해서 자동으로 hosting되도록 처리된다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cd public
+</span></span><span style="display:flex;"><span>git add .
+</span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;&lt;comment what you want to add&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>git push origin gh-pages
+</span></span><span style="display:flex;"><span>cd ..
+</span></span><span style="display:flex;"><span>git add .
+</span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;&lt;comment what you want to add&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>git push origin main
+</span></span></code></pre></div><h2 id="3-추가-hugo-세팅팁">
+  <strong>3. 추가 hugo 세팅팁</strong>
+  <a class="anchor" href="#3-%ec%b6%94%ea%b0%80-hugo-%ec%84%b8%ed%8c%85%ed%8c%81">#</a>
+</h2>
+<h3 id="recent-post-용-home-만들기">
+  <strong>recent-post 용 home 만들기</strong>
+  <a class="anchor" href="#recent-post-%ec%9a%a9-home-%eb%a7%8c%eb%93%a4%ea%b8%b0">#</a>
+</h3>
+<p>아래와 같이 폴더 및 기본 md 파일을 구성하였고.</p>
+<pre tabindex="0"><code>content
+├── _index.md
+├── Content-Category1
+│   ├── _index.md
+│   └── article1.md
+└── Content-Category2
+     ├── _index.md
+     └── post1.md
+</code></pre><p><code>conent/_index.md</code> 파일은 다음과 같이 작성하였다.</p>
+<blockquote class="book-hint info">
+  &ldquo;recent-posts&rdquo; 에서 &quot; 을 삭제
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>title: &#34;Home&#34;
+</span></span><span style="display:flex;"><span>comments: false
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span># **Recent Posts**
+</span></span><span style="display:flex;"><span>{{ {{ &#34;recent-posts&#34; }} }}
+</span></span></code></pre></div><p><code>layouts/shortcodes/recent-posts.html</code> 을 생성하여 아래와 같이 작성</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">style</span>&gt;
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">summary-box</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">background</span>: <span style="color:#ae81ff">#f8f9fa</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">border-radius</span>: <span style="color:#ae81ff">8</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">transition</span>: <span style="color:#66d9ef">background</span> <span style="color:#ae81ff">0.3</span><span style="color:#66d9ef">s</span> <span style="color:#66d9ef">ease</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">max-height</span>: <span style="color:#ae81ff">14</span><span style="color:#66d9ef">rem</span>;         <span style="color:#75715e">/* 높이 제한 */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">overflow</span>: <span style="color:#66d9ef">hidden</span>;         <span style="color:#75715e">/* 넘치는 내용 숨김 */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">-webkit-</span>box;     
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">-webkit-</span>line-clamp: <span style="color:#ae81ff">6</span>;    <span style="color:#75715e">/* 최대 줄 수 (예: 6줄) */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">-webkit-</span>box-orient: <span style="color:#66d9ef">vertical</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">text-overflow</span>: <span style="color:#66d9ef">ellipsis</span>;  <span style="color:#75715e">/* ... 처리 */</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">summary-box</span> <span style="color:#f92672">h1</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">summary-box</span> <span style="color:#f92672">h2</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">summary-box</span> <span style="color:#f92672">h3</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">summary-box</span> <span style="color:#f92672">h4</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">summary-box</span> <span style="color:#f92672">h5</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">summary-box</span> <span style="color:#f92672">h6</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">summary-box</span> <span style="color:#f92672">p</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">margin</span>: <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span><span style="color:#66d9ef">rem</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">summary-box</span>:<span style="color:#a6e22e">hover</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">background</span>: <span style="color:#ae81ff">#e9ecef</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">style</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">ul</span>&gt;
+</span></span><span style="display:flex;"><span>{{ range (first 5 (sort .Site.RegularPages &#34;Date&#34; &#34;desc&#34;)) }}
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;margin-bottom: 2rem;&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .RelPermalink }}&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">strong</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;font-size: 1.25rem;&#34;</span>&gt;{{ .Title }}&lt;/<span style="color:#f92672">strong</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">a</span>&gt;&lt;<span style="color:#f92672">br</span>/&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    {{ with .Params.subtitle }}
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">small</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color: #888;&#34;</span>&gt;{{ . }}&lt;/<span style="color:#f92672">small</span>&gt;&lt;<span style="color:#f92672">br</span>/&gt;
+</span></span><span style="display:flex;"><span>    {{ end }}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">small</span>&gt;{{ .Date.Format &#34;2006-01-02 15:04:05 MST&#34; }}&lt;/<span style="color:#f92672">small</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .RelPermalink }}&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text-decoration: none; color: inherit;&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;summary-box&#34;</span>&gt; <span style="color:#75715e">&lt;!-- delete anchor in title--&gt;</span>
+</span></span><span style="display:flex;"><span>        {{ .Summary | replaceRE &#34;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">\&#34;anchor\&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">\&#34;#.*?\&#34;</span>&gt;#&lt;/<span style="color:#f92672">a</span>&gt;&#34; &#34;&#34;  | safeHTML | truncate 400}}
+</span></span><span style="display:flex;"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex;"><span>{{ end }}
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">ul</span>&gt;
+</span></span></code></pre></div><h3 id="markdown-code-block-copy-버튼-만들기">
+  <strong>MarkDown code block copy 버튼 만들기</strong>
+  <a class="anchor" href="#markdown-code-block-copy-%eb%b2%84%ed%8a%bc-%eb%a7%8c%eb%93%a4%ea%b8%b0">#</a>
+</h3>
+<p><code>layouts/partials/docs/body.html</code> 을 생성하여 아래와 같이 작성</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javaScript" data-lang="javaScript"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>  document.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;DOMContentLoaded&#39;</span>, () =&gt; {
+</span></span><span style="display:flex;"><span>    document.<span style="color:#a6e22e">querySelectorAll</span>(<span style="color:#e6db74">&#39;pre &gt; code[class^=&#34;language-&#34;]&#39;</span>).<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">codeBlock</span> =&gt; {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">pre</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">codeBlock</span>.<span style="color:#a6e22e">parentElement</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// 코드블럭의 복사 버튼  생성
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">button</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#39;button&#39;</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">button</span>.<span style="color:#a6e22e">innerText</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;📋&#39;</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">button</span>.<span style="color:#a6e22e">title</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Copy code&#39;</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">button</span>.<span style="color:#a6e22e">style</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        position: absolute;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        top: 0.5em;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        right: 0.5em;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        padding: 2px 6px;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        font-size: 0.8rem;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        background: #f5f5f5;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        border: 1px solid #ccc;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        border-radius: 4px;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        cursor: pointer;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        z-index: 10;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      `</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// 복사 동작 정의
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#a6e22e">button</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;click&#39;</span>, () =&gt; {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">navigator</span>.<span style="color:#a6e22e">clipboard</span>.<span style="color:#a6e22e">writeText</span>(<span style="color:#a6e22e">codeBlock</span>.<span style="color:#a6e22e">innerText</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">button</span>.<span style="color:#a6e22e">innerText</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;✔&#39;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">setTimeout</span>(() =&gt; <span style="color:#a6e22e">button</span>.<span style="color:#a6e22e">innerText</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;📋&#39;</span>, <span style="color:#ae81ff">1000</span>);
+</span></span><span style="display:flex;"><span>      });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// 스타일 적용
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#a6e22e">pre</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">position</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;relative&#39;</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">pre</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">button</span>);
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>  });
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+</span></span></code></pre></div><h2 id="4-giscus-연동하기">
+  <strong>4. giscus 연동하기</strong>
+  <a class="anchor" href="#4-giscus-%ec%97%b0%eb%8f%99%ed%95%98%ea%b8%b0">#</a>
+</h2>
+<h3 id="giscus-github에-설치-및-discuss-활성화">
+  <strong>giscus github에 설치 및 discuss 활성화</strong>
+  <a class="anchor" href="#giscus-github%ec%97%90-%ec%84%a4%ec%b9%98-%eb%b0%8f-discuss-%ed%99%9c%ec%84%b1%ed%99%94">#</a>
+</h3>
+<p><a href="https://github.com/apps/giscus">https://github.com/apps/giscus</a> 에서 <code>giscus</code> install</p>
+<p>github page repository 만 선택</p>
+<p>Setting -&gt; Discusss 활성화</p>
+<p>Discussions 에서 좌측 Categories 선택하여 새 카테고리 만들기</p>
+<p><code>Category Name</code> 와 <code>Description</code>을 각각 입력하고 <code>Discussion Format</code> 을 <code>Announcement</code> 선택</p>
+<h3 id="hugo-에서-보이게-설정">
+  <strong>hugo 에서 보이게 설정</strong>
+  <a class="anchor" href="#hugo-%ec%97%90%ec%84%9c-%eb%b3%b4%ec%9d%b4%ea%b2%8c-%ec%84%a4%ec%a0%95">#</a>
+</h3>
+<p><a href="https://giscus.app/ko">https://giscus.app/ko</a> 페이지에 접속하여</p>
+<ol>
+<li><USERNAME>/<USERNAME>.github.io 로 저장소 입력</li>
+<li>Discussion 제목이 페이지 경로 포함 선택</li>
+<li>페이지에 생성된 script를 복사 (아래와 유사한 형식)</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://giscus.app/client.js&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">repo</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&lt;USERNAME&gt;/&lt;USERNAME&lt;.github.io&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">repo</span><span style="color:#f92672">-</span><span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&lt; String &gt;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">category</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Comment&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">category</span><span style="color:#f92672">-</span><span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&lt; String &gt;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">mapping</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;pathname&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">strict</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">reactions</span><span style="color:#f92672">-</span><span style="color:#a6e22e">enabled</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">emit</span><span style="color:#f92672">-</span><span style="color:#a6e22e">metadata</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">input</span><span style="color:#f92672">-</span><span style="color:#a6e22e">position</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;bottom&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">theme</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;preferred_color_scheme&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ko&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">crossorigin</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;anonymous&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">async</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+</span></span></code></pre></div><ol start="4">
+<li>이를 `layouts/partials/comments.html에 아래처럼 붙여넣기</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>{{ <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">and</span> (.<span style="color:#a6e22e">IsPage</span>) (<span style="color:#a6e22e">not</span> .<span style="color:#a6e22e">IsHome</span>) (<span style="color:#a6e22e">not</span> (<span style="color:#a6e22e">eq</span> .<span style="color:#a6e22e">Params</span>.<span style="color:#a6e22e">comments</span> <span style="color:#66d9ef">false</span>)) }}
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://giscus.app/client.js&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">repo</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&lt;USERNAME&gt;/&lt;USERNAME&lt;.github.io&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">repo</span><span style="color:#f92672">-</span><span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&lt; String &gt;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">category</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Comment&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">category</span><span style="color:#f92672">-</span><span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&lt; String &gt;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">mapping</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;pathname&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">strict</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">reactions</span><span style="color:#f92672">-</span><span style="color:#a6e22e">enabled</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">emit</span><span style="color:#f92672">-</span><span style="color:#a6e22e">metadata</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">input</span><span style="color:#f92672">-</span><span style="color:#a6e22e">position</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;bottom&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">theme</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;preferred_color_scheme&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ko&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">crossorigin</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;anonymous&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">async</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+</span></span><span style="display:flex;"><span>{{ <span style="color:#a6e22e">end</span> }}
+</span></span></code></pre></div><blockquote class="book-hint info">
+  comments = false를 넣은 페이지들은 github 코멘트가 안보임
+</blockquote>
+<h2 id="5-tag-설정">
+  <strong>5. tag 설정</strong>
+  <a class="anchor" href="#5-tag-%ec%84%a4%ec%a0%95">#</a>
+</h2>
+<p><code>hugo.toml</code> 에 아래 설정 삽입</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[<span style="color:#a6e22e">taxonomies</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">tag</span> = <span style="color:#e6db74">&#34;tags&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">category</span> = <span style="color:#e6db74">&#34;categories&#34;</span>
+</span></span></code></pre></div><p>각 포스트마다 아래 front matter에 아래 항목을 기입</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>+++
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>tags = [&#34;Definition&#34;, &#34;Essential&#34;]
+</span></span><span style="display:flex;"><span>categories = [&#34;Reinforcement Learning&#34;]
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>+++
+</span></span></code></pre></div><p>이 블로그의 경우, 우측 ToC 항목 하단에 위치 Tag 및 Categories를 위치시킴</p>
+<p>이는 테마마다 다르니 각 테마별 적용 방법 확인 필요</p>
+<p><code>layouts/partials/doc/inject/toc-after.html</code> 을 생성</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>{{ with .Params.tags }}
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;post-tags&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">strong</span>&gt;Tags:&lt;/<span style="color:#f92672">strong</span>&gt;
+</span></span><span style="display:flex;"><span>    {{ range . }}
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ &#34;</span><span style="color:#a6e22e">tags</span><span style="color:#960050;background-color:#1e0010">/&#34;</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#a6e22e">relLangURL</span> <span style="color:#960050;background-color:#1e0010">}}{{</span> <span style="color:#960050;background-color:#1e0010">.</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#a6e22e">urlize</span> <span style="color:#960050;background-color:#1e0010">}}&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;tag&#34;</span>&gt;{{ . }}&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>    {{ end }}
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>{{ end }}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{{ with .Params.categories }}
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;post-categories&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">strong</span>&gt;Categories:&lt;/<span style="color:#f92672">strong</span>&gt;
+</span></span><span style="display:flex;"><span>    {{ range . }}
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ &#34;</span><span style="color:#a6e22e">categories</span><span style="color:#960050;background-color:#1e0010">/&#34;</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#a6e22e">relLangURL</span> <span style="color:#960050;background-color:#1e0010">}}{{</span> <span style="color:#960050;background-color:#1e0010">.</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#a6e22e">urlize</span> <span style="color:#960050;background-color:#1e0010">}}&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;category&#34;</span>&gt;{{ . }}&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>    {{ end }}
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>{{ end }}
+</span></span></code></pre></div><p>카테고리 및 tag 선택했을때 해당 list가 보이도록 설정
+<code>layouts/_default/term.html</code> 을 생성</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>{{ define &#34;main&#34; }}
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">main</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">h1</span>&gt;{{ .Title }}&lt;/<span style="color:#f92672">h1</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">ul</span>&gt;
+</span></span><span style="display:flex;"><span>        {{ range .Pages }}
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">li</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .RelPermalink }}&#34;</span>&gt;{{ .Title }}&lt;/<span style="color:#f92672">a</span>&gt; {{ .Date }}&lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex;"><span>        {{ else }}
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">li</span>&gt;&lt;<span style="color:#f92672">em</span>&gt;No posts found.&lt;/<span style="color:#f92672">em</span>&gt;&lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex;"><span>        {{ end }}
+</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#f92672">ul</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">main</span>&gt;
+</span></span><span style="display:flex;"><span>{{ end }}
+</span></span></code></pre></div><h2 id="6-검색-연동">
+  <strong>6. 검색 연동</strong>
+  <a class="anchor" href="#6-%ea%b2%80%ec%83%89-%ec%97%b0%eb%8f%99">#</a>
+</h2>
+<h3 id="구굴-서치-콘솔">
+  <strong>구굴 서치 콘솔</strong>
+  <a class="anchor" href="#%ea%b5%ac%ea%b5%b4-%ec%84%9c%ec%b9%98-%ec%bd%98%ec%86%94">#</a>
+</h3>
+<ol>
+<li>소유권 확인
+<a href="https://search.google.com/search-console/about">https://search.google.com/search-console/about</a> 접속하여 url <code>&lt;USERNAME&gt;.github.io</code> 을 입력</li>
+</ol>
+<p>google_<blabla>.html 을 다운로드 후에 <code>public/</code> 에 위치시킴</p>
+<ol start="2">
+<li>sitemap 만들기 hugo.toml 에 아래와 같이 삽입 -&gt; sitemap.xml이 생성된것을 확인</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#a6e22e">enableRobotsTXT</span> = <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">sitemap</span>]
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># always, hourly daily, weekly, monthly, yearly, never</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">changefreq</span> = <span style="color:#e6db74">&#34;weekly&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filename</span> = <span style="color:#e6db74">&#34;sitemap.xml&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">priority</span> = <span style="color:#ae81ff">0.5</span>
+</span></span></code></pre></div><ol start="3">
+<li><code>layouts/robots.txt</code> 파일을 수정</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">User-agent</span>: *
+</span></span><span style="display:flex;"><span><span style="color:#f92672">Allow</span>: <span style="color:#ae81ff">/</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">Sitemap</span>: {{ <span style="color:#ae81ff">.Site.BaseURL }}sitemap.xml</span>
+</span></span></code></pre></div><p><code>hugo.toml</code> 에서 아래 설정</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#a6e22e">enableRobotsTXT</span> = <span style="color:#66d9ef">true</span>
+</span></span></code></pre></div><p>아래 커맨드로 빌드시에 <code>public/robots.txt</code> 생성을 확인</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>hugo
+</span></span></code></pre></div><ol start="5">
+<li>sitemap.xml을 서치 콘솔에 등록</li>
+</ol>
+<h3 id="네이버-서치-어드바이져">
+  <strong>네이버 서치 어드바이져</strong>
+  <a class="anchor" href="#%eb%84%a4%ec%9d%b4%eb%b2%84-%ec%84%9c%ec%b9%98-%ec%96%b4%eb%93%9c%eb%b0%94%ec%9d%b4%ec%a0%b8">#</a>
+</h3>
+<ol>
+<li>naver search advisor 접속</li>
+<li>blog url 입력</li>
+<li>html 다운로드후 <code>public</code> 안에 위치시키고 배포 -&gt; 소유권 확인</li>
+</ol>
+<h2 id="참조">
+  <strong>참조</strong>
+  <a class="anchor" href="#%ec%b0%b8%ec%a1%b0">#</a>
+</h2>
+<p><a href="https://ialy1595.github.io/post/blog-construct-1/">https://ialy1595.github.io/post/blog-construct-1/</a></p>
+<p><a href="https://ialy1595.github.io/post/blog-construct-2/">https://ialy1595.github.io/post/blog-construct-2/</a></p>
+<p><a href="https://minyeamer.github.io/blog/hugo-blog-1/">https://minyeamer.github.io/blog/hugo-blog-1/</a></p>
+<p><a href="https://d5br5.dev/blog/nextjs_blog/giscus">https://d5br5.dev/blog/nextjs_blog/giscus</a></p>
+<p><a href="https://velog.io/@eona1301/Github-Blog-%EA%B2%80%EC%83%89%EC%B0%BD-%EB%85%B8%EC%B6%9C%EC%8B%9C%ED%82%A4%EA%B8%B0">https://velog.io/@eona1301/Github-Blog-%EA%B2%80%EC%83%89%EC%B0%BD-%EB%85%B8%EC%B6%9C%EC%8B%9C%ED%82%A4%EA%B8%B0</a></p>
+<p><a href="https://golangkorea.github.io/post/hugo-intro/taxonomy-basic/">https://golangkorea.github.io/post/hugo-intro/taxonomy-basic/</a></p>
+<p><a href="https://boyinblue.github.io/002_github_blog/003_naver_search_advisor.html">https://boyinblue.github.io/002_github_blog/003_naver_search_advisor.html</a></p>
+</div>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+<script src="https://giscus.app/client.js"
+        data-repo="JaeSim/JaeSim.github.io"
+        data-repo-id="R_kgDOOtVVtw"
+        data-category="Comment"
+        data-category-id="DIC_kwDOOtVVt84Cqcxg"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#0-blog-host-방식-선택"><strong>0. blog host 방식 선택</strong></a></li>
+    <li><a href="#1-setup-git-hugo"><strong>1. Setup git, hugo</strong></a>
+      <ul>
+        <li><a href="#git-설치"><strong>git 설치</strong></a></li>
+        <li><a href="#hugo-설치"><strong>hugo 설치</strong></a></li>
+        <li><a href="#github-repository-생성"><strong>github repository 생성</strong></a></li>
+        <li><a href="#hugo-theme--hugo-book"><strong>hugo Theme : hugo-book</strong></a></li>
+        <li><a href="#github-설정"><strong>Github 설정</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#2-블로그-배포-방법"><strong>2. 블로그 배포 방법</strong></a>
+      <ul>
+        <li><a href="#hugo-static-page-생성"><strong>hugo static page 생성</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#3-추가-hugo-세팅팁"><strong>3. 추가 hugo 세팅팁</strong></a>
+      <ul>
+        <li><a href="#recent-post-용-home-만들기"><strong>recent-post 용 home 만들기</strong></a></li>
+        <li><a href="#markdown-code-block-copy-버튼-만들기"><strong>MarkDown code block copy 버튼 만들기</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#4-giscus-연동하기"><strong>4. giscus 연동하기</strong></a>
+      <ul>
+        <li><a href="#giscus-github에-설치-및-discuss-활성화"><strong>giscus github에 설치 및 discuss 활성화</strong></a></li>
+        <li><a href="#hugo-에서-보이게-설정"><strong>hugo 에서 보이게 설정</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#5-tag-설정"><strong>5. tag 설정</strong></a></li>
+    <li><a href="#6-검색-연동"><strong>6. 검색 연동</strong></a>
+      <ul>
+        <li><a href="#구굴-서치-콘솔"><strong>구굴 서치 콘솔</strong></a></li>
+        <li><a href="#네이버-서치-어드바이져"><strong>네이버 서치 어드바이져</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#참조"><strong>참조</strong></a></li>
+  </ul>
+</nav>
+
+  <div class="post-tags">
+    <strong>Tags:</strong>
+    
+      <a href="/tags/blog" class="tag">blog</a>
+    
+      <a href="/tags/github" class="tag">Github</a>
+    
+      <a href="/tags/github-pages" class="tag">Github Pages</a>
+    
+      <a href="/tags/setup" class="tag">setup</a>
+    
+      <a href="/tags/hugo" class="tag">hugo</a>
+    
+      <a href="/tags/giscus" class="tag">giscus</a>
+    
+      <a href="/tags/hugo-book" class="tag">hugo-book</a>
+    
+  </div>
+
+
+
+  <div class="post-categories">
+    <strong>Categories:</strong>
+    
+      <a href="/categories/development" class="category">development</a>
+    
+  </div>
+
+
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('pre > code[class^="language-"]').forEach(codeBlock => {
+      const pre = codeBlock.parentElement;
+
+      
+      const button = document.createElement('button');
+      button.innerText = '📋';
+      button.title = 'Copy code';
+      button.style = `
+        position: absolute;
+        top: 0.5em;
+        right: 0.5em;
+        padding: 2px 6px;
+        font-size: 0.8rem;
+        background: #f5f5f5;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+        z-index: 10;
+      `;
+
+      
+      button.addEventListener('click', () => {
+        navigator.clipboard.writeText(codeBlock.innerText);
+        button.innerText = '✔';
+        setTimeout(() => button.innerText = '📋', 1000);
+      });
+
+      
+      pre.style.position = 'relative';
+      pre.appendChild(button);
+    });
+  });
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

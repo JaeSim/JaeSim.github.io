@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on JaeSim&#39;s Workspace</title>
+    <link>https://JaeSim.github.io/tags/</link>
+    <description>Recent content in Tags on JaeSim&#39;s Workspace</description>
+    <generator>Hugo</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Fri, 04 Jul 2025 13:48:30 +0900</lastBuildDate>
+    <atom:link href="https://JaeSim.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BAO</title>
+      <link>https://JaeSim.github.io/tags/bao/</link>
+      <pubDate>Fri, 04 Jul 2025 13:48:30 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/bao/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Database</title>
+      <link>https://JaeSim.github.io/tags/database/</link>
+      <pubDate>Fri, 04 Jul 2025 13:48:30 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/database/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>DBMS</title>
+      <link>https://JaeSim.github.io/tags/dbms/</link>
+      <pubDate>Fri, 04 Jul 2025 13:48:30 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/dbms/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Learned Query Optimizer</title>
+      <link>https://JaeSim.github.io/tags/learned-query-optimizer/</link>
+      <pubDate>Fri, 04 Jul 2025 13:48:30 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/learned-query-optimizer/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Optimizer</title>
+      <link>https://JaeSim.github.io/tags/optimizer/</link>
+      <pubDate>Fri, 04 Jul 2025 13:48:30 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/optimizer/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Reinforcement Learning</title>
+      <link>https://JaeSim.github.io/tags/reinforcement-learning/</link>
+      <pubDate>Fri, 04 Jul 2025 13:48:30 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/reinforcement-learning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>HANA Database</title>
+      <link>https://JaeSim.github.io/tags/hana-database/</link>
+      <pubDate>Fri, 04 Jul 2025 13:26:47 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/hana-database/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>ML</title>
+      <link>https://JaeSim.github.io/tags/ml/</link>
+      <pubDate>Thu, 03 Jul 2025 10:53:40 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/ml/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>NN</title>
+      <link>https://JaeSim.github.io/tags/nn/</link>
+      <pubDate>Thu, 03 Jul 2025 10:53:40 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/nn/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>RL</title>
+      <link>https://JaeSim.github.io/tags/rl/</link>
+      <pubDate>Thu, 03 Jul 2025 10:53:40 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/rl/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>GNN</title>
+      <link>https://JaeSim.github.io/tags/gnn/</link>
+      <pubDate>Fri, 13 Jun 2025 14:45:35 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/gnn/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Neural Network</title>
+      <link>https://JaeSim.github.io/tags/neural-network/</link>
+      <pubDate>Fri, 13 Jun 2025 14:45:35 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/neural-network/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>추천시스템</title>
+      <link>https://JaeSim.github.io/tags/%EC%B6%94%EC%B2%9C%EC%8B%9C%EC%8A%A4%ED%85%9C/</link>
+      <pubDate>Fri, 13 Jun 2025 14:45:35 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/%EC%B6%94%EC%B2%9C%EC%8B%9C%EC%8A%A4%ED%85%9C/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>LOGER</title>
+      <link>https://JaeSim.github.io/tags/loger/</link>
+      <pubDate>Thu, 12 Jun 2025 11:50:33 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/loger/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Definition</title>
+      <link>https://JaeSim.github.io/tags/definition/</link>
+      <pubDate>Thu, 12 Jun 2025 10:57:55 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/definition/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Model Free</title>
+      <link>https://JaeSim.github.io/tags/model-free/</link>
+      <pubDate>Thu, 12 Jun 2025 10:57:55 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/model-free/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Monte Carlo</title>
+      <link>https://JaeSim.github.io/tags/monte-carlo/</link>
+      <pubDate>Thu, 12 Jun 2025 10:57:55 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/monte-carlo/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Temporal Difference</title>
+      <link>https://JaeSim.github.io/tags/temporal-difference/</link>
+      <pubDate>Thu, 12 Jun 2025 10:57:55 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/temporal-difference/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>DP</title>
+      <link>https://JaeSim.github.io/tags/dp/</link>
+      <pubDate>Thu, 29 May 2025 12:21:05 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/dp/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Dynamic Programming</title>
+      <link>https://JaeSim.github.io/tags/dynamic-programming/</link>
+      <pubDate>Thu, 29 May 2025 12:21:05 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/dynamic-programming/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Policy Iteration</title>
+      <link>https://JaeSim.github.io/tags/policy-iteration/</link>
+      <pubDate>Thu, 29 May 2025 12:21:05 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/policy-iteration/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Value Iteration</title>
+      <link>https://JaeSim.github.io/tags/value-iteration/</link>
+      <pubDate>Thu, 29 May 2025 12:21:05 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/value-iteration/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Markov</title>
+      <link>https://JaeSim.github.io/tags/markov/</link>
+      <pubDate>Tue, 27 May 2025 16:43:57 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/markov/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Markov Decision Process</title>
+      <link>https://JaeSim.github.io/tags/markov-decision-process/</link>
+      <pubDate>Tue, 27 May 2025 16:43:57 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/markov-decision-process/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Markov Process</title>
+      <link>https://JaeSim.github.io/tags/markov-process/</link>
+      <pubDate>Tue, 27 May 2025 16:43:57 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/markov-process/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Blog</title>
+      <link>https://JaeSim.github.io/tags/blog/</link>
+      <pubDate>Fri, 23 May 2025 11:06:13 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/blog/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Giscus</title>
+      <link>https://JaeSim.github.io/tags/giscus/</link>
+      <pubDate>Fri, 23 May 2025 11:06:13 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/giscus/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Github</title>
+      <link>https://JaeSim.github.io/tags/github/</link>
+      <pubDate>Fri, 23 May 2025 11:06:13 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/github/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Github Pages</title>
+      <link>https://JaeSim.github.io/tags/github-pages/</link>
+      <pubDate>Fri, 23 May 2025 11:06:13 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/github-pages/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Hugo</title>
+      <link>https://JaeSim.github.io/tags/hugo/</link>
+      <pubDate>Fri, 23 May 2025 11:06:13 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/hugo/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Hugo-Book</title>
+      <link>https://JaeSim.github.io/tags/hugo-book/</link>
+      <pubDate>Fri, 23 May 2025 11:06:13 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/hugo-book/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Setup</title>
+      <link>https://JaeSim.github.io/tags/setup/</link>
+      <pubDate>Fri, 23 May 2025 11:06:13 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/setup/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Essential</title>
+      <link>https://JaeSim.github.io/tags/essential/</link>
+      <pubDate>Thu, 22 May 2025 11:13:00 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/essential/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>To-Do</title>
+      <link>https://JaeSim.github.io/tags/to-do/</link>
+      <pubDate>Wed, 21 May 2025 10:26:34 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/to-do/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Debug</title>
+      <link>https://JaeSim.github.io/tags/debug/</link>
+      <pubDate>Tue, 20 May 2025 16:53:50 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/debug/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Test</title>
+      <link>https://JaeSim.github.io/tags/test/</link>
+      <pubDate>Tue, 20 May 2025 16:53:50 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/test/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>
