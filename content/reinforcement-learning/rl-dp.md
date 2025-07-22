@@ -3,7 +3,7 @@ date = '2025-05-29T12:21:05+09:00'
 title = '3. Planning by Dynamic Programming'
 subtitle =  '강화학습의 value iteration, policy iteration과 DP 대한 내용'
 weight = 6
-tags = ["Definition", "value iteration", "policy iteration", "DP", "Dynamic Programming","Reinforcement Learning"]
+tags = ["Definition", "value iteration", "policy iteration", "DP", "Dynamic Programming","Reinforcement Learning", "RL"]
 categories = ["Reinforcement Learning"]
 +++
 

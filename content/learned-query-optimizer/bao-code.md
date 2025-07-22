@@ -59,7 +59,7 @@ cd {bao path}
 conda create -n bao python=3.8 -y
 conda activate bao
 pip3 install scikit-learn numpy joblib
-pip3 install torch==1.5.0+cu101 torchvision==0.6.0+cu101 -f https://download.pytorch.org/whl/torch_stable.html
+pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1 -f https://download.pytorch.org/whl/torch_stable.html
 ```
 
 - bao_server 시작
@@ -95,7 +95,8 @@ SELECT count(*) FROM title;
  - **기능1**: SQL을 호출하면 extension 이 hook으로 먼저 받아서, original SQL을 실행전에 hint statement를 주입하는 동작을 한다.
     - 예시
         - 기존 : 1) SQL 호출 --> 2) DBMS SQL 실행
-        - BAO : 1) SQL 호출 --{extension hook}--> 2) hint statement 수행 --> 3) DBMS SQL 실행
+        - BAO : 1) SQL 호출 --{extension hook}--> 2) extension에서 candidate plan 생성 및 buffer 정보 획득 후 bao_server에 전달 --> <br> 
+          3) bao_server plan중 best 선택 후 response --> 4) extension 에서 선택된 plan에 맞는 hint statement 생성 --> 5) hint statement 수행 --> 6) DBMS SQL 실행
  - **기능2**: 이후 나온 결과를 BAO Server에도 전달한다 (latency 전달)
 
 ### **모델 및 cli 등은 python으로 구현**
@@ -103,4 +104,39 @@ SELECT count(*) FROM title;
    - 이때 전달되는 paramter는 boolen으로 전달되는것으로 보이고, connector layer 에서 boolen을 hint statement로 변환함.
 
 
+### **Shared Buffer 활용**
+ - Bao 논문에는 따로 언급되어 있지 않지만, DBMS의 buffer에 있는 조건을 학습에 사용하고 있음
+   - 위치 pg_extension/bao_bufferstate.h
+   ```c
+   static char* buffer_state() {
+   ...
+   ```
+   - 위 함수를 통해 buffer륻 획득한후에 json에 적재한다.
+   ```json
+    {
+      "Plan": {
+        "Node Type": "Other",
+        "Node Type ID": "42",
+        "Total Cost": 50166.515833,
+        "Plan Rows": 1,
+        "Plans": [
+          {
+            "Node Type": "Other",
+            "Node Type ID": "45",
+            "Total Cost": 50166.500833,
+            "Plan Rows": 2,
+            "Plans": [
+              {
+                # skip... 
+              }
+            ]
+          }
+        ]
+      },
+      "Buffers": {
+        "title_pkey": 1,
+        "kind_id_title": 1
+      }
+    }
+   ```
 

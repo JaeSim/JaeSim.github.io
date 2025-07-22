@@ -3,8 +3,8 @@ date = '2025-07-02T13:01:23+09:00'
 title = 'Learned Index'
 subtitle =  'Learned Index에 대한 직관을 얻기 위한 posting'
 weight = 5
-tags = ["RL", "ML", "NN", "Database"]
-categories = ["Learned Index"]
+tags = ["RL", "ML", "NN", "Database", "Reinforcement Learning"]
+categories = ["Learned Index","Study"]
 +++
 
 # **Learned Index 관련 paper 리서치**

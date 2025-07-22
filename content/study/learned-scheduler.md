@@ -3,8 +3,8 @@ date = '2025-07-03T10:53:40+09:00'
 title = 'Learned Scheduler'
 subtitle =  'Learned Scheduler에 대한 직관을 얻기 위한 posting'
 weight = 6
-tags = ["RL", "ML", "NN", "Database"]
-categories = ["Learned Scheduler"]
+tags = ["RL", "ML", "NN", "Database", "Reinforcement Learning"]
+categories = ["Learned Scheduler","Study"]
 +++
 
 ## **Learned Scheduler 관련 paper 리서치**

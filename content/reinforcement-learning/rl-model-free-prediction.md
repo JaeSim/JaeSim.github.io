@@ -3,7 +3,7 @@ date = '2025-06-12T10:57:55+09:00'
 title = 'temp. 4. Model Free Prediction'
 subtitle =  '강화학습의 Model Free Prediction 에 대한 내용'
 weight = 7
-tags = ["Definition", "Model Free", "Monte Carlo", "Temporal Difference", "Reinforcement Learning"]
+tags = ["Definition", "Model Free", "Monte Carlo", "Temporal Difference", "Reinforcement Learning", "RL"]
 categories = ["Reinforcement Learning"]
 +++
 

@@ -3,7 +3,7 @@ date = '2025-05-27T16:43:57+09:00'
 title = '2. Markov Decision Process'
 subtitle =  '강화학습의 MP, MRP, MDP에 대한 내용'
 weight = 5
-tags = ["Definition", "Markov", "Markov Process", "Markov Decision Process", "Reinforcement Learning"]
+tags = ["Definition", "Markov", "Markov Process", "Markov Decision Process", "Reinforcement Learning", "RL"]
 categories = ["Reinforcement Learning"]
 +++
 

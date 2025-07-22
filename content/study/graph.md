@@ -4,7 +4,7 @@ title = 'GNN'
 subtitle =  'GNN에 대한 직관을 얻기 위한 posting'
 weight = 4
 tags = ["Neural Network", "GNN", "추천시스템"]
-categories = ["Graph Neural Network"]
+categories = ["Graph Neural Network","Study"]
 +++
 
 
