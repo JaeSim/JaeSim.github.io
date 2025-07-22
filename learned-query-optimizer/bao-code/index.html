@@ -68,7 +68,7 @@ postgre 시작 (balsa github) 및 확인">
 <link rel="canonical" href="https://JaeSim.github.io/learned-query-optimizer/bao-code/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.8c740b2a0b0ee5ca044549d9d9d0e6c4e3492e8ce79ccb039c86eab6c3145a68.js" integrity="sha256-jHQLKgsO5coERUnZ2dDmxONJLoznnMsDnIbqtsMUWmg=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.2dfc613a60fc8985280640228d3346989755b5985295096fc2e59eedf2c1a162.js" integrity="sha256-LfxhOmD8iYUoBkAijTNGmJdVtZhSlQlvwuWe7fLBoWI=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -179,7 +179,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <span>Item Research</span>
+    <span>Study</span>
   
 
           
@@ -192,7 +192,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/item-research/graph/" class="">GNN</a>
+    <a href="/study/graph/" class="">GNN</a>
   
 
         </li>
@@ -205,7 +205,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/item-research/learned-index/" class="">Learned Index</a>
+    <a href="/study/learned-index/" class="">Learned Index</a>
   
 
         </li>
@@ -218,7 +218,33 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/item-research/learned-scheduler/" class="">Learned Scheduler</a>
+    <a href="/study/learned-scheduler/" class="">Learned Scheduler</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/study/adaptive-watermark/" class="">Adaptive Watermark in Stream Processing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/study/2025-icde/" class="">2025 ICDE</a>
   
 
         </li>
@@ -417,6 +443,7 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#학습-범위"><strong>학습 범위</strong></a></li>
         <li><a href="#pg_"><strong>pg_extension으로 connector layer(가칭) 구현</strong></a></li>
         <li><a href="#모델-및-cli-등은-python으로-구현"><strong>모델 및 cli 등은 python으로 구현</strong></a></li>
+        <li><a href="#shared-buffer-활용"><strong>Shared Buffer 활용</strong></a></li>
       </ul>
     </li>
   </ul>
@@ -522,7 +549,7 @@ shared_preload_libraries = &#39;pg_bao&#39;
 </span></span><span style="display:flex;"><span>conda create -n bao python<span style="color:#f92672">=</span>3.8 -y
 </span></span><span style="display:flex;"><span>conda activate bao
 </span></span><span style="display:flex;"><span>pip3 install scikit-learn numpy joblib
-</span></span><span style="display:flex;"><span>pip3 install torch<span style="color:#f92672">==</span>1.5.0+cu101 torchvision<span style="color:#f92672">==</span>0.6.0+cu101 -f https://download.pytorch.org/whl/torch_stable.html
+</span></span><span style="display:flex;"><span>pip install torch<span style="color:#f92672">==</span>1.12.1+cu113 torchvision<span style="color:#f92672">==</span>0.13.1+cu113 torchaudio<span style="color:#f92672">==</span>0.12.1 -f https://download.pytorch.org/whl/torch_stable.html
 </span></span></code></pre></div><ul>
 <li>bao_server 시작</li>
 </ul>
@@ -565,7 +592,8 @@ shared_preload_libraries = &#39;pg_bao&#39;
 <li>예시
 <ul>
 <li>기존 : 1) SQL 호출 &ndash;&gt; 2) DBMS SQL 실행</li>
-<li>BAO : 1) SQL 호출 &ndash;{extension hook}&ndash;&gt; 2) hint statement 수행 &ndash;&gt; 3) DBMS SQL 실행</li>
+<li>BAO : 1) SQL 호출 &ndash;{extension hook}&ndash;&gt; 2) extension에서 candidate plan 생성 및 buffer 정보 획득 후 bao_server에 전달 &ndash;&gt; <br>
+3) bao_server plan중 best 선택 후 response &ndash;&gt; 4) extension 에서 선택된 plan에 맞는 hint statement 생성 &ndash;&gt; 5) hint statement 수행 &ndash;&gt; 6) DBMS SQL 실행</li>
 </ul>
 </li>
 </ul>
@@ -582,6 +610,47 @@ shared_preload_libraries = &#39;pg_bao&#39;
 <li>이때 전달되는 paramter는 boolen으로 전달되는것으로 보이고, connector layer 에서 boolen을 hint statement로 변환함.</li>
 </ul>
 </li>
+</ul>
+<h3 id="shared-buffer-활용">
+  <strong>Shared Buffer 활용</strong>
+  <a class="anchor" href="#shared-buffer-%ed%99%9c%ec%9a%a9">#</a>
+</h3>
+<ul>
+<li>Bao 논문에는 따로 언급되어 있지 않지만, DBMS의 buffer에 있는 조건을 학습에 사용하고 있음
+<ul>
+<li>위치 pg_extension/bao_bufferstate.h</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">buffer_state</span>() {
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><ul>
+<li>위 함수를 통해 buffer륻 획득한후에 json에 적재한다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span> {
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&#34;Plan&#34;</span>: {
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">&#34;Node Type&#34;</span>: <span style="color:#e6db74">&#34;Other&#34;</span>,
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">&#34;Node Type ID&#34;</span>: <span style="color:#e6db74">&#34;42&#34;</span>,
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">&#34;Total Cost&#34;</span>: <span style="color:#ae81ff">50166.515833</span>,
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">&#34;Plan Rows&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">&#34;Plans&#34;</span>: [
+</span></span><span style="display:flex;"><span>       {
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;Node Type&#34;</span>: <span style="color:#e6db74">&#34;Other&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;Node Type ID&#34;</span>: <span style="color:#e6db74">&#34;45&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;Total Cost&#34;</span>: <span style="color:#ae81ff">50166.500833</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;Plan Rows&#34;</span>: <span style="color:#ae81ff">2</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;Plans&#34;</span>: [
+</span></span><span style="display:flex;"><span>           {
+</span></span><span style="display:flex;"><span>             <span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#960050;background-color:#1e0010">skip...</span> 
+</span></span><span style="display:flex;"><span>           }
+</span></span><span style="display:flex;"><span>         ]
+</span></span><span style="display:flex;"><span>       }
+</span></span><span style="display:flex;"><span>     ]
+</span></span><span style="display:flex;"><span>   },
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&#34;Buffers&#34;</span>: {
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">&#34;title_pkey&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">&#34;kind_id_title&#34;</span>: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>   }
+</span></span><span style="display:flex;"><span> }
+</span></span></code></pre></div></li>
 </ul>
 </div>
 </article>
@@ -650,6 +719,7 @@ shared_preload_libraries = &#39;pg_bao&#39;
         <li><a href="#학습-범위"><strong>학습 범위</strong></a></li>
         <li><a href="#pg_"><strong>pg_extension으로 connector layer(가칭) 구현</strong></a></li>
         <li><a href="#모델-및-cli-등은-python으로-구현"><strong>모델 및 cli 등은 python으로 구현</strong></a></li>
+        <li><a href="#shared-buffer-활용"><strong>Shared Buffer 활용</strong></a></li>
       </ul>
     </li>
   </ul>

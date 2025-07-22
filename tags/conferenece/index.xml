@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Conferenece on JaeSim&#39;s Workspace</title>
+    <link>https://JaeSim.github.io/tags/conferenece/</link>
+    <description>Recent content in Conferenece on JaeSim&#39;s Workspace</description>
+    <generator>Hugo</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Mon, 21 Jul 2025 10:25:18 +0900</lastBuildDate>
+    <atom:link href="https://JaeSim.github.io/tags/conferenece/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2025 ICDE</title>
+      <link>https://JaeSim.github.io/study/2025-icde/</link>
+      <pubDate>Mon, 21 Jul 2025 10:25:18 +0900</pubDate>
+      <guid>https://JaeSim.github.io/study/2025-icde/</guid>
+      <description>&lt;h1 id=&#34;icde-2025-research-paper-sessions&#34;&gt;&#xD;&#xA;  &lt;strong&gt;ICDE 2025 Research Paper Sessions&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#icde-2025-research-paper-sessions&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://ieee-icde.org/2025/research-papers/&#34;&gt;https://ieee-icde.org/2025/research-papers/&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;각 논문들의 abstract 만 파악하여 나열&lt;/li&gt;&#xA;&lt;li&gt;작성자 기준 관심 분야가 아닌 것은 일부 skip&lt;/li&gt;&#xA;&lt;li&gt;범주&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;details &gt;&lt;summary&gt;session category&lt;/summary&gt;&#xD;&#xA;  &lt;div class=&#34;markdown-inner&#34;&gt;&#xD;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;AI-based DB Tuning, Benchmarks and Performances&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Data Mining and Knowledge Discovery&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Explainability, Fairness, and Trust in Data Systems and Analysis&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Distributed Ledgers and Blockchains&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Query Processing, Indexing, and Optimization&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Distributed, Parallel and P2P Data Management&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Graph Learning and Mining&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Information Integration and Data Quality&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Cloud Data Management&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

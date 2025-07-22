@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="ko-kr" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
+  Adaptive watermark 관련 리서치
+  #
+
+
+  Stream Processing
+  #
+
+
+  Survey paper
+  #
+
+
+  A survey on the evolution of stream processing systems(2023)
+  #
+
+
+  Summary
+  #
+
+
+VLDB23 저널, 35 page
+https://arxiv.org/abs/2008.00842
+Stream Processing System(Solution)들을 1세대(9204), 2세대(1017), 3세대(18~)로 구분하여 설명하고, 어떤 문제점들을 해결하기 위해서 발전해온지 망라
+
+1세대 -&gt; 2세대는 Map Reduce와 Cloud Computing의 대중화로 인해 세대를 구분함
+2세대 -&gt; 3세대는 serverless App, Cloud Server, Edge Computing 이나 Hardeware specific으로 변화하는 것으로 구분함 
+구태여 3세대를 나누긴 했는데, 구체적으로 왜그런지 명확하게 언급되어 있진 않다.
+1세대 특징:
+
+Complex Event Processing :CEP 처리에 중점
+scale-up arch 기반
+ordered event streams 처리방식
+
+
+2세대 특징:
+
+distributed 환경에서 data-parallel processing engine
+support MapReduce style UDF(User-Defined Function)
+scale-out for massive out-of-order stream (toward fault-tolerant)
+
+
+3세대 특징
+
+integrate data-streaming to (serverless App, Cloud Server, Edge Computing or Hardeware specific) 
+SQL기능을 추가하는 방식도 존재
+
+
+
+
+Stream processing solution들이 채택한 기법들을 나열 및 open problem 기술
+
+out-of-order 처리 기법, State management, Fault tolerance, load management, elasticity, reconfiguration 처리 기법
+
+
+
+
+  out-of-order(disorder)
+  #
+
+
+A survey on the evolution of stream processing systems(2023) [이동] 에 언급된 내용을 base로 작성
+
+
+  effects of disorder
+  #
+
+
+  causes of disorder
+  #
+
+
+  Mechanisms for managing disorder
+  #
+
+
+slack and heartbeat는 최신 솔루션에서는 잘 채택되지 않음
+
+
+  slack
+  #
+
+
+  heartbeat
+  #
+
+
+  low-watermark
+  #
+
+
+  pointmaps
+  #
+
+
+  watermark
+  #
+
+
+  Adaptive watermark
+  #
+
+
+Adaptive Watermarks: A Concept Drift-based Approach (EDBT 2019)
+Adaptive Watermarks (Springer 2020)  [통계기반]
+atermarking (Probabilistic Watermarking) [확률기반]
+">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/item-research/adaptive-watermark/">
+  <meta property="og:site_name" content="JaeSim&#39;s Workspace">
+  <meta property="og:title" content="Adaptive Watermark in Stream Processing">
+  <meta property="og:description" content="Adaptive watermark 관련 리서치#Stream Processing#Survey paper#A survey on the evolution of stream processing systems(2023)#Summary#VLDB23 저널, 35 page https://arxiv.org/abs/2008.00842 Stream Processing System(Solution)들을 1세대(9204), 2세대(1017), 3세대(18~)로 구분하여 설명하고, 어떤 문제점들을 해결하기 위해서 발전해온지 망라 1세대 -&gt; 2세대는 Map Reduce와 Cloud Computing의 대중화로 인해 세대를 구분함 2세대 -&gt; 3세대는 serverless App, Cloud Server, Edge Computing 이나 Hardeware specific으로 변화하는 것으로 구분함 구태여 3세대를 나누긴 했는데, 구체적으로 왜그런지 명확하게 언급되어 있진 않다. 1세대 특징: Complex Event Processing :CEP 처리에 중점 scale-up arch 기반 ordered event streams 처리방식 2세대 특징: distributed 환경에서 data-parallel processing engine support MapReduce style UDF(User-Defined Function) scale-out for massive out-of-order stream (toward fault-tolerant) 3세대 특징 integrate data-streaming to (serverless App, Cloud Server, Edge Computing or Hardeware specific) SQL기능을 추가하는 방식도 존재 Stream processing solution들이 채택한 기법들을 나열 및 open problem 기술 out-of-order 처리 기법, State management, Fault tolerance, load management, elasticity, reconfiguration 처리 기법 out-of-order(disorder)#A survey on the evolution of stream processing systems(2023) [이동] 에 언급된 내용을 base로 작성 effects of disorder#causes of disorder#Mechanisms for managing disorder#slack and heartbeat는 최신 솔루션에서는 잘 채택되지 않음 slack#heartbeat#low-watermark#pointmaps#watermark#Adaptive watermark#Adaptive Watermarks: A Concept Drift-based Approach (EDBT 2019) Adaptive Watermarks (Springer 2020) [통계기반] atermarking (Probabilistic Watermarking) [확률기반]">
+  <meta property="og:locale" content="ko_kr">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="item-research">
+    <meta property="article:published_time" content="2025-07-16T10:01:12+09:00">
+    <meta property="article:modified_time" content="2025-07-16T10:01:12+09:00">
+    <meta property="article:tag" content="Stream Processing">
+    <meta property="article:tag" content="Watermark">
+    <meta property="article:tag" content="Adaptive">
+    <meta property="article:tag" content="Database">
+<title>Adaptive Watermark in Stream Processing | JaeSim&#39;s Workspace</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/item-research/adaptive-watermark/">
+<link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.815dccce05da5b5b646cee4ba8343561bf99a1ca82dad0a65ad120f1ad57076e.js" integrity="sha256-gV3MzgXaW1tkbO5LqDQ1Yb&#43;ZocqC2tCmWtEg8a1XB24=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>JaeSim&#39;s Workspace</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/aboutme/" class="">About Me</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Development / 개발</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/secondpost/" class="">두번째 글입니다. 블로그 실험용 테스트 글입니다.</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/firstpost/" class="">할일</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/blogsetup/" class="">Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Item Research</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/item-research/graph/" class="">GNN</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/item-research/learned-index/" class="">Learned Index</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/item-research/learned-scheduler/" class="">Learned Scheduler</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/item-research/adaptive-watermark/" class="active">Adaptive Watermark in Stream Processing</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Reinforcement Learning / 강화학습</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-essential/" class="">1. Reinforcement Learning Essential</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-mdp/" class="">2. Markov Decision Process</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-dp/" class="">3. Planning by Dynamic Programming</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-model-free-prediction/" class="">temp. 4. Model Free Prediction</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Learned Query Optimizer</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/loger-code/" class="">LOGER 코드 분석</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/bao-code/" class="">BAO 코드 분석</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/hana-database-porting/" class="">HANA Database Porting</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Adaptive Watermark in Stream Processing</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#stream-processing"><strong>Stream Processing</strong></a></li>
+    <li><a href="#survey-paper"><strong>Survey paper</strong></a>
+      <ul>
+        <li><a href="#a-survey-on-the-evolution-of-stream-processing-systems2023"><strong>A survey on the evolution of stream processing systems(2023)</strong></a>
+          <ul>
+            <li><a href="#summary"><strong>Summary</strong></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#out-of-orderdisorder"><strong>out-of-order(disorder)</strong></a>
+      <ul>
+        <li><a href="#effects-of-disorder"><strong>effects of disorder</strong></a></li>
+        <li><a href="#causes-of-disorder"><strong>causes of disorder</strong></a></li>
+        <li><a href="#mechanisms-for-managing-disorder"><strong>Mechanisms for managing disorder</strong></a>
+          <ul>
+            <li><a href="#slack"><strong>slack</strong></a></li>
+            <li><a href="#heartbeat"><strong>heartbeat</strong></a></li>
+            <li><a href="#low-watermark"><strong>low-watermark</strong></a></li>
+            <li><a href="#pointmaps"><strong>pointmaps</strong></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#watermark"><strong>watermark</strong></a></li>
+    <li><a href="#adaptive-watermark"><strong>Adaptive watermark</strong></a></li>
+  </ul>
+</nav>
+
+  <div class="post-tags">
+    <strong>Tags:</strong>
+    
+      <a href="/tags/stream-processing" class="tag">Stream Processing</a>
+    
+      <a href="/tags/watermark" class="tag">watermark</a>
+    
+      <a href="/tags/adaptive" class="tag">adaptive</a>
+    
+      <a href="/tags/database" class="tag">Database</a>
+    
+  </div>
+
+
+
+  <div class="post-categories">
+    <strong>Categories:</strong>
+    
+      <a href="/categories/adaptive-watermark" class="category">Adaptive Watermark</a>
+    
+      <a href="/categories/stream-processing" class="category">Stream Processing</a>
+    
+  </div>
+
+
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+<article class="markdown book-post">
+  <h1 style="font-weight: bold;">
+    <span style="font-weight: normal; font-size: 0.6em; color: #888;">
+      2025-07-16 10:01 KST
+    </span>
+  </h1>
+  <div class="book-post-content"><h1 id="adaptive-watermark-관련-리서치">
+  <strong>Adaptive watermark 관련 리서치</strong>
+  <a class="anchor" href="#adaptive-watermark-%ea%b4%80%eb%a0%a8-%eb%a6%ac%ec%84%9c%ec%b9%98">#</a>
+</h1>
+<h2 id="stream-processing">
+  <strong>Stream Processing</strong>
+  <a class="anchor" href="#stream-processing">#</a>
+</h2>
+<h2 id="survey-paper">
+  <strong>Survey paper</strong>
+  <a class="anchor" href="#survey-paper">#</a>
+</h2>
+<h3 id="a-survey-on-the-evolution-of-stream-processing-systems2023">
+  <strong>A survey on the evolution of stream processing systems(2023)</strong>
+  <a class="anchor" href="#a-survey-on-the-evolution-of-stream-processing-systems2023">#</a>
+</h3>
+<h4 id="summary">
+  <strong>Summary</strong>
+  <a class="anchor" href="#summary">#</a>
+</h4>
+<ul>
+<li>VLDB23 저널, 35 page</li>
+<li><a href="https://arxiv.org/abs/2008.00842">https://arxiv.org/abs/2008.00842</a></li>
+<li>Stream Processing System(Solution)들을 1세대(92<del>04), 2세대(10</del>17), 3세대(18~)로 구분하여 설명하고, 어떤 문제점들을 해결하기 위해서 발전해온지 망라
+<ul>
+<li>1세대 -&gt; 2세대는 <code>Map Reduce</code>와 Cloud Computing의 대중화로 인해 세대를 구분함</li>
+<li>2세대 -&gt; 3세대는 serverless App, Cloud Server, Edge Computing 이나 Hardeware specific으로 변화하는 것으로 구분함 <br>
+구태여 3세대를 나누긴 했는데, 구체적으로 왜그런지 명확하게 언급되어 있진 않다.</li>
+<li>1세대 특징:
+<ol>
+<li>Complex Event Processing :CEP 처리에 중점</li>
+<li>scale-up arch 기반</li>
+<li>ordered event streams 처리방식</li>
+</ol>
+</li>
+<li>2세대 특징:
+<ol>
+<li>distributed 환경에서 data-parallel processing engine</li>
+<li>support MapReduce style UDF(User-Defined Function)</li>
+<li>scale-out for massive out-of-order stream (toward fault-tolerant)</li>
+</ol>
+</li>
+<li>3세대 특징
+<ol>
+<li>integrate data-streaming to (serverless App, Cloud Server, Edge Computing or Hardeware specific) <br>
+SQL기능을 추가하는 방식도 존재</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>Stream processing solution들이 채택한 기법들을 나열 및 open problem 기술
+<ul>
+<li>out-of-order 처리 기법, State management, Fault tolerance, load management, elasticity, reconfiguration 처리 기법</li>
+</ul>
+</li>
+</ul>
+<h2 id="out-of-orderdisorder">
+  <strong>out-of-order(disorder)</strong>
+  <a class="anchor" href="#out-of-orderdisorder">#</a>
+</h2>
+<ul>
+<li><strong>A survey on the evolution of stream processing systems(2023)</strong> <a href="#a-survey-on-the-evolution-of-stream-processing-systems2023">[이동]</a> 에 언급된 내용을 base로 작성</li>
+</ul>
+<h3 id="effects-of-disorder">
+  <strong>effects of disorder</strong>
+  <a class="anchor" href="#effects-of-disorder">#</a>
+</h3>
+<h3 id="causes-of-disorder">
+  <strong>causes of disorder</strong>
+  <a class="anchor" href="#causes-of-disorder">#</a>
+</h3>
+<h3 id="mechanisms-for-managing-disorder">
+  <strong>Mechanisms for managing disorder</strong>
+  <a class="anchor" href="#mechanisms-for-managing-disorder">#</a>
+</h3>
+<ul>
+<li><em>slack and heartbeat는 최신 솔루션에서는 잘 채택되지 않음</em></li>
+</ul>
+<h4 id="slack">
+  <strong>slack</strong>
+  <a class="anchor" href="#slack">#</a>
+</h4>
+<h4 id="heartbeat">
+  <strong>heartbeat</strong>
+  <a class="anchor" href="#heartbeat">#</a>
+</h4>
+<h4 id="low-watermark">
+  <strong>low-watermark</strong>
+  <a class="anchor" href="#low-watermark">#</a>
+</h4>
+<h4 id="pointmaps">
+  <strong>pointmaps</strong>
+  <a class="anchor" href="#pointmaps">#</a>
+</h4>
+<h2 id="watermark">
+  <strong>watermark</strong>
+  <a class="anchor" href="#watermark">#</a>
+</h2>
+<h2 id="adaptive-watermark">
+  <strong>Adaptive watermark</strong>
+  <a class="anchor" href="#adaptive-watermark">#</a>
+</h2>
+<ul>
+<li>Adaptive Watermarks: A Concept Drift-based Approach (EDBT 2019)</li>
+<li>Adaptive Watermarks (Springer 2020)  [통계기반]</li>
+<li>atermarking (Probabilistic Watermarking) [확률기반]</li>
+</ul>
+</div>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+<script src="https://giscus.app/client.js"
+        data-repo="JaeSim/JaeSim.github.io"
+        data-repo-id="R_kgDOOtVVtw"
+        data-category="Comment"
+        data-category-id="DIC_kwDOOtVVt84Cqcxg"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#stream-processing"><strong>Stream Processing</strong></a></li>
+    <li><a href="#survey-paper"><strong>Survey paper</strong></a>
+      <ul>
+        <li><a href="#a-survey-on-the-evolution-of-stream-processing-systems2023"><strong>A survey on the evolution of stream processing systems(2023)</strong></a>
+          <ul>
+            <li><a href="#summary"><strong>Summary</strong></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#out-of-orderdisorder"><strong>out-of-order(disorder)</strong></a>
+      <ul>
+        <li><a href="#effects-of-disorder"><strong>effects of disorder</strong></a></li>
+        <li><a href="#causes-of-disorder"><strong>causes of disorder</strong></a></li>
+        <li><a href="#mechanisms-for-managing-disorder"><strong>Mechanisms for managing disorder</strong></a>
+          <ul>
+            <li><a href="#slack"><strong>slack</strong></a></li>
+            <li><a href="#heartbeat"><strong>heartbeat</strong></a></li>
+            <li><a href="#low-watermark"><strong>low-watermark</strong></a></li>
+            <li><a href="#pointmaps"><strong>pointmaps</strong></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#watermark"><strong>watermark</strong></a></li>
+    <li><a href="#adaptive-watermark"><strong>Adaptive watermark</strong></a></li>
+  </ul>
+</nav>
+
+  <div class="post-tags">
+    <strong>Tags:</strong>
+    
+      <a href="/tags/stream-processing" class="tag">Stream Processing</a>
+    
+      <a href="/tags/watermark" class="tag">watermark</a>
+    
+      <a href="/tags/adaptive" class="tag">adaptive</a>
+    
+      <a href="/tags/database" class="tag">Database</a>
+    
+  </div>
+
+
+
+  <div class="post-categories">
+    <strong>Categories:</strong>
+    
+      <a href="/categories/adaptive-watermark" class="category">Adaptive Watermark</a>
+    
+      <a href="/categories/stream-processing" class="category">Stream Processing</a>
+    
+  </div>
+
+
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('pre > code[class^="language-"]').forEach(codeBlock => {
+      const pre = codeBlock.parentElement;
+
+      
+      const button = document.createElement('button');
+      button.innerText = '📋';
+      button.title = 'Copy code';
+      button.style = `
+        position: absolute;
+        top: 0.5em;
+        right: 0.5em;
+        padding: 2px 6px;
+        font-size: 0.8rem;
+        background: #f5f5f5;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+        z-index: 10;
+      `;
+
+      
+      button.addEventListener('click', () => {
+        navigator.clipboard.writeText(codeBlock.innerText);
+        button.innerText = '✔';
+        setTimeout(() => button.innerText = '📋', 1000);
+      });
+
+      
+      pre.style.position = 'relative';
+      pre.appendChild(button);
+    });
+  });
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
