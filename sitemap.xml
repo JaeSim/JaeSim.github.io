@@ -97,11 +97,6 @@
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://JaeSim.github.io/categories/adaptive-watermark/</loc>
-    <lastmod>2025-07-21T10:25:18+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
     <loc>https://JaeSim.github.io/categories/</loc>
     <lastmod>2025-07-21T10:25:18+09:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -122,12 +117,22 @@
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>https://JaeSim.github.io/tags/icde/</loc>
+    <lastmod>2025-07-21T10:25:18+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/paper/</loc>
+    <lastmod>2025-07-21T10:25:18+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://JaeSim.github.io/tags/research/</loc>
     <lastmod>2025-07-21T10:25:18+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://JaeSim.github.io/categories/stream-processing/</loc>
+    <loc>https://JaeSim.github.io/categories/reserach/</loc>
     <lastmod>2025-07-21T10:25:18+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -148,6 +153,16 @@
     <priority>0.5</priority>
   </url><url>
     <loc>https://JaeSim.github.io/tags/adaptive/</loc>
+    <lastmod>2025-07-16T10:01:12+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/categories/adaptive-watermark/</loc>
+    <lastmod>2025-07-16T10:01:12+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/categories/stream-processing/</loc>
     <lastmod>2025-07-16T10:01:12+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

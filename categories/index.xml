@@ -9,17 +9,10 @@
     <lastBuildDate>Mon, 21 Jul 2025 10:25:18 +0900</lastBuildDate>
     <atom:link href="https://JaeSim.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Adaptive Watermark</title>
-      <link>https://JaeSim.github.io/categories/adaptive-watermark/</link>
+      <title>Reserach</title>
+      <link>https://JaeSim.github.io/categories/reserach/</link>
       <pubDate>Mon, 21 Jul 2025 10:25:18 +0900</pubDate>
-      <guid>https://JaeSim.github.io/categories/adaptive-watermark/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Stream Processing</title>
-      <link>https://JaeSim.github.io/categories/stream-processing/</link>
-      <pubDate>Mon, 21 Jul 2025 10:25:18 +0900</pubDate>
-      <guid>https://JaeSim.github.io/categories/stream-processing/</guid>
+      <guid>https://JaeSim.github.io/categories/reserach/</guid>
       <description></description>
     </item>
     <item>
@@ -27,6 +20,20 @@
       <link>https://JaeSim.github.io/categories/study/</link>
       <pubDate>Mon, 21 Jul 2025 10:25:18 +0900</pubDate>
       <guid>https://JaeSim.github.io/categories/study/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Adaptive Watermark</title>
+      <link>https://JaeSim.github.io/categories/adaptive-watermark/</link>
+      <pubDate>Wed, 16 Jul 2025 10:01:12 +0900</pubDate>
+      <guid>https://JaeSim.github.io/categories/adaptive-watermark/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Stream Processing</title>
+      <link>https://JaeSim.github.io/categories/stream-processing/</link>
+      <pubDate>Wed, 16 Jul 2025 10:01:12 +0900</pubDate>
+      <guid>https://JaeSim.github.io/categories/stream-processing/</guid>
       <description></description>
     </item>
     <item>
