@@ -6,7 +6,7 @@
     <description>Recent content in Study on JaeSim&#39;s Workspace</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Mon, 21 Jul 2025 10:25:18 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 25 Jul 2025 10:03:35 +0900</lastBuildDate>
     <atom:link href="https://JaeSim.github.io/categories/study/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>GNN</title>
@@ -42,6 +42,13 @@
       <pubDate>Mon, 21 Jul 2025 10:25:18 +0900</pubDate>
       <guid>https://JaeSim.github.io/study/2025-icde/</guid>
       <description>&lt;h1 id=&#34;icde-2025-research-paper-sessions&#34;&gt;&#xD;&#xA;  &lt;strong&gt;ICDE 2025 Research Paper Sessions&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#icde-2025-research-paper-sessions&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://ieee-icde.org/2025/research-papers/&#34;&gt;https://ieee-icde.org/2025/research-papers/&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;각 논문들의 abstract 만 파악하여 나열&lt;/li&gt;&#xA;&lt;li&gt;작성자 기준 관심 분야가 아닌 것은 일부 skip&lt;/li&gt;&#xA;&lt;li&gt;범주&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;details &gt;&lt;summary&gt;session category&lt;/summary&gt;&#xD;&#xA;  &lt;div class=&#34;markdown-inner&#34;&gt;&#xD;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;AI-based DB Tuning, Benchmarks and Performances&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Data Mining and Knowledge Discovery&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Explainability, Fairness, and Trust in Data Systems and Analysis&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Distributed Ledgers and Blockchains&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Query Processing, Indexing, and Optimization&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Distributed, Parallel and P2P Data Management&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Graph Learning and Mining&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Information Integration and Data Quality&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Cloud Data Management&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>2025 VLDB (Not Completed)</title>
+      <link>https://JaeSim.github.io/study/2025-vldb/</link>
+      <pubDate>Fri, 25 Jul 2025 10:03:35 +0900</pubDate>
+      <guid>https://JaeSim.github.io/study/2025-vldb/</guid>
+      <description>&lt;h1 id=&#34;vldb-2025-research-paper-sessions&#34;&gt;&#xD;&#xA;  &lt;strong&gt;VLDB 2025 Research Paper Sessions&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#vldb-2025-research-paper-sessions&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://dblp.org/db/journals/pvldb/pvldb18.html&#34;&gt;https://dblp.org/db/journals/pvldb/pvldb18.html&lt;/a&gt; 에서 Volume 18, Number 5, January 2025 ~ ?&lt;/li&gt;&#xA;&lt;li&gt;각 논문들의 abstract 만 파악하여 나열&lt;/li&gt;&#xA;&lt;li&gt;작성자 기준 관심 분야가 아닌 것은 일부 skip&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;detail&#34;&gt;&#xD;&#xA;  &lt;strong&gt;Detail&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#detail&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Dandelion: Smaller Clusters, Bigger Speeds - Distributed Transactions Redefined&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;CXL, locality, key-value-store:KVS&lt;/li&gt;&#xA;&lt;li&gt;기존에는 소수의 서버에 많은 메모리를 탑재한 in-memory KVS 구축에 locality 관련 연구 미습&lt;/li&gt;&#xA;&lt;li&gt;여러 요청을 하나의 네트워크 패킷에 묶어전달하고, 배치로 전달하고, 백업 노드에 강한 일관성 로컬 읽기를 허용하는 솔루션&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Esc: An Early-Stopping Checker for Budget-aware Index Tuning&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
