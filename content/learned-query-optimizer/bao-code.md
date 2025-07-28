@@ -60,6 +60,8 @@ conda create -n bao python=3.8 -y
 conda activate bao
 pip3 install scikit-learn numpy joblib
 pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1 -f https://download.pytorch.org/whl/torch_stable.html
+# for mssql
+pip install pyodbc
 ```
 
 - bao_server 시작
