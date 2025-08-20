@@ -68,7 +68,7 @@ postgre 시작 (balsa github) 및 확인">
 <link rel="canonical" href="https://JaeSim.github.io/learned-query-optimizer/bao-code/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.cc27a1bf3d737dc0ee3336b9f8daf39448caac099e410e62d1e8f2e6ff20c8f2.js" integrity="sha256-zCehvz1zfcDuMza5&#43;NrzlEjKrAmeQQ5i0ejy5v8gyPI=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.12a831f1344da924726573a85c4b95dbbe58d3a0686766569d11c5b430712db8.js" integrity="sha256-Eqgx8TRNqSRyZXOoXEuV275Y06BoZ2ZWnRHFtDBxLbg=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -135,19 +135,6 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/development/secondpost/" class="">두번째 글입니다. 블로그 실험용 테스트 글입니다.</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/development/firstpost/" class="">할일</a>
   
 
@@ -179,7 +166,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <span>Study</span>
+    <span>Research Study</span>
   
 
           
@@ -192,7 +179,20 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/study/graph/" class="">GNN</a>
+    <span>Brief</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/brief/graph/" class="">GNN</a>
   
 
         </li>
@@ -205,7 +205,38 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/study/learned-index/" class="">Learned Index</a>
+    <a href="/research-study/brief/llm-build/" class="">LLM Build</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>More deep</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/more-deep/learned-index/" class="">Learned Index</a>
   
 
         </li>
@@ -218,7 +249,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/study/learned-scheduler/" class="">Learned Scheduler</a>
+    <a href="/research-study/more-deep/learned-scheduler/" class="">Learned Scheduler</a>
   
 
         </li>
@@ -231,7 +262,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/study/adaptive-watermark/" class="">Adaptive Watermark in Stream Processing</a>
+    <a href="/research-study/more-deep/adaptive-watermark/" class="">Adaptive Watermark in Stream Processing</a>
   
 
         </li>
@@ -244,7 +275,38 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/study/2025-icde/" class="">2025 ICDE</a>
+    <a href="/research-study/more-deep/vector-db/" class="">Vector DB (Not Completed)</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Paper Trend</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/paper-trend/2025-icde/" class="">2025 ICDE</a>
   
 
         </li>
@@ -257,7 +319,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/study/2025-vldb/" class="">2025 VLDB (Not Completed)</a>
+    <a href="/research-study/paper-trend/2025-vldb/" class="">2025 VLDB (Not Completed)</a>
   
 
         </li>
@@ -270,7 +332,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/study/2025-edbt/" class="">2025 EDBT</a>
+    <a href="/research-study/paper-trend/2025-edbt/" class="">2025 EDBT</a>
   
 
         </li>
@@ -283,8 +345,13 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/study/2025-sigmod/" class="">2025 SIGMOD</a>
+    <a href="/research-study/paper-trend/2025-sigmod/" class="">2025 SIGMOD</a>
   
+
+        </li>
+      
+    
+  </ul>
 
         </li>
       
@@ -482,7 +549,9 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#학습-범위"><strong>학습 범위</strong></a></li>
         <li><a href="#pg_"><strong>pg_extension으로 connector layer(가칭) 구현</strong></a></li>
         <li><a href="#모델-및-cli-등은-python으로-구현"><strong>모델 및 cli 등은 python으로 구현</strong></a></li>
+        <li><a href="#json-형태의-message-interface"><strong>json 형태의 message interface</strong></a></li>
         <li><a href="#shared-buffer-활용"><strong>Shared Buffer 활용</strong></a></li>
+        <li><a href="#bandit-arm-5-짜리-문제로-치환"><strong>bandit arm 5 짜리 문제로 치환</strong></a></li>
       </ul>
     </li>
   </ul>
@@ -652,7 +721,19 @@ shared_preload_libraries = &#39;pg_bao&#39;
 </ul>
 </li>
 </ul>
-<h3 id="shared-buffer-활용">
+<h3 id="json-형태의-message-interface">
+  <strong>json 형태의 message interface</strong>
+  <a class="anchor" href="#json-%ed%98%95%ed%83%9c%ec%9d%98-message-interface">#</a>
+</h3>
+<ul>
+<li>json을 보내기 전에 해당 message가 어떤 meesage type인지를 보내고, 마지막에 terminate_messgae를 보낸다</li>
+<li>결국 START_XXXX_MESSAGE, JSON_CONTENT, TERMIMNAL_MESSAGE 로 구성되어 있고, TERMIAL_MESSAGE 를 받을때까지 que에 저장한뒤 수신시 처리한다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>START_QUERY_MESSAGE <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;{</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">type</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">query</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>START_FEEDBACK_MESSAGE <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;{</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">type</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">reward</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>START_PREDICTION_MESSAGE <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;{</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">type</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">predict</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>TERMINAL_MESSAGE <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;{</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">final</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: true}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span></code></pre></div><h3 id="shared-buffer-활용">
   <strong>Shared Buffer 활용</strong>
   <a class="anchor" href="#shared-buffer-%ed%99%9c%ec%9a%a9">#</a>
 </h3>
@@ -693,7 +774,78 @@ shared_preload_libraries = &#39;pg_bao&#39;
 </span></span><span style="display:flex;"><span> }
 </span></span></code></pre></div></li>
 </ul>
-</div>
+<h3 id="bandit-arm-5-짜리-문제로-치환">
+  <strong>bandit arm 5 짜리 문제로 치환</strong>
+  <a class="anchor" href="#bandit-arm-5-%ec%a7%9c%eb%a6%ac-%eb%ac%b8%ec%a0%9c%eb%a1%9c-%ec%b9%98%ed%99%98">#</a>
+</h3>
+<ul>
+<li>BAO 는 학습범위의 힌트들에 대해서 2^6 개의 모든 조합에 대해서 search space로 두지 않고, <br>
+<em><strong>기본적으로 5개의 조합에 대해서만 검사한다</strong></em></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#define BAO_MAX_ARMS 26
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Each Bao config variable is linked to a PostgreSQL session variable.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// See the string docs provided to the PG functions in main.c.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">bool</span> enable_bao <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">bool</span> enable_bao_rewards <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">bool</span> enable_bao_selection <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> bao_host <span style="color:#f92672">=</span> NULL;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> bao_port <span style="color:#f92672">=</span> <span style="color:#ae81ff">9381</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> bao_num_arms <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">bool</span> bao_include_json_in_explain <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endif
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>...
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">set_arm_options</span>(<span style="color:#66d9ef">int</span> arm) {
+</span></span><span style="display:flex;"><span> enable_hashjoin <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span> enable_mergejoin <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span> enable_nestloop <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span> enable_indexscan <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span> enable_seqscan <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span> enable_indexonlyscan <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">switch</span> (arm) {
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>   enable_hashjoin <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>   enable_indexscan <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>   enable_mergejoin <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>   enable_nestloop <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>   enable_seqscan <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>   enable_indexonlyscan <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span> 
+</span></span><span style="display:flex;"><span>   enable_hashjoin <span style="color:#f92672">=</span> true; 
+</span></span><span style="display:flex;"><span>   enable_indexonlyscan <span style="color:#f92672">=</span> true; 
+</span></span><span style="display:flex;"><span>   enable_indexscan <span style="color:#f92672">=</span> true; 
+</span></span><span style="display:flex;"><span>   enable_mergejoin <span style="color:#f92672">=</span> true; 
+</span></span><span style="display:flex;"><span>   enable_seqscan <span style="color:#f92672">=</span> true; 
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">:</span> 
+</span></span><span style="display:flex;"><span>   enable_hashjoin <span style="color:#f92672">=</span> true; 
+</span></span><span style="display:flex;"><span>   enable_indexonlyscan <span style="color:#f92672">=</span> true; 
+</span></span><span style="display:flex;"><span>   enable_nestloop <span style="color:#f92672">=</span> true; 
+</span></span><span style="display:flex;"><span>   enable_seqscan <span style="color:#f92672">=</span> true; 
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">3</span><span style="color:#f92672">:</span> 
+</span></span><span style="display:flex;"><span>   enable_hashjoin <span style="color:#f92672">=</span> true; 
+</span></span><span style="display:flex;"><span>   enable_indexonlyscan <span style="color:#f92672">=</span> true; 
+</span></span><span style="display:flex;"><span>   enable_seqscan <span style="color:#f92672">=</span> true; 
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">:</span> 
+</span></span><span style="display:flex;"><span>   enable_hashjoin <span style="color:#f92672">=</span> true; 
+</span></span><span style="display:flex;"><span>   enable_indexonlyscan <span style="color:#f92672">=</span> true; 
+</span></span><span style="display:flex;"><span>   enable_indexscan <span style="color:#f92672">=</span> true; 
+</span></span><span style="display:flex;"><span>   enable_nestloop <span style="color:#f92672">=</span> true; 
+</span></span><span style="display:flex;"><span>   enable_seqscan <span style="color:#f92672">=</span> true; 
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">5</span><span style="color:#f92672">:</span> 
+</span></span><span style="display:flex;"><span>   enable_hashjoin <span style="color:#f92672">=</span> true; 
+</span></span><span style="display:flex;"><span>   enable_indexonlyscan <span style="color:#f92672">=</span> true; 
+</span></span><span style="display:flex;"><span>   enable_mergejoin <span style="color:#f92672">=</span> true; 
+</span></span><span style="display:flex;"><span>   enable_nestloop <span style="color:#f92672">=</span> true; 
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>   ...
+</span></span></code></pre></div></div>
 </article>
  
       
@@ -760,7 +912,9 @@ shared_preload_libraries = &#39;pg_bao&#39;
         <li><a href="#학습-범위"><strong>학습 범위</strong></a></li>
         <li><a href="#pg_"><strong>pg_extension으로 connector layer(가칭) 구현</strong></a></li>
         <li><a href="#모델-및-cli-등은-python으로-구현"><strong>모델 및 cli 등은 python으로 구현</strong></a></li>
+        <li><a href="#json-형태의-message-interface"><strong>json 형태의 message interface</strong></a></li>
         <li><a href="#shared-buffer-활용"><strong>Shared Buffer 활용</strong></a></li>
+        <li><a href="#bandit-arm-5-짜리-문제로-치환"><strong>bandit arm 5 짜리 문제로 치환</strong></a></li>
       </ul>
     </li>
   </ul>

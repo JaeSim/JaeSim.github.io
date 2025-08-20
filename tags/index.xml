@@ -6,47 +6,75 @@
     <description>Recent content in Tags on JaeSim&#39;s Workspace</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Thu, 31 Jul 2025 09:45:54 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 06 Aug 2025 10:45:46 +0900</lastBuildDate>
     <atom:link href="https://JaeSim.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Conferenece</title>
-      <link>https://JaeSim.github.io/tags/conferenece/</link>
-      <pubDate>Thu, 31 Jul 2025 09:45:54 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/conferenece/</guid>
+      <title>ANN</title>
+      <link>https://JaeSim.github.io/tags/ann/</link>
+      <pubDate>Wed, 06 Aug 2025 10:45:46 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/ann/</guid>
       <description></description>
     </item>
     <item>
       <title>Database</title>
       <link>https://JaeSim.github.io/tags/database/</link>
-      <pubDate>Thu, 31 Jul 2025 09:45:54 +0900</pubDate>
+      <pubDate>Wed, 06 Aug 2025 10:45:46 +0900</pubDate>
       <guid>https://JaeSim.github.io/tags/database/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Embedding</title>
+      <link>https://JaeSim.github.io/tags/embedding/</link>
+      <pubDate>Wed, 06 Aug 2025 10:45:46 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/embedding/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Similarity Search</title>
+      <link>https://JaeSim.github.io/tags/similarity-search/</link>
+      <pubDate>Wed, 06 Aug 2025 10:45:46 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/similarity-search/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vector</title>
+      <link>https://JaeSim.github.io/tags/vector/</link>
+      <pubDate>Wed, 06 Aug 2025 10:45:46 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/vector/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Conferenece</title>
+      <link>https://JaeSim.github.io/tags/conferenece/</link>
+      <pubDate>Mon, 04 Aug 2025 09:44:51 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/conferenece/</guid>
       <description></description>
     </item>
     <item>
       <title>Paper</title>
       <link>https://JaeSim.github.io/tags/paper/</link>
-      <pubDate>Thu, 31 Jul 2025 09:45:54 +0900</pubDate>
+      <pubDate>Mon, 04 Aug 2025 09:44:51 +0900</pubDate>
       <guid>https://JaeSim.github.io/tags/paper/</guid>
       <description></description>
     </item>
     <item>
       <title>Research</title>
       <link>https://JaeSim.github.io/tags/research/</link>
-      <pubDate>Thu, 31 Jul 2025 09:45:54 +0900</pubDate>
+      <pubDate>Mon, 04 Aug 2025 09:44:51 +0900</pubDate>
       <guid>https://JaeSim.github.io/tags/research/</guid>
       <description></description>
     </item>
     <item>
       <title>SIGMOD</title>
       <link>https://JaeSim.github.io/tags/sigmod/</link>
-      <pubDate>Thu, 31 Jul 2025 09:45:54 +0900</pubDate>
+      <pubDate>Mon, 04 Aug 2025 09:44:51 +0900</pubDate>
       <guid>https://JaeSim.github.io/tags/sigmod/</guid>
       <description></description>
     </item>
     <item>
       <title>Survey</title>
       <link>https://JaeSim.github.io/tags/survey/</link>
-      <pubDate>Thu, 31 Jul 2025 09:45:54 +0900</pubDate>
+      <pubDate>Mon, 04 Aug 2025 09:44:51 +0900</pubDate>
       <guid>https://JaeSim.github.io/tags/survey/</guid>
       <description></description>
     </item>
@@ -321,20 +349,6 @@
       <link>https://JaeSim.github.io/tags/to-do/</link>
       <pubDate>Wed, 21 May 2025 10:26:34 +0900</pubDate>
       <guid>https://JaeSim.github.io/tags/to-do/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Debug</title>
-      <link>https://JaeSim.github.io/tags/debug/</link>
-      <pubDate>Tue, 20 May 2025 16:53:50 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/debug/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Test</title>
-      <link>https://JaeSim.github.io/tags/test/</link>
-      <pubDate>Tue, 20 May 2025 16:53:50 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/test/</guid>
       <description></description>
     </item>
   </channel>

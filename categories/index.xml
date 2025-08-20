@@ -6,20 +6,27 @@
     <description>Recent content in Categories on JaeSim&#39;s Workspace</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Thu, 31 Jul 2025 09:45:54 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 06 Aug 2025 10:45:46 +0900</lastBuildDate>
     <atom:link href="https://JaeSim.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Reserach</title>
-      <link>https://JaeSim.github.io/categories/reserach/</link>
-      <pubDate>Thu, 31 Jul 2025 09:45:54 +0900</pubDate>
-      <guid>https://JaeSim.github.io/categories/reserach/</guid>
-      <description></description>
-    </item>
     <item>
       <title>Study</title>
       <link>https://JaeSim.github.io/categories/study/</link>
-      <pubDate>Thu, 31 Jul 2025 09:45:54 +0900</pubDate>
+      <pubDate>Wed, 06 Aug 2025 10:45:46 +0900</pubDate>
       <guid>https://JaeSim.github.io/categories/study/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vector Database</title>
+      <link>https://JaeSim.github.io/categories/vector-database/</link>
+      <pubDate>Wed, 06 Aug 2025 10:45:46 +0900</pubDate>
+      <guid>https://JaeSim.github.io/categories/vector-database/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Reserach</title>
+      <link>https://JaeSim.github.io/categories/reserach/</link>
+      <pubDate>Mon, 04 Aug 2025 09:44:51 +0900</pubDate>
+      <guid>https://JaeSim.github.io/categories/reserach/</guid>
       <description></description>
     </item>
     <item>

@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="ko-kr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
+  LLM 을 바닥부터 만들기 를 보고 나서 요약
+  #
+
+
+  영상 내용
+  #
+
+
+LLM을 만들때는 1) 사전훈련(pretraining), 2) 미세조정(fine-tuning) 동작을 수행
+파인튜닝은 특별한 데이터셋이 필요함.
+사전 훈련된 녀석에게 내가 가진 데이터셋을 원래 사전학습에 사용했던 데이터셋 모양으로 만들어서 다시 추가 학습을 진행하는것
+따라서 이전에 잘하는 것이 망가질 수 있음
+
+
+  느낀점
+  #
+
+
+AI를 사용하는 능력 보다는 AI agent를 만드는 능력이 필요
+
+detail하게는 몰라도 되지만, 자신의 도메인에 붙일 수 있는 실무 능력이 필요
+fine-tuning 능력이 필요
+공부하자..
+
+
+
+
+  참조
+  #
+
+https://www.youtube.com/watch?v=osv2csoHVAo">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/study/brief/llm-build/">
+  <meta property="og:site_name" content="JaeSim&#39;s Workspace">
+  <meta property="og:title" content="LLM Build">
+  <meta property="og:description" content="LLM 을 바닥부터 만들기 를 보고 나서 요약#영상 내용#LLM을 만들때는 1) 사전훈련(pretraining), 2) 미세조정(fine-tuning) 동작을 수행 파인튜닝은 특별한 데이터셋이 필요함. 사전 훈련된 녀석에게 내가 가진 데이터셋을 원래 사전학습에 사용했던 데이터셋 모양으로 만들어서 다시 추가 학습을 진행하는것 따라서 이전에 잘하는 것이 망가질 수 있음 느낀점#AI를 사용하는 능력 보다는 AI agent를 만드는 능력이 필요 detail하게는 몰라도 되지만, 자신의 도메인에 붙일 수 있는 실무 능력이 필요 fine-tuning 능력이 필요 공부하자.. 참조#https://www.youtube.com/watch?v=osv2csoHVAo">
+  <meta property="og:locale" content="ko_kr">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="study">
+    <meta property="article:published_time" content="2025-08-04T09:44:51+09:00">
+    <meta property="article:modified_time" content="2025-08-04T09:44:51+09:00">
+    <meta property="article:tag" content="Conferenece">
+    <meta property="article:tag" content="Paper">
+    <meta property="article:tag" content="Research">
+    <meta property="article:tag" content="Survey">
+    <meta property="article:tag" content="Database">
+    <meta property="article:tag" content="SIGMOD">
+<title>LLM Build | JaeSim&#39;s Workspace</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="https://JaeSim.github.io/study/brief/llm-build/">
+<link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.9da20a25a0594ae0499618fb3fb5c89a89c5699e600e015450017b465b5e2c51.js" integrity="sha256-naIKJaBZSuBJlhj7P7XImonFaZ5gDgFUUAF7RlteLFE=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>JaeSim&#39;s Workspace</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Development / 개발</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/firstpost/" class="">할일</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/blogsetup/" class="">Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Research Study</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Brief</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/study/brief/graph/" class="">GNN</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/study/brief/llm-build/" class="active">LLM Build</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>More deep</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/study/more-deep/learned-index/" class="">Learned Index</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/study/more-deep/learned-scheduler/" class="">Learned Scheduler</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/study/more-deep/adaptive-watermark/" class="">Adaptive Watermark in Stream Processing</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Paper Trend</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/study/paper-trend/2025-icde/" class="">2025 ICDE</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/study/paper-trend/2025-vldb/" class="">2025 VLDB (Not Completed)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/study/paper-trend/2025-edbt/" class="">2025 EDBT</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/study/paper-trend/2025-sigmod/" class="">2025 SIGMOD</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Reinforcement Learning / 강화학습</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-essential/" class="">1. Reinforcement Learning Essential</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-mdp/" class="">2. Markov Decision Process</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-dp/" class="">3. Planning by Dynamic Programming</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-model-free-prediction/" class="">temp. 4. Model Free Prediction</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Learned Query Optimizer</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/loger-code/" class="">LOGER 코드 분석</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/bao-code/" class="">BAO 코드 분석</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/hana-database-porting/" class="">HANA Database Porting</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>LLM Build</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#영상-내용"><strong>영상 내용</strong></a></li>
+    <li><a href="#느낀점"><strong>느낀점</strong></a>
+      <ul>
+        <li><a href="#참조"><strong>참조</strong></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+  <div class="post-tags">
+    <strong>Tags:</strong>
+    
+      <a href="/tags/conferenece" class="tag">Conferenece</a>
+    
+      <a href="/tags/paper" class="tag">Paper</a>
+    
+      <a href="/tags/research" class="tag">Research</a>
+    
+      <a href="/tags/survey" class="tag">Survey</a>
+    
+      <a href="/tags/database" class="tag">Database</a>
+    
+      <a href="/tags/sigmod" class="tag">SIGMOD</a>
+    
+  </div>
+
+
+
+  <div class="post-categories">
+    <strong>Categories:</strong>
+    
+      <a href="/categories/reserach" class="category">Reserach</a>
+    
+      <a href="/categories/study" class="category">Study</a>
+    
+  </div>
+
+
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+<article class="markdown book-post">
+  <h1 style="font-weight: bold;">
+    <span style="font-weight: normal; font-size: 0.6em; color: #888;">
+      2025-08-04 09:44 KST
+    </span>
+  </h1>
+  <div class="book-post-content"><h1 id="llm-을-바닥부터-만들기-를-보고-나서-요약">
+  <strong>LLM 을 바닥부터 만들기 를 보고 나서 요약</strong>
+  <a class="anchor" href="#llm-%ec%9d%84-%eb%b0%94%eb%8b%a5%eb%b6%80%ed%84%b0-%eb%a7%8c%eb%93%a4%ea%b8%b0-%eb%a5%bc-%eb%b3%b4%ea%b3%a0-%eb%82%98%ec%84%9c-%ec%9a%94%ec%95%bd">#</a>
+</h1>
+<h2 id="영상-내용">
+  <strong>영상 내용</strong>
+  <a class="anchor" href="#%ec%98%81%ec%83%81-%eb%82%b4%ec%9a%a9">#</a>
+</h2>
+<ul>
+<li>LLM을 만들때는 1) 사전훈련(pretraining), 2) 미세조정(fine-tuning) 동작을 수행</li>
+<li>파인튜닝은 특별한 데이터셋이 필요함.</li>
+<li>사전 훈련된 녀석에게 내가 가진 데이터셋을 원래 사전학습에 사용했던 데이터셋 모양으로 만들어서 다시 추가 학습을 진행하는것</li>
+<li>따라서 이전에 잘하는 것이 망가질 수 있음</li>
+</ul>
+<h2 id="느낀점">
+  <strong>느낀점</strong>
+  <a class="anchor" href="#%eb%8a%90%eb%82%80%ec%a0%90">#</a>
+</h2>
+<ul>
+<li><code>AI를 사용하는 능력</code> 보다는 <code>AI agent를 만드는 능력</code>이 필요
+<ul>
+<li>detail하게는 몰라도 되지만, 자신의 도메인에 붙일 수 있는 실무 능력이 필요</li>
+<li>fine-tuning 능력이 필요</li>
+<li>공부하자..</li>
+</ul>
+</li>
+</ul>
+<h3 id="참조">
+  <strong>참조</strong>
+  <a class="anchor" href="#%ec%b0%b8%ec%a1%b0">#</a>
+</h3>
+<p><a href="https://www.youtube.com/watch?v=osv2csoHVAo">https://www.youtube.com/watch?v=osv2csoHVAo</a></p>
+</div>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+<script src="https://giscus.app/client.js"
+        data-repo="JaeSim/JaeSim.github.io"
+        data-repo-id="R_kgDOOtVVtw"
+        data-category="Comment"
+        data-category-id="DIC_kwDOOtVVt84Cqcxg"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#영상-내용"><strong>영상 내용</strong></a></li>
+    <li><a href="#느낀점"><strong>느낀점</strong></a>
+      <ul>
+        <li><a href="#참조"><strong>참조</strong></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+  <div class="post-tags">
+    <strong>Tags:</strong>
+    
+      <a href="/tags/conferenece" class="tag">Conferenece</a>
+    
+      <a href="/tags/paper" class="tag">Paper</a>
+    
+      <a href="/tags/research" class="tag">Research</a>
+    
+      <a href="/tags/survey" class="tag">Survey</a>
+    
+      <a href="/tags/database" class="tag">Database</a>
+    
+      <a href="/tags/sigmod" class="tag">SIGMOD</a>
+    
+  </div>
+
+
+
+  <div class="post-categories">
+    <strong>Categories:</strong>
+    
+      <a href="/categories/reserach" class="category">Reserach</a>
+    
+      <a href="/categories/study" class="category">Study</a>
+    
+  </div>
+
+
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('pre > code[class^="language-"]').forEach(codeBlock => {
+      const pre = codeBlock.parentElement;
+
+      
+      const button = document.createElement('button');
+      button.innerText = '📋';
+      button.title = 'Copy code';
+      button.style = `
+        position: absolute;
+        top: 0.5em;
+        right: 0.5em;
+        padding: 2px 6px;
+        font-size: 0.8rem;
+        background: #f5f5f5;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+        z-index: 10;
+      `;
+
+      
+      button.addEventListener('click', () => {
+        navigator.clipboard.writeText(codeBlock.innerText);
+        button.innerText = '✔';
+        setTimeout(() => button.innerText = '📋', 1000);
+      });
+
+      
+      pre.style.position = 'relative';
+      pre.appendChild(button);
+    });
+  });
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

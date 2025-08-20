@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="ko-kr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
+  EDBT 2025 Research Track
+  #
+
+
+https://edbticdt2025.upc.edu/?contents=accepted-papers-research-track.html
+각 논문들의 abstract 만 파악하여 나열
+작성자 기준 관심 분야가 아닌 것은 일부 skip
+
+
+  Summary
+  #
+
+
+  느낀점
+  #
+
+
+여러 분야에 대한 관심도가 고루 분포되어 있음 (like VLDB)
+experiment 관련 항목이 따로 있어, dataset or benchmark만 제시해도 accept됨
+좀더 실용적인 느낌 (vs ICDE).
+
+
+  Interested Papers
+  #
+
+
+
+Pythia: A Neural Model for Data Prefetching
+
+ML for System, buffer management, page access
+RDBMS의 버퍼 관리 모듈 최적화는 많이 연구되지 않음. 페이지 접근 예측하는것은 SQL이 비선형적이고, 정형화되지 않은 패턴을 가져 어려움
+적절한 경우에만 예측및 프리패칭을 수행하고, 아닐경우 기본 알고리즘을 수행해서, 버퍼 관리에 머신러닝이 적용된 솔루션 제시
+흥미로운 or 신기한
+
+
+
+Efficiently Indexing Large Data on GPUs with Fast Interconnects">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/study/paper-trend/2025-edbt/">
+  <meta property="og:site_name" content="JaeSim&#39;s Workspace">
+  <meta property="og:title" content="2025 EDBT">
+  <meta property="og:description" content="EDBT 2025 Research Track#https://edbticdt2025.upc.edu/?contents=accepted-papers-research-track.html 각 논문들의 abstract 만 파악하여 나열 작성자 기준 관심 분야가 아닌 것은 일부 skip Summary#느낀점#여러 분야에 대한 관심도가 고루 분포되어 있음 (like VLDB) experiment 관련 항목이 따로 있어, dataset or benchmark만 제시해도 accept됨 좀더 실용적인 느낌 (vs ICDE). Interested Papers#Pythia: A Neural Model for Data Prefetching
+ML for System, buffer management, page access RDBMS의 버퍼 관리 모듈 최적화는 많이 연구되지 않음. 페이지 접근 예측하는것은 SQL이 비선형적이고, 정형화되지 않은 패턴을 가져 어려움 적절한 경우에만 예측및 프리패칭을 수행하고, 아닐경우 기본 알고리즘을 수행해서, 버퍼 관리에 머신러닝이 적용된 솔루션 제시 흥미로운 or 신기한 Efficiently Indexing Large Data on GPUs with Fast Interconnects">
+  <meta property="og:locale" content="ko_kr">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="study">
+    <meta property="article:published_time" content="2025-07-28T14:03:06+09:00">
+    <meta property="article:modified_time" content="2025-07-28T14:03:06+09:00">
+    <meta property="article:tag" content="Conferenece">
+    <meta property="article:tag" content="Paper">
+    <meta property="article:tag" content="Research">
+    <meta property="article:tag" content="Survey">
+    <meta property="article:tag" content="Database">
+    <meta property="article:tag" content="EDBT">
+<title>2025 EDBT | JaeSim&#39;s Workspace</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="https://JaeSim.github.io/study/paper-trend/2025-edbt/">
+<link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.9da20a25a0594ae0499618fb3fb5c89a89c5699e600e015450017b465b5e2c51.js" integrity="sha256-naIKJaBZSuBJlhj7P7XImonFaZ5gDgFUUAF7RlteLFE=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>JaeSim&#39;s Workspace</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Development / 개발</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/firstpost/" class="">할일</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/blogsetup/" class="">Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Research Study</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Brief</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/study/brief/graph/" class="">GNN</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/study/brief/llm-build/" class="">LLM Build</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>More deep</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/study/more-deep/learned-index/" class="">Learned Index</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/study/more-deep/learned-scheduler/" class="">Learned Scheduler</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/study/more-deep/adaptive-watermark/" class="">Adaptive Watermark in Stream Processing</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Paper Trend</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/study/paper-trend/2025-icde/" class="">2025 ICDE</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/study/paper-trend/2025-vldb/" class="">2025 VLDB (Not Completed)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/study/paper-trend/2025-edbt/" class="active">2025 EDBT</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/study/paper-trend/2025-sigmod/" class="">2025 SIGMOD</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Reinforcement Learning / 강화학습</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-essential/" class="">1. Reinforcement Learning Essential</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-mdp/" class="">2. Markov Decision Process</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-dp/" class="">3. Planning by Dynamic Programming</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-model-free-prediction/" class="">temp. 4. Model Free Prediction</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Learned Query Optimizer</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/loger-code/" class="">LOGER 코드 분석</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/bao-code/" class="">BAO 코드 분석</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/hana-database-porting/" class="">HANA Database Porting</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>2025 EDBT</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#summary"><strong>Summary</strong></a>
+      <ul>
+        <li><a href="#느낀점"><strong>느낀점</strong></a></li>
+        <li><a href="#interested-papers"><strong>Interested Papers</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#detail"><strong>Detail</strong></a></li>
+  </ul>
+</nav>
+
+  <div class="post-tags">
+    <strong>Tags:</strong>
+    
+      <a href="/tags/conferenece" class="tag">Conferenece</a>
+    
+      <a href="/tags/paper" class="tag">Paper</a>
+    
+      <a href="/tags/research" class="tag">Research</a>
+    
+      <a href="/tags/survey" class="tag">Survey</a>
+    
+      <a href="/tags/database" class="tag">Database</a>
+    
+      <a href="/tags/edbt" class="tag">EDBT</a>
+    
+  </div>
+
+
+
+  <div class="post-categories">
+    <strong>Categories:</strong>
+    
+      <a href="/categories/reserach" class="category">Reserach</a>
+    
+      <a href="/categories/study" class="category">Study</a>
+    
+  </div>
+
+
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+<article class="markdown book-post">
+  <h1 style="font-weight: bold;">
+    <span style="font-weight: normal; font-size: 0.6em; color: #888;">
+      2025-07-28 14:03 KST
+    </span>
+  </h1>
+  <div class="book-post-content"><h1 id="edbt-2025-research-track">
+  <strong>EDBT 2025 Research Track</strong>
+  <a class="anchor" href="#edbt-2025-research-track">#</a>
+</h1>
+<ul>
+<li><a href="https://edbticdt2025.upc.edu/?contents=accepted-papers-research-track.html">https://edbticdt2025.upc.edu/?contents=accepted-papers-research-track.html</a></li>
+<li>각 논문들의 abstract 만 파악하여 나열</li>
+<li>작성자 기준 관심 분야가 아닌 것은 일부 skip</li>
+</ul>
+<h2 id="summary">
+  <strong>Summary</strong>
+  <a class="anchor" href="#summary">#</a>
+</h2>
+<h3 id="느낀점">
+  <strong>느낀점</strong>
+  <a class="anchor" href="#%eb%8a%90%eb%82%80%ec%a0%90">#</a>
+</h3>
+<ul>
+<li>여러 분야에 대한 관심도가 고루 분포되어 있음 (like VLDB)</li>
+<li>experiment 관련 항목이 따로 있어, dataset or benchmark만 제시해도 accept됨</li>
+<li>좀더 실용적인 느낌 (vs ICDE).</li>
+</ul>
+<h3 id="interested-papers">
+  <strong>Interested Papers</strong>
+  <a class="anchor" href="#interested-papers">#</a>
+</h3>
+<ul>
+<li>
+<p>Pythia: A Neural Model for Data Prefetching</p>
+<ul>
+<li>ML for System, buffer management, page access</li>
+<li>RDBMS의 버퍼 관리 모듈 최적화는 많이 연구되지 않음. 페이지 접근 예측하는것은 SQL이 비선형적이고, 정형화되지 않은 패턴을 가져 어려움</li>
+<li>적절한 경우에만 예측및 프리패칭을 수행하고, 아닐경우 기본 알고리즘을 수행해서, 버퍼 관리에 머신러닝이 적용된 솔루션 제시</li>
+<li><strong>흥미로운 or 신기한</strong></li>
+</ul>
+</li>
+<li>
+<p>Efficiently Indexing Large Data on GPUs with Fast Interconnects</p>
+<ul>
+<li>index, gpu, fast interconnects,</li>
+<li>기존 DBMS에서는 CPU가 조율하는 일고라 데이터 전송방식을 사용하는데, 쿼리선택도에 따라 대역폭 낭비 문제가 있음.</li>
+<li>fast interconnects를 사용하는 환경에서 기존 인덱스 구조를 분석하고, 일반화가 가능한 윈도우 기반 파티셔닝 기법 제안</li>
+<li><strong>흥미로운 or 신기한</strong></li>
+</ul>
+</li>
+<li>
+<p>Learned Indexes with Distribution Smoothing via Virtual Points</p>
+<ul>
+<li>learend index, more learnable, virtual points</li>
+<li>learned index는 계층구조로 모델링이 어려운 일부 키영역이 계층 깊은 수준에 위치하게되는 문제가 있음</li>
+<li>가상 포인트를 삽입하여 키집합의 분포를 더 학습가능하게 만드는 방법을 제시</li>
+<li><strong>흥미로운 or 신기한</strong></li>
+</ul>
+</li>
+<li>
+<p>DBCopilot: Natural Language Querying over Massive Databases via Schema Routing</p>
+<ul>
+<li>NL-to-SQL, LLM, copilot, schema-agnostic</li>
+<li>기존 방식들은 Semantic Mismatch, Shema Scalability, Schema Complexity 문제가 있음</li>
+<li>schema routing과 SQL generation 두단계로 분리하여 동작하는 프레임워크 제시</li>
+<li><strong>흥미로운 or 신기한</strong></li>
+</ul>
+</li>
+<li>
+<p>Icewafl: A Configurable Data Stream Polluter</p>
+<ul>
+<li>data stream, dataset, data polluter tool</li>
+<li>시간적 오류가 주입돤 벤치마크 데이터셋 을 만드는 도구를 최초 로 제시</li>
+<li><strong>흥미로운 or 신기한</strong></li>
+</ul>
+</li>
+<li>
+<p>GPU Architectures in Graph Analytics: A Comparative Experimental Study</p>
+<ul>
+<li>graph anaylsis, GPU, experiment</li>
+<li>GPU 설계 결정으로 인한 그래프 분석 알고리즘의 성능 차이를 실험</li>
+<li>복잡한 그래프분석 알고리즘은 NVIDIA가 성능 높고 분기복잡도가 낮은것은 AMD가 더 좋음</li>
+<li><strong>흥미로운 or 신기한</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="detail">
+  <strong>Detail</strong>
+  <a class="anchor" href="#detail">#</a>
+</h2>
+<ul>
+<li>
+<p>GraLMatch: Matching Groups of Entities with Graphs and Language Models</p>
+<ul>
+<li>entity group matching, transitive information, multi-source</li>
+<li>앤드 투 앤드 다중 소스 엔티디 매칭 문제를 제안하고 솔루션을 제시</li>
+</ul>
+</li>
+<li>
+<p>Selecting Comparative Sets of Reviews Across Multiple Items</p>
+<ul>
+<li>selectng representative, data mining</li>
+<li>한제품에 대해서 대표적인 리뷰를 선택하는 문제를 다룸</li>
+<li>리뷰 선택과정을 동기화 할 수 있는 목적함수를 수립하고 최적화 알고리즘 설계</li>
+</ul>
+</li>
+<li>
+<p>Fast Geosocial Reachability Queries</p>
+<ul>
+<li>spatial indexing, range query, graph reachability problem</li>
+<li>위치기반 서비스와 소셜 네트워크를 접목시킨 지오 소셜 네트워크 문제를 다룸</li>
+<li>그래프 도달 가능성을 위한 공간 기반 레이블링을 활용하여 소설우선 접근방식과 동시처리방식을 활용한 접근법 제시</li>
+</ul>
+</li>
+<li>
+<p>Coping With Data Drift in Online Video Analytics</p>
+<ul>
+<li>video stream, change detection</li>
+<li>기존 솔루션은 카메라 각도변화와 같은 영상데이터분포변화에 적응도가 떨어짐</li>
+<li>영상 스트림을 모니터링하고 데이터 분포 변화를 감지하는 경량 알고리즘 소개</li>
+</ul>
+</li>
+<li>
+<p>Efficient Enumeration of Large Maximal k-Plexes</p>
+<ul>
+<li>cohesive subgraphs, clique relaxation</li>
+<li>기존 clique는 너무 엄격한 응집 구조로 데이터 노이즈 등의 이유로 완전한 형태를 이루기 어려움</li>
+<li>기존 문제를 위해 k-plex 라는 클리크완화 구조가 제안되었고, 이를 효율적으로 탐색하는 알고리즘 제안</li>
+<li>q개 이상의 정점을 가지는 모든 k-plex 를 열거하는 고속 분기한정 알고리즘과 작업기반 병렬버전 알고리즘을 제안</li>
+</ul>
+</li>
+<li>
+<p>Ensembling Object Detectors for Effective Video Query Processing</p>
+<ul>
+<li>Object decttion, ensembling, video query processing</li>
+<li>기존 모델 예측 앙싱블은 정확도를 향상시키지만 추론시간이 추가로 소요됨</li>
+<li>정확도향상과 추론시간의 최소화 균형을 유지하며 영상이나 탐지기에 대한 사전정보 없는 솔루션 제시</li>
+</ul>
+</li>
+<li>
+<p>OmniMatch: Overcoming the Cold-Start Problem in Cross-Domain Recommendations using Auxiliary Reviews</p>
+<ul>
+<li>recommendation, data sparsity, code-start user, adversarial training, supervised contrastive learning</li>
+<li>기존에는 교차 도메인 콜드 스타드 추천을 활용하여 목표 도메인의 추천 서비스 품질을 향상시켜왔음</li>
+<li>리뷰기반의 교차 도메인 추천 프레임워크를 새롭게 제시</li>
+</ul>
+</li>
+<li>
+<p>Tabular Embeddings for Tables with Bi-Dimensional Hierarchical Metadata and Nesting</p>
+<ul>
+<li>embendding, hierarchical metadata</li>
+<li>복잡한 2차원 테이블 구조의 문맥을 정확하게 인코등하는 특화된 임베딩 기법 제시</li>
+</ul>
+</li>
+<li>
+<p>Progressive Querying on Knowledge Graphs</p>
+<ul>
+<li>RDF, non-terminating, knowledge graph</li>
+<li>기존에는 RDF 쿼리가 종료되지 않는 경우가 자주 있음</li>
+<li>점진적 쿼리 응답 문제에 대해 새롭게 해결책 제시 (계층적구조-효율적인 데이터파티셔닝,점진적응답,계층수전 직접접근,계층따라 탐색)</li>
+</ul>
+</li>
+<li>
+<p>QueryER: A Framework for Fast Analysis-Aware Deduplication over Dirty Data</p>
+<ul>
+<li>SPJ, Entity Resolution:ER, dirty data</li>
+<li>오염된 데이터(dirty data)에서 실행되는 복잡한 SPJ(select-project-join)쿼리를 정확하게 처리하는 문제를 다룸</li>
+<li>분포인식기반 중복제거 수행, 쿼리플랜을 ER연산자를 포함하여 엔티티 정합을 처리, 사전 처리시간 최소화 및 수동준비작없이 없도록 구현</li>
+</ul>
+</li>
+<li>
+<p>Private Approximate Query over Horizontal Data Federation</p>
+<ul>
+<li>Differential Privacy: DP, private federated, Approximate Query Processing: AQP</li>
+<li>수평 분할된 고차원 데이터에 대해 범위 쿼리를 처리하는 프라이빗 연합 환경에서 AQP와 DP를 결합하는 문제를 다룸</li>
+<li>기존 접근법은 암호학에 의존하여 프라이버시를 강화하나 쿼리 응답시간이 길어지는 문제점이 있음</li>
+<li>데이터 분포 인식의 온라인 샘플링 기법을 활용하고 범위 쿼리 실행을 가속하여 데이터 프라이버시를 보장하며 정확도 손실을 최소화하는 프레임워크 소개</li>
+</ul>
+</li>
+<li>
+<p>SPO-Join: Efficient Stream Inequality Join</p>
+<ul>
+<li>index, stream processing, inequlity join</li>
+<li>서로다른 데이터 스트림에서 오는 튜퓰들을 부등호 조건에 따라 결합하는 연산의 문제를 다룸</li>
+<li>기존 방식은 매칭되는 튜플을 찾기 위한 인덱스 구조를 지속적으로 갱신해야하므로 계산비용이 높음</li>
+<li>변경가능한 B+트리를 사용해 삽입 연산을 효율화하고, 불변 정렬 배열 기반 데이터 구조를 사용해 탐색 속도를 최적화한 분산 스트림 처리 엔진을 소개</li>
+</ul>
+</li>
+<li>
+<p>Evaluating the Data Model Robustness of Text-to-SQL Systems Based on Real User Queries</p>
+<ul>
+<li>text-to-sql, NL-to-SQL, evaluation</li>
+<li>NL-to-SQL 에 대해서 실제 환경에서 테스트 할 수 있는 밴치마크 데이터셋 제공. 쿼리 복잡도가 난도가 높음</li>
+</ul>
+</li>
+<li>
+<p>An Experimental Comparison of Partitioning Strategies for Distributed Graph Neural Network Training</p>
+<ul>
+<li>GNN, distributed training, graph partitioning</li>
+<li>graph partitioning 이 GNN 학습 성능에 미치는 영향을 분석한 논문</li>
+</ul>
+</li>
+<li>
+<p>Evaluating the Feasibility of Sampling-Based Techniques for Training Multilayer Perceptrons</p>
+<ul>
+<li>matrix multiplication, sampling, evaluation</li>
+<li>기존 방식 1)각 은닉층에서 일부 노드만 선택하여 매반복마다 사용하는 방식과 2)이전층에서  일부 노드를 샘플링하여 현재층의 활성값을 근사하는 방식</li>
+<li>기존 방식들을 연산자원이 제한된 CPU환경에서 얼마나 실용적인지 평가</li>
+</ul>
+</li>
+<li>
+<p>Analysis of Text-to-SQL Benchmarks: Limitations, Challenges and Opportunities</p>
+<ul>
+<li>text-to-sql, NL-to-SQL, dataset analysis</li>
+<li>NL-to-SQL 에 시스템 사용되는 데이터 셋들을 평가하고 특징을 정리한 논문</li>
+</ul>
+</li>
+<li>
+<p>Differentially Private Publication of Smart Electricity Grid Data</p>
+<ul>
+<li>Differential Privacy: DP, time series, geospatial, RNN</li>
+<li>현재 시계열 처리 기법들은 지리적 특성을 포착하지 못하여 데이터 활용성이 떨어지는 문제가 있음</li>
+<li>시공간 속성을 분석하고, RNN을 활용하여 미시적,거시적 패턴을 모두 포탁 가능한 방법론 제시</li>
+</ul>
+</li>
+<li>
+<p>DataSculpt: Cost-Efficient Label Function Design via Prompting Large Language Models</p>
+<ul>
+<li>LLM, programmatic weak supervision:PWS, label functions:LF</li>
+<li>정확한 LF를 생성하기 위해선 도메인 지식과 많은 노력이 필요하는 문제가 있고, 자동 LF 생성기는 정확성 부족, 과도한 비용 문제가 있음</li>
+<li>LLM을 활용한 자동 LF 생성 프레임워크를 제시</li>
+</ul>
+</li>
+<li>
+<p>RASP: Robust Mining of Frequent Temporal Sequential Patterns under Temporal Variations</p>
+<ul>
+<li>temporal sequential pattern:TSP, adative tuning</li>
+<li>기존 마이닝 기법들은 하이퍼파라미터 설정에 민감하고, 확정성 문제가 있음. 또한 시간 간격의 변동이 있음</li>
+<li>이완된 TSP 라는 개념을 정의하고, 자원 적응형 하이퍼파라미터 자동 조정 기능을 채택, 트리 기반 간결한 데이터 구조를 활용한 솔루션 제시</li>
+</ul>
+</li>
+<li>
+<p>Modifying an existing sort order with offset-value codes</p>
+<ul>
+<li>database, data order, offset-value codes</li>
+<li>기존 방식은 매우 단순한 경우만 구현을 하고 있음</li>
+<li>기존 정렬 순서와 offset-value code를 활용한 새로운 정렬 순서 생성을 통해 상당한 비용 절감 기법 제시</li>
+</ul>
+</li>
+<li>
+<p>MEMPHIS: Holistic Lineage-based Reuse and Memory Management for Multi-backend ML Systems</p>
+<ul>
+<li>distributed, memory management, intermidiates reuse</li>
+<li>ML이 분산 실행 플렛폼에서 백앤드를 활용할때, 중간 결과가 재사용되면 좋으나 메모리관리, 데이터 교환, 연산자 스케쥴링 등 어려운 문제</li>
+<li>계층적 계보기반 재사용 캐시로 단일 추상화 계층으로 동작하며 재활용,데이터교환,캐시추출을 관리하는 프레임워크 제시</li>
+</ul>
+</li>
+<li>
+<p>LINX: A Language Driven Generative System for Goal-Oriented Automated Data Exploration</p>
+<ul>
+<li>Automated Data Exploration:ADE, Constrained Deep Reinforcement Learning: CDRL</li>
+<li>기존 ADE는 사전 정의된 목적함수를 기반으로 하여, 동일한 dataset에 동일한 탐색 세션만 행함, 목표 지향 탐색에 성능이 매우 떨어짐</li>
+<li>LLM을 사용하여 분석 목표를 해석하고, 제약기반 심층 강화학습을 통해 동적으로 적응. 연어 인터페이스를 갖춘 생성기반 ADE 시스템 제안</li>
+</ul>
+</li>
+<li>
+<p>Synopses for Summarizing Spatial Data Streams</p>
+<ul>
+<li>geospatial stream, aggregate queries</li>
+<li>ad-hoc spatial ranges에 대해 추가 조건이 있을대 효율적으로 집계하는건 어려움. 과도한 저장비용, 질의 지연</li>
+<li>빠르게 생성되는 스트림을 요약하고, 집계를 정확도 보장하에 추정하는 두가지 기법을 제시</li>
+</ul>
+</li>
+<li>
+<p>PRISMA: A Privacy-Preserving Schema Matcher using Functional Dependencies</p>
+<ul>
+<li>schema matching, data integration, encodding differences</li>
+<li>기존 매칭 기법들은 컬럼 이름이나, 데이터 인스탄스간의 유서상에 의존해서, 서로다르게 인코딩되면 매우 취약한 성능</li>
+<li>함수적 종속성을 활용하여 그래프 임베딩을 생성하며, 인코딩 방식과 무관하게 구조적 유사성을 비교하는 기법 소개</li>
+</ul>
+</li>
+<li>
+<p>Time-Related Patterns Of Schema Evolution</p>
+<ul>
+<li>schema changes, RDB, open project anaylysis</li>
+<li>151 개 프로젝트의 12개월 이상의 기간을 분석해서 해당 프로젝트의 스키마가 언제 변경되는지 3가지 유형으로 비교 분석</li>
+</ul>
+</li>
+<li>
+<p>Taste: Towards Practical Deep Learning-based Approaches for Semantic Type Detection in the Cloud</p>
+<ul>
+<li>semantic type, cloud envrionment, DL,</li>
+<li>semantic type을 식별하는 기존 DL 기반 기법들은 실제 클로우드 환경에서 실용성이 한계가 있음. 낮은 효율성, 사용자 데이터 원본에 대한 높은 침습성이 문제</li>
+<li>DL 기반 감지 작업을 하는 새로운 시멘틱 타입 감지 프레임 워크 제시</li>
+</ul>
+</li>
+<li>
+<p>MaTElDa: Multi-Table Error Detection</p>
+<ul>
+<li>embedding, error detection, similarity</li>
+<li>현재의 data clearning 기법은 하나의 테이블만 대상으로 처리.</li>
+<li>도메인 유사성과 품질 유사성을 기준으로 통합특성임베딩을 사용한 사용자의 감독하에 더 효율적으로 할 수 있도록 구성하는 반지도학습기반 오류탐지 기법 제시</li>
+</ul>
+</li>
+<li>
+<p>Metadata Unification in Open Data with Gnomon</p>
+<ul>
+<li>attribute metadata, schema matching, unification dataset</li>
+<li>오픈 데이터들의 메타데이터는 통일된 방식으로 게재하지 않음, 기존의 스키마 매칭 기법은 낮은 성능</li>
+<li>오픈 데이터 속성 메타데이터를 위한 통합 모델을 제안하고, baseline approach 를 설명</li>
+</ul>
+</li>
+<li>
+<p>Pythia: A Neural Model for Data Prefetching</p>
+<ul>
+<li>ML for System, buffer management, page access</li>
+<li>RDBMS의 버퍼 관리 모듈 최적화는 많이 연구되지 않음. 페이지 접근 예측하는것은 SQL이 비선형적이고, 정형화되지 않은 패턴을 가져 어려움</li>
+<li>적절한 경우에만 예측및 프리패칭을 수행하고, 아닐경우 기본 알고리즘을 수행해서, 버퍼 관리에 머신러닝이 적용된 솔루션 제시</li>
+<li><strong>흥미로운 or 신기한</strong></li>
+</ul>
+</li>
+<li>
+<p>Fantastic Tables and Where to Find Them: Table Search in Semantic Data Lakes</p>
+<ul>
+<li>knowledge graph:KG, semantic data lake, semantic table search</li>
+<li>semantic table search 에 대한 최초의 정형적 정의를 제시하고, 이를 위한 일반화된 프레임워크를 제시</li>
+</ul>
+</li>
+<li>
+<p>Communication-Efficient Distributed Deep Learning via Federated Dynamic Averaging</p>
+<ul>
+<li>distributed deep learning :DDL, ferquent synchronization, communication bottleneck</li>
+<li>기존 DDL기법은 너무 단순하고 주기적인 동기화로 통신자원의 낭비, 대역폭이 적으면 실용성이 떨어지고, 모델 훈련시간 증가의 문제</li>
+<li>모델 분산도를 기준으로 동기화 시점을 동적으로 결정하는 기법을 제시</li>
+</ul>
+</li>
+<li>
+<p>No Time to Halt: In-Situ Analysis for Large-Scale Data Processing via Virtual Snapshotting</p>
+<ul>
+<li>data processing, anaylsis, halting</li>
+<li>대규모 데이터 처리 어플리케이션은 장기간 연산되는데, 그 중간 결과나 품질에 대해 알수 없고, 알려면 application을 중단하거나 과도한 코드 수정이 필요</li>
+<li>virtual snapshotting방식으로 중단이나 수정하지 않고도 스냅샷을 생성하는 기법을 제시</li>
+</ul>
+</li>
+<li>
+<p>QuIT your B+-tree for the Quick Insertion Tree</p>
+<ul>
+<li>index, order, sortedness-aware</li>
+<li>기존 인덱스는 정렬되어있을대 데이터가 유입되면 빠르게 처리할수 있으나, 정렬되어 있거나, 매우 적은 순서 오류일때만 효과적</li>
+<li>예측 정렬 리프에 대한 포인터를 메모리에 유지하여 정렬 인식 삽입 최적화를 수행하는 정렬인식 인덱싱 구조를 소개</li>
+</ul>
+</li>
+<li>
+<p>Parallel Spatial Join Processing with Adaptive Replication</p>
+<ul>
+<li>parallel spatial, replication, graph</li>
+<li>병렬 공간 조인 알고리즘은 파티션을 나누고 인접파티션에 복제하여 처리하는데, 과도한 복제로 성능 저하 문제가 이씀</li>
+<li>인접 파티션간 복제관계를 그래프로 모델링하고, 정확하고 중복없는 결과를 생성할 수 이는 프레임워크 제시</li>
+</ul>
+</li>
+<li>
+<p>Stable Tree Labelling for Accelerating Distance Queries on Dynamic Road Networks</p>
+<ul>
+<li>shortest-path distance, labelling, dynamic changes</li>
+<li>실시간 교통상황과 같은 동적변화 환경에서 최단거리를 구하기 위해서 거리 레이블링을 점진적으로 유지하는데, 레이블 크기가 매우 크고, 유지관리가 어려움</li>
+<li>동적 도로망에서 거리 질의를 효율적으로 응답하기 위해서, 서브 그래프내 거리 정보만 저장하는 방식을 채택한 기법 소개</li>
+</ul>
+</li>
+<li>
+<p>PEG: Local Differential Privacy for Edge-Labeled Graphs</p>
+<ul>
+<li>Local Differential Privacy: LDP, edge-labeled graph</li>
+<li>기존 그래프 기반 LDP 기법는 전통 그래프 구조에 초점을 맞추며, 엣지에 부여된 라벨 특성을 고려하지 않음</li>
+<li>노드 분할과 클러스터링을 결합하여, 유사노드끼리 노이즈를 효율적으로 분산하여 구조적 특성을 잘 보존하는 기법을 소개</li>
+</ul>
+</li>
+<li>
+<p>Template-based Explainable Inference over High-Stakes Financial Knowledge Graphs</p>
+<ul>
+<li>rul-based inference, knowlege graph, natual language explanation</li>
+<li>LLM 기반 이해가능한 자연어로 설명하는것은 유망하나, 외부 연결이 필요하고, 중요한 설명 누락이 있을수 있음</li>
+<li>이탈리아 중앙은행이 규정한 규칙 기반 금융 어플리케이션에 적합한 설명 생성 방법 제시</li>
+</ul>
+</li>
+<li>
+<p>Benchmarking Analytical Query Processing in Intel SGXv2</p>
+<ul>
+<li>security, Trusted Execution Environments:TEE,</li>
+<li>2세대 SGXv2는 보안성과 효율성이 향상되어 분석형 클라우드 DBMS의 실현 가능성을 제시. 아직 인클래이브(enclaves) 내부 코드실행에 오버헤드가 있음</li>
+<li>인클래이브 내 코드 실행 성능을 외부 실행 성능에 가깝게 최적화 기법을 제안</li>
+</ul>
+</li>
+<li>
+<p>Entity Matching using Large Language Models</p>
+<ul>
+<li>entity matching, Generative LLM, zero-shot</li>
+<li>entity matching의 BERT, RoBERTa같은 PLM기반 기법은 작업별 학습 데이터가 대량으로 필요, 분포밖 엔티티에 강건성 부족</li>
+<li>PLM 기반 매처의 대안으로 생성형 대형 언어모델을 탐구</li>
+</ul>
+</li>
+<li>
+<p>Evaluation of Dataframe Libraries for Data Preparation on a Single Machine</p>
+<ul>
+<li>pandas, single machine, evaluation, dataset</li>
+<li>pandas의 dataframe 라이브러리들이 단일 머신에서 어떻게 성능을 발휘하는지 실험적 평가</li>
+</ul>
+</li>
+<li>
+<p>How Green is AutoML for Tabular Data?</p>
+<ul>
+<li>automl, computational cost, analysis</li>
+<li>automl은 광범위한 탐색 또는 사전 학습으로 높은 계산 비용의 문제가 있음</li>
+<li>automl 시스템이 생성하는 파이프라인 계산비용을 시스템개발,실행, 추론단계의 비용까지 전체 라이플 사이클 단계에서 분석</li>
+</ul>
+</li>
+<li>
+<p>Benchmarking, Analyzing, and Optimizing WA of Partial Compaction in RocksDB</p>
+<ul>
+<li>Log-structured merge:LSM, benchmark</li>
+<li>LSM 기반 시스템에서 compaction을 위해서 최적의 파일 선택 정책을 찾는 문제를 다룸</li>
+<li>RockDB의 4가지 정책에 평가</li>
+</ul>
+</li>
+<li>
+<p>Step-by-Step Data Cleaning Recommendations to Improve ML Prediction Accuracy</p>
+<ul>
+<li>data clearning, resource allocation</li>
+<li>실제시나리오에서 데이터정제는 도메인 전문가가 과정에 참여해야하고 높은 코스트 발생</li>
+<li>어떤 피쳐를 정제할때 단계별 추천을 제공하고, 제한된 리소스에서 정체 효율성을 극대화하는 시스템 제시</li>
+</ul>
+</li>
+<li>
+<p>Fast, Highly Available, and Recoverable Transactions on Disaggregated Data Stores</p>
+<ul>
+<li>transactional protocol, disaggregated key-value store: DKStes, failures</li>
+<li>기존에 컴퓨트와 메모리 분리환경에서 장애처리 솔루션은 컴퓨트와 메모리가 독립적으로 장애 발생 시나리오를 간과.+ 복구 가능성 고려하지않음</li>
+<li>빠르고 정확한 복구를 가능하게 하기 위한 one-sided 트랜잭션 프로토콜 소개</li>
+</ul>
+</li>
+<li>
+<p>Watermarking Decision Tree Ensembles</p>
+<ul>
+<li>watermarking, property protection, ensemble</li>
+<li>DNN에 대해 다양한 워터 마킹 기법이 제안되었으나, decision tree ensemble같은 다른 유형에 대해 연구되지 않음</li>
+<li>최초의 decision tree ensemble 을 대상으로 하는 최초의 워터마킹 기법을 제시</li>
+</ul>
+</li>
+<li>
+<p>Query Rewriting-Based View Generation for Efficient Multi-Relation Multi-Query with Differential Privacy</p>
+<ul>
+<li>differential privacy:DP, query rewriting</li>
+<li>DP를 유지하면서 다중 relation에 걸쳐 복수 쿼리를 수행하는것에 대한 기존 방식은 뷰의 과잉생산으로 프라이버시 비용이 상당히 발생</li>
+<li>query rewrting을 활용한 view generation approach를 제안</li>
+</ul>
+</li>
+<li>
+<p>Dema: Efficient Decentralized Aggregation for Non-Decomposable Quantile Functions</p>
+<ul>
+<li>decentralized network, decomposable functions</li>
+<li>decentralized 시스템은 중앙값과 분위수를 전체 데이셋에 접근하지 않고 반영할 수 없는 문제가 있음</li>
+<li>로컬 정렬을 수행하고, 통계요약만 전송함으로써 네트워크 트래픽과 계산부하를 줄이는 기법 제시</li>
+</ul>
+</li>
+<li>
+<p>Selective Evolving Centrality in Temporal Heterogeneous Graphs</p>
+<ul>
+<li>graph, temporal heterogeneous graph, centrality</li>
+<li>기존 그래프 노드의 정량 정렬 기법들은 시간에 따라 변화하며, 시간 이질적 그래프에는 적절하지 않음</li>
+<li>중앙성 계산 함수를 정의하고, 이 값의 활용을 바탕으로한 알고리즘을 제시</li>
+</ul>
+</li>
+<li>
+<p>Toward Standardized Data Preparation: A Bottom-Up Approach</p>
+<ul>
+<li>data preparation script, standardization</li>
+<li>데이터 준비 스크립트는 엔지니어링 통계적 관행으로 작성되어 재사용하기 어려운 문제</li>
+<li>사용자 스크립트를 표준화된 형태로 변환하는 프레임 워크 제시</li>
+</ul>
+</li>
+<li>
+<p>Explaining Fairness Violations using Machine Unlearning</p>
+<ul>
+<li>discriminatory behavior, fairness violation</li>
+<li>기존 공정성위반 디버깅 연구는 영향 함수를 기반하는데 convex하고 두 번 미분 가능한 손실함수를 가진 제한된 범위 모델에만 적용 가능</li>
+<li>비 매개변수 모델에서 공정성 위반 사례를 설명하기 위해</li>
+</ul>
+</li>
+<li>
+<p>Deep Skyline Community Search</p>
+<ul>
+<li>Community Search, skyline, DL</li>
+<li>기존 연구들은 다중값 네트워크에서 스카이라인 커뮤니티를 찾고자하면 복잡도로 인해 속성 갯수가 d&gt;= 5인 데이터셋 처리하지 못함</li>
+<li>deep learning 기법을 활용하여 오프라인 사전학습단계와 온라인 검색단계를 거친 프레임워크로 정확도 향상</li>
+</ul>
+</li>
+<li>
+<p>Dataset Discovery using Semantic Matching</p>
+<ul>
+<li>dataset discovery method, semantic, dimensionality reduction, clustering</li>
+<li>데이터셋들 이질성이 기하급수적으로 증가하고, 기존 키워드 기반 검색 방법은 데이터셋의 의미를 포착하지 못함</li>
+<li>필드수준에서의 고급 의미 매창을 수행하고, clustering 차원축소를 확용하여 효과적으로 검색하는 방법 소개</li>
+</ul>
+</li>
+<li>
+<p>Efficiently Indexing Large Data on GPUs with Fast Interconnects</p>
+<ul>
+<li>index, gpu, fast interconnects,</li>
+<li>기존 DBMS에서는 CPU가 조율하는 일고라 데이터 전송방식을 사용하는데, 쿼리선택도에 따라 대역폭 낭비 문제가 있음.</li>
+<li>fast interconnects를 사용하는 환경에서 기존 인덱스 구조를 분석하고, 일반화가 가능한 윈도우 기반 파티셔닝 기법 제안</li>
+<li><strong>흥미로운 or 신기한</strong></li>
+</ul>
+</li>
+<li>
+<p>Learned Indexes with Distribution Smoothing via Virtual Points</p>
+<ul>
+<li>learend index, more learnable, virtual points</li>
+<li>learned indeㅌ는 계층구조로 모델링이 어려운 일부 키영역이 계층 깊은 수준에 위치하게되는 문제가 있음</li>
+<li>가상 포인트를 삽입하여 키집합의 분포를 더 학습가능하게 만드는 방법을 제시</li>
+<li><strong>흥미로운 or 신기한</strong></li>
+</ul>
+</li>
+<li>
+<p>Efficient Multicore Discovery of Small, High-Quality k-Plex Teams in Multi-attributed Networks</p>
+<ul>
+<li>community search, cohesion, graph</li>
+<li>기존 커뮤니티 탐색은 구조 중삼이라 다중속성을 가진 팀평가에는 부적합</li>
+<li>그룹 스카이라인 모델과 cousins-first기반 준 크리크 탐색 알고리즘을 제안하여 엄청난 성능 확보</li>
+</ul>
+</li>
+<li>
+<p>High-dimensional density-based clustering using locality-sensitive hashing</p>
+<ul>
+<li>DBSCAN, LSH, high dimension</li>
+<li>고차원에서는 차원의 저주로인해 DBSCAN에 수행에 필요한 range query의 성능이 급격히 저하</li>
+<li>데이터 밀도에 자동 적응하는 다단계 LSH데이터 구조를 제시</li>
+</ul>
+</li>
+<li>
+<p>DBCopilot: Natural Language Querying over Massive Databases via Schema Routing</p>
+<ul>
+<li>NL-to-SQL, LLM, copilot, schema-agnostic</li>
+<li>기존 방식들은 Semantic Mismatch, Shema Scalability, Schema Complexity 문제가 있음</li>
+<li>schema routing과 SQL generation 두단계로 분리하여 동작하는 프레임워크 제시</li>
+<li><strong>흥미로운 or 신기한</strong></li>
+</ul>
+</li>
+<li>
+<p>Effective and Efficient Community Search over Large-Scale Hypergraphs</p>
+<ul>
+<li>community search:CS, Hypergraph Minimum Community Search: HMCS</li>
+<li>기존 CS 기법은 하이퍼그래프에서 발생하는 고차 상호작용을 포착하지 못하는 문제가 있음</li>
+<li>하이퍼 그래프 최소 커뮤니티 탐색 문제를 정의하고, 분기한정 기반의 알고리즘을 제시</li>
+</ul>
+</li>
+<li>
+<p>Gem: Gaussian Mixture Model Embeddings for Numerical Feature Distributions</p>
+<ul>
+<li>embedding, gaussian mixture model:GMM, numeric</li>
+<li>기존 임베딩 연구는 범주형 데이터의 의미론적 표현에만 초점되어, 수치형 데이터의 고유한 특성을 간과</li>
+<li>수치형의 값분포 기반으로 임베딩을 생성하여 값분포가 유사한 컬럼들을 식별하고 군집하할수 있또록 설계한 기법을 제시</li>
+</ul>
+</li>
+<li>
+<p>Graph Consistency Rule Mining with LLMs: an Exploratory Study</p>
+<ul>
+<li>graph data quality, LLM, property graph</li>
+<li>기존에는 데이터 일관성을 유지하기 위해서 전문가 정의 규칙이나 데이터 마이닝 기반 제약조건을 제시했으나 확장성,적응성, 이해 용이성이 한계있음</li>
+<li>LLM을 활용하여 속성그래프에 대한 일관성 규칙을 자동으로 생성하는 방법 제안</li>
+</ul>
+</li>
+<li>
+<p>Z-shadow An Efficient Method for Estimating Bicliques in Massive Graphs Using Füredi&rsquo;s Theorem</p>
+<ul>
+<li>bipartite graphs, shadow</li>
+<li>객체간 관계를 이해하는데 바이클리 수를 세는것이 중요한데, 큰 바이클리크를 탐색할때 지수적 탐색공간 증가, 대규모 그래프에서 바이클리수가 폭발적 증가 문제가 있음</li>
+<li>furedi&rsquo;s theorem과 타당하고 증명 가능한 샘플링 임계값 기반한 알고리즘으로 대규모 바이클리크 수를 효과적으로 추정하는 기법 제시</li>
+</ul>
+</li>
+<li>
+<p>hybridNDP: Offloading and Cooperative Execution of Query-Plans in Smart Storage Settings</p>
+<ul>
+<li>offloading processing, storage, memory, data movement</li>
+<li>어떤 연산을 오프로드할 것인지에 대한 결정이 대부분 하드코딩 되어 있음</li>
+<li>쿼리를 호스트 측 처리와 디바이스 측 처리로 분할하고, 협업적이고 개업없이 실행하는 프레임워크 제시</li>
+</ul>
+</li>
+<li>
+<p>Path-based Algebraic Foundations of Graph Query Languages</p>
+<ul>
+<li>graph database, definition, algebra</li>
+<li>경로 질의를 평가하기 위한 대수적 접근이 없음</li>
+<li>추상대수를 도입하고, 경로를 질의 처리 파이프라인 내에서 일급 객체로 다룰 수 있는 대수를 소개</li>
+</ul>
+</li>
+<li>
+<p>Icewafl: A Configurable Data Stream Polluter</p>
+<ul>
+<li>data stream, dataset, data polluter tool</li>
+<li>시간적 오류가 주입돤 벤치마크 데이터셋 을 만드는 도구를 최초 로 제시</li>
+<li><strong>흥미로운 or 신기한</strong></li>
+</ul>
+</li>
+<li>
+<p>Generating Skyline Datasets for Data Science Models</p>
+<ul>
+<li>skyline dataset, data science pipeline</li>
+<li>사용자 정의와 여러 모델 성능 측정 기준을 최적화하여 데이터 셋을 탐색하는 프레임워크 제시</li>
+</ul>
+</li>
+<li>
+<p>An RFD-based approach for concept drift detection in Machine Learning Systems</p>
+<ul>
+<li>concept drift, distributed shift detection, profiling metadata, Relaxed Functional Dependencies:RFD</li>
+<li>데이터가 시간이 지남에 동적으로 변하는 개념 드리프트가 발생하고, 이는 데이터 기반 프로세스에 영향을 미침</li>
+<li>메타데이터 프로파일링을 통해 데이터 변화가 예측성능에 어떤 영향을 미치는지 평가</li>
+</ul>
+</li>
+<li>
+<p>ExaLogLog: Space-Efficient and Practical Approximate Distinct Counting up to the Exa-Scale</p>
+<ul>
+<li>approximate distinct count, data structure</li>
+<li>새로운 근사 유니크 카운팅 자료구조를 제안. 추정오차 달성에 더 작은 공간을 사용</li>
+</ul>
+</li>
+<li>
+<p>Legally-Compliant Spatial Fairness Framework: Advancing Beyond Spatial Fairness</p>
+<ul>
+<li>sptial bias, spatial fairness, legal</li>
+<li>법접위반여부를 판단하기위해 fair-ML이 뜨지만, 공간 데이터의 가변 면적 단위 문제로 spatial fairness에 적합하지 않음</li>
+<li>법적 준수를 고려한 공간적 공정성 프레임워크를 제시</li>
+</ul>
+</li>
+<li>
+<p>Taming the Beast of User-Programmed Transactions on Blockchains: A Declarative Transaction Approach</p>
+<ul>
+<li>blockchain, declarative blockchain transactions</li>
+<li>블록체인의 스마트 컨트렉트(계약)은 높은 유연성이지만 사용성 견고성 성능면에서 이슈가 있음</li>
+<li>사용잦 정의 거래 프로그램의 필요성을 줄이기위해 대안적 거래 프레임 워크 제시</li>
+</ul>
+</li>
+<li>
+<p>FedForecaster: An automated federated learning approach for time-series forecasting</p>
+<ul>
+<li>autoML, federated learning:FL, time series forcasting</li>
+<li>중앙에서 데이터를 수집하지 않고 시계열 예측의 전체 파이프라인을 튜닝하는 프레임워크 소개</li>
+</ul>
+</li>
+<li>
+<p>Automated Data Quality Validation in an End-to-End GNN Framework</p>
+<ul>
+<li>data quality, dataset, GNN, multi-task learning</li>
+<li>기존 데이터셋 검증 접근방법들은 너무 엄격하거나, 불완전하거나, 너무 느슨하거나, 오탐또는 오검출 누락을 유발하고 전문가 손길이 필요</li>
+<li>GNN과 멀티테스크 러닝을 기반으로 데이터 품질 검증과 데이터 복구를 위한 프레임워크 제시</li>
+</ul>
+</li>
+<li>
+<p>GPU Architectures in Graph Analytics: A Comparative Experimental Study</p>
+<ul>
+<li>graph anaylsis, GPU, experiment</li>
+<li>GPU 설계 결정으로 인한 그래프 분석 알고리즘의 성능 차이를 실험</li>
+<li>복잡한 그래프분석 알고리즘은 NVIDIA가 성능 높고 분기복잡도가 낮은것은 AMD가 더 좋음</li>
+<li><strong>흥미로운 or 신기한</strong></li>
+</ul>
+</li>
+<li>
+<p>From Feature Selection to Resource Prediction: An Analysis of Commonly Applied Workflows and Techniques</p>
+<ul>
+<li>workload prediction, resource</li>
+<li>cloud환경에서 리소스 활동을 최적화 하기위해서 워크로드의 예측의 성능 예측이 필요함</li>
+<li>워크로드 예측을 위한 3단계 파이프라인이 있는데, 이러한 전체 파이프라인에 대한 원치적분석(principled analysis)은 연구된바 엇음</li>
+</ul>
+</li>
+<li>
+<p>Evaluating SQL Understanding in Large Language Models</p>
+<ul>
+<li>LLM, SQL, experiment, analysis</li>
+<li>LLM이 SQL을 어느정도 이해하는지를 평가하기 위해서 세부적인 테스트와 필수적인 요소들을 평가</li>
+</ul>
+</li>
+<li>
+<p>A Deep Dive Into Zero-Shot Entity Matching with Large and Small Language Models</p>
+<ul>
+<li>entity matching:EM, LLM, benchmark</li>
+<li>최신 접근법의 교차 데이터셋 EM 성능을 포괄적이고 쳬계적으로 평가한 연구가 부족</li>
+</ul>
+</li>
+<li>
+<p>An Empirical Evaluation of Serverless Cloud Infrastructure for Large-Scale Data Processing</p>
+<ul>
+<li>serverless, cost, cloud, evaluation</li>
+<li>serverless 인프라의 성능 및 비용 특성을 상세히 분석하고 이들을 대상으로한 밴치마크</li>
+</ul>
+</li>
+<li>
+<p>Apache Ignite + Calcite Composable Database System: Experimental Evaluation and Analysis</p>
+<ul>
+<li>query processing, OLAP, experimental anaylsis</li>
+<li>apache ignite와 calite를 조합한 OLAP의 성능을 실험적으로 분석</li>
+</ul>
+</li>
+<li>
+<p>Towards Reliable Conversational Data Analytics</p>
+<ul>
+<li>conversational data analytics:CDA, LLM</li>
+<li>대화영 데이터 분석 시스템을 구현하려면 적시에, 일관성 있게, 검증가능하게 구현해야하는 문제가 있음</li>
+<li>CDA 시스템이 가져야할 핵심 속성과, 설계적 측면의 인사이트 제시</li>
+</ul>
+</li>
+<li>
+<p>Towards Hybrid Graphs: Unifying Property Graphs and Time Series</p>
+<ul>
+<li>graph, time seires, graph, temporal graph</li>
+<li>진화하는 개체들과 그 관계를 그래프와 시계열데이터에서 포착하는 접근방식이 없음</li>
+<li>시계열 분석과, 시간적 그래프를 통합할수 있는 하이브리드 데이터 모델 및 연산자 개념 제시</li>
+</ul>
+</li>
+<li>
+<p>Breaking Down the Data-metadata Barrier for Effective Property Graph Data Management</p>
+<ul>
+<li>property graph, metadata, vision</li>
+<li>속성그래프모델은 메타데이터와 구조의 재귀표현에 대한 네이티브 쿼리 지원이 부족</li>
+<li>기존 속성 그래프 모델을 하위호환으로 확성한 메타-속성 그래프 비전을 제시</li>
+</ul>
+</li>
+<li>
+<p>Model Lakes</p>
+<ul>
+<li>data lake, management, vision</li>
+<li>모델 소석의 추적, 버전관리, 검색, 벤치마크등이 포함된 대규모 모델 관리 개념을 제시</li>
+</ul>
+</li>
+</ul>
+</div>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+<script src="https://giscus.app/client.js"
+        data-repo="JaeSim/JaeSim.github.io"
+        data-repo-id="R_kgDOOtVVtw"
+        data-category="Comment"
+        data-category-id="DIC_kwDOOtVVt84Cqcxg"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#summary"><strong>Summary</strong></a>
+      <ul>
+        <li><a href="#느낀점"><strong>느낀점</strong></a></li>
+        <li><a href="#interested-papers"><strong>Interested Papers</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#detail"><strong>Detail</strong></a></li>
+  </ul>
+</nav>
+
+  <div class="post-tags">
+    <strong>Tags:</strong>
+    
+      <a href="/tags/conferenece" class="tag">Conferenece</a>
+    
+      <a href="/tags/paper" class="tag">Paper</a>
+    
+      <a href="/tags/research" class="tag">Research</a>
+    
+      <a href="/tags/survey" class="tag">Survey</a>
+    
+      <a href="/tags/database" class="tag">Database</a>
+    
+      <a href="/tags/edbt" class="tag">EDBT</a>
+    
+  </div>
+
+
+
+  <div class="post-categories">
+    <strong>Categories:</strong>
+    
+      <a href="/categories/reserach" class="category">Reserach</a>
+    
+      <a href="/categories/study" class="category">Study</a>
+    
+  </div>
+
+
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('pre > code[class^="language-"]').forEach(codeBlock => {
+      const pre = codeBlock.parentElement;
+
+      
+      const button = document.createElement('button');
+      button.innerText = '📋';
+      button.title = 'Copy code';
+      button.style = `
+        position: absolute;
+        top: 0.5em;
+        right: 0.5em;
+        padding: 2px 6px;
+        font-size: 0.8rem;
+        background: #f5f5f5;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+        z-index: 10;
+      `;
+
+      
+      button.addEventListener('click', () => {
+        navigator.clipboard.writeText(codeBlock.innerText);
+        button.innerText = '✔';
+        setTimeout(() => button.innerText = '📋', 1000);
+      });
+
+      
+      pre.style.position = 'relative';
+      pre.appendChild(button);
+    });
+  });
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -8,249 +8,61 @@
   #
 
 
-  설치
+  SAP trial
   #
 
 
-  Trial 다운로드
-  #
+SAP BTP trial 링크
 
+https://www.sap.com/products/technology-platform/trial.html
 
-평가판(trial) 다운로드 위치 : https://www.sap.com/products/data-cloud/hana/express-trial.html
-관련 참조 페이지
 
-https://pages.community.sap.com/topics/hana
-https://tools.hana.ondemand.com/#hanatools
-https://gist.github.com/tlinnet/4196fd9c7aa43e37ea71e69bdc40a7dd
-https://developers.sap.com/tutorial-navigator.html?search=install&tag=software-product%3Atechnology-platform%2Fsap-hana
+BTP trial 생성 및 BTP cockpit 접속
 
+ID = P2009440130
+이후 스텝은 https://account.hanatrial.ondemand.com/trial/#/home/trial 관련 내용 따름
 
 
+trial account 생성 - sub account 생성 및 sub account 클릭
 
-  설치 커맨드
-  #
+!! 주의 !!   US region으로 생성해야 HANA Cloud DB 서비스를 사용할 수 있음
 
 
-JAVA_HOME export as version 8
+Service -&gt; Service MarketPlace 에서 HANA Cloud tools 구독 생성
 
-vim ~/.bashrc
-# 하단에 아레 정보 입력
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+create SAP HANA Cloud - plan: tools 생성
 
-source ~/.bashrc
 
-설치 파일 실행 권한 부여
+Security User에 Role assign
 
-chmod &#43;x HXEDownloadManager_linux.bin
-./HXEDownloadManager_linux.bin
+Security -&gt; Users -&gt; 본인 계정 선택 -&gt; Role Collections -&gt; Assign Role Collection -&gt; SAP HANA keyword 및 cloud keyword 모두 체크하여 반영
 
-server only installer 선택
-binary installer -&gt; [ server only installer , Clients (Linux x86/64) 두개 선택 ]
-압축 해제 및 실행
 
-tar -xvzf hxe.tgz
+SAP HANA Cloud 생성
 
-sudo mv /bin/sh /bin/sh.orig
-sudo ln -s /bin/bash /bin/sh
+Service -&gt; Instances and Subscription -&gt; SAP HANA Cloud 생성 클릭
 
-sudo setup_hxe.sh
 
-sudo 권한을 주지 않고 하려면 아래 수행을 해야하는데, 차라리 sudo 권한을 주는것을 권장. ㅔ
+SAP HANA Instance 생성
 
-vim setupo_hxe.sh
-  // checkRootuser 주석
-  // checkBash 주석
-Enter SAP HANA system ID [HXE]:
+allow all ip address 를 설정
 
-Enter instance number [90]:
 
-Enter local host name [bdai-ThinkStation-P920]:
+생성된 instance의 connections의 SQL Endpoint가 host
 
-password 설정 (SAP**** 로 설정함)
+instance를 클릭후 &hellip; 에가면 open in SAP HANA Cockpit 이나 다른 Database Explorer 등으로 볼 수 있다
 
-- 8 or more letters
-- At least 1 uppercase letter
-- At least 1 lowercase letter
-- At least 1 number
 
-우분투 설치하려면 아래 가이드 따를것 
-https://gist.github.com/tlinnet/4196fd9c7aa43e37ea71e69bdc40a7dd
-가이드에 있는 내용
 
-sudo cp /usr/sbin/update-rc.d /usr/sbin/update-rc.d.orig
-sudo sed -i &#39;/^        usage(&#34;unknown option&#34;);/i \        \if (/^-n$/) { next }&#39; /usr/sbin/update-rc.d
 
-password 설정
-실행을 통해서 확인 (아래커맨드로 접속가능)
 
-
-#export /usr/sap/&lt;SID&gt;/HDB&lt;instance&gt;/exe
-export PATH=/usr/sap/HXE/HDB90/exe:$PATH
-source ~/.bashrc
-# ./hdbsql -n localhost:39013 -u System -p {Password}
-
-sudo /usr/sap/HXE/HDB90/exe/hdbsql -n localhost:39013 -u System -p {Password}
-
-HANA_EXPRESS_20\hxe_info.tx 에서 아래 정보 확인가능
-
- 1 [hxe_version]
- 2 HANA, express edition=2.00.082.00.20250528.1
- 3 #
- 4 HDB_AFL=2.00.082.00
- 5 HDB_LCM=2.00.082.00
- 6 HDB_SERVER=2.00.082.00
- 7 HANA_CLIENT=2.24.19
- 8 #
- 9 XSA_RT=1.3.7
-10 XSAC_COCKPIT=2.18.0
-11 XSAC_HRTT=2.16.250401
-12 XSAC_SAP_WEB_IDE=4.8.2
-13 XSAC_PORTAL_SERV=2.8.0
-14 XSAC_SERVICES=1.7.31
-15 XSAC_UI5_FESV6=1.71.68
-16 XSAC_UI5_FESV9=1.108.31
-17 XSAC_XSA_COCKPIT=1.1.44
-18 #
-19 [hxe_installation]
-20 INSTALL_TYPE=Binary
-21 INSTALL_DATE=
-~
-
-  동작 내용
-  #
-
-
-  explain 관련 short 테스트
-  #
-
-
-TEST1, TEST2, TEST3 테이블을 만들고 임시 data를 넣고, EXPLAIN을 했을때 응답을 출력해본 것
-
-SQL 수행
-  
-hdbsql SYSTEMDB=&gt; SELECT TABLE_NAME  FROM M_TABLES  WHERE SCHEMA_NAME = CURRENT_SCHEMA;
-TABLE_NAME
-&#34;TEST1&#34;
-&#34;TEST2&#34;
-&#34;TEST3&#34;
-
-CREATE COLUMN TABLE TEST1 ( id VARCHAR(10), text VARCHAR(10) );
-
-CREATE COLUMN TABLE TEST2 ( id VARCHAR(10), content VARCHAR(10) );
-
-CREATE COLUMN TABLE TEST3 ( id VARCHAR(10), comment VARCHAR(10) );
-
-CREATE INDEX idx_test3_id ON TEST3(id);
-
-
-INSERT INTO TEST1 (id, text) VALUES (&#39;A001&#39;, &#39;Text1&#39;);  -- TEST2, TEST3에도 존재
-INSERT INTO TEST1 (id, text) VALUES (&#39;A002&#39;, &#39;Text2&#39;);  -- TEST2, TEST3에도 존재
-INSERT INTO TEST1 (id, text) VALUES (&#39;A003&#39;, &#39;Text3&#39;);  -- TEST2, TEST3에도 존재
-INSERT INTO TEST1 (id, text) VALUES (&#39;A005&#39;, &#39;Text5&#39;);  -- TEST2에는 있지만 TEST3에는 없음
-INSERT INTO TEST1 (id, text) VALUES (&#39;A007&#39;, &#39;Text7&#39;);  -- TEST2에는 있지만 TEST3에는 없음
-INSERT INTO TEST1 (id, text) VALUES (&#39;A009&#39;, &#39;Text9&#39;);  -- TEST3에는 있지만 TEST2에는 없음
-INSERT INTO TEST1 (id, text) VALUES (&#39;A011&#39;, &#39;Text11&#39;); -- TEST2, TEST3에는 없는 새로운 ID
-INSERT INTO TEST1 (id, text) VALUES (&#39;A012&#39;, &#39;Text12&#39;); -- TEST2, TEST3에는 없는 새로운 ID
-
-
-INSERT INTO TEST2 (id, content) VALUES (&#39;A001&#39;, &#39;c1&#39;);
-INSERT INTO TEST2 (id, content) VALUES (&#39;A002&#39;, &#39;c2&#39;);
-INSERT INTO TEST2 (id, content) VALUES (&#39;A003&#39;, &#39;c3&#39;);
-INSERT INTO TEST2 (id, content) VALUES (&#39;A004&#39;, &#39;c4&#39;);
-INSERT INTO TEST2 (id, content) VALUES (&#39;A005&#39;, &#39;c5&#39;);
-INSERT INTO TEST2 (id, content) VALUES (&#39;A006&#39;, &#39;c6&#39;); -- TEST3에 없는 ID
-INSERT INTO TEST2 (id, content) VALUES (&#39;A007&#39;, &#39;c7&#39;); -- TEST3에 없는 ID
-
-INSERT INTO TEST3 (id, comment) VALUES (&#39;A001&#39;, &#39;p1&#39;);
-INSERT INTO TEST3 (id, comment) VALUES (&#39;A002&#39;, &#39;p2&#39;);
-INSERT INTO TEST3 (id, comment) VALUES (&#39;A003&#39;, &#39;p3&#39;);
-INSERT INTO TEST3 (id, comment) VALUES (&#39;A008&#39;, &#39;p8&#39;); -- TEST2에 없는 ID
-INSERT INTO TEST3 (id, comment) VALUES (&#39;A009&#39;, &#39;p9&#39;); -- TEST2에 없는 ID
-INSERT INTO TEST3 (id, comment) VALUES (&#39;A010&#39;, &#39;p10&#39;); -- TEST2에 없는 ID
-
-
-SELECT T1.id, T1.text, T2.content, T3.comment FROM TEST1 T1 INNER JOIN TEST2 T2 ON T1.id = T2.id INNER JOIN TEST3 T3 ON T1.id = T3.id;
-
-
-hdbsql SYSTEMDB=&gt; SELECT T1.id, T1.text, T2.content, T3.comment FROM TEST1 T1 INNER JOIN TEST2 T2 ON T
-1.id = T2.id INNER JOIN TEST3 T3 ON T1.id = T3.id;
-ID,TEXT,CONTENT,COMMENT
-&#34;A001&#34;,&#34;Text1&#34;,&#34;c1&#34;,&#34;p1&#34;
-&#34;A002&#34;,&#34;Text2&#34;,&#34;c2&#34;,&#34;p2&#34;
-&#34;A003&#34;,&#34;Text3&#34;,&#34;c3&#34;,&#34;p3&#34;
-3 rows selected (overall time 35.804 msec; server time 29.875 msec)
-
-
-
-EXPLAIN PLAN SET STATEMENT_NAME = &#39;ORIG&#39; FOR SELECT T1.id, T1.text, T3.comment FROM TEST1 T1 INNER JOIN TEST3 T3 ON T1.id = T3.id;
-SELECT * FROM EXPLAIN_PLAN_TABLE ORDER BY TIMESTAMP DESC;
-
-STATEMENT_NAME,OPERATOR_NAME,OPERATOR_DETAILS,OPERATOR_PROPERTIES,EXECUTION_ENGINE,DATABASE_NAME,SCHEM
-A_NAME,TABLE_NAME,TABLE_TYPE,TABLE_SIZE,OUTPUT_SIZE,SUBTREE_COST,OPERATOR_ID,PARENT_OPERATOR_ID,LEVEL,
-POSITION,HOST,PORT,TIMESTAMP,CONNECTION_ID
-
-&#34;ORIG&#34;,&#34;PROJECT&#34;,&#34;T1.ID, T1.TEXT, T3.COMMENT&#34;,&#34;PHYSICAL_ENUM_BY: HEX_PROJECT&#34;,&#34;HEX&#34;,?,?,?,?,?                            ,4,0.000000781081778845808,1,?          ,1,1,&#34;bdai-thinkstation-p920&#34;,39001,&#34;2025-03-20 12:23:54.078000000&#34;,117755
-&#34;ORIG&#34;,&#34;  INDEX JOIN&#34;,&#34;INDEX JOIN CONDITION: T1.ID = T3.ID&#34;,&#34;PHYSICAL_ENUM_BY: HEX_INDEX_JOIN&#34;,&#34;HEX&#34;,&#34;SYSTEMDB&#34;,&#34;SYSTEM&#34;,&#34;TEST3&#34;,&#34;COLUMN TABLE&#34;,6,4,0.000000781081778845808,2,1,2,1,&#34;bdai-thinkstation-p920&#34;,39001,&#34;2025-03-20 12:23:54.078000000&#34;,117755
-&#34;ORIG&#34;,&#34;    TABLE SCAN&#34;,&#34;&#34;,&#34;PHYSICAL_ENUM_BY: HEX_TABLE_SCAN&#34;,&#34;HEX&#34;,&#34;SYSTEMDB&#34;,&#34;SYSTEM&#34;,&#34;TEST1&#34;,&#34;COLUMN TABLE&#34;,8,8,0.000000024,3,2,3,1,&#34;bdai-thinkstation-p920&#34;
-,39001,&#34;2025-03-20 12:23:54.078000000&#34;,117755
-
-
-
-EXPLAIN PLAN SET STATEMENT_NAME = &#39;FORCE_HSJO&#39; FOR SELECT T1.id, T1.text, T3.comment FROM TEST1 T1 INNER JOIN TEST3 T3 ON T1.id = T3.id WITH HINT( HASH_JOIN );
-4 rows selected (overall time 10.147 msec; server time 4031 usec)
-
-
-&#34;FORCE_HSJO&#34;,&#34;PROJECT&#34;,&#34;T1.ID, T1.TEXT, T3.COMMENT&#34;,&#34;ATTACHED HINT LIST (HASH_JOIN), PHYSICAL_ENUM_BY: HEX_PROJECT&#34;,&#34;HEX&#34;,?,?,?,?,? ,20,0.000003031119839811333,1,?                  ,1,1,&#34;bdai-thinkstation-p920&#34;,39001,&#34;2025-03-20 12:36:14.827000000&#34;,118106
-&#34;FORCE_HSJO&#34;,&#34;  INDEX JOIN&#34;,&#34;INDEX JOIN CONDITION: T1.ID = T3.ID&#34;,&#34;TRANSLATION TABLE (LEFT): T1.ID = T3.ID, PHYSICAL_ENUM_BY: HEX_INDEX_JOIN&#34;,&#34;HEX&#34;,&#34;SYSTEMDB&#34;,&#34;SYSTEM&#34;,&#34;TEST3&#34;,&#34;COLUMN TABLE&#34;,22,20,0.000003031119839811333,2,1,2,1,&#34;bdai-thinkstation-p920&#34;,39001,&#34;2025-03-20 12:36:14.827000000&#34;,118106
-&#34;FORCE_HSJO&#34;,&#34;    TABLE SCAN&#34;,&#34;&#34;,&#34;PHYSICAL_ENUM_BY: HEX_TABLE_SCAN&#34;,&#34;HEX&#34;,&#34;SYSTEMDB&#34;,&#34;SYSTEM&#34;,&#34;TEST1&#34;,&#34;COLUMN TABLE&#34;,29,29,0.000000087,3,2,3,1,&#34;bdai-thinkstat
-ion-p920&#34;,39001,&#34;2025-03-20 12:36:14.827000000&#34;,118106
-  
-
-
-  dataset을 IMPORT를 하기 위해서 수정해야 했던 것들
-  #
-
-
-어느것이 정확하게 동작하는지 기억x
-
-ALTER SYSTEM ALTER CONFIGURATION (&#39;indexserver.ini&#39;, &#39;SYSTEM&#39;)  SET (&#39;import_export&#39;, &#39;csv_import_path_filter&#39;) = &#39;/home/jae.sim/hanadb/datasets/job/&#39;  WITH RECONFIGURE;
-ALTER SYSTEM ALTER CONFIGURATION (&#39;indexserver.ini&#39;, &#39;SYSTEM&#39;) set (&#39;import&#39;, &#39;enable_csv_import_path_filter&#39;) = &#39;true&#39; with reconfigure;
-SELECT FILE_NAME, SECTION, KEY, VALUE FROM M_INIFILE_CONTENTS WHERE SECTION = &#39;import&#39;  AND KEY = &#39;csv_import_path_filter&#39;;
-SELECT FILE_NAME, SECTION, KEY, VALUE FROM M_INIFILE_CONTENTS WHERE SECTION = &#39;import_export&#39;  ;
-alter system alter configuration ( &#39;indexserver.ini&#39;,&#39;SYSTEM&#39; ) set ( &#39;import_export&#39;,&#39;enable_csv_import_path_filter&#39; ) = &#39;false&#39; with reconfigure
-ALTER SYSTEM ALTER CONFIGURATION (&#39;indexserver.ini&#39;, &#39;SYSTEM&#39;) SET (&#39;import&#39;, &#39;csv_import_path_filter&#39;) = &#39;/home/jae.sim/hanadb/datasets/job/&#39;  WITH RECONFIGURE;
-
-  HANA DB 지원
-  #
-
-
-  EXPLAIN and ANALYZE 지원 관련
-  #
-
-
-EXPLAIN의 경우 EXPLAIN PLAN keyword로 지원
-
-https://help.sap.com/docs/SAP_HANA_PLATFORM/bed8c14f9f024763b0777aa72b5436f6/c0d42fd3bb571014a0688254f3de593f.html
-Join order 와 physical Op를 확인 가능
-
-
-ANALYZE의 경우 SQL Level에서는 미지원
-
-M_SQL_PLAN_CACHE 로 수행한 결과를 분석해야함
-해당 cache안에 join order등 어떠한 정보들을 볼 수 있는지
-
-
-
-제공되는 정보
-  
-TOTAL_EXECUTION_TIME 을 제공. 그러나 sub-tree에 대한 정보는 제공하지 않음.">
+참고 아래 instance 스펙으로 고정됨. trial은 총 2개의 instance를 지원하는 듯함">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/learned-query-optimizer/hana-database-porting/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="HANA Database Porting">
-  <meta property="og:description" content="Learned Query Optimizer 포팅을 위한 HANA DB의 분석 내용#설치#Trial 다운로드#평가판(trial) 다운로드 위치 : https://www.sap.com/products/data-cloud/hana/express-trial.html 관련 참조 페이지 https://pages.community.sap.com/topics/hana https://tools.hana.ondemand.com/#hanatools https://gist.github.com/tlinnet/4196fd9c7aa43e37ea71e69bdc40a7dd https://developers.sap.com/tutorial-navigator.html?search=install&amp;tag=software-product%3Atechnology-platform%2Fsap-hana 설치 커맨드#JAVA_HOME export as version 8 vim ~/.bashrc # 하단에 아레 정보 입력 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 source ~/.bashrc 설치 파일 실행 권한 부여 chmod &#43;x HXEDownloadManager_linux.bin ./HXEDownloadManager_linux.bin server only installer 선택
-binary installer -&gt; [ server only installer , Clients (Linux x86/64) 두개 선택 ] 압축 해제 및 실행 tar -xvzf hxe.tgz sudo mv /bin/sh /bin/sh.orig sudo ln -s /bin/bash /bin/sh sudo setup_hxe.sh sudo 권한을 주지 않고 하려면 아래 수행을 해야하는데, 차라리 sudo 권한을 주는것을 권장. ㅔ vim setupo_hxe.sh // checkRootuser 주석 // checkBash 주석 Enter SAP HANA system ID [HXE]: Enter instance number [90]: Enter local host name [bdai-ThinkStation-P920]: password 설정 (SAP**** 로 설정함) - 8 or more letters- At least 1 uppercase letter- At least 1 lowercase letter- At least 1 number 우분투 설치하려면 아래 가이드 따를것 https://gist.github.com/tlinnet/4196fd9c7aa43e37ea71e69bdc40a7dd 가이드에 있는 내용 sudo cp /usr/sbin/update-rc.d /usr/sbin/update-rc.d.orig sudo sed -i &#39;/^ usage(&#34;unknown option&#34;);/i \ \if (/^-n$/) { next }&#39; /usr/sbin/update-rc.d password 설정 실행을 통해서 확인 (아래커맨드로 접속가능) #export /usr/sap/&lt;SID&gt;/HDB&lt;instance&gt;/exe export PATH=/usr/sap/HXE/HDB90/exe:$PATH source ~/.bashrc # ./hdbsql -n localhost:39013 -u System -p {Password} sudo /usr/sap/HXE/HDB90/exe/hdbsql -n localhost:39013 -u System -p {Password} HANA_EXPRESS_20\hxe_info.tx 에서 아래 정보 확인가능 1 [hxe_version] 2 HANA, express edition=2.00.082.00.20250528.1 3 # 4 HDB_AFL=2.00.082.00 5 HDB_LCM=2.00.082.00 6 HDB_SERVER=2.00.082.00 7 HANA_CLIENT=2.24.19 8 # 9 XSA_RT=1.3.7 10 XSAC_COCKPIT=2.18.0 11 XSAC_HRTT=2.16.250401 12 XSAC_SAP_WEB_IDE=4.8.2 13 XSAC_PORTAL_SERV=2.8.0 14 XSAC_SERVICES=1.7.31 15 XSAC_UI5_FESV6=1.71.68 16 XSAC_UI5_FESV9=1.108.31 17 XSAC_XSA_COCKPIT=1.1.44 18 # 19 [hxe_installation] 20 INSTALL_TYPE=Binary 21 INSTALL_DATE= ~ 동작 내용#explain 관련 short 테스트#TEST1, TEST2, TEST3 테이블을 만들고 임시 data를 넣고, EXPLAIN을 했을때 응답을 출력해본 것 SQL 수행hdbsql SYSTEMDB=&gt; SELECT TABLE_NAME FROM M_TABLES WHERE SCHEMA_NAME = CURRENT_SCHEMA; TABLE_NAME &#34;TEST1&#34; &#34;TEST2&#34; &#34;TEST3&#34; CREATE COLUMN TABLE TEST1 ( id VARCHAR(10), text VARCHAR(10) ); CREATE COLUMN TABLE TEST2 ( id VARCHAR(10), content VARCHAR(10) ); CREATE COLUMN TABLE TEST3 ( id VARCHAR(10), comment VARCHAR(10) ); CREATE INDEX idx_test3_id ON TEST3(id); INSERT INTO TEST1 (id, text) VALUES (&#39;A001&#39;, &#39;Text1&#39;); -- TEST2, TEST3에도 존재 INSERT INTO TEST1 (id, text) VALUES (&#39;A002&#39;, &#39;Text2&#39;); -- TEST2, TEST3에도 존재 INSERT INTO TEST1 (id, text) VALUES (&#39;A003&#39;, &#39;Text3&#39;); -- TEST2, TEST3에도 존재 INSERT INTO TEST1 (id, text) VALUES (&#39;A005&#39;, &#39;Text5&#39;); -- TEST2에는 있지만 TEST3에는 없음 INSERT INTO TEST1 (id, text) VALUES (&#39;A007&#39;, &#39;Text7&#39;); -- TEST2에는 있지만 TEST3에는 없음 INSERT INTO TEST1 (id, text) VALUES (&#39;A009&#39;, &#39;Text9&#39;); -- TEST3에는 있지만 TEST2에는 없음 INSERT INTO TEST1 (id, text) VALUES (&#39;A011&#39;, &#39;Text11&#39;); -- TEST2, TEST3에는 없는 새로운 ID INSERT INTO TEST1 (id, text) VALUES (&#39;A012&#39;, &#39;Text12&#39;); -- TEST2, TEST3에는 없는 새로운 ID INSERT INTO TEST2 (id, content) VALUES (&#39;A001&#39;, &#39;c1&#39;); INSERT INTO TEST2 (id, content) VALUES (&#39;A002&#39;, &#39;c2&#39;); INSERT INTO TEST2 (id, content) VALUES (&#39;A003&#39;, &#39;c3&#39;); INSERT INTO TEST2 (id, content) VALUES (&#39;A004&#39;, &#39;c4&#39;); INSERT INTO TEST2 (id, content) VALUES (&#39;A005&#39;, &#39;c5&#39;); INSERT INTO TEST2 (id, content) VALUES (&#39;A006&#39;, &#39;c6&#39;); -- TEST3에 없는 ID INSERT INTO TEST2 (id, content) VALUES (&#39;A007&#39;, &#39;c7&#39;); -- TEST3에 없는 ID INSERT INTO TEST3 (id, comment) VALUES (&#39;A001&#39;, &#39;p1&#39;); INSERT INTO TEST3 (id, comment) VALUES (&#39;A002&#39;, &#39;p2&#39;); INSERT INTO TEST3 (id, comment) VALUES (&#39;A003&#39;, &#39;p3&#39;); INSERT INTO TEST3 (id, comment) VALUES (&#39;A008&#39;, &#39;p8&#39;); -- TEST2에 없는 ID INSERT INTO TEST3 (id, comment) VALUES (&#39;A009&#39;, &#39;p9&#39;); -- TEST2에 없는 ID INSERT INTO TEST3 (id, comment) VALUES (&#39;A010&#39;, &#39;p10&#39;); -- TEST2에 없는 ID SELECT T1.id, T1.text, T2.content, T3.comment FROM TEST1 T1 INNER JOIN TEST2 T2 ON T1.id = T2.id INNER JOIN TEST3 T3 ON T1.id = T3.id; hdbsql SYSTEMDB=&gt; SELECT T1.id, T1.text, T2.content, T3.comment FROM TEST1 T1 INNER JOIN TEST2 T2 ON T 1.id = T2.id INNER JOIN TEST3 T3 ON T1.id = T3.id; ID,TEXT,CONTENT,COMMENT &#34;A001&#34;,&#34;Text1&#34;,&#34;c1&#34;,&#34;p1&#34; &#34;A002&#34;,&#34;Text2&#34;,&#34;c2&#34;,&#34;p2&#34; &#34;A003&#34;,&#34;Text3&#34;,&#34;c3&#34;,&#34;p3&#34; 3 rows selected (overall time 35.804 msec; server time 29.875 msec) EXPLAIN PLAN SET STATEMENT_NAME = &#39;ORIG&#39; FOR SELECT T1.id, T1.text, T3.comment FROM TEST1 T1 INNER JOIN TEST3 T3 ON T1.id = T3.id; SELECT * FROM EXPLAIN_PLAN_TABLE ORDER BY TIMESTAMP DESC; STATEMENT_NAME,OPERATOR_NAME,OPERATOR_DETAILS,OPERATOR_PROPERTIES,EXECUTION_ENGINE,DATABASE_NAME,SCHEM A_NAME,TABLE_NAME,TABLE_TYPE,TABLE_SIZE,OUTPUT_SIZE,SUBTREE_COST,OPERATOR_ID,PARENT_OPERATOR_ID,LEVEL, POSITION,HOST,PORT,TIMESTAMP,CONNECTION_ID &#34;ORIG&#34;,&#34;PROJECT&#34;,&#34;T1.ID, T1.TEXT, T3.COMMENT&#34;,&#34;PHYSICAL_ENUM_BY: HEX_PROJECT&#34;,&#34;HEX&#34;,?,?,?,?,? ,4,0.000000781081778845808,1,? ,1,1,&#34;bdai-thinkstation-p920&#34;,39001,&#34;2025-03-20 12:23:54.078000000&#34;,117755 &#34;ORIG&#34;,&#34; INDEX JOIN&#34;,&#34;INDEX JOIN CONDITION: T1.ID = T3.ID&#34;,&#34;PHYSICAL_ENUM_BY: HEX_INDEX_JOIN&#34;,&#34;HEX&#34;,&#34;SYSTEMDB&#34;,&#34;SYSTEM&#34;,&#34;TEST3&#34;,&#34;COLUMN TABLE&#34;,6,4,0.000000781081778845808,2,1,2,1,&#34;bdai-thinkstation-p920&#34;,39001,&#34;2025-03-20 12:23:54.078000000&#34;,117755 &#34;ORIG&#34;,&#34; TABLE SCAN&#34;,&#34;&#34;,&#34;PHYSICAL_ENUM_BY: HEX_TABLE_SCAN&#34;,&#34;HEX&#34;,&#34;SYSTEMDB&#34;,&#34;SYSTEM&#34;,&#34;TEST1&#34;,&#34;COLUMN TABLE&#34;,8,8,0.000000024,3,2,3,1,&#34;bdai-thinkstation-p920&#34; ,39001,&#34;2025-03-20 12:23:54.078000000&#34;,117755 EXPLAIN PLAN SET STATEMENT_NAME = &#39;FORCE_HSJO&#39; FOR SELECT T1.id, T1.text, T3.comment FROM TEST1 T1 INNER JOIN TEST3 T3 ON T1.id = T3.id WITH HINT( HASH_JOIN ); 4 rows selected (overall time 10.147 msec; server time 4031 usec) &#34;FORCE_HSJO&#34;,&#34;PROJECT&#34;,&#34;T1.ID, T1.TEXT, T3.COMMENT&#34;,&#34;ATTACHED HINT LIST (HASH_JOIN), PHYSICAL_ENUM_BY: HEX_PROJECT&#34;,&#34;HEX&#34;,?,?,?,?,? ,20,0.000003031119839811333,1,? ,1,1,&#34;bdai-thinkstation-p920&#34;,39001,&#34;2025-03-20 12:36:14.827000000&#34;,118106 &#34;FORCE_HSJO&#34;,&#34; INDEX JOIN&#34;,&#34;INDEX JOIN CONDITION: T1.ID = T3.ID&#34;,&#34;TRANSLATION TABLE (LEFT): T1.ID = T3.ID, PHYSICAL_ENUM_BY: HEX_INDEX_JOIN&#34;,&#34;HEX&#34;,&#34;SYSTEMDB&#34;,&#34;SYSTEM&#34;,&#34;TEST3&#34;,&#34;COLUMN TABLE&#34;,22,20,0.000003031119839811333,2,1,2,1,&#34;bdai-thinkstation-p920&#34;,39001,&#34;2025-03-20 12:36:14.827000000&#34;,118106 &#34;FORCE_HSJO&#34;,&#34; TABLE SCAN&#34;,&#34;&#34;,&#34;PHYSICAL_ENUM_BY: HEX_TABLE_SCAN&#34;,&#34;HEX&#34;,&#34;SYSTEMDB&#34;,&#34;SYSTEM&#34;,&#34;TEST1&#34;,&#34;COLUMN TABLE&#34;,29,29,0.000000087,3,2,3,1,&#34;bdai-thinkstat ion-p920&#34;,39001,&#34;2025-03-20 12:36:14.827000000&#34;,118106 dataset을 IMPORT를 하기 위해서 수정해야 했던 것들#어느것이 정확하게 동작하는지 기억x ALTER SYSTEM ALTER CONFIGURATION (&#39;indexserver.ini&#39;, &#39;SYSTEM&#39;) SET (&#39;import_export&#39;, &#39;csv_import_path_filter&#39;) = &#39;/home/jae.sim/hanadb/datasets/job/&#39; WITH RECONFIGURE; ALTER SYSTEM ALTER CONFIGURATION (&#39;indexserver.ini&#39;, &#39;SYSTEM&#39;) set (&#39;import&#39;, &#39;enable_csv_import_path_filter&#39;) = &#39;true&#39; with reconfigure; SELECT FILE_NAME, SECTION, KEY, VALUE FROM M_INIFILE_CONTENTS WHERE SECTION = &#39;import&#39; AND KEY = &#39;csv_import_path_filter&#39;; SELECT FILE_NAME, SECTION, KEY, VALUE FROM M_INIFILE_CONTENTS WHERE SECTION = &#39;import_export&#39; ; alter system alter configuration ( &#39;indexserver.ini&#39;,&#39;SYSTEM&#39; ) set ( &#39;import_export&#39;,&#39;enable_csv_import_path_filter&#39; ) = &#39;false&#39; with reconfigure ALTER SYSTEM ALTER CONFIGURATION (&#39;indexserver.ini&#39;, &#39;SYSTEM&#39;) SET (&#39;import&#39;, &#39;csv_import_path_filter&#39;) = &#39;/home/jae.sim/hanadb/datasets/job/&#39; WITH RECONFIGURE; HANA DB 지원#EXPLAIN and ANALYZE 지원 관련#EXPLAIN의 경우 EXPLAIN PLAN keyword로 지원 https://help.sap.com/docs/SAP_HANA_PLATFORM/bed8c14f9f024763b0777aa72b5436f6/c0d42fd3bb571014a0688254f3de593f.html Join order 와 physical Op를 확인 가능 ANALYZE의 경우 SQL Level에서는 미지원 M_SQL_PLAN_CACHE 로 수행한 결과를 분석해야함 해당 cache안에 join order등 어떠한 정보들을 볼 수 있는지 제공되는 정보TOTAL_EXECUTION_TIME 을 제공. 그러나 sub-tree에 대한 정보는 제공하지 않음.">
+  <meta property="og:description" content="Learned Query Optimizer 포팅을 위한 HANA DB의 분석 내용#SAP trial#SAP BTP trial 링크 https://www.sap.com/products/technology-platform/trial.html BTP trial 생성 및 BTP cockpit 접속 ID = P2009440130 이후 스텝은 https://account.hanatrial.ondemand.com/trial/#/home/trial 관련 내용 따름 trial account 생성 - sub account 생성 및 sub account 클릭 !! 주의 !! US region으로 생성해야 HANA Cloud DB 서비스를 사용할 수 있음 Service -&gt; Service MarketPlace 에서 HANA Cloud tools 구독 생성 create SAP HANA Cloud - plan: tools 생성 Security User에 Role assign Security -&gt; Users -&gt; 본인 계정 선택 -&gt; Role Collections -&gt; Assign Role Collection -&gt; SAP HANA keyword 및 cloud keyword 모두 체크하여 반영 SAP HANA Cloud 생성 Service -&gt; Instances and Subscription -&gt; SAP HANA Cloud 생성 클릭 SAP HANA Instance 생성 allow all ip address 를 설정 생성된 instance의 connections의 SQL Endpoint가 host instance를 클릭후 … 에가면 open in SAP HANA Cockpit 이나 다른 Database Explorer 등으로 볼 수 있다 참고 아래 instance 스펙으로 고정됨. trial은 총 2개의 instance를 지원하는 듯함">
   <meta property="og:locale" content="ko_kr">
   <meta property="og:type" content="article">
     <meta property="article:section" content="learned-query-optimizer">
@@ -268,7 +80,7 @@ binary installer -&gt; [ server only installer , Clients (Linux x86/64) 두개 �
 <link rel="canonical" href="https://JaeSim.github.io/learned-query-optimizer/hana-database-porting/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.cc27a1bf3d737dc0ee3336b9f8daf39448caac099e410e62d1e8f2e6ff20c8f2.js" integrity="sha256-zCehvz1zfcDuMza5&#43;NrzlEjKrAmeQQ5i0ejy5v8gyPI=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.12a831f1344da924726573a85c4b95dbbe58d3a0686766569d11c5b430712db8.js" integrity="sha256-Eqgx8TRNqSRyZXOoXEuV275Y06BoZ2ZWnRHFtDBxLbg=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -335,19 +147,6 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/development/secondpost/" class="">두번째 글입니다. 블로그 실험용 테스트 글입니다.</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/development/firstpost/" class="">할일</a>
   
 
@@ -379,7 +178,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <span>Study</span>
+    <span>Research Study</span>
   
 
           
@@ -392,7 +191,20 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/study/graph/" class="">GNN</a>
+    <span>Brief</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/brief/graph/" class="">GNN</a>
   
 
         </li>
@@ -405,7 +217,38 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/study/learned-index/" class="">Learned Index</a>
+    <a href="/research-study/brief/llm-build/" class="">LLM Build</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>More deep</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/more-deep/learned-index/" class="">Learned Index</a>
   
 
         </li>
@@ -418,7 +261,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/study/learned-scheduler/" class="">Learned Scheduler</a>
+    <a href="/research-study/more-deep/learned-scheduler/" class="">Learned Scheduler</a>
   
 
         </li>
@@ -431,7 +274,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/study/adaptive-watermark/" class="">Adaptive Watermark in Stream Processing</a>
+    <a href="/research-study/more-deep/adaptive-watermark/" class="">Adaptive Watermark in Stream Processing</a>
   
 
         </li>
@@ -444,7 +287,38 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/study/2025-icde/" class="">2025 ICDE</a>
+    <a href="/research-study/more-deep/vector-db/" class="">Vector DB (Not Completed)</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Paper Trend</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/paper-trend/2025-icde/" class="">2025 ICDE</a>
   
 
         </li>
@@ -457,7 +331,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/study/2025-vldb/" class="">2025 VLDB (Not Completed)</a>
+    <a href="/research-study/paper-trend/2025-vldb/" class="">2025 VLDB (Not Completed)</a>
   
 
         </li>
@@ -470,7 +344,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/study/2025-edbt/" class="">2025 EDBT</a>
+    <a href="/research-study/paper-trend/2025-edbt/" class="">2025 EDBT</a>
   
 
         </li>
@@ -483,8 +357,13 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/study/2025-sigmod/" class="">2025 SIGMOD</a>
+    <a href="/research-study/paper-trend/2025-sigmod/" class="">2025 SIGMOD</a>
   
+
+        </li>
+      
+    
+  </ul>
 
         </li>
       
@@ -672,7 +551,18 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#설치"><strong>설치</strong></a>
+    <li><a href="#sap-trial"><strong>SAP trial</strong></a>
+      <ul>
+        <li><a href="#hana-db-cloud와-python-연결을-위한-세팅"><strong>HANA DB Cloud와 python 연결을 위한 세팅</strong></a>
+          <ul>
+            <li><a href="#driver-및-cli-세팅-다운로드"><strong>Driver 및 CLI 세팅 다운로드</strong></a></li>
+            <li><a href="#sample-code"><strong>sample code</strong></a></li>
+            <li><a href="#cli로-접근하기"><strong>cli로 접근하기</strong></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#hana-db-on-premise-설치"><strong>HANA DB on-premise 설치</strong></a>
       <ul>
         <li><a href="#trial-다운로드"><strong>Trial 다운로드</strong></a></li>
         <li><a href="#설치-커맨드"><strong>설치 커맨드</strong></a></li>
@@ -694,6 +584,20 @@ https://github.com/alex-shpak/hugo-book
     </li>
     <li><a href="#쿼리-샘플들"><strong>쿼리 샘플들</strong></a></li>
     <li><a href="#sap-hana-studio-다운로드"><strong>SAP HANA studio 다운로드</strong></a></li>
+    <li><a href="#ssb-workload-업로드"><strong>SSB workload 업로드</strong></a>
+      <ul>
+        <li><a href="#ssb-dataset-생성"><strong>SSB Dataset 생성</strong></a></li>
+        <li><a href="#table-생성"><strong>table 생성</strong></a></li>
+        <li><a href="#data-load"><strong>data load</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#job-workload-업로드"><strong>JOB workload 업로드</strong></a>
+      <ul>
+        <li><a href="#job-dataset"><strong>JOB Dataset</strong></a></li>
+        <li><a href="#job-table-create"><strong>JOB table create</strong></a></li>
+        <li><a href="#job-data-bulk-upload"><strong>JOB data bulk upload</strong></a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 
@@ -744,9 +648,145 @@ https://github.com/alex-shpak/hugo-book
   <strong>Learned Query Optimizer 포팅을 위한 HANA DB의 분석 내용</strong>
   <a class="anchor" href="#learned-query-optimizer-%ed%8f%ac%ed%8c%85%ec%9d%84-%ec%9c%84%ed%95%9c-hana-db%ec%9d%98-%eb%b6%84%ec%84%9d-%eb%82%b4%ec%9a%a9">#</a>
 </h1>
-<h2 id="설치">
-  <strong>설치</strong>
-  <a class="anchor" href="#%ec%84%a4%ec%b9%98">#</a>
+<h2 id="sap-trial">
+  <strong>SAP trial</strong>
+  <a class="anchor" href="#sap-trial">#</a>
+</h2>
+<ol>
+<li>SAP BTP trial 링크
+<ul>
+<li><a href="https://www.sap.com/products/technology-platform/trial.html">https://www.sap.com/products/technology-platform/trial.html</a></li>
+</ul>
+</li>
+<li>BTP trial 생성 및 BTP cockpit 접속
+<ul>
+<li>ID = P2009440130</li>
+<li>이후 스텝은 <a href="https://account.hanatrial.ondemand.com/trial/#/home/trial">https://account.hanatrial.ondemand.com/trial/#/home/trial</a> 관련 내용 따름</li>
+</ul>
+</li>
+<li>trial account 생성 - sub account 생성 및 sub account 클릭
+<ul>
+<li><em><strong>!! 주의 !!</strong></em>   US region으로 생성해야 HANA Cloud DB 서비스를 사용할 수 있음</li>
+</ul>
+</li>
+<li>Service -&gt; Service MarketPlace 에서 HANA Cloud tools 구독 생성
+<ul>
+<li>create SAP HANA Cloud - plan: tools 생성</li>
+</ul>
+</li>
+<li>Security User에 Role assign
+<ul>
+<li>Security -&gt; Users -&gt; 본인 계정 선택 -&gt; Role Collections -&gt; Assign Role Collection -&gt; <code>SAP HANA</code> keyword 및 <code>cloud</code> keyword 모두 체크하여 반영</li>
+</ul>
+</li>
+<li>SAP HANA Cloud 생성
+<ul>
+<li>Service -&gt; Instances and Subscription -&gt; SAP HANA Cloud 생성 클릭</li>
+</ul>
+</li>
+<li>SAP HANA Instance 생성
+<ul>
+<li>allow all ip address 를 설정</li>
+</ul>
+</li>
+<li>생성된 instance의 connections의 SQL Endpoint가 host
+<ul>
+<li>instance를 클릭후 &hellip; 에가면 open in SAP HANA Cockpit 이나 다른 Database Explorer 등으로 볼 수 있다</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>
+<p>참고 아래 instance 스펙으로 고정됨. trial은 총 2개의 instance를 지원하는 듯함</p>
+<ul>
+<li>Memory   16 GB</li>
+<li>Storage   80 GB</li>
+<li>Compute   1 vCPUs</li>
+</ul>
+</li>
+<li>
+<p>아래 내용은 Cloud trial 이어서 HANA DB Cloud를 테스트 할수 있지만 좀더 제한적임. BTP trial이 좀더 많은 기능을 포함하고 있다.</p>
+<ul>
+<li><a href="https://www.sap.com/products/data-cloud/hana/trial.html">https://www.sap.com/products/data-cloud/hana/trial.html</a></li>
+<li>위 사이트에서 트라이얼 시작(30일) 으로 별도의 User ID와 Password 를 메모</li>
+<li>re-register trial을 하지 않으면 database안의 내용물은 유지되는 것으로 확인 ()기간동안..)</li>
+</ul>
+</li>
+</ul>
+<h3 id="hana-db-cloud와-python-연결을-위한-세팅">
+  <strong>HANA DB Cloud와 python 연결을 위한 세팅</strong>
+  <a class="anchor" href="#hana-db-cloud%ec%99%80-python-%ec%97%b0%ea%b2%b0%ec%9d%84-%ec%9c%84%ed%95%9c-%ec%84%b8%ed%8c%85">#</a>
+</h3>
+<h4 id="driver-및-cli-세팅-다운로드">
+  <strong>Driver 및 CLI 세팅 다운로드</strong>
+  <a class="anchor" href="#driver-%eb%b0%8f-cli-%ec%84%b8%ed%8c%85-%eb%8b%a4%ec%9a%b4%eb%a1%9c%eb%93%9c">#</a>
+</h4>
+<ul>
+<li><a href="https://help.sap.com/docs/SAP_HANA_CLIENT/f1b440ded6144a54ada97ff95dac7adf/39eca89d94ca464ca52385ad50fc7dea.html?locale=en-US">https://help.sap.com/docs/SAP_HANA_CLIENT/f1b440ded6144a54ada97ff95dac7adf/39eca89d94ca464ca52385ad50fc7dea.html?locale=en-US</a> 참조</li>
+<li><code>HXEDownloadManager_linux.bin</code> 실행 -&gt; Client 다운로드  (clients_linux_x86_64.tgz )</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>./HXEDownloadManager_linux.bin
+</span></span><span style="display:flex;"><span>tar -vzxf clients_linux_x86_64.tgz
+</span></span><span style="display:flex;"><span>tar -vzxf hdb_client_linux_x86_64.tgz
+</span></span><span style="display:flex;"><span>cd HDB_CLIENT_LINUX_X86_64
+</span></span><span style="display:flex;"><span>./hdbsetup
+</span></span></code></pre></div><ul>
+<li>hdb_client까지 설치하면 설치한 경로안에 <code>hdbcli-N.N.N.tar.gz</code> 가 있음. 이것을 설치</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>pip install /<span style="color:#f92672">{</span>path<span style="color:#f92672">}</span>/hdbcli-N.N.N.tar.gz
+</span></span></code></pre></div><h4 id="sample-code">
+  <strong>sample code</strong>
+  <a class="anchor" href="#sample-code">#</a>
+</h4>
+<ul>
+<li>아래 python 코드로 연동이 가능하나 hostname은 cockpit 가 아닌 database의 hostname을 쓰도록 주의</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> hdbcli <span style="color:#f92672">import</span> dbapi
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> contextlib
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@contextlib.contextmanager</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__connect</span>():
+</span></span><span style="display:flex;"><span>   conn <span style="color:#f92672">=</span> dbapi<span style="color:#f92672">.</span>connect(address<span style="color:#f92672">=&lt;</span>hostname<span style="color:#f92672">&gt;</span>, port<span style="color:#f92672">=</span><span style="color:#ae81ff">443</span>, user<span style="color:#f92672">=&lt;</span>user<span style="color:#f92672">&gt;</span>, password<span style="color:#f92672">=&lt;</span>password<span style="color:#f92672">&gt;</span>)
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>       cursor <span style="color:#f92672">=</span> conn<span style="color:#f92672">.</span>cursor()
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">yield</span> (cursor, conn)
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">finally</span> :
+</span></span><span style="display:flex;"><span>       cursor<span style="color:#f92672">.</span>close()
+</span></span><span style="display:flex;"><span>       conn<span style="color:#f92672">.</span>close()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">ExecuteSql</span>(cursor, sql):
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>       cursor<span style="color:#f92672">.</span>execute(sql)
+</span></span><span style="display:flex;"><span>       result_sets <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+</span></span><span style="display:flex;"><span>           rows <span style="color:#f92672">=</span> cursor<span style="color:#f92672">.</span>fetchall()
+</span></span><span style="display:flex;"><span>           result_sets<span style="color:#f92672">.</span>append(rows)
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> cursor<span style="color:#f92672">.</span>nextset():
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>       print(<span style="color:#e6db74">&#39;commdb error:&#39;</span>, e)
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">return</span> result_sets[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>   sql <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;select * from GX_EMPLOYEES limit 10&#34;</span>;
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">with</span> __connect() <span style="color:#66d9ef">as</span> (cursor, conn):
+</span></span><span style="display:flex;"><span>       result <span style="color:#f92672">=</span> ExecuteSql(cursor, sql)
+</span></span><span style="display:flex;"><span>       print(result)
+</span></span></code></pre></div><ul>
+<li>hostname은 trial 기준으로 SAP HANA Database Explorer 에서 database 우클릭 -&gt; properties 에 있는 host 를 입력. user 및 password는 trail 시작시 얻었던 것을 입력</li>
+</ul>
+<h4 id="cli로-접근하기">
+  <strong>cli로 접근하기</strong>
+  <a class="anchor" href="#cli%eb%a1%9c-%ec%a0%91%ea%b7%bc%ed%95%98%ea%b8%b0">#</a>
+</h4>
+<ul>
+<li>앞서 얻은 호스트, user, password를 이용해서 hanadb on-premise를 설치할때 얻은 hdbsql로 접근이 가능</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo /usr/sap/HXE/HDB90/exe/hdbsql -n &lt;hostname&gt;:443 -u &lt;user&gt; -p &lt;Password&gt;
+</span></span></code></pre></div><h2 id="hana-db-on-premise-설치">
+  <strong>HANA DB on-premise 설치</strong>
+  <a class="anchor" href="#hana-db-on-premise-%ec%84%a4%ec%b9%98">#</a>
 </h2>
 <h3 id="trial-다운로드">
   <strong>Trial 다운로드</strong>
@@ -1194,6 +1234,314 @@ SQL trace	Collect information about all SQL statements executed on the index ser
 </ul>
 </li>
 </ul>
+<h2 id="ssb-workload-업로드">
+  <strong>SSB workload 업로드</strong>
+  <a class="anchor" href="#ssb-workload-%ec%97%85%eb%a1%9c%eb%93%9c">#</a>
+</h2>
+<h3 id="ssb-dataset-생성">
+  <strong>SSB Dataset 생성</strong>
+  <a class="anchor" href="#ssb-dataset-%ec%83%9d%ec%84%b1">#</a>
+</h3>
+<ul>
+<li>ssb 데이터 생성</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>./dbgen -s <span style="color:#ae81ff">10</span> -T c    <span style="color:#75715e"># customer</span>
+</span></span><span style="display:flex;"><span>./dbgen -s <span style="color:#ae81ff">10</span> -T s    <span style="color:#75715e"># supplier</span>
+</span></span><span style="display:flex;"><span>./dbgen -s <span style="color:#ae81ff">10</span> -T p    <span style="color:#75715e"># part</span>
+</span></span><span style="display:flex;"><span>./dbgen -s <span style="color:#ae81ff">10</span> -T d    <span style="color:#75715e"># date</span>
+</span></span><span style="display:flex;"><span>./dbgen -s <span style="color:#ae81ff">10</span> -T l    <span style="color:#75715e"># lineorder</span>
+</span></span></code></pre></div><h3 id="table-생성">
+  <strong>table 생성</strong>
+  <a class="anchor" href="#table-%ec%83%9d%ec%84%b1">#</a>
+</h3>
+<ul>
+<li>table load 용 sql 준비 및 실행
+<ul>
+<li>주요특징 : balsa 프로젝트에 있는 table.sql 항목에서 <code>TEXT</code>를 <code>CLOB</code> 으로 변환</li>
+<li>hdbsql 이용할때 -I {filename} 옵션으로 사용</li>
+<li>NVARCHAR를 사용 (guided from SAP team).</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-SQL" data-lang="SQL"><span style="display:flex;"><span><span style="color:#66d9ef">DO</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">BEGIN</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">IF</span> <span style="color:#66d9ef">EXISTS</span> (<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> TABLES <span style="color:#66d9ef">WHERE</span> <span style="color:#66d9ef">TABLE_NAME</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;LINEORDER&#39;</span>) <span style="color:#66d9ef">THEN</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">EXEC</span> <span style="color:#e6db74">&#39;DROP TABLE LINEORDER&#39;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">END</span> <span style="color:#66d9ef">IF</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">IF</span> <span style="color:#66d9ef">EXISTS</span> (<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> TABLES <span style="color:#66d9ef">WHERE</span> <span style="color:#66d9ef">TABLE_NAME</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;DATE&#39;</span>) <span style="color:#66d9ef">THEN</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">EXEC</span> <span style="color:#e6db74">&#39;DROP TABLE &#34;DATE&#34;&#39;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">END</span> <span style="color:#66d9ef">IF</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">IF</span> <span style="color:#66d9ef">EXISTS</span> (<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> TABLES <span style="color:#66d9ef">WHERE</span> <span style="color:#66d9ef">TABLE_NAME</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;PART&#39;</span>) <span style="color:#66d9ef">THEN</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">EXEC</span> <span style="color:#e6db74">&#39;DROP TABLE PART&#39;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">END</span> <span style="color:#66d9ef">IF</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">IF</span> <span style="color:#66d9ef">EXISTS</span> (<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> TABLES <span style="color:#66d9ef">WHERE</span> <span style="color:#66d9ef">TABLE_NAME</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;SUPPLIER&#39;</span>) <span style="color:#66d9ef">THEN</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">EXEC</span> <span style="color:#e6db74">&#39;DROP TABLE SUPPLIER&#39;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">END</span> <span style="color:#66d9ef">IF</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">IF</span> <span style="color:#66d9ef">EXISTS</span> (<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> TABLES <span style="color:#66d9ef">WHERE</span> <span style="color:#66d9ef">TABLE_NAME</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;CUSTOMER&#39;</span>) <span style="color:#66d9ef">THEN</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">EXEC</span> <span style="color:#e6db74">&#39;DROP TABLE CUSTOMER&#39;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">END</span> <span style="color:#66d9ef">IF</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">END</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">--
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">-- customer
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">--
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> customer (
+</span></span><span style="display:flex;"><span>  c_custkey    INTEGER  <span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span>,
+</span></span><span style="display:flex;"><span>  c_name       <span style="color:#66d9ef">CLOB</span>,
+</span></span><span style="display:flex;"><span>  c_address    <span style="color:#66d9ef">CLOB</span>,
+</span></span><span style="display:flex;"><span>  c_city       NVARCHAR(<span style="color:#ae81ff">10</span>),
+</span></span><span style="display:flex;"><span>  c_nation     NVARCHAR(<span style="color:#ae81ff">15</span>),
+</span></span><span style="display:flex;"><span>  c_region     NVARCHAR(<span style="color:#ae81ff">12</span>),
+</span></span><span style="display:flex;"><span>  c_phone      NVARCHAR(<span style="color:#ae81ff">15</span>),
+</span></span><span style="display:flex;"><span>  c_mktsegment NVARCHAR(<span style="color:#ae81ff">10</span>),
+</span></span><span style="display:flex;"><span>  dummy        <span style="color:#66d9ef">CLOB</span><span style="color:#75715e">-- dbgen last delimiter
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">--
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">-- date
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">--
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> date (
+</span></span><span style="display:flex;"><span>  d_datekey          DATE <span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span>,
+</span></span><span style="display:flex;"><span>  d_date             NVARCHAR(<span style="color:#ae81ff">18</span>),
+</span></span><span style="display:flex;"><span>  d_dayofweek        NVARCHAR(<span style="color:#ae81ff">9</span>),
+</span></span><span style="display:flex;"><span>  d_month            NVARCHAR(<span style="color:#ae81ff">9</span>),
+</span></span><span style="display:flex;"><span>  d_year             INTEGER,
+</span></span><span style="display:flex;"><span>  d_yearmonthnum     INTEGER,
+</span></span><span style="display:flex;"><span>  d_yearmonth        NVARCHAR(<span style="color:#ae81ff">7</span>),
+</span></span><span style="display:flex;"><span>  d_daynuminweek     INTEGER,
+</span></span><span style="display:flex;"><span>  d_daynuminmonth    INTEGER,
+</span></span><span style="display:flex;"><span>  d_daynuminyear     INTEGER,
+</span></span><span style="display:flex;"><span>  d_monthnuminyear   INTEGER,
+</span></span><span style="display:flex;"><span>  d_weeknuminyear    INTEGER,
+</span></span><span style="display:flex;"><span>  d_sellingseason    <span style="color:#66d9ef">CLOB</span>,
+</span></span><span style="display:flex;"><span>  d_lastdayinweekfl  NVARCHAR(<span style="color:#ae81ff">1</span>),
+</span></span><span style="display:flex;"><span>  d_lastdayinmonthfl NVARCHAR(<span style="color:#ae81ff">1</span>),
+</span></span><span style="display:flex;"><span>  d_holidayfl        NVARCHAR(<span style="color:#ae81ff">1</span>),
+</span></span><span style="display:flex;"><span>  d_weekdayfl        NVARCHAR(<span style="color:#ae81ff">1</span>),
+</span></span><span style="display:flex;"><span>  dummy              <span style="color:#66d9ef">CLOB</span> <span style="color:#75715e">-- dbgen last delimiter
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">--
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">-- part
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">--
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> part (
+</span></span><span style="display:flex;"><span>  p_partkey   INTEGER <span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span>,
+</span></span><span style="display:flex;"><span>  p_name      <span style="color:#66d9ef">CLOB</span>,
+</span></span><span style="display:flex;"><span>  p_mfgr      NVARCHAR(<span style="color:#ae81ff">6</span>),
+</span></span><span style="display:flex;"><span>  p_category  NVARCHAR(<span style="color:#ae81ff">7</span>),
+</span></span><span style="display:flex;"><span>  p_brand1    NVARCHAR(<span style="color:#ae81ff">9</span>),
+</span></span><span style="display:flex;"><span>  p_color     NVARCHAR(<span style="color:#ae81ff">11</span>),
+</span></span><span style="display:flex;"><span>  p_type      <span style="color:#66d9ef">CLOB</span>,
+</span></span><span style="display:flex;"><span>  p_size      INTEGER,
+</span></span><span style="display:flex;"><span>  p_container NVARCHAR(<span style="color:#ae81ff">10</span>),
+</span></span><span style="display:flex;"><span>  dummy       <span style="color:#66d9ef">CLOB</span>  <span style="color:#75715e">-- dbgen last delimiter
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">--
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">-- supplier
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">--
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> supplier (
+</span></span><span style="display:flex;"><span>  s_suppkey INTEGER <span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span>,
+</span></span><span style="display:flex;"><span>  s_name    NVARCHAR(<span style="color:#ae81ff">25</span>),
+</span></span><span style="display:flex;"><span>  s_address <span style="color:#66d9ef">CLOB</span>,
+</span></span><span style="display:flex;"><span>  s_city    NVARCHAR(<span style="color:#ae81ff">10</span>),
+</span></span><span style="display:flex;"><span>  s_nation  NVARCHAR(<span style="color:#ae81ff">15</span>),
+</span></span><span style="display:flex;"><span>  s_region  NVARCHAR(<span style="color:#ae81ff">12</span>),
+</span></span><span style="display:flex;"><span>  s_phone   NVARCHAR(<span style="color:#ae81ff">15</span>),
+</span></span><span style="display:flex;"><span>  dummy            <span style="color:#66d9ef">CLOB</span> <span style="color:#75715e">-- dbgen last delimiter
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">--
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">-- lineorder
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">--
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> lineorder (
+</span></span><span style="display:flex;"><span>  lo_orderkey      BIGINT, <span style="color:#75715e">-- Consider SF 300+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  lo_linenumber    INTEGER,
+</span></span><span style="display:flex;"><span>  lo_custkey       INTEGER, <span style="color:#75715e">-- FK to C_CUSTKEY
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  lo_partkey       INTEGER, <span style="color:#75715e">-- FK to P_PARTKEY
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  lo_suppkey       INTEGER, <span style="color:#75715e">-- FK to S_SUPPKEY
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  lo_orderdate     DATE,    <span style="color:#75715e">-- FK to D_DATEKEY
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  lo_orderpriority NVARCHAR(<span style="color:#ae81ff">15</span>),
+</span></span><span style="display:flex;"><span>  lo_shippriority  NVARCHAR(<span style="color:#ae81ff">1</span>),
+</span></span><span style="display:flex;"><span>  lo_quantity      INTEGER,
+</span></span><span style="display:flex;"><span>  lo_extendedprice NUMERIC,
+</span></span><span style="display:flex;"><span>  lo_ordtotalprice NUMERIC,
+</span></span><span style="display:flex;"><span>  lo_discount      NUMERIC,
+</span></span><span style="display:flex;"><span>  lo_revenue       NUMERIC,
+</span></span><span style="display:flex;"><span>  lo_supplycost    NUMERIC,
+</span></span><span style="display:flex;"><span>  lo_tax           NUMERIC,
+</span></span><span style="display:flex;"><span>  lo_commitdate    DATE, <span style="color:#75715e">-- FK to D_DATEKEY
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  lo_shipmod       NVARCHAR(<span style="color:#ae81ff">10</span>),
+</span></span><span style="display:flex;"><span>  dummy            <span style="color:#66d9ef">CLOB</span>, <span style="color:#75715e">-- dbgen last delimiter
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">CONSTRAINT</span> lo_pkey  <span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span>(lo_orderkey, lo_linenumber),
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">FOREIGN</span> <span style="color:#66d9ef">KEY</span> (lo_custkey)  <span style="color:#66d9ef">REFERENCES</span> customer (c_custkey),
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">FOREIGN</span> <span style="color:#66d9ef">KEY</span> (lo_partkey)  <span style="color:#66d9ef">REFERENCES</span> part (p_partkey),
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">FOREIGN</span> <span style="color:#66d9ef">KEY</span> (lo_suppkey)  <span style="color:#66d9ef">REFERENCES</span> supplier (s_suppkey),
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">FOREIGN</span> <span style="color:#66d9ef">KEY</span> (lo_orderdate)  <span style="color:#66d9ef">REFERENCES</span> date (d_datekey)
+</span></span><span style="display:flex;"><span>);
+</span></span></code></pre></div><ul>
+<li><code>select * from &quot;REFERENTIAL_CONSTRAINTS&quot;</code> 로 foreign key가 등록된것을 확인 할 수 있음</li>
+</ul>
+<h3 id="data-load">
+  <strong>data load</strong>
+  <a class="anchor" href="#data-load">#</a>
+</h3>
+<ul>
+<li>explorer를 통해서 csv로 업로드 할 수 있으나, 향후 on-premise에서 업로드를 생각하여 python + hdbcli로 업로드하는 것으로 기술</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 👉 테이블 정의: 각 테이블별 컬럼 이름 (dummy 제외)</span>
+</span></span><span style="display:flex;"><span>table_columns <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;customer&#34;</span>: [<span style="color:#e6db74">&#34;c_custkey&#34;</span>, <span style="color:#e6db74">&#34;c_name&#34;</span>, <span style="color:#e6db74">&#34;c_address&#34;</span>, <span style="color:#e6db74">&#34;c_city&#34;</span>, <span style="color:#e6db74">&#34;c_nation&#34;</span>, <span style="color:#e6db74">&#34;c_region&#34;</span>, <span style="color:#e6db74">&#34;c_phone&#34;</span>, <span style="color:#e6db74">&#34;c_mktsegment&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;supplier&#34;</span>: [<span style="color:#e6db74">&#34;s_suppkey&#34;</span>, <span style="color:#e6db74">&#34;s_name&#34;</span>, <span style="color:#e6db74">&#34;s_address&#34;</span>, <span style="color:#e6db74">&#34;s_city&#34;</span>, <span style="color:#e6db74">&#34;s_nation&#34;</span>, <span style="color:#e6db74">&#34;s_region&#34;</span>, <span style="color:#e6db74">&#34;s_phone&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;part&#34;</span>: [<span style="color:#e6db74">&#34;p_partkey&#34;</span>, <span style="color:#e6db74">&#34;p_name&#34;</span>, <span style="color:#e6db74">&#34;p_mfgr&#34;</span>, <span style="color:#e6db74">&#34;p_category&#34;</span>, <span style="color:#e6db74">&#34;p_brand1&#34;</span>, <span style="color:#e6db74">&#34;p_color&#34;</span>, <span style="color:#e6db74">&#34;p_type&#34;</span>, <span style="color:#e6db74">&#34;p_size&#34;</span>, <span style="color:#e6db74">&#34;p_container&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;date&#34;</span>: [<span style="color:#e6db74">&#34;d_datekey&#34;</span>, <span style="color:#e6db74">&#34;d_date&#34;</span>, <span style="color:#e6db74">&#34;d_dayofweek&#34;</span>, <span style="color:#e6db74">&#34;d_month&#34;</span>, <span style="color:#e6db74">&#34;d_year&#34;</span>, <span style="color:#e6db74">&#34;d_yearmonthnum&#34;</span>, <span style="color:#e6db74">&#34;d_yearmonth&#34;</span>,
+</span></span><span style="display:flex;"><span>             <span style="color:#e6db74">&#34;d_daynuminweek&#34;</span>, <span style="color:#e6db74">&#34;d_daynuminmonth&#34;</span>, <span style="color:#e6db74">&#34;d_daynuminyear&#34;</span>, <span style="color:#e6db74">&#34;d_monthnuminyear&#34;</span>, <span style="color:#e6db74">&#34;d_weeknuminyear&#34;</span>,
+</span></span><span style="display:flex;"><span>             <span style="color:#e6db74">&#34;d_sellingseason&#34;</span>, <span style="color:#e6db74">&#34;d_lastdayinweekfl&#34;</span>, <span style="color:#e6db74">&#34;d_lastdayinmonthfl&#34;</span>, <span style="color:#e6db74">&#34;d_holidayfl&#34;</span>, <span style="color:#e6db74">&#34;d_weekdayfl&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;lineorder&#34;</span>: [<span style="color:#e6db74">&#34;lo_orderkey&#34;</span>, <span style="color:#e6db74">&#34;lo_linenumber&#34;</span>, <span style="color:#e6db74">&#34;lo_custkey&#34;</span>, <span style="color:#e6db74">&#34;lo_partkey&#34;</span>, <span style="color:#e6db74">&#34;lo_suppkey&#34;</span>, <span style="color:#e6db74">&#34;lo_orderdate&#34;</span>,
+</span></span><span style="display:flex;"><span>                  <span style="color:#e6db74">&#34;lo_orderpriority&#34;</span>, <span style="color:#e6db74">&#34;lo_shippriority&#34;</span>, <span style="color:#e6db74">&#34;lo_quantity&#34;</span>, <span style="color:#e6db74">&#34;lo_extendedprice&#34;</span>, <span style="color:#e6db74">&#34;lo_ordtotalprice&#34;</span>,
+</span></span><span style="display:flex;"><span>                  <span style="color:#e6db74">&#34;lo_discount&#34;</span>, <span style="color:#e6db74">&#34;lo_revenue&#34;</span>, <span style="color:#e6db74">&#34;lo_supplycost&#34;</span>, <span style="color:#e6db74">&#34;lo_tax&#34;</span>, <span style="color:#e6db74">&#34;lo_commitdate&#34;</span>, <span style="color:#e6db74">&#34;lo_shipmod&#34;</span>]
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 👉 파일명 리스트 (확장자 .tbl)</span>
+</span></span><span style="display:flex;"><span>tbl_files <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;customer.tbl&#34;</span>, <span style="color:#e6db74">&#34;supplier.tbl&#34;</span>, <span style="color:#e6db74">&#34;part.tbl&#34;</span>, <span style="color:#e6db74">&#34;date.tbl&#34;</span>, <span style="color:#e6db74">&#34;lineorder.tbl&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> tbl_file <span style="color:#f92672">in</span> tbl_files:
+</span></span><span style="display:flex;"><span>    table_name <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>splitext(tbl_file)[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>    columns <span style="color:#f92672">=</span> table_columns<span style="color:#f92672">.</span>get(table_name)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> columns:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;❌ Unknown table: </span><span style="color:#e6db74">{</span>table_name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;🚀 Loading data into table: </span><span style="color:#e6db74">{</span>table_name<span style="color:#f92672">.</span>upper()<span style="color:#e6db74">}</span><span style="color:#e6db74"> ...&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    file_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(<span style="color:#e6db74">&#34;hana&#34;</span>, tbl_file)
+</span></span><span style="display:flex;"><span>    batch <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    batch_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">5000</span>
+</span></span><span style="display:flex;"><span>    inserted <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    placeholders <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;,&#39;</span><span style="color:#f92672">.</span>join([<span style="color:#e6db74">&#39;?&#39;</span>] <span style="color:#f92672">*</span> len(columns))
+</span></span><span style="display:flex;"><span>    col_str <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;, &#39;</span><span style="color:#f92672">.</span>join(columns)
+</span></span><span style="display:flex;"><span>    query <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;INSERT INTO &#34;GE211441&#34;.&#34;</span><span style="color:#e6db74">{</span>table_name<span style="color:#f92672">.</span>upper()<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34; (</span><span style="color:#e6db74">{</span>col_str<span style="color:#e6db74">}</span><span style="color:#e6db74">) VALUES (</span><span style="color:#e6db74">{</span>placeholders<span style="color:#e6db74">}</span><span style="color:#e6db74">)&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> open(file_path, <span style="color:#e6db74">&#39;r&#39;</span>, encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;utf-8&#39;</span>) <span style="color:#66d9ef">as</span> f:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> line <span style="color:#f92672">in</span> f:
+</span></span><span style="display:flex;"><span>            fields <span style="color:#f92672">=</span> line<span style="color:#f92672">.</span>strip()<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;|&#39;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> len(fields) <span style="color:#f92672">&lt;</span> len(columns):
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>            values <span style="color:#f92672">=</span> fields[:len(columns)]
+</span></span><span style="display:flex;"><span>            batch<span style="color:#f92672">.</span>append(values)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> len(batch) <span style="color:#f92672">&gt;=</span> batch_size:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>                    cursor<span style="color:#f92672">.</span>executemany(query, batch)
+</span></span><span style="display:flex;"><span>                    conn<span style="color:#f92672">.</span>commit()
+</span></span><span style="display:flex;"><span>                    inserted <span style="color:#f92672">+=</span> len(batch)
+</span></span><span style="display:flex;"><span>                    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;✅ Inserted </span><span style="color:#e6db74">{</span>inserted<span style="color:#e6db74">}</span><span style="color:#e6db74"> rows so far into </span><span style="color:#e6db74">{</span>table_name<span style="color:#f92672">.</span>upper()<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>                    batch <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">except</span> dbapi<span style="color:#f92672">.</span>Error <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>                    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;⚠️ Error in batch insert: </span><span style="color:#e6db74">{</span>e<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>                    batch <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 마지막 남은 batch 처리</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> batch:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            cursor<span style="color:#f92672">.</span>executemany(query, batch)
+</span></span><span style="display:flex;"><span>            conn<span style="color:#f92672">.</span>commit()
+</span></span><span style="display:flex;"><span>            inserted <span style="color:#f92672">+=</span> len(batch)
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;✅ Inserted total </span><span style="color:#e6db74">{</span>inserted<span style="color:#e6db74">}</span><span style="color:#e6db74"> rows into </span><span style="color:#e6db74">{</span>table_name<span style="color:#f92672">.</span>upper()<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> dbapi<span style="color:#f92672">.</span>Error <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;⚠️ Error in final batch insert: </span><span style="color:#e6db74">{</span>e<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cursor<span style="color:#f92672">.</span>close()
+</span></span><span style="display:flex;"><span>conn<span style="color:#f92672">.</span>close()
+</span></span></code></pre></div><ul>
+<li>row 업로드 확인</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;CUSTOMER&#39;</span> <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">TABLE_NAME</span>, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">ROW_COUNT</span> <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#34;GE211441&#34;</span>.<span style="color:#e6db74">&#34;CUSTOMER&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">UNION</span> <span style="color:#66d9ef">ALL</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;SUPPLIER&#39;</span>, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#34;GE211441&#34;</span>.<span style="color:#e6db74">&#34;SUPPLIER&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">UNION</span> <span style="color:#66d9ef">ALL</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;PART&#39;</span>, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#34;GE211441&#34;</span>.<span style="color:#e6db74">&#34;PART&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">UNION</span> <span style="color:#66d9ef">ALL</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;DATE&#39;</span>, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#34;GE211441&#34;</span>.<span style="color:#e6db74">&#34;DATE&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">UNION</span> <span style="color:#66d9ef">ALL</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;LINEORDER&#39;</span>, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#34;GE211441&#34;</span>.<span style="color:#e6db74">&#34;LINEORDER&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">TABLE_NAME</span>,<span style="color:#66d9ef">ROW_COUNT</span>
+</span></span><span style="display:flex;"><span>CUSTOMER,<span style="color:#ae81ff">300000</span>
+</span></span><span style="display:flex;"><span>SUPPLIER,<span style="color:#ae81ff">20000</span>
+</span></span><span style="display:flex;"><span>PART,<span style="color:#ae81ff">800000</span>
+</span></span><span style="display:flex;"><span>DATE,<span style="color:#ae81ff">2556</span>
+</span></span><span style="display:flex;"><span>LINEORDER,<span style="color:#ae81ff">59986052</span>
+</span></span></code></pre></div><h2 id="job-workload-업로드">
+  <strong>JOB workload 업로드</strong>
+  <a class="anchor" href="#job-workload-%ec%97%85%eb%a1%9c%eb%93%9c">#</a>
+</h2>
+<h3 id="job-dataset">
+  <strong>JOB Dataset</strong>
+  <a class="anchor" href="#job-dataset">#</a>
+</h3>
+<ul>
+<li>imdb.tgz download</li>
+<li>tar -vzxf imdb.tgz</li>
+</ul>
+<h3 id="job-table-create">
+  <strong>JOB table create</strong>
+  <a class="anchor" href="#job-table-create">#</a>
+</h3>
+<ul>
+<li>imdb.tgz에 첨부되어있던, schematext.sql을 아래 python으로 변환</li>
+<li>되도록 NVARCHAR를 사용하나, 5000 사이즈 제한으로 CLOB을 사용을 사용함</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> re
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> pathlib <span style="color:#f92672">import</span> Path
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">convert_varchar_to_nvarchar</span>(sql_text: str) <span style="color:#f92672">-&gt;</span> str:
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 1. character varying(N) -&gt; NVARCHAR(N)</span>
+</span></span><span style="display:flex;"><span>    sql_text <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>sub(
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;character\s+varying\s*\(\s*(\d+)\s*\)&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;NVARCHAR(\1)&#39;</span>,
+</span></span><span style="display:flex;"><span>        sql_text,
+</span></span><span style="display:flex;"><span>        flags<span style="color:#f92672">=</span>re<span style="color:#f92672">.</span>IGNORECASE,
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 2. character varying -&gt; NVARCHAR(255)</span>
+</span></span><span style="display:flex;"><span>    sql_text <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>sub(
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;character\s+varying\b&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;CLOB&#39;</span>,
+</span></span><span style="display:flex;"><span>        sql_text,
+</span></span><span style="display:flex;"><span>        flags<span style="color:#f92672">=</span>re<span style="color:#f92672">.</span>IGNORECASE,
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> sql_text
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 예시: input.sql 파일 읽어서 변환 후 output.sql로 저장</span>
+</span></span><span style="display:flex;"><span>    src_path <span style="color:#f92672">=</span> Path(<span style="color:#e6db74">&#34;schematext.sql&#34;</span>)
+</span></span><span style="display:flex;"><span>    dst_path <span style="color:#f92672">=</span> Path(<span style="color:#e6db74">&#34;output_schematext.sql&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    sql_src <span style="color:#f92672">=</span> src_path<span style="color:#f92672">.</span>read_text(encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>)
+</span></span><span style="display:flex;"><span>    sql_out <span style="color:#f92672">=</span> convert_varchar_to_nvarchar(sql_src)
+</span></span><span style="display:flex;"><span>    dst_path<span style="color:#f92672">.</span>write_text(sql_out, encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;✅ 변환 완료: </span><span style="color:#e6db74">{</span>dst_path<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div><ul>
+<li>해당 sql을 이용하여 table 생성</li>
+<li>fkadd.sql을 업로드 (from balsa)</li>
+</ul>
+<h3 id="job-data-bulk-upload">
+  <strong>JOB data bulk upload</strong>
+  <a class="anchor" href="#job-data-bulk-upload">#</a>
+</h3>
+<ul>
+<li>imdb.tgz로 파생된 csv파일들을 아래 python으로 업로드</li>
+</ul>
 </div>
 </article>
  
@@ -1251,7 +1599,18 @@ SQL trace	Collect information about all SQL statements executed on the index ser
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#설치"><strong>설치</strong></a>
+    <li><a href="#sap-trial"><strong>SAP trial</strong></a>
+      <ul>
+        <li><a href="#hana-db-cloud와-python-연결을-위한-세팅"><strong>HANA DB Cloud와 python 연결을 위한 세팅</strong></a>
+          <ul>
+            <li><a href="#driver-및-cli-세팅-다운로드"><strong>Driver 및 CLI 세팅 다운로드</strong></a></li>
+            <li><a href="#sample-code"><strong>sample code</strong></a></li>
+            <li><a href="#cli로-접근하기"><strong>cli로 접근하기</strong></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#hana-db-on-premise-설치"><strong>HANA DB on-premise 설치</strong></a>
       <ul>
         <li><a href="#trial-다운로드"><strong>Trial 다운로드</strong></a></li>
         <li><a href="#설치-커맨드"><strong>설치 커맨드</strong></a></li>
@@ -1273,6 +1632,20 @@ SQL trace	Collect information about all SQL statements executed on the index ser
     </li>
     <li><a href="#쿼리-샘플들"><strong>쿼리 샘플들</strong></a></li>
     <li><a href="#sap-hana-studio-다운로드"><strong>SAP HANA studio 다운로드</strong></a></li>
+    <li><a href="#ssb-workload-업로드"><strong>SSB workload 업로드</strong></a>
+      <ul>
+        <li><a href="#ssb-dataset-생성"><strong>SSB Dataset 생성</strong></a></li>
+        <li><a href="#table-생성"><strong>table 생성</strong></a></li>
+        <li><a href="#data-load"><strong>data load</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#job-workload-업로드"><strong>JOB workload 업로드</strong></a>
+      <ul>
+        <li><a href="#job-dataset"><strong>JOB Dataset</strong></a></li>
+        <li><a href="#job-table-create"><strong>JOB table create</strong></a></li>
+        <li><a href="#job-data-bulk-upload"><strong>JOB data bulk upload</strong></a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 

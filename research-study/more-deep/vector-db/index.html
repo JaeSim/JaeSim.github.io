@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="ko-kr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
+  Vector Database 관련 학습 내용 (미완)
+  #
+
+
+본인의 이해/기억을 위해 작성한 것이므로, 많은 내용이 생략, 축약되어 있음
+
+
+  기본 정보
+  #
+
+
+Vector database는 vector의 유사도 검사를 빠르게 하기 위한것
+비정형 데이터의 semantically 응답 가능
+질의했을때 유사한 vector을 top-k 개 만큼 반환하는 것
+현재로써는 RAG에서 응용되는것이 주된 사용처
+RAG flow
+
+[그림출처: Retrieval-Augmented Generation for Large Language Models: A Survey (https://arxiv.org/abs/2312.10997)]
+보통 벡터 임베딩과 메타데이터로 구성되어 있음
+최근접 이웃 (KNN)은 매우 느려 정확하진 않지만 충분히 정확한 ANN을 사용
+유사도 측정시 cosine similarity, Euclidean Distance(L2), Dot Product(내적) 계산 방식이 있음
+CromaDB(RAG에 최적화), Milvus 등이 있다
+FAISS (Facebook AI Similarity Search) 는 라이브러리 이므로 참조할 것
+
+
+  한계
+  #
+
+
+정확한 값 매칭에 비효율
+복잡한 관계형 쿼리 미지원
+transaction 기능이 약함 ACID
+embedding 모델의 성능이 검색 품질 좌우
+
+
+  Vector DB Solution
+  #
+
+
+  Milvus: A Purpose-Built Vector Data Management System (SIGMOD 2021)
+  #
+
+
+Faiss 대비 고차원 및 large scale에서 속도향상, 복잡한 쿼리 지원
+복잡한 쿼리를 지원하며 (partition-based strategy), multi-vector 쿼리 처리에 대해 좋다고 언급 (vector fusion, iterative merge)
+Distributed environment (cloud 환경) 에서 적합한 구조
+Open-source C&#43;&#43; library
+LSM-Tree based 방식으로 삽입과 삭제를 지원
+Snapshot isolation으로 read-write 충돌 우회 
+질의가 들어온 시점에서 현재 LSM-Tree에 있는 메모리와 디스크를 snap샷으로 고정하고 여기서 질의
+Graph-based index(HNSW, RNSG) 와 quantization-based index(IVF_FLAT, IVF_SQ8, IVF_PQ)를 지원
+CPU-GPU co-design과 메모리 구조 등을 아우르는 최적화
+
+
+  Vector Embedding
+  #
+
+
+텍스트나, 이미지 등에서 semantic 특징을 추출하여 숫자 array [벡터] 로 표현
+workd2vec, sentence-BERT, CLIP 등
+vector db는 embedding vector를 효율적으로 query하는 database
+고차원 숫자 배열
+
+
+  Vector DB Index
+  #
+
+
+ANN 검색 속도 향상을 위한 특화 index
+
+
+  HNSW : Hierarchical Navigable Small World
+  #
+
+
+graph 기반
+
+
+  IVF : Inverted File Index
+  #
+
+
+clustering 기반
+
+
+  LSH : Locality-Sensitive Hashing
+  #
+
+
+Hashing 기반
+
+
+  PQ : Product Quantization
+  #
+
+
+벡터 압축 기반
+
+
+  참조
+  #
+
+
+Survey of vector database management systems, VLDB 2024
+A Comprehensive Survey on Vector Database: Storage and Retrieval Technique, Challenge
+">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/research-study/more-deep/vector-db/">
+  <meta property="og:site_name" content="JaeSim&#39;s Workspace">
+  <meta property="og:title" content="Vector DB (Not Completed)">
+  <meta property="og:description" content="Vector Database 관련 학습 내용 (미완)#본인의 이해/기억을 위해 작성한 것이므로, 많은 내용이 생략, 축약되어 있음 기본 정보#Vector database는 vector의 유사도 검사를 빠르게 하기 위한것 비정형 데이터의 semantically 응답 가능 질의했을때 유사한 vector을 top-k 개 만큼 반환하는 것 현재로써는 RAG에서 응용되는것이 주된 사용처 RAG flow [그림출처: Retrieval-Augmented Generation for Large Language Models: A Survey (https://arxiv.org/abs/2312.10997)] 보통 벡터 임베딩과 메타데이터로 구성되어 있음 최근접 이웃 (KNN)은 매우 느려 정확하진 않지만 충분히 정확한 ANN을 사용 유사도 측정시 cosine similarity, Euclidean Distance(L2), Dot Product(내적) 계산 방식이 있음 CromaDB(RAG에 최적화), Milvus 등이 있다 FAISS (Facebook AI Similarity Search) 는 라이브러리 이므로 참조할 것 한계#정확한 값 매칭에 비효율 복잡한 관계형 쿼리 미지원 transaction 기능이 약함 ACID embedding 모델의 성능이 검색 품질 좌우 Vector DB Solution#Milvus: A Purpose-Built Vector Data Management System (SIGMOD 2021)#Faiss 대비 고차원 및 large scale에서 속도향상, 복잡한 쿼리 지원 복잡한 쿼리를 지원하며 (partition-based strategy), multi-vector 쿼리 처리에 대해 좋다고 언급 (vector fusion, iterative merge) Distributed environment (cloud 환경) 에서 적합한 구조 Open-source C&#43;&#43; library LSM-Tree based 방식으로 삽입과 삭제를 지원 Snapshot isolation으로 read-write 충돌 우회 질의가 들어온 시점에서 현재 LSM-Tree에 있는 메모리와 디스크를 snap샷으로 고정하고 여기서 질의 Graph-based index(HNSW, RNSG) 와 quantization-based index(IVF_FLAT, IVF_SQ8, IVF_PQ)를 지원 CPU-GPU co-design과 메모리 구조 등을 아우르는 최적화 Vector Embedding#텍스트나, 이미지 등에서 semantic 특징을 추출하여 숫자 array [벡터] 로 표현 workd2vec, sentence-BERT, CLIP 등 vector db는 embedding vector를 효율적으로 query하는 database 고차원 숫자 배열 Vector DB Index#ANN 검색 속도 향상을 위한 특화 index HNSW : Hierarchical Navigable Small World#graph 기반 IVF : Inverted File Index#clustering 기반 LSH : Locality-Sensitive Hashing#Hashing 기반 PQ : Product Quantization#벡터 압축 기반 참조#Survey of vector database management systems, VLDB 2024 A Comprehensive Survey on Vector Database: Storage and Retrieval Technique, Challenge">
+  <meta property="og:locale" content="ko_kr">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="research-study">
+    <meta property="article:published_time" content="2025-08-06T10:45:46+09:00">
+    <meta property="article:modified_time" content="2025-08-06T10:45:46+09:00">
+    <meta property="article:tag" content="Vector">
+    <meta property="article:tag" content="Database">
+    <meta property="article:tag" content="Embedding">
+    <meta property="article:tag" content="ANN">
+    <meta property="article:tag" content="Similarity Search">
+<title>Vector DB (Not Completed) | JaeSim&#39;s Workspace</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="https://JaeSim.github.io/research-study/more-deep/vector-db/">
+<link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.12a831f1344da924726573a85c4b95dbbe58d3a0686766569d11c5b430712db8.js" integrity="sha256-Eqgx8TRNqSRyZXOoXEuV275Y06BoZ2ZWnRHFtDBxLbg=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>JaeSim&#39;s Workspace</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Development / 개발</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/firstpost/" class="">할일</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/blogsetup/" class="">Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Research Study</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Brief</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/brief/graph/" class="">GNN</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/brief/llm-build/" class="">LLM Build</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>More deep</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/more-deep/learned-index/" class="">Learned Index</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/more-deep/learned-scheduler/" class="">Learned Scheduler</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/more-deep/adaptive-watermark/" class="">Adaptive Watermark in Stream Processing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/more-deep/vector-db/" class="active">Vector DB (Not Completed)</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Paper Trend</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/paper-trend/2025-icde/" class="">2025 ICDE</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/paper-trend/2025-vldb/" class="">2025 VLDB (Not Completed)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/paper-trend/2025-edbt/" class="">2025 EDBT</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/paper-trend/2025-sigmod/" class="">2025 SIGMOD</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Reinforcement Learning / 강화학습</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-essential/" class="">1. Reinforcement Learning Essential</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-mdp/" class="">2. Markov Decision Process</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-dp/" class="">3. Planning by Dynamic Programming</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-model-free-prediction/" class="">temp. 4. Model Free Prediction</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Learned Query Optimizer</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/loger-code/" class="">LOGER 코드 분석</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/bao-code/" class="">BAO 코드 분석</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/hana-database-porting/" class="">HANA Database Porting</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Vector DB (Not Completed)</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#기본-정보"><strong>기본 정보</strong></a></li>
+    <li><a href="#한계"><strong>한계</strong></a></li>
+    <li><a href="#vector-db-solution"><strong>Vector DB Solution</strong></a>
+      <ul>
+        <li><a href="#milvus-a-purpose-built-vector-data-management-system-sigmod-2021"><strong>Milvus: A Purpose-Built Vector Data Management System (SIGMOD 2021)</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#vector-embedding"><strong>Vector Embedding</strong></a></li>
+    <li><a href="#vector-db-index"><strong>Vector DB Index</strong></a>
+      <ul>
+        <li><a href="#hnsw--hierarchical-navigable-small-world"><strong>HNSW : Hierarchical Navigable Small World</strong></a></li>
+        <li><a href="#ivf--inverted-file-index"><strong>IVF : Inverted File Index</strong></a></li>
+        <li><a href="#lsh--locality-sensitive-hashing"><strong>LSH : Locality-Sensitive Hashing</strong></a></li>
+        <li><a href="#pq--product-quantization"><strong>PQ : Product Quantization</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#참조"><strong>참조</strong></a></li>
+  </ul>
+</nav>
+
+  <div class="post-tags">
+    <strong>Tags:</strong>
+    
+      <a href="/tags/vector" class="tag">Vector</a>
+    
+      <a href="/tags/database" class="tag">Database</a>
+    
+      <a href="/tags/embedding" class="tag">Embedding</a>
+    
+      <a href="/tags/ann" class="tag">ANN</a>
+    
+      <a href="/tags/similarity-search" class="tag">Similarity Search</a>
+    
+  </div>
+
+
+
+  <div class="post-categories">
+    <strong>Categories:</strong>
+    
+      <a href="/categories/vector-database" class="category">Vector database</a>
+    
+      <a href="/categories/study" class="category">Study</a>
+    
+  </div>
+
+
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+<article class="markdown book-post">
+  <h1 style="font-weight: bold;">
+    <span style="font-weight: normal; font-size: 0.6em; color: #888;">
+      2025-08-06 10:45 KST
+    </span>
+  </h1>
+  <div class="book-post-content"><h1 id="vector-database-관련-학습-내용-미완">
+  <strong>Vector Database 관련 학습 내용 (미완)</strong>
+  <a class="anchor" href="#vector-database-%ea%b4%80%eb%a0%a8-%ed%95%99%ec%8a%b5-%eb%82%b4%ec%9a%a9-%eb%af%b8%ec%99%84">#</a>
+</h1>
+<ul>
+<li>본인의 이해/기억을 위해 작성한 것이므로, 많은 내용이 생략, 축약되어 있음</li>
+</ul>
+<h2 id="기본-정보">
+  <strong>기본 정보</strong>
+  <a class="anchor" href="#%ea%b8%b0%eb%b3%b8-%ec%a0%95%eb%b3%b4">#</a>
+</h2>
+<ul>
+<li>Vector database는 vector의 유사도 검사를 빠르게 하기 위한것</li>
+<li>비정형 데이터의 semantically 응답 가능</li>
+<li>질의했을때 유사한 vector을 top-k 개 만큼 반환하는 것</li>
+<li>현재로써는 RAG에서 응용되는것이 주된 사용처</li>
+<li>RAG flow
+<img src="/images/rag_flow.png" alt="lis_trad_is_good"/>
+[그림출처: Retrieval-Augmented Generation for Large Language Models: A Survey (https://arxiv.org/abs/2312.10997)]</li>
+<li>보통 벡터 임베딩과 메타데이터로 구성되어 있음</li>
+<li>최근접 이웃 (KNN)은 매우 느려 정확하진 않지만 충분히 정확한 ANN을 사용</li>
+<li>유사도 측정시 cosine similarity, Euclidean Distance(L2), Dot Product(내적) 계산 방식이 있음</li>
+<li>CromaDB(RAG에 최적화), Milvus 등이 있다</li>
+<li>FAISS (Facebook AI Similarity Search) 는 라이브러리 이므로 참조할 것</li>
+</ul>
+<h2 id="한계">
+  <strong>한계</strong>
+  <a class="anchor" href="#%ed%95%9c%ea%b3%84">#</a>
+</h2>
+<ul>
+<li>정확한 값 매칭에 비효율</li>
+<li>복잡한 관계형 쿼리 미지원</li>
+<li>transaction 기능이 약함 ACID</li>
+<li>embedding 모델의 성능이 검색 품질 좌우</li>
+</ul>
+<h2 id="vector-db-solution">
+  <strong>Vector DB Solution</strong>
+  <a class="anchor" href="#vector-db-solution">#</a>
+</h2>
+<h3 id="milvus-a-purpose-built-vector-data-management-system-sigmod-2021">
+  <strong>Milvus: A Purpose-Built Vector Data Management System (SIGMOD 2021)</strong>
+  <a class="anchor" href="#milvus-a-purpose-built-vector-data-management-system-sigmod-2021">#</a>
+</h3>
+<ul>
+<li>Faiss 대비 고차원 및 large scale에서 속도향상, 복잡한 쿼리 지원</li>
+<li>복잡한 쿼리를 지원하며 (partition-based strategy), multi-vector 쿼리 처리에 대해 좋다고 언급 (vector fusion, iterative merge)</li>
+<li>Distributed environment (cloud 환경) 에서 적합한 구조</li>
+<li>Open-source C++ library</li>
+<li>LSM-Tree based 방식으로 삽입과 삭제를 지원</li>
+<li>Snapshot isolation으로 read-write 충돌 우회 <br>
+질의가 들어온 시점에서 현재 LSM-Tree에 있는 메모리와 디스크를 snap샷으로 고정하고 여기서 질의</li>
+<li>Graph-based index(HNSW, RNSG) 와 quantization-based index(IVF_FLAT, IVF_SQ8, IVF_PQ)를 지원</li>
+<li>CPU-GPU co-design과 메모리 구조 등을 아우르는 최적화</li>
+</ul>
+<h2 id="vector-embedding">
+  <strong>Vector Embedding</strong>
+  <a class="anchor" href="#vector-embedding">#</a>
+</h2>
+<ul>
+<li>텍스트나, 이미지 등에서 semantic 특징을 추출하여 숫자 array [벡터] 로 표현</li>
+<li>workd2vec, sentence-BERT, CLIP 등</li>
+<li>vector db는 embedding vector를 효율적으로 query하는 database</li>
+<li>고차원 숫자 배열</li>
+</ul>
+<h2 id="vector-db-index">
+  <strong>Vector DB Index</strong>
+  <a class="anchor" href="#vector-db-index">#</a>
+</h2>
+<ul>
+<li>ANN 검색 속도 향상을 위한 특화 index</li>
+</ul>
+<h3 id="hnsw--hierarchical-navigable-small-world">
+  <strong>HNSW : Hierarchical Navigable Small World</strong>
+  <a class="anchor" href="#hnsw--hierarchical-navigable-small-world">#</a>
+</h3>
+<ul>
+<li>graph 기반</li>
+</ul>
+<h3 id="ivf--inverted-file-index">
+  <strong>IVF : Inverted File Index</strong>
+  <a class="anchor" href="#ivf--inverted-file-index">#</a>
+</h3>
+<ul>
+<li>clustering 기반</li>
+</ul>
+<h3 id="lsh--locality-sensitive-hashing">
+  <strong>LSH : Locality-Sensitive Hashing</strong>
+  <a class="anchor" href="#lsh--locality-sensitive-hashing">#</a>
+</h3>
+<ul>
+<li>Hashing 기반</li>
+</ul>
+<h3 id="pq--product-quantization">
+  <strong>PQ : Product Quantization</strong>
+  <a class="anchor" href="#pq--product-quantization">#</a>
+</h3>
+<ul>
+<li>벡터 압축 기반</li>
+</ul>
+<h2 id="참조">
+  <strong>참조</strong>
+  <a class="anchor" href="#%ec%b0%b8%ec%a1%b0">#</a>
+</h2>
+<ul>
+<li>Survey of vector database management systems, VLDB 2024</li>
+<li>A Comprehensive Survey on Vector Database: Storage and Retrieval Technique, Challenge</li>
+</ul>
+</div>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+<script src="https://giscus.app/client.js"
+        data-repo="JaeSim/JaeSim.github.io"
+        data-repo-id="R_kgDOOtVVtw"
+        data-category="Comment"
+        data-category-id="DIC_kwDOOtVVt84Cqcxg"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#기본-정보"><strong>기본 정보</strong></a></li>
+    <li><a href="#한계"><strong>한계</strong></a></li>
+    <li><a href="#vector-db-solution"><strong>Vector DB Solution</strong></a>
+      <ul>
+        <li><a href="#milvus-a-purpose-built-vector-data-management-system-sigmod-2021"><strong>Milvus: A Purpose-Built Vector Data Management System (SIGMOD 2021)</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#vector-embedding"><strong>Vector Embedding</strong></a></li>
+    <li><a href="#vector-db-index"><strong>Vector DB Index</strong></a>
+      <ul>
+        <li><a href="#hnsw--hierarchical-navigable-small-world"><strong>HNSW : Hierarchical Navigable Small World</strong></a></li>
+        <li><a href="#ivf--inverted-file-index"><strong>IVF : Inverted File Index</strong></a></li>
+        <li><a href="#lsh--locality-sensitive-hashing"><strong>LSH : Locality-Sensitive Hashing</strong></a></li>
+        <li><a href="#pq--product-quantization"><strong>PQ : Product Quantization</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#참조"><strong>참조</strong></a></li>
+  </ul>
+</nav>
+
+  <div class="post-tags">
+    <strong>Tags:</strong>
+    
+      <a href="/tags/vector" class="tag">Vector</a>
+    
+      <a href="/tags/database" class="tag">Database</a>
+    
+      <a href="/tags/embedding" class="tag">Embedding</a>
+    
+      <a href="/tags/ann" class="tag">ANN</a>
+    
+      <a href="/tags/similarity-search" class="tag">Similarity Search</a>
+    
+  </div>
+
+
+
+  <div class="post-categories">
+    <strong>Categories:</strong>
+    
+      <a href="/categories/vector-database" class="category">Vector database</a>
+    
+      <a href="/categories/study" class="category">Study</a>
+    
+  </div>
+
+
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('pre > code[class^="language-"]').forEach(codeBlock => {
+      const pre = codeBlock.parentElement;
+
+      
+      const button = document.createElement('button');
+      button.innerText = '📋';
+      button.title = 'Copy code';
+      button.style = `
+        position: absolute;
+        top: 0.5em;
+        right: 0.5em;
+        padding: 2px 6px;
+        font-size: 0.8rem;
+        background: #f5f5f5;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+        z-index: 10;
+      `;
+
+      
+      button.addEventListener('click', () => {
+        navigator.clipboard.writeText(codeBlock.innerText);
+        button.innerText = '✔';
+        setTimeout(() => button.innerText = '📋', 1000);
+      });
+
+      
+      pre.style.position = 'relative';
+      pre.appendChild(button);
+    });
+  });
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
