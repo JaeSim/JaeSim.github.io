@@ -8,7 +8,96 @@ categories = ["Learned Query Optimizer"]
 +++
 
 # **Learned Query Optimizer 포팅을 위한 HANA DB의 분석 내용**
-## **설치**
+
+## **SAP trial**
+1. SAP BTP trial 링크
+   - https://www.sap.com/products/technology-platform/trial.html
+2. BTP trial 생성 및 BTP cockpit 접속
+   - ID = P2009440130
+   - 이후 스텝은 https://account.hanatrial.ondemand.com/trial/#/home/trial 관련 내용 따름
+3. trial account 생성 - sub account 생성 및 sub account 클릭
+    - ***!! 주의 !!***   US region으로 생성해야 HANA Cloud DB 서비스를 사용할 수 있음
+4. Service -> Service MarketPlace 에서 HANA Cloud tools 구독 생성
+    - create SAP HANA Cloud - plan: tools 생성
+5. Security User에 Role assign
+    - Security -> Users -> 본인 계정 선택 -> Role Collections -> Assign Role Collection -> `SAP HANA` keyword 및 `cloud` keyword 모두 체크하여 반영
+6. SAP HANA Cloud 생성
+    - Service -> Instances and Subscription -> SAP HANA Cloud 생성 클릭
+7. SAP HANA Instance 생성
+    - allow all ip address 를 설정
+8. 생성된 instance의 connections의 SQL Endpoint가 host
+    - instance를 클릭후 ... 에가면 open in SAP HANA Cockpit 이나 다른 Database Explorer 등으로 볼 수 있다
+- 참고 아래 instance 스펙으로 고정됨. trial은 총 2개의 instance를 지원하는 듯함
+  - Memory   16 GB
+  - Storage   80 GB
+  - Compute   1 vCPUs
+
+- 아래 내용은 Cloud trial 이어서 HANA DB Cloud를 테스트 할수 있지만 좀더 제한적임. BTP trial이 좀더 많은 기능을 포함하고 있다.
+   - https://www.sap.com/products/data-cloud/hana/trial.html
+   - 위 사이트에서 트라이얼 시작(30일) 으로 별도의 User ID와 Password 를 메모
+   - re-register trial을 하지 않으면 database안의 내용물은 유지되는 것으로 확인 ()기간동안..)
+
+### **HANA DB Cloud와 python 연결을 위한 세팅**
+#### **Driver 및 CLI 세팅 다운로드**
+ - https://help.sap.com/docs/SAP_HANA_CLIENT/f1b440ded6144a54ada97ff95dac7adf/39eca89d94ca464ca52385ad50fc7dea.html?locale=en-US 참조
+ - `HXEDownloadManager_linux.bin` 실행 -> Client 다운로드  (clients_linux_x86_64.tgz )
+ ```sh
+ ./HXEDownloadManager_linux.bin
+ tar -vzxf clients_linux_x86_64.tgz
+ tar -vzxf hdb_client_linux_x86_64.tgz
+ cd HDB_CLIENT_LINUX_X86_64
+ ./hdbsetup
+ ```
+ - hdb_client까지 설치하면 설치한 경로안에 `hdbcli-N.N.N.tar.gz` 가 있음. 이것을 설치
+```sh
+pip install /{path}/hdbcli-N.N.N.tar.gz
+```
+ 
+#### **sample code**
+ - 아래 python 코드로 연동이 가능하나 hostname은 cockpit 가 아닌 database의 hostname을 쓰도록 주의
+ ```python
+from hdbcli import dbapi
+import contextlib
+
+
+@contextlib.contextmanager
+def __connect():
+    conn = dbapi.connect(address=<hostname>, port=443, user=<user>, password=<password>)
+    try:
+        cursor = conn.cursor()
+        yield (cursor, conn)
+    finally :
+        cursor.close()
+        conn.close()
+
+def ExecuteSql(cursor, sql):
+    try:
+        cursor.execute(sql)
+        result_sets = []
+        while True:
+            rows = cursor.fetchall()
+            result_sets.append(rows)
+            if not cursor.nextset():
+                break
+    except Exception as e:
+        print('commdb error:', e)
+    return result_sets[0]
+
+if __name__ == "__main__":
+    sql = "select * from GX_EMPLOYEES limit 10";
+    with __connect() as (cursor, conn):
+        result = ExecuteSql(cursor, sql)
+        print(result)
+ ```
+ - hostname은 trial 기준으로 SAP HANA Database Explorer 에서 database 우클릭 -> properties 에 있는 host 를 입력. user 및 password는 trail 시작시 얻었던 것을 입력
+ 
+#### **cli로 접근하기**
+  - 앞서 얻은 호스트, user, password를 이용해서 hanadb on-premise를 설치할때 얻은 hdbsql로 접근이 가능
+  ```sh
+  sudo /usr/sap/HXE/HDB90/exe/hdbsql -n <hostname>:443 -u <user> -p <Password>
+  ```
+
+## **HANA DB on-premise 설치**
 ### **Trial 다운로드**
 - 평가판(trial) 다운로드 위치 : https://www.sap.com/products/data-cloud/hana/express-trial.html
 - 관련 참조 페이지
@@ -412,3 +501,285 @@ insert into aka_name1 values(1,4061927,'Smithl');
  - 다운로드 위치 
     - https://help.sap.com/docs/SAP_Commissions_K8s/021635a4731e40f4a2784f4613e632d2/bd2eec401f7c47cf9d2dbed0d0b24233.html
     - https://launchpad.support.sap.com/#/softwarecenter/
+
+
+
+## **SSB workload 업로드**
+### **SSB Dataset 생성**
+ - ssb 데이터 생성
+```sh
+./dbgen -s 10 -T c    # customer
+./dbgen -s 10 -T s    # supplier
+./dbgen -s 10 -T p    # part
+./dbgen -s 10 -T d    # date
+./dbgen -s 10 -T l    # lineorder
+```
+
+### **table 생성**
+ - table load 용 sql 준비 및 실행
+    - 주요특징 : balsa 프로젝트에 있는 table.sql 항목에서 `TEXT`를 `CLOB` 으로 변환
+    - hdbsql 이용할때 -I {filename} 옵션으로 사용
+    - NVARCHAR를 사용 (guided from SAP team).
+```SQL
+DO
+BEGIN
+    IF EXISTS (SELECT * FROM TABLES WHERE TABLE_NAME = 'LINEORDER') THEN
+        EXEC 'DROP TABLE LINEORDER';
+    END IF;
+
+    IF EXISTS (SELECT * FROM TABLES WHERE TABLE_NAME = 'DATE') THEN
+        EXEC 'DROP TABLE "DATE"';
+    END IF;
+
+    IF EXISTS (SELECT * FROM TABLES WHERE TABLE_NAME = 'PART') THEN
+        EXEC 'DROP TABLE PART';
+    END IF;
+
+    IF EXISTS (SELECT * FROM TABLES WHERE TABLE_NAME = 'SUPPLIER') THEN
+        EXEC 'DROP TABLE SUPPLIER';
+    END IF;
+
+    IF EXISTS (SELECT * FROM TABLES WHERE TABLE_NAME = 'CUSTOMER') THEN
+        EXEC 'DROP TABLE CUSTOMER';
+    END IF;
+END;
+
+--
+-- customer
+--
+CREATE TABLE customer (
+  c_custkey    INTEGER  PRIMARY KEY,
+  c_name       CLOB,
+  c_address    CLOB,
+  c_city       NVARCHAR(10),
+  c_nation     NVARCHAR(15),
+  c_region     NVARCHAR(12),
+  c_phone      NVARCHAR(15),
+  c_mktsegment NVARCHAR(10),
+  dummy        CLOB-- dbgen last delimiter
+);
+
+--
+-- date
+--
+CREATE TABLE date (
+  d_datekey          DATE PRIMARY KEY,
+  d_date             NVARCHAR(18),
+  d_dayofweek        NVARCHAR(9),
+  d_month            NVARCHAR(9),
+  d_year             INTEGER,
+  d_yearmonthnum     INTEGER,
+  d_yearmonth        NVARCHAR(7),
+  d_daynuminweek     INTEGER,
+  d_daynuminmonth    INTEGER,
+  d_daynuminyear     INTEGER,
+  d_monthnuminyear   INTEGER,
+  d_weeknuminyear    INTEGER,
+  d_sellingseason    CLOB,
+  d_lastdayinweekfl  NVARCHAR(1),
+  d_lastdayinmonthfl NVARCHAR(1),
+  d_holidayfl        NVARCHAR(1),
+  d_weekdayfl        NVARCHAR(1),
+  dummy              CLOB -- dbgen last delimiter
+);
+
+--
+-- part
+--
+CREATE TABLE part (
+  p_partkey   INTEGER PRIMARY KEY,
+  p_name      CLOB,
+  p_mfgr      NVARCHAR(6),
+  p_category  NVARCHAR(7),
+  p_brand1    NVARCHAR(9),
+  p_color     NVARCHAR(11),
+  p_type      CLOB,
+  p_size      INTEGER,
+  p_container NVARCHAR(10),
+  dummy       CLOB  -- dbgen last delimiter
+);
+
+--
+-- supplier
+--
+CREATE TABLE supplier (
+  s_suppkey INTEGER PRIMARY KEY,
+  s_name    NVARCHAR(25),
+  s_address CLOB,
+  s_city    NVARCHAR(10),
+  s_nation  NVARCHAR(15),
+  s_region  NVARCHAR(12),
+  s_phone   NVARCHAR(15),
+  dummy            CLOB -- dbgen last delimiter
+);
+
+--
+-- lineorder
+--
+CREATE TABLE lineorder (
+  lo_orderkey      BIGINT, -- Consider SF 300+
+  lo_linenumber    INTEGER,
+  lo_custkey       INTEGER, -- FK to C_CUSTKEY
+  lo_partkey       INTEGER, -- FK to P_PARTKEY
+  lo_suppkey       INTEGER, -- FK to S_SUPPKEY
+  lo_orderdate     DATE,    -- FK to D_DATEKEY
+  lo_orderpriority NVARCHAR(15),
+  lo_shippriority  NVARCHAR(1),
+  lo_quantity      INTEGER,
+  lo_extendedprice NUMERIC,
+  lo_ordtotalprice NUMERIC,
+  lo_discount      NUMERIC,
+  lo_revenue       NUMERIC,
+  lo_supplycost    NUMERIC,
+  lo_tax           NUMERIC,
+  lo_commitdate    DATE, -- FK to D_DATEKEY
+  lo_shipmod       NVARCHAR(10),
+  dummy            CLOB, -- dbgen last delimiter
+  CONSTRAINT lo_pkey  PRIMARY KEY(lo_orderkey, lo_linenumber),
+  FOREIGN KEY (lo_custkey)  REFERENCES customer (c_custkey),
+  FOREIGN KEY (lo_partkey)  REFERENCES part (p_partkey),
+  FOREIGN KEY (lo_suppkey)  REFERENCES supplier (s_suppkey),
+  FOREIGN KEY (lo_orderdate)  REFERENCES date (d_datekey)
+);
+```
+ - `select * from "REFERENTIAL_CONSTRAINTS"` 로 foreign key가 등록된것을 확인 할 수 있음
+
+### **data load**
+ - explorer를 통해서 csv로 업로드 할 수 있으나, 향후 on-premise에서 업로드를 생각하여 python + hdbcli로 업로드하는 것으로 기술
+```python
+
+# 👉 테이블 정의: 각 테이블별 컬럼 이름 (dummy 제외)
+table_columns = {
+    "customer": ["c_custkey", "c_name", "c_address", "c_city", "c_nation", "c_region", "c_phone", "c_mktsegment"],
+    "supplier": ["s_suppkey", "s_name", "s_address", "s_city", "s_nation", "s_region", "s_phone"],
+    "part": ["p_partkey", "p_name", "p_mfgr", "p_category", "p_brand1", "p_color", "p_type", "p_size", "p_container"],
+    "date": ["d_datekey", "d_date", "d_dayofweek", "d_month", "d_year", "d_yearmonthnum", "d_yearmonth",
+             "d_daynuminweek", "d_daynuminmonth", "d_daynuminyear", "d_monthnuminyear", "d_weeknuminyear",
+             "d_sellingseason", "d_lastdayinweekfl", "d_lastdayinmonthfl", "d_holidayfl", "d_weekdayfl"],
+    "lineorder": ["lo_orderkey", "lo_linenumber", "lo_custkey", "lo_partkey", "lo_suppkey", "lo_orderdate",
+                  "lo_orderpriority", "lo_shippriority", "lo_quantity", "lo_extendedprice", "lo_ordtotalprice",
+                  "lo_discount", "lo_revenue", "lo_supplycost", "lo_tax", "lo_commitdate", "lo_shipmod"]
+}
+
+# 👉 파일명 리스트 (확장자 .tbl)
+tbl_files = ["customer.tbl", "supplier.tbl", "part.tbl", "date.tbl", "lineorder.tbl"]
+
+for tbl_file in tbl_files:
+    table_name = os.path.splitext(tbl_file)[0]
+    columns = table_columns.get(table_name)
+
+    if not columns:
+        print(f"❌ Unknown table: {table_name}")
+        continue
+
+    print(f"🚀 Loading data into table: {table_name.upper()} ...")
+
+    file_path = os.path.join("hana", tbl_file)
+    batch = []
+    batch_size = 5000
+    inserted = 0
+
+    placeholders = ','.join(['?'] * len(columns))
+    col_str = ', '.join(columns)
+    query = f'INSERT INTO "GE211441"."{table_name.upper()}" ({col_str}) VALUES ({placeholders})'
+
+    with open(file_path, 'r', encoding='utf-8') as f:
+        for line in f:
+            fields = line.strip().split('|')
+            if len(fields) < len(columns):
+                continue
+            values = fields[:len(columns)]
+            batch.append(values)
+
+            if len(batch) >= batch_size:
+                try:
+                    cursor.executemany(query, batch)
+                    conn.commit()
+                    inserted += len(batch)
+                    print(f"✅ Inserted {inserted} rows so far into {table_name.upper()}")
+                    batch = []
+                except dbapi.Error as e:
+                    print(f"⚠️ Error in batch insert: {e}")
+                    batch = []
+
+    # 마지막 남은 batch 처리
+    if batch:
+        try:
+            cursor.executemany(query, batch)
+            conn.commit()
+            inserted += len(batch)
+            print(f"✅ Inserted total {inserted} rows into {table_name.upper()}")
+        except dbapi.Error as e:
+            print(f"⚠️ Error in final batch insert: {e}")
+
+cursor.close()
+conn.close()
+```
+ - row 업로드 확인
+ ```sql
+ SELECT 'CUSTOMER' AS TABLE_NAME, COUNT(*) AS ROW_COUNT FROM "GE211441"."CUSTOMER"
+UNION ALL
+SELECT 'SUPPLIER', COUNT(*) FROM "GE211441"."SUPPLIER"
+UNION ALL
+SELECT 'PART', COUNT(*) FROM "GE211441"."PART"
+UNION ALL
+SELECT 'DATE', COUNT(*) FROM "GE211441"."DATE"
+UNION ALL
+SELECT 'LINEORDER', COUNT(*) FROM "GE211441"."LINEORDER";
+
+TABLE_NAME,ROW_COUNT
+CUSTOMER,300000
+SUPPLIER,20000
+PART,800000
+DATE,2556
+LINEORDER,59986052
+```
+
+
+## **JOB workload 업로드**
+### **JOB Dataset**
+ - imdb.tgz download
+ - tar -vzxf imdb.tgz
+
+### **JOB table create**
+ - imdb.tgz에 첨부되어있던, schematext.sql을 아래 python으로 변환
+ - 되도록 NVARCHAR를 사용하나, 5000 사이즈 제한으로 CLOB을 사용을 사용함
+```python
+import re
+from pathlib import Path
+
+def convert_varchar_to_nvarchar(sql_text: str) -> str:
+    # 1. character varying(N) -> NVARCHAR(N)
+    sql_text = re.sub(
+        r'character\s+varying\s*\(\s*(\d+)\s*\)',
+        r'NVARCHAR(\1)',
+        sql_text,
+        flags=re.IGNORECASE,
+    )
+
+    # 2. character varying -> NVARCHAR(255)
+    sql_text = re.sub(
+        r'character\s+varying\b',
+        r'CLOB',
+        sql_text,
+        flags=re.IGNORECASE,
+    )
+
+    return sql_text
+
+if __name__ == "__main__":
+    # 예시: input.sql 파일 읽어서 변환 후 output.sql로 저장
+    src_path = Path("schematext.sql")
+    dst_path = Path("output_schematext.sql")
+
+    sql_src = src_path.read_text(encoding="utf-8")
+    sql_out = convert_varchar_to_nvarchar(sql_src)
+    dst_path.write_text(sql_out, encoding="utf-8")
+
+    print(f"✅ 변환 완료: {dst_path}")
+```
+ - 해당 sql을 이용하여 table 생성
+ - fkadd.sql을 업로드 (from balsa)
+
+### **JOB data bulk upload**
+ - imdb.tgz로 파생된 csv파일들을 아래 python으로 업로드

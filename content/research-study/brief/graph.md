@@ -9,7 +9,7 @@ categories = ["Graph Neural Network","Study"]
 
 
 
-## **GNN 직관**
+# **GNN 직관**
 
 
 > CNN은 Euclidean 공간에서 행과 열로 배열된 픽셀들로 이루어진 이미지에서 특징을 추출한다. <br>
@@ -33,7 +33,7 @@ categories = ["Graph Neural Network","Study"]
 - (Neighborhood) Attention
 
 
-## 참고
+## **참고**
 
 https://glanceyes.com/entry/%EC%B6%94%EC%B2%9C-%EC%8B%9C%EC%8A%A4%ED%85%9C-GNNGraph-Neural-Network%EC%99%80-%EC%9D%B4%EB%A5%BC-%EC%9D%91%EC%9A%A9%ED%95%9C-NGCFNeural-Graph-Collaborative-Filtering%EC%99%80-LightGCN
 

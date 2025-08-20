@@ -106,6 +106,16 @@ SELECT count(*) FROM title;
    - 이때 전달되는 paramter는 boolen으로 전달되는것으로 보이고, connector layer 에서 boolen을 hint statement로 변환함.
 
 
+### **json 형태의 message interface**
+ - json을 보내기 전에 해당 message가 어떤 meesage type인지를 보내고, 마지막에 terminate_messgae를 보낸다
+ - 결국 START_XXXX_MESSAGE, JSON_CONTENT, TERMIMNAL_MESSAGE 로 구성되어 있고, TERMIAL_MESSAGE 를 받을때까지 que에 저장한뒤 수신시 처리한다.
+ ```python
+START_QUERY_MESSAGE = "{\"type\": \"query\"}\n"
+START_FEEDBACK_MESSAGE = "{\"type\": \"reward\"}\n"
+START_PREDICTION_MESSAGE = "{\"type\": \"predict\"}\n"
+TERMINAL_MESSAGE = "{\"final\": true}\n"
+ ```
+
 ### **Shared Buffer 활용**
  - Bao 논문에는 따로 언급되어 있지 않지만, DBMS의 buffer에 있는 조건을 학습에 사용하고 있음
    - 위치 pg_extension/bao_bufferstate.h
@@ -141,4 +151,74 @@ SELECT count(*) FROM title;
       }
     }
    ```
+
+
+### **bandit arm 5 짜리 문제로 치환**
+ - BAO 는 학습범위의 힌트들에 대해서 2^6 개의 모든 조합에 대해서 search space로 두지 않고, <br>
+ ***기본적으로 5개의 조합에 대해서만 검사한다***
+ ```c
+#define BAO_MAX_ARMS 26
+
+// Each Bao config variable is linked to a PostgreSQL session variable.
+// See the string docs provided to the PG functions in main.c.
+static bool enable_bao = false;
+static bool enable_bao_rewards = false;
+static bool enable_bao_selection = false;
+static char* bao_host = NULL;
+static int bao_port = 9381;
+static int bao_num_arms = 5;
+static bool bao_include_json_in_explain = false;
+#endif
+...
+ static void set_arm_options(int arm) {
+  enable_hashjoin = false;
+  enable_mergejoin = false;
+  enable_nestloop = false;
+  enable_indexscan = false;
+  enable_seqscan = false;
+  enable_indexonlyscan = false;
+  
+  switch (arm) {
+  case 0:
+    enable_hashjoin = true;
+    enable_indexscan = true;
+    enable_mergejoin = true;
+    enable_nestloop = true;
+    enable_seqscan = true;
+    enable_indexonlyscan = true;
+    break;
+    
+  case 1: 
+    enable_hashjoin = true; 
+    enable_indexonlyscan = true; 
+    enable_indexscan = true; 
+    enable_mergejoin = true; 
+    enable_seqscan = true; 
+    break;
+  case 2: 
+    enable_hashjoin = true; 
+    enable_indexonlyscan = true; 
+    enable_nestloop = true; 
+    enable_seqscan = true; 
+    break;
+  case 3: 
+    enable_hashjoin = true; 
+    enable_indexonlyscan = true; 
+    enable_seqscan = true; 
+    break;
+  case 4: 
+    enable_hashjoin = true; 
+    enable_indexonlyscan = true; 
+    enable_indexscan = true; 
+    enable_nestloop = true; 
+    enable_seqscan = true; 
+    break;
+  case 5: 
+    enable_hashjoin = true; 
+    enable_indexonlyscan = true; 
+    enable_mergejoin = true; 
+    enable_nestloop = true; 
+    break;
+    ...
+ ```
 
