@@ -295,45 +295,32 @@ ALTER SYSTEM ALTER CONFIGURATION ('indexserver.ini', 'SYSTEM') SET ('import', 'c
 
 ## **HANA DB 지원**
 
-### **EXPLAIN and ANALYZE 지원 관련**
-- EXPLAIN의 경우 `EXPLAIN PLAN` keyword로 지원
-  - https://help.sap.com/docs/SAP_HANA_PLATFORM/bed8c14f9f024763b0777aa72b5436f6/c0d42fd3bb571014a0688254f3de593f.html
-  - Join order 와 physical Op를 확인 가능
-- ***ANALYZE의 경우 SQL Level에서는 미지원***
-  - `M_SQL_PLAN_CACHE` 로 수행한 결과를 분석해야함
-  - 해당 cache안에 join order등 어떠한 정보들을 볼 수 있는지
-{{% details title="제공되는 정보" open=false %}}
-  **TOTAL_EXECUTION_TIME** 을 제공. 그러나 sub-tree에 대한 정보는 제공하지 않음.
-  ```
-  HOST	PORT	VOLUME_ID	STATEMENT_STRING	STATEMENT_HASH	USER_NAME	SESSION_USER_NAME
-  SCHEMA_NAME	SESSION_PROPERTIES	IS_VALID	LAST_INVALIDATION_REASON	IS_INTERNAL	IS_DISTRIBUTED_EXECUTION
-  COMPILATION_OPTIONS	IS_PINNED_PLAN	PINNED_PLAN_ID	ABAP_VARCHAR_MODE	APPLICATION_NAME	APPLICATION_SOURCE
-  ACCESSED_TABLES	ACCESSED_TABLE_NAMES	ACCESSED_OBJECTS	ACCESSED_OBJECT_NAMES	TABLE_LOCATIONS	TABLE_TYPES
-  EXECUTION_ENGINE	HEX_REJECTION_REASON	PLAN_SHARING_TYPE	OWNER_CONNECTION_ID	PLAN_ID	PLAN_MEMORY_SIZE
-  REFERENCE_COUNT	PARAMETER_COUNT	UPDATED_TABLE_OID	LOGICAL_CONNECTION_VOLUME_ID	EXECUTION_COUNT
-  EXECUTION_COUNT_BY_ROUTING	PREFERRED_ROUTING_VOLUME_IDS	TOTAL_CURSOR_DURATION	AVG_CURSOR_DURATION
-  MIN_CURSOR_DURATION	MAX_CURSOR_DURATION	TOTAL_EXECUTION_TIME	AVG_EXECUTION_TIME	MIN_EXECUTION_TIME
-  MAX_EXECUTION_TIME	TOTAL_EXECUTION_OPEN_TIME	AVG_EXECUTION_OPEN_TIME	MIN_EXECUTION_OPEN_TIME	MAX_EXECUTION_OPEN_TIME	
-  TOTAL_EXECUTION_FETCH_TIME	AVG_EXECUTION_FETCH_TIME	MIN_EXECUTION_FETCH_TIME	MAX_EXECUTION_FETCH_TIME	
-  TOTAL_EXECUTION_CLOSE_TIME	AVG_EXECUTION_CLOSE_TIME	MIN_EXECUTION_CLOSE_TIME	MAX_EXECUTION_CLOSE_TIME
-  TOTAL_METADATA_CACHE_MISS_COUNT	TOTAL_TABLE_LOAD_TIME_DURING_PREPARATION	AVG_TABLE_LOAD_TIME_DURING_PREPARATION	
-  MIN_TABLE_LOAD_TIME_DURING_PREPARATION	MAX_TABLE_LOAD_TIME_DURING_PREPARATION	PREPARATION_COUNT
-  TOTAL_PREPARATION_TIME	AVG_PREPARATION_TIME	MIN_PREPARATION_TIME	MAX_PREPARATION_TIME
-  TOTAL_RESULT_RECORD_COUNT	TOTAL_LOCK_WAIT_COUNT	TOTAL_LOCK_WAIT_DURATION	LAST_CONNECTION_ID
-  LAST_EXECUTION_TIMESTAMP	LAST_PREPARATION_TIMESTAMP	TOTAL_EXECUTION_MEMORY_SIZE	AVG_EXECUTION_MEMORY_SIZE	
-  MIN_EXECUTION_MEMORY_SIZE	MAX_EXECUTION_MEMORY_SIZE	TOTAL_EXECUTION_CPU_TIME	AVG_EXECUTION_CPU_TIME
-  MIN_EXECUTION_CPU_TIME	MAX_EXECUTION_CPU_TIME	AVG_SERVICE_NETWORK_REQUEST_COUNT	MAX_SERVICE_NETWORK_REQUEST_COUNT
-  TOTAL_SERVICE_NETWORK_REQUEST_COUNT	AVG_CALLED_THREAD_COUNT	MAX_CALLED_THREAD_COUNT	TOTAL_CALLED_THREAD_COUNT
-  TOTAL_BATCH_EXECUTION_COUNT	AVG_BATCH_EXECUTION_COUNT	MIN_BATCH_EXECUTION_COUNT	MAX_BATCH_EXECUTION_COUNT
-  AVG_SERVICE_NETWORK_REQUEST_DURATION	MAX_SERVICE_NETWORK_REQUEST_DURATION	TOTAL_SERVICE_NETWORK_REQUEST_DURATION
-  AVG_SERVICE_NETWORK_REQUEST_SIZE	MAX_SERVICE_NETWORK_REQUEST_SIZE	TOTAL_SERVICE_NETWORK_REQUEST_SIZE
-  TOTAL_BUFFER_CACHE_PAGE_HIT_COUNT	AVG_BUFFER_CACHE_PAGE_HIT_COUNT	MIN_BUFFER_CACHE_PAGE_HIT_COUNT	MAX_BUFFER_CACHE_PAGE_HIT_COUNT
-  TOTAL_BUFFER_CACHE_PAGE_MISS_COUNT	AVG_BUFFER_CACHE_PAGE_MISS_COUNT	MIN_BUFFER_CACHE_PAGE_MISS_COUNT
-  MAX_BUFFER_CACHE_PAGE_MISS_COUNT	TOTAL_BUFFER_CACHE_IO_READ_SIZE	AVG_BUFFER_CACHE_IO_READ_SIZE
-  MIN_BUFFER_CACHE_IO_READ_SIZE	MAX_BUFFER_CACHE_IO_READ_SIZE	TOTAL_BUFFER_CACHE_PINNED_MEMORY_SIZE
-  AVG_BUFFER_CACHE_PINNED_MEMORY_SIZE	MIN_BUFFER_CACHE_PINNED_MEMORY_SIZE
-  ```
-{{% /details %}}
+### **EXPLAIN 관련**
+- 아래와 같이 총 2회(3회) 의 SQL을 형태로 호출하여 결과를 받아야하며 row 형태로 응답을 받을 수 있음
+```SQL
+DELETE FROM explain_plan_table WHERE statement_name = 'ORIG';
+
+EXPLAIN PLAN SET STATEMENT_NAME = 'ORIG' FOR
+select * from akatitle;
+
+SELECT * FROM EXPLAIN_PLAN_TABLE WHERE STATEMENT_NAME = 'ORIG' 
+```
+
+### **ANALYZE 관련**
+- 아래 형식처럼 target_sql을 감싸서 질의하면 xml 형태의 응답을 받을 수 있음 <br>
+단, 권한을 가지고 있어야함 (BTP trial로 생성된 hana db의 경우 권한을 부여하고 있음)
+```SQL
+
+DO
+BEGIN
+    DECLARE lv_planviz_xml CLOB;
+    CALL GET_PLANVIZ_EXECUTED_PLAN('
+    select * from aka_title
+    ', lv_planviz_xml);
+
+    SELECT :lv_planviz_xml FROM DUMMY;
+END;
+```
 
 ### **Timeout Setting**
  - Python
@@ -352,65 +339,37 @@ ALTER SYSTEM ALTER CONFIGURATION ('indexserver.ini', 'SYSTEM') SET ('import', 'c
 
 ### **hanadb join에 대한 키워드**
 ```text
-HEX_HASH_JOIN
-Guides the optimizer to prefer HEX hash joins over other joins.
+--logical Enum rule
+(NO_)AGGR_THRU_JOIN
+(NO_)AGGR_THRU_FILTER
+(NO_)PREAGGR_BEFORE_JOIN
+(NO_)DOUBLE_PREAGGR_BEFORE_JOIN
+(NO_)JOIN_THRU_JOIN
+(NO_)JOIN_THRU_AGGR
+(NO_)JOIN_THRU_UNION
+(NO_)JOIN_THRU_FILTER
+(NO_)DISTINCT_THRU_UNION
+(NO_)PREAGGR_BEFORE_UNION
+(NO_)DISJ_JOIN_INTO_UNION
+(NO_)FILTER_THRU_JOIN
+(NO_)FILTER_THRU_AGGR
+(NO_)FILTER_THRU_UNION
+(NO_)DOUBLE_JOIN_THRU_UNION_ALL
 
-NO_HEX_HASH_JOIN
-Guides the optimizer to avoid HEX hash joins.
+--join operator
+(NO_)HEX_HASH_JOIN
+(NO_)HEX_INDEX_JOIN
+(NO_)HEX_RANGE_JOIN
+(NO_)HEX_HASHED_RANGE_JOIN
+(NO_)HEX_NESTED_LOOP_JOIN
 
-HEX_INDEX_JOIN
-Guides the optimizer to prefer HEX index joins over other joins.
+--scan operator
+(NO_)HEX_TABLE_SCAN
+(NO_)HEX_INDEX_SCAN
+(NO_)HEX_UNIQUE_INDEX_SEARCH
 
-NO_HEX_INDEX_JOIN
-Guides the optimizer to avoid HEX index joins.
-
-HEX_NESTED_LOOP_JOIN
-Guides the optimizer to prefer HEX nested loop joins over other joins.
-
-NO_HEX_NESTED_LOOP_JOIN
-Guides the optimizer to avoid HEX nested loop joins.
-
-CONCAT_FILTER
-Guides the optimizer to prefer HEX concat replacements.
-
-NO_CONCAT_FILTER
-Guides the optimizer to avoid HEX concat replacements.
-
-HEX_RANGE_JOIN
-Guides the optimizer to prefer HEX range joins over other joins.
-
-NO_HEX_RANGE_JOIN
-Guides the optimizer to avoid HEX range joins.
-
-HEX_HASHED_RANGE_JOIN
-Guides the optimizer to prefer HEX hashed range joins over other joins.
-
-NO_HEX_HASHED_RANGE_JOIN
-Guides the optimizer to avoid HEX hashed range joins.
-
-HEX_TABLE_SCAN
-Guides the optimizer to prefer HEX table scans over unique index searches.
-
-NO_HEX_TABLE_SCAN
-Guides the optimizer to avoid HEX table scans.
-
-HEX_UNIQUE_INDEX_SEARCH
-Guides the optimizer to prefer HEX unique index searches over table scans.
-
-NO_HEX_UNIQUE_INDEX_SEARCH
-Guides the optimizer to avoid HEX unique index searches.
-
-HEX_LIMIT
-Guides the optimizer to prefer HEX limits over top K sorts.
-
-NO_HEX_LIMIT
-Guides the optimizer to avoid HEX limits.
-
-HEX_TOPK_SORT
-Guides the optimizer to prefer HEX top K sorts over HEX limits.
-
-NO_HEX_TOPK_SORT
-Guides the optimizer to avoid HEX top K sorts.
+--index
+(NO_)INDEX(your_table, 'index_name_to_avoid')
 ```
 
 
@@ -515,7 +474,7 @@ insert into aka_name1 values(1,4061927,'Smithl');
 ./dbgen -s 10 -T l    # lineorder
 ```
 
-### **table 생성**
+### **SSB table 생성**
  - table load 용 sql 준비 및 실행
     - 주요특징 : balsa 프로젝트에 있는 table.sql 항목에서 `TEXT`를 `CLOB` 으로 변환
     - hdbsql 이용할때 -I {filename} 옵션으로 사용
@@ -644,7 +603,7 @@ CREATE TABLE lineorder (
 ```
  - `select * from "REFERENTIAL_CONSTRAINTS"` 로 foreign key가 등록된것을 확인 할 수 있음
 
-### **data load**
+### **SSB data load**
  - explorer를 통해서 csv로 업로드 할 수 있으나, 향후 on-premise에서 업로드를 생각하여 python + hdbcli로 업로드하는 것으로 기술
 ```python
 
@@ -737,13 +696,13 @@ LINEORDER,59986052
 
 
 ## **JOB workload 업로드**
-### **JOB Dataset**
+### **JOB Dataset 생성**
  - imdb.tgz download
  - tar -vzxf imdb.tgz
 
 ### **JOB table create**
  - imdb.tgz에 첨부되어있던, schematext.sql을 아래 python으로 변환
- - 되도록 NVARCHAR를 사용하나, 5000 사이즈 제한으로 CLOB을 사용을 사용함
+ - 되도록 NVARCHAR으로 사이즈 제한
 ```python
 import re
 from pathlib import Path
@@ -760,12 +719,29 @@ def convert_varchar_to_nvarchar(sql_text: str) -> str:
     # 2. character varying -> NVARCHAR(255)
     sql_text = re.sub(
         r'character\s+varying\b',
-        r'CLOB',
+        r'NVARCHAR(5000)',
         sql_text,
         flags=re.IGNORECASE,
     )
 
     return sql_text
+
+
+def add_schema_to_create(sql_text: str, schema: str = "imdb") -> str:
+    """
+    CREATE TABLE table_name → CREATE TABLE schema.table_name
+    이미 schema.table_name 인 경우는 건너뜀
+    """
+    pattern = re.compile(r'(\bCREATE\s+TABLE\s+)([^\s(]+)', flags=re.IGNORECASE)
+
+    def repl(match):
+        prefix, table_name = match.groups()
+        if "." in table_name:  # 이미 schema 지정됨
+            return match.group(0)
+        return f"{prefix}{schema}.{table_name}"
+
+    return pattern.sub(repl, sql_text)
+
 
 if __name__ == "__main__":
     # 예시: input.sql 파일 읽어서 변환 후 output.sql로 저장
@@ -774,12 +750,540 @@ if __name__ == "__main__":
 
     sql_src = src_path.read_text(encoding="utf-8")
     sql_out = convert_varchar_to_nvarchar(sql_src)
+    sql_out = add_schema_to_create(sql_out)
     dst_path.write_text(sql_out, encoding="utf-8")
 
     print(f"✅ 변환 완료: {dst_path}")
+
 ```
  - 해당 sql을 이용하여 table 생성
- - fkadd.sql을 업로드 (from balsa)
-
+  ```sh
+  sudo /usr/sap/HXE/HDB90/exe/hdbsql -n {host}:443 -u {user} -p {password} -I output_schematext.sql
+  ```
+ - fkindexex.sql을 업로드 (from balsa)
+```sql
+create index company_id_movie_companies on movie_companies(company_id);
+create index company_type_id_movie_companies on movie_companies(company_type_id);
+create index info_type_id_movie_info_idx on movie_info_idx(info_type_id);
+create index info_type_id_movie_info on movie_info(info_type_id);
+create index info_type_id_person_info on person_info(info_type_id);
+create index keyword_id_movie_keyword on movie_keyword(keyword_id);
+create index kind_id_aka_title on aka_title(kind_id);
+create index kind_id_title on title(kind_id);
+create index linked_movie_id_movie_link on movie_link(linked_movie_id);
+create index link_type_id_movie_link on movie_link(link_type_id);
+create index movie_id_aka_title on aka_title(movie_id);
+create index movie_id_cast_info on cast_info(movie_id);
+create index movie_id_complete_cast on complete_cast(movie_id);
+create index subject_id_complete_cast on complete_cast(subject_id);
+create index status_id_complete_cast on complete_cast(status_id);
+create index movie_id_movie_companies on movie_companies(movie_id);
+create index movie_id_movie_info_idx on movie_info_idx(movie_id);
+create index movie_id_movie_keyword on movie_keyword(movie_id);
+create index movie_id_movie_link on movie_link(movie_id);
+create index movie_id_movie_info on movie_info(movie_id);
+create index person_id_aka_name on aka_name(person_id);
+create index person_id_cast_info on cast_info(person_id);
+create index person_id_person_info on person_info(person_id);
+create index person_role_id_cast_info on cast_info(person_role_id);
+create index role_id_cast_info on cast_info(role_id);
+```
+```sh
+sudo /usr/sap/HXE/HDB90/exe/hdbsql -n {host}:443 -u {user} -p {password} -I fkindexex.sql
+```
 ### **JOB data bulk upload**
  - imdb.tgz로 파생된 csv파일들을 아래 python으로 업로드
+ - 5000자가 넘는 파일에 대해서는 짤라서 업로드
+```python
+import glob
+import pandas as pd
+from typing import Iterable, List, Any
+import os, csv, tempfile
+from hdbcli import dbapi
+from sqlalchemy import create_engine
+
+engine = create_engine(f'hana://{user}:{password}@{host}:443')
+
+table_columns = {
+    "aka_name": ["id", "person_id", "name", "imdb_index",
+        "name_pcode_cf", "name_pcode_nf", "surname_pcode", "md5sum"],
+    "aka_title": [
+        "id", "movie_id", "title", "imdb_index", "kind_id", "production_year",
+        "phonetic_code", "episode_of_id", "season_nr", "episode_nr", "note", "md5sum"
+    ],
+    "cast_info": [
+        "id", "person_id", "movie_id", "person_role_id", "note", "nr_order", "role_id"
+    ],
+    "char_name": ["id", "name", "imdb_index", "imdb_id",
+        "name_pcode_nf", "surname_pcode", "md5sum"],
+    "comp_cast_type": ["id", "kind"],
+    "company_name": ["id", "name", "country_code", "imdb_id",
+        "name_pcode_nf", "name_pcode_sf", "md5sum"],
+    "company_type": ["id", "kind"],
+    "complete_cast": ["id", "movie_id", "subject_id", "status_id"],
+    "info_type": ["id", "info"],
+    "keyword": ["id", "keyword", "phonetic_code"],
+    "kind_type": ["id", "kind"],
+    "link_type": ["id", "link"],
+    "movie_companies": ["id", "movie_id", "company_id", "company_type_id", "note"],
+    "movie_info_idx": ["id", "movie_id", "info_type_id", "info", "note"],
+    "movie_keyword": ["id", "movie_id", "keyword_id"],
+    "movie_link": ["id", "movie_id", "linked_movie_id", "link_type_id"],
+    "name": ["id", "name", "imdb_index", "imdb_id", "gender",
+        "name_pcode_cf", "name_pcode_nf", "surname_pcode", "md5sum"],
+    "role_type": ["id", "role"],
+    "title": ["id", "title", "imdb_index", "kind_id", "production_year", "imdb_id",
+        "phonetic_code", "episode_of_id", "season_nr", "episode_nr", "series_years", "md5sum"],
+    "movie_info": ["id", "movie_id", "info_type_id", "info", "note"],
+    "person_info": ["id", "person_id", "info_type_id", "info", "note"]
+}
+
+path = "./job_dataset"
+#path = "./temp"
+out_dir = os.path.join(path, "conv")
+os.makedirs(out_dir, exist_ok=True)   # conv 폴더 없으면 생성
+csv_files = glob.glob(os.path.join(path, "*.csv"))
+
+# 방법 2: os.listdir 사용 (필터링)
+csv_files = [
+    os.path.join(path, f)
+    for f in os.listdir(path)
+    if f.lower().endswith(".csv")
+]
+
+fix_none = lambda x: None if (x is None or x == '') else ("None" if x == "None" else x)
+MAX_NCHAR = 5000
+for csv_file in csv_files:
+    base = os.path.basename(csv_file)              # person_info.csv
+    out_file = os.path.join(out_dir, base)         # ./temp/conv/person_info.csv
+
+    out_file = csv_file
+    #print(f"✅ {csv_file} → {out_file}")
+    name, _ = os.path.splitext(out_file)
+    table = os.path.basename(name)             # person_info
+    print(table, out_file)
+    read_kwargs = dict(sep=",", header=None, chunksize=500000, names=table_columns[table],
+        engine="python", quotechar='"',
+        doublequote=True,
+        escapechar='\\',
+        quoting=csv.QUOTE_MINIMAL,
+        keep_default_na=False,
+        na_filter=False,
+        converters={col: fix_none for col in table_columns[table]}  # 모든 컬럼 적용
+    )
+
+    chunker = pd.read_csv(out_file, **read_kwargs)
+    total_rows = 0
+    for i, chunk in enumerate(chunker, start=1):
+        obj_cols = chunk.select_dtypes(include=["object"]).columns
+        if len(obj_cols) > 0:
+            # 유니코드 안전 슬라이싱(파이썬 슬라이스는 코드포인트 기준)
+            for col in obj_cols:
+                # None은 그대로 두고 문자열만 잘라줌
+                # .str.slice는 NaN에 안전, keep_default_na=False 덕에 None만 존재
+                chunk[col] = chunk[col].astype("object").map(
+                    lambda v: (v[:MAX_NCHAR] if isinstance(v, str) and len(v) > MAX_NCHAR else v)
+                )
+
+        rows = len(chunk)
+        total_rows += rows
+        try:
+            chunk.to_sql(schema='IMDB', name=table, con=engine, index=False, if_exists='append')
+        except Exception as e:
+            if not os.path.isdir("./error/"):
+               os.mkdir("./error/")
+            chunk.to_csv(f"./error/1.csv")
+            with open(f'./error/error.log', 'w', encoding='utf-8') as f:
+                f.write(str(e))
+                f.close()
+            raise NotImplementedError
+        print(f"[{i:04d}] chunk rows={rows:,}  processed={total_rows:,}")
+
+```
+ - 후에 fk key add
+```sh
+sudo /usr/sap/HXE/HDB90/exe/hdbsql -n {host}:443 -u {user} -p {password} -I addfk.sql
+```
+ ```SQL
+ ALTER TABLE "IMDB"."TITLE"
+  ADD CONSTRAINT "FK_TITLE_KIND"
+  FOREIGN KEY ("KIND_ID")
+  REFERENCES "IMDB"."KIND_TYPE"("ID");
+
+ALTER TABLE "IMDB"."AKA_NAME"
+  ADD CONSTRAINT "PK_AKA_NAME_ID"
+  PRIMARY KEY ("ID");  -- 이미 PK라면 생략
+
+-- (주의) cast_info.person_id -> 'NAME'.ID 로 거는 것이 일반적입니다.
+-- 질문에 있던 PG 에러는 aka_name 을 참조해서 난 것입니다.
+ALTER TABLE "IMDB"."CAST_INFO"
+  ADD CONSTRAINT "FK_CASTINFO_MOVIE"
+  FOREIGN KEY ("MOVIE_ID")
+  REFERENCES "IMDB"."TITLE"("ID");
+
+ALTER TABLE "IMDB"."CAST_INFO"
+  ADD CONSTRAINT "FK_CASTINFO_PERSON"
+  FOREIGN KEY ("PERSON_ID")
+  REFERENCES "IMDB"."NAME"("ID");
+
+ALTER TABLE "IMDB"."CAST_INFO"
+  ADD CONSTRAINT "FK_CASTINFO_PERSON_ROLE"
+  FOREIGN KEY ("PERSON_ROLE_ID")
+  REFERENCES "IMDB"."CHAR_NAME"("ID");
+
+ALTER TABLE "IMDB"."CAST_INFO"
+  ADD CONSTRAINT "FK_CASTINFO_ROLE"
+  FOREIGN KEY ("ROLE_ID")
+  REFERENCES "IMDB"."ROLE_TYPE"("ID");
+
+ALTER TABLE "IMDB"."COMPLETE_CAST"
+  ADD CONSTRAINT "FK_CC_MOVIE"
+  FOREIGN KEY ("MOVIE_ID")
+  REFERENCES "IMDB"."TITLE"("ID");
+
+ALTER TABLE "IMDB"."COMPLETE_CAST"
+  ADD CONSTRAINT "FK_CC_SUBJECT"
+  FOREIGN KEY ("SUBJECT_ID")
+  REFERENCES "IMDB"."COMP_CAST_TYPE"("ID");
+
+ALTER TABLE "IMDB"."COMPLETE_CAST"
+  ADD CONSTRAINT "FK_CC_STATUS"
+  FOREIGN KEY ("STATUS_ID")
+  REFERENCES "IMDB"."COMP_CAST_TYPE"("ID");
+
+ALTER TABLE "IMDB"."MOVIE_COMPANIES"
+  ADD CONSTRAINT "FK_MC_MOVIE"
+  FOREIGN KEY ("MOVIE_ID")
+  REFERENCES "IMDB"."TITLE"("ID");
+
+ALTER TABLE "IMDB"."MOVIE_INFO"
+  ADD CONSTRAINT "FK_MI_MOVIE"
+  FOREIGN KEY ("MOVIE_ID")
+  REFERENCES "IMDB"."TITLE"("ID");
+
+ALTER TABLE "IMDB"."MOVIE_INFO"
+  ADD CONSTRAINT "FK_MI_INFOTYPE"
+  FOREIGN KEY ("INFO_TYPE_ID")
+  REFERENCES "IMDB"."INFO_TYPE"("ID");
+
+ALTER TABLE "IMDB"."MOVIE_INFO_IDX"
+  ADD CONSTRAINT "FK_MII_MOVIE"
+  FOREIGN KEY ("MOVIE_ID")
+  REFERENCES "IMDB"."TITLE"("ID");
+
+ALTER TABLE "IMDB"."MOVIE_INFO_IDX"
+  ADD CONSTRAINT "FK_MII_INFOTYPE"
+  FOREIGN KEY ("INFO_TYPE_ID")
+  REFERENCES "IMDB"."INFO_TYPE"("ID");
+
+ALTER TABLE "IMDB"."MOVIE_KEYWORD"
+  ADD CONSTRAINT "FK_MK_MOVIE"
+  FOREIGN KEY ("MOVIE_ID")
+  REFERENCES "IMDB"."TITLE"("ID");
+
+ALTER TABLE "IMDB"."MOVIE_KEYWORD"
+  ADD CONSTRAINT "FK_MK_KEYWORD"
+  FOREIGN KEY ("KEYWORD_ID")
+  REFERENCES "IMDB"."KEYWORD"("ID");
+
+ALTER TABLE "IMDB"."MOVIE_LINK"
+  ADD CONSTRAINT "FK_ML_MOVIE"
+  FOREIGN KEY ("MOVIE_ID")
+  REFERENCES "IMDB"."TITLE"("ID");
+
+ALTER TABLE "IMDB"."MOVIE_LINK"
+  ADD CONSTRAINT "FK_ML_LINKTYPE"
+  FOREIGN KEY ("LINK_TYPE_ID")
+  REFERENCES "IMDB"."LINK_TYPE"("ID");
+
+ALTER TABLE "IMDB"."PERSON_INFO"
+  ADD CONSTRAINT "FK_PI_PERSON"
+  FOREIGN KEY ("PERSON_ID")
+  REFERENCES "IMDB"."NAME"("ID");
+
+ALTER TABLE "IMDB"."PERSON_INFO"
+  ADD CONSTRAINT "FK_PI_INFOTYPE"
+  FOREIGN KEY ("INFO_TYPE_ID")
+  REFERENCES "IMDB"."INFO_TYPE"("ID");
+ ```
+
+### **JOB 15x.sql query 변경**
+ - 15b,c,d sql 에는 `at`라는 alias를 사용하나,  `at` 라는것이 hana db에서 키워드이므로 이슈가 발생
+ - 15b,c,d에 at를 att로 변경 하여 실험
+
+## **TPC-DS workload 업로드**
+
+### **TPC-DS dataset 생성**
+- git clone https://github.com/gregrahn/tpcds-kit
+- tools build
+```sh
+cd tools
+make CC=gcc-9 OS=LINUX
+```
+- create schema
+```SQL
+create schema tpcds
+```
+- 데이터 생성
+```sh
+./dsdgen -SCALE 4 -DIR data
+```
+ - 파싱 문제가 있어서, 아래 명령어를 입력해주어야 한다.
+ ```sh
+ sed -i 's/|$//' <data/*.dat (.dat 파일들이 있는 경로)>
+ ```
+
+### **TPC-DS table convert**
+ - 아래 python으로 NVARCHAR로 변환
+
+```python
+from pathlib import Path
+import re
+
+def convert_varchar_to_nvarchar(sql_text: str) -> str:
+    """
+    CHAR(n), VARCHAR(n) → NVARCHAR(n) 변환
+    """
+    # VARCHAR 먼저 변환 (CHAR 안에 "VAR" 안겹치도록 순서 중요)
+    sql_text = re.sub(r'\bVARCHAR\s*\((\d+)\)', r'NVARCHAR(\1)', sql_text, flags=re.IGNORECASE)
+    # CHAR 변환
+    sql_text = re.sub(r'\bCHAR\s*\((\d+)\)', r'NVARCHAR(\1)', sql_text, flags=re.IGNORECASE)
+    return sql_text
+
+
+def add_schema_to_create(sql_text: str, schema: str = "tpcds") -> str:
+    """
+    CREATE TABLE table_name → CREATE TABLE schema.table_name
+    이미 schema.table_name 인 경우는 건너뜀
+    """
+    pattern = re.compile(r'(\bCREATE\s+TABLE\s+)([^\s(]+)', flags=re.IGNORECASE)
+
+    def repl(match):
+        prefix, table_name = match.groups()
+        if "." in table_name:  # 이미 schema 지정됨
+            return match.group(0)
+        return f"{prefix}{schema}.{table_name}"
+
+    return pattern.sub(repl, sql_text)
+
+if __name__ == "__main__":
+    src_path = Path("createtable.sql")
+    dst_path = Path("output_createtable.sql")
+
+    sql_src = src_path.read_text(encoding="utf-8")
+    sql_out = convert_varchar_to_nvarchar(sql_src)
+    sql_out = add_schema_to_create(sql_out, schema="tpcds")
+    dst_path.write_text(sql_out, encoding="utf-8")
+
+    print(f"✅ 변환 완료 (스키마=tpcds): {dst_path}")
+```
+
+### **TPC-DS data bulk upload**
+ - 아래 스크립트로 업로드
+
+```python
+import glob
+import pandas as pd
+from typing import Iterable, List, Any
+import os, csv, tempfile
+from hdbcli import dbapi
+from sqlalchemy import create_engine
+
+engine = create_engine(f'hana://{user}:{password}@{host}:443')
+
+table_columns = {
+    "dbgen_version": [
+        "dv_version", "dv_create_date", "dv_create_time", "dv_cmdline_args"
+    ],
+    "customer_address": [
+        "ca_address_sk", "ca_address_id", "ca_street_number", "ca_street_name",
+        "ca_street_type", "ca_suite_number", "ca_city", "ca_county", "ca_state",
+        "ca_zip", "ca_country", "ca_gmt_offset", "ca_location_type"
+    ],
+    "customer_demographics": [
+        "cd_demo_sk", "cd_gender", "cd_marital_status", "cd_education_status",
+        "cd_purchase_estimate", "cd_credit_rating", "cd_dep_count",
+        "cd_dep_employed_count", "cd_dep_college_count"
+    ],
+    "date_dim": [
+        "d_date_sk", "d_date_id", "d_date", "d_month_seq", "d_week_seq", "d_quarter_seq",
+        "d_year", "d_dow", "d_moy", "d_dom", "d_qoy", "d_fy_year", "d_fy_quarter_seq",
+        "d_fy_week_seq", "d_day_name", "d_quarter_name", "d_holiday", "d_weekend",
+        "d_following_holiday", "d_first_dom", "d_last_dom", "d_same_day_ly", "d_same_day_lq",
+        "d_current_day", "d_current_week", "d_current_month", "d_current_quarter", "d_current_year"
+    ],
+    "warehouse": [
+        "w_warehouse_sk", "w_warehouse_id", "w_warehouse_name", "w_warehouse_sq_ft",
+        "w_street_number", "w_street_name", "w_street_type", "w_suite_number",
+        "w_city", "w_county", "w_state", "w_zip", "w_country", "w_gmt_offset"
+    ],
+    "ship_mode": [
+        "sm_ship_mode_sk", "sm_ship_mode_id", "sm_type", "sm_code", "sm_carrier", "sm_contract"
+    ],
+    "time_dim": [
+        "t_time_sk", "t_time_id", "t_time", "t_hour", "t_minute", "t_second",
+        "t_am_pm", "t_shift", "t_sub_shift", "t_meal_time"
+    ],
+    "reason": [
+        "r_reason_sk", "r_reason_id", "r_reason_desc"
+    ],
+    "income_band": [
+        "ib_income_band_sk", "ib_lower_bound", "ib_upper_bound"
+    ],
+    "item": [
+        "i_item_sk", "i_item_id", "i_rec_start_date", "i_rec_end_date", "i_item_desc",
+        "i_current_price", "i_wholesale_cost", "i_brand_id", "i_brand", "i_class_id", "i_class",
+        "i_category_id", "i_category", "i_manufact_id", "i_manufact", "i_size", "i_formulation",
+        "i_color", "i_units", "i_container", "i_manager_id", "i_product_name"
+    ],
+    "store": [
+        "s_store_sk", "s_store_id", "s_rec_start_date", "s_rec_end_date", "s_closed_date_sk",
+        "s_store_name", "s_number_employees", "s_floor_space", "s_hours", "s_manager", "s_market_id",
+        "s_geography_class", "s_market_desc", "s_market_manager", "s_division_id", "s_division_name",
+        "s_company_id", "s_company_name", "s_street_number", "s_street_name", "s_street_type",
+        "s_suite_number", "s_city", "s_county", "s_state", "s_zip", "s_country", "s_gmt_offset",
+        "s_tax_precentage"
+    ],
+    "call_center": [
+        "cc_call_center_sk", "cc_call_center_id", "cc_rec_start_date", "cc_rec_end_date",
+        "cc_closed_date_sk", "cc_open_date_sk", "cc_name", "cc_class", "cc_employees", "cc_sq_ft",
+        "cc_hours", "cc_manager", "cc_mkt_id", "cc_mkt_class", "cc_mkt_desc", "cc_market_manager",
+        "cc_division", "cc_division_name", "cc_company", "cc_company_name", "cc_street_number",
+        "cc_street_name", "cc_street_type", "cc_suite_number", "cc_city", "cc_county", "cc_state",
+        "cc_zip", "cc_country", "cc_gmt_offset", "cc_tax_percentage"
+    ],
+    "customer": [
+        "c_customer_sk", "c_customer_id", "c_current_cdemo_sk", "c_current_hdemo_sk",
+        "c_current_addr_sk", "c_first_shipto_date_sk", "c_first_sales_date_sk", "c_salutation",
+        "c_first_name", "c_last_name", "c_preferred_cust_flag", "c_birth_day", "c_birth_month",
+        "c_birth_year", "c_birth_country", "c_login", "c_email_address", "c_last_review_date_sk"
+    ],
+    "web_site": [
+        "web_site_sk", "web_site_id", "web_rec_start_date", "web_rec_end_date", "web_name",
+        "web_open_date_sk", "web_close_date_sk", "web_class", "web_manager", "web_mkt_id",
+        "web_mkt_class", "web_mkt_desc", "web_market_manager", "web_company_id", "web_company_name",
+        "web_street_number", "web_street_name", "web_street_type", "web_suite_number", "web_city",
+        "web_county", "web_state", "web_zip", "web_country", "web_gmt_offset", "web_tax_percentage"
+    ],
+    "store_returns": [
+        "sr_returned_date_sk", "sr_return_time_sk", "sr_item_sk", "sr_customer_sk", "sr_cdemo_sk",
+        "sr_hdemo_sk", "sr_addr_sk", "sr_store_sk", "sr_reason_sk", "sr_ticket_number",
+        "sr_return_quantity", "sr_return_amt", "sr_return_tax", "sr_return_amt_inc_tax", "sr_fee",
+        "sr_return_ship_cost", "sr_refunded_cash", "sr_reversed_charge", "sr_store_credit", "sr_net_loss"
+    ],
+    "household_demographics": [
+        "hd_demo_sk", "hd_income_band_sk", "hd_buy_potential", "hd_dep_count", "hd_vehicle_count"
+    ],
+    "web_page": [
+        "wp_web_page_sk", "wp_web_page_id", "wp_rec_start_date", "wp_rec_end_date",
+        "wp_creation_date_sk", "wp_access_date_sk", "wp_autogen_flag", "wp_customer_sk",
+        "wp_url", "wp_type", "wp_char_count", "wp_link_count", "wp_image_count", "wp_max_ad_count"
+    ],
+    "promotion": [
+        "p_promo_sk", "p_promo_id", "p_start_date_sk", "p_end_date_sk", "p_item_sk", "p_cost",
+        "p_response_target", "p_promo_name", "p_channel_dmail", "p_channel_email", "p_channel_catalog",
+        "p_channel_tv", "p_channel_radio", "p_channel_press", "p_channel_event", "p_channel_demo",
+        "p_channel_details", "p_purpose", "p_discount_active"
+    ],
+    "catalog_page": [
+        "cp_catalog_page_sk", "cp_catalog_page_id", "cp_start_date_sk", "cp_end_date_sk",
+        "cp_department", "cp_catalog_number", "cp_catalog_page_number", "cp_description", "cp_type"
+    ],
+    "inventory": [
+        "inv_date_sk", "inv_item_sk", "inv_warehouse_sk", "inv_quantity_on_hand"
+    ],
+    "catalog_returns": [
+        "cr_returned_date_sk", "cr_returned_time_sk", "cr_item_sk", "cr_refunded_customer_sk",
+        "cr_refunded_cdemo_sk", "cr_refunded_hdemo_sk", "cr_refunded_addr_sk", "cr_returning_customer_sk",
+        "cr_returning_cdemo_sk", "cr_returning_hdemo_sk", "cr_returning_addr_sk", "cr_call_center_sk",
+        "cr_catalog_page_sk", "cr_ship_mode_sk", "cr_warehouse_sk", "cr_reason_sk", "cr_order_number",
+        "cr_return_quantity", "cr_return_amount", "cr_return_tax", "cr_return_amt_inc_tax", "cr_fee",
+        "cr_return_ship_cost", "cr_refunded_cash", "cr_reversed_charge", "cr_store_credit", "cr_net_loss"
+    ],
+    "web_returns": [
+        "wr_returned_date_sk", "wr_returned_time_sk", "wr_item_sk", "wr_refunded_customer_sk",
+        "wr_refunded_cdemo_sk", "wr_refunded_hdemo_sk", "wr_refunded_addr_sk", "wr_returning_customer_sk",
+        "wr_returning_cdemo_sk", "wr_returning_hdemo_sk", "wr_returning_addr_sk", "wr_web_page_sk",
+        "wr_reason_sk", "wr_order_number", "wr_return_quantity", "wr_return_amt", "wr_return_tax",
+        "wr_return_amt_inc_tax", "wr_fee", "wr_return_ship_cost", "wr_refunded_cash",
+        "wr_reversed_charge", "wr_account_credit", "wr_net_loss"
+    ],
+    "web_sales": [
+        "ws_sold_date_sk", "ws_sold_time_sk", "ws_ship_date_sk", "ws_item_sk", "ws_bill_customer_sk",
+        "ws_bill_cdemo_sk", "ws_bill_hdemo_sk", "ws_bill_addr_sk", "ws_ship_customer_sk", "ws_ship_cdemo_sk",
+        "ws_ship_hdemo_sk", "ws_ship_addr_sk", "ws_web_page_sk", "ws_web_site_sk", "ws_ship_mode_sk",
+        "ws_warehouse_sk", "ws_promo_sk", "ws_order_number", "ws_quantity", "ws_wholesale_cost",
+        "ws_list_price", "ws_sales_price", "ws_ext_discount_amt", "ws_ext_sales_price", "ws_ext_wholesale_cost",
+        "ws_ext_list_price", "ws_ext_tax", "ws_coupon_amt", "ws_ext_ship_cost", "ws_net_paid",
+        "ws_net_paid_inc_tax", "ws_net_paid_inc_ship", "ws_net_paid_inc_ship_tax", "ws_net_profit"
+    ],
+    "catalog_sales": [
+        "cs_sold_date_sk", "cs_sold_time_sk", "cs_ship_date_sk", "cs_bill_customer_sk", "cs_bill_cdemo_sk",
+        "cs_bill_hdemo_sk", "cs_bill_addr_sk", "cs_ship_customer_sk", "cs_ship_cdemo_sk", "cs_ship_hdemo_sk",
+        "cs_ship_addr_sk", "cs_call_center_sk", "cs_catalog_page_sk", "cs_ship_mode_sk", "cs_warehouse_sk",
+        "cs_item_sk", "cs_promo_sk", "cs_order_number", "cs_quantity", "cs_wholesale_cost", "cs_list_price",
+        "cs_sales_price", "cs_ext_discount_amt", "cs_ext_sales_price", "cs_ext_wholesale_cost",
+        "cs_ext_list_price", "cs_ext_tax", "cs_coupon_amt", "cs_ext_ship_cost", "cs_net_paid",
+        "cs_net_paid_inc_tax", "cs_net_paid_inc_ship", "cs_net_paid_inc_ship_tax", "cs_net_profit"
+    ],
+    "store_sales": [
+        "ss_sold_date_sk", "ss_sold_time_sk", "ss_item_sk", "ss_customer_sk", "ss_cdemo_sk",
+        "ss_hdemo_sk", "ss_addr_sk", "ss_store_sk", "ss_promo_sk", "ss_ticket_number", "ss_quantity",
+        "ss_wholesale_cost", "ss_list_price", "ss_sales_price", "ss_ext_discount_amt", "ss_ext_sales_price",
+        "ss_ext_wholesale_cost", "ss_ext_list_price", "ss_ext_tax", "ss_coupon_amt", "ss_net_paid",
+        "ss_net_paid_inc_tax", "ss_net_profit"
+    ]
+}
+
+
+path = "./data"
+#path = "./temp"
+out_dir = os.path.join(path, "conv")
+os.makedirs(out_dir, exist_ok=True)   # conv 폴더 없으면 생성
+csv_files = glob.glob(os.path.join(path, "*.csv"))
+
+# 방법 2: os.listdir 사용 (필터링)
+
+dat_files = [
+    os.path.join(path, f)
+    for f in os.listdir(path)
+    if f.lower().endswith(".dat")
+]
+
+fix_none = lambda x: None if (x is None or x == '') else ("None" if x == "None" else x)
+
+for csv_file in dat_files:
+    base = os.path.basename(csv_file)              # person_info.csv
+    out_file = os.path.join(out_dir, base)         # ./temp/conv/person_info.csv
+
+    out_file = csv_file
+    name, _ = os.path.splitext(out_file)
+    table = os.path.basename(name)             # person_info
+    print(table, out_file)
+    read_kwargs = dict(sep="|", header=None, chunksize=500000, names=table_columns[table],
+        engine="python", quotechar='"',
+        doublequote=True,
+        escapechar='\\',
+        quoting=csv.QUOTE_MINIMAL,
+        keep_default_na=False,
+        na_filter=False,
+        converters={col: fix_none for col in table_columns[table]}  # 모든 컬럼 적용
+    )
+
+    chunker = pd.read_csv(out_file, **read_kwargs)
+    total_rows = 0
+    for i, chunk in enumerate(chunker, start=1):
+        rows = len(chunk)
+        total_rows += rows
+        try:
+            chunk.to_sql(schema='tpcds', name=table, con=engine, index=False, if_exists='append')
+        except Exception as e:
+            if not os.path.isdir("./error/"):
+               os.mkdir("./error/")
+            chunk.to_csv(f"./error/1.csv")
+            with open(f'./error/error.log', 'w', encoding='utf-8') as f:
+                f.write(str(e))
+                f.close()
+            raise NotImplementedError
+        print(f"[{i:04d}] chunk rows={rows:,}  processed={total_rows:,}") 
+```
