@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Postgresql on JaeSim&#39;s Workspace</title>
+    <link>http://localhost:1313/tags/postgresql/</link>
+    <description>Recent content in Postgresql on JaeSim&#39;s Workspace</description>
+    <generator>Hugo</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Tue, 02 Sep 2025 11:52:47 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/postgresql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>pgvector_build</title>
+      <link>http://localhost:1313/development/pgvector_build/</link>
+      <pubDate>Tue, 02 Sep 2025 11:52:47 +0900</pubDate>
+      <guid>http://localhost:1313/development/pgvector_build/</guid>
+      <description>&lt;p&gt;+++&#xA;date = &amp;lsquo;2025-08-27T14:05:14+09:00&amp;rsquo;&#xA;title = &amp;lsquo;Milvus_build from code&amp;rsquo;&#xA;weight = 8&#xA;tags = [&amp;ldquo;Vector&amp;rdquo;, &amp;ldquo;Database&amp;rdquo;, &amp;ldquo;Embedding&amp;rdquo;, &amp;ldquo;ANN&amp;rdquo;, &amp;ldquo;Similarity Search&amp;rdquo;]&#xA;categories = [&amp;ldquo;Vector database&amp;rdquo;,&amp;ldquo;Study&amp;rdquo;]&#xA;+++&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

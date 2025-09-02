@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko-kr" dir="ltr">
 <head>
-	<meta name="generator" content="Hugo 0.147.3">
+	<meta name="generator" content="Hugo 0.147.3"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="
@@ -11,6 +11,131 @@
 
 
 
+
+  
+    
+      pgvector_build
+    
+
+    
+
+    2025-09-02 11:52:47 KST
+
+    
+       
+        
+  pgvector build 하기
+  
+
+
+  기본 정보
+  
+
+
+https://github.com/pgvector/pgvector
+postgresql 이 먼저 running 한 뒤에 설치하여야한다.
+
+
+  postgresql 준비
+  
+
+
+postgres 13이상 버전 준비
+
+wget https://ftp.postgresql.org/pub/source/v17.6/postgresql-17.6.tar.gz
+tar -vxzf postgresql-17.6.tar.gz
+
+path 설정 및 build
+
+cd postgresql-17.6.tar.gz
+./configure --prefix=/home/{user}/data/postgresql-17.6 --without-readline
+sudo …
+      
+    
+
+  
+
+  
+    
+      Limao 코드 분석
+    
+
+    
+      LIMAO 프로젝트의 코드 분석 내용을 담은 내용입니다.
+    
+
+    2025-08-28 11:32:49 KST
+
+    
+       
+        
+  LIMAO 프로젝트의 코드 분석 내용
+  
+
+
+  기본정보
+  
+
+
+LIMAO: A Framework for Lifelong Modular Learned Query Optimization
+github repository
+https://github.com/Tsihan/LIMAOLifeLongRLDB
+balsa 프로젝트 위에서 코딩으로 구현되어 있는데,, 썩 잘코딩되진&hellip;
+github branch가 main은 사실상 original balsa project이며 branch를 바꿔서 테스트해야함
+model.py, optimizer.py, run.py 이 3개를 주로 코딩 작업 한것으로 이해
+plan decomposition(join을 breakpoint) …
+      
+    
+
+  
+
+  
+    
+      Milvus_build from code
+    
+
+    
+
+    2025-08-27 14:05:14 KST
+
+    
+       
+        
+  Milvus를 build 하기
+  
+
+
+  기본 정보
+  
+
+
+https://github.com/milvus-io/milvus
+아래 요구사항
+go와 c&#43;&#43;로 작성된 프로젝트로써, 사용시에는 보통 python SDK pymilvus를 이용해서 사용한다
+
+go: &gt;= 1.21
+cmake: &gt;= 3.26.4
+gcc: 9.5
+python: &gt; 3.8 and  &lt;= 3.11
+
+  준비물
+  
+
+
+  conda activate 및 git clone
+  
+
+
+conda 가상환경 설정 및 git clone
+
+conda create -n vec python=3.8
+conda activate vec
+
+git clone …
+      
+    
+
+  
 
   
     
@@ -89,99 +214,23 @@ fine-tuning 능력이 필요
 
   
 
-  
-    
-      2025 SIGMOD
-    
-
-    
-
-    2025-07-31 09:45:54 KST
-
-    
-       
-        
-  SIGMOD 2025 Research Track
-  
-
-
-https://2025.sigmod.org/sigmod_papers.shtml
-논문이 워낙 많기 때문에 직접 읽지 않고, GPT 4o, gemini 2.5-pro 를 통해서 요약한 것을 posting한것
-최대한 거르긴 했는데,, 잘못 오기입 되어 있을 수 있으므로, 필히 직접 확인 필요
-
-
-  Summary
-  
-
-
-  느낀점
-  
-
-
-데이터베이스, 빅데이터, 빅데이터를 위한 시스템, 인덱스와 같은 알고리즘적 증명 등이 포함되어있고, 그래프 시큐리티에 대해서 꽤 비중이 있음
-ICDE, EDBT에 유사한 내용이 있는것 같기도..
-AI 요약을 하나한 abstact에 넣어주지 않으면 헛소리를 하기 때문에, …
-      
-    
-
-  
-
-  
-    
-      2025 EDBT
-    
-
-    
-
-    2025-07-28 14:03:06 KST
-
-    
-       
-        
-  EDBT 2025 Research Track
-  
-
-
-https://edbticdt2025.upc.edu/?contents=accepted-papers-research-track.html
-각 논문들의 abstract 만 파악하여 나열
-작성자 기준 관심 분야가 아닌 것은 일부 skip
-
-
-  Summary
-  
-
-
-  느낀점
-  
-
-
-여러 분야에 대한 관심도가 고루 분포되어 있음 (like VLDB)
-experiment 관련 항목이 따로 있어, dataset or benchmark만 제시해도 accept됨
-좀더 실용적인 느낌 (vs ICDE).
-
-
-  Interested Papers
-  
-
-
-
-Pythia: A Neural Model for Data Prefetching …">
+">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="Home">
-  <meta property="og:description" content="Recent Posts#Vector DB (Not Completed)2025-08-06 10:45:46 KSTVector Database 관련 학습 내용 (미완)본인의 이해/기억을 위해 작성한 것이므로, 많은 내용이 생략, 축약되어 있음 기본 정보Vector database는 vector의 유사도 검사를 빠르게 하기 위한것 비정형 데이터의 semantically 응답 가능 질의했을때 유사한 vector을 top-k 개 만큼 반환하는 것 현재로써는 RAG에서 응용되는것이 주된 사용처 RAG flow [그림출처: Retrieval-Augmented Generation for Large Language Models: A Survey (https://arxiv.org/abs/2312.10997)] 보통 벡터 임베딩과 메타데이터로 구성되어 있음 최근접 이웃 (KNN) …LLM Build2025-08-04 09:44:51 KSTLLM 을 바닥부터 만들기 를 보고 나서 요약영상 내용LLM을 만들때는 1) 사전훈련(pretraining), 2) 미세조정(fine-tuning) 동작을 수행 파인튜닝은 특별한 데이터셋이 필요함. 사전 훈련된 녀석에게 내가 가진 데이터셋을 원래 사전학습에 사용했던 데이터셋 모양으로 만들어서 다시 추가 학습을 진행하는것 따라서 이전에 잘하는 것이 망가질 수 있음 느낀점AI를 사용하는 능력 보다는 AI agent를 만드는 능력이 필요 detail하게는 몰라도 되지만, 자신의 도메인에 붙일 수 있는 실무 능력이 필요 fine-tuning 능력이 필요 공부하자.. …2025 SIGMOD2025-07-31 09:45:54 KSTSIGMOD 2025 Research Trackhttps://2025.sigmod.org/sigmod_papers.shtml 논문이 워낙 많기 때문에 직접 읽지 않고, GPT 4o, gemini 2.5-pro 를 통해서 요약한 것을 posting한것 최대한 거르긴 했는데,, 잘못 오기입 되어 있을 수 있으므로, 필히 직접 확인 필요 Summary느낀점데이터베이스, 빅데이터, 빅데이터를 위한 시스템, 인덱스와 같은 알고리즘적 증명 등이 포함되어있고, 그래프 시큐리티에 대해서 꽤 비중이 있음 ICDE, EDBT에 유사한 내용이 있는것 같기도.. AI 요약을 하나한 abstact에 넣어주지 않으면 헛소리를 하기 때문에, …2025 EDBT2025-07-28 14:03:06 KSTEDBT 2025 Research Trackhttps://edbticdt2025.upc.edu/?contents=accepted-papers-research-track.html 각 논문들의 abstract 만 파악하여 나열 작성자 기준 관심 분야가 아닌 것은 일부 skip Summary느낀점여러 분야에 대한 관심도가 고루 분포되어 있음 (like VLDB) experiment 관련 항목이 따로 있어, dataset or benchmark만 제시해도 accept됨 좀더 실용적인 느낌 (vs ICDE). Interested PapersPythia: A Neural Model for Data Prefetching …">
+  <meta property="og:description" content="Recent Posts#pgvector_build2025-09-02 11:52:47 KSTpgvector build 하기기본 정보https://github.com/pgvector/pgvector postgresql 이 먼저 running 한 뒤에 설치하여야한다. postgresql 준비postgres 13이상 버전 준비 wget https://ftp.postgresql.org/pub/source/v17.6/postgresql-17.6.tar.gz tar -vxzf postgresql-17.6.tar.gz path 설정 및 build cd postgresql-17.6.tar.gz ./configure --prefix=/home/{user}/data/postgresql-17.6 --without-readline sudo …Limao 코드 분석LIMAO 프로젝트의 코드 분석 내용을 담은 내용입니다.2025-08-28 11:32:49 KSTLIMAO 프로젝트의 코드 분석 내용기본정보LIMAO: A Framework for Lifelong Modular Learned Query Optimization github repository https://github.com/Tsihan/LIMAOLifeLongRLDB balsa 프로젝트 위에서 코딩으로 구현되어 있는데,, 썩 잘코딩되진… github branch가 main은 사실상 original balsa project이며 branch를 바꿔서 테스트해야함 model.py, optimizer.py, run.py 이 3개를 주로 코딩 작업 한것으로 이해 plan decomposition(join을 breakpoint) …Milvus_build from code2025-08-27 14:05:14 KSTMilvus를 build 하기기본 정보https://github.com/milvus-io/milvus 아래 요구사항 go와 c&#43;&#43;로 작성된 프로젝트로써, 사용시에는 보통 python SDK pymilvus를 이용해서 사용한다 go: &gt;= 1.21 cmake: &gt;= 3.26.4 gcc: 9.5 python: &gt; 3.8 and &lt;= 3.11 준비물conda activate 및 git cloneconda 가상환경 설정 및 git clone conda create -n vec python=3.8 conda activate vec git clone …Vector DB (Not Completed)2025-08-06 10:45:46 KSTVector Database 관련 학습 내용 (미완)본인의 이해/기억을 위해 작성한 것이므로, 많은 내용이 생략, 축약되어 있음 기본 정보Vector database는 vector의 유사도 검사를 빠르게 하기 위한것 비정형 데이터의 semantically 응답 가능 질의했을때 유사한 vector을 top-k 개 만큼 반환하는 것 현재로써는 RAG에서 응용되는것이 주된 사용처 RAG flow [그림출처: Retrieval-Augmented Generation for Large Language Models: A Survey (https://arxiv.org/abs/2312.10997)] 보통 벡터 임베딩과 메타데이터로 구성되어 있음 최근접 이웃 (KNN) …LLM Build2025-08-04 09:44:51 KSTLLM 을 바닥부터 만들기 를 보고 나서 요약영상 내용LLM을 만들때는 1) 사전훈련(pretraining), 2) 미세조정(fine-tuning) 동작을 수행 파인튜닝은 특별한 데이터셋이 필요함. 사전 훈련된 녀석에게 내가 가진 데이터셋을 원래 사전학습에 사용했던 데이터셋 모양으로 만들어서 다시 추가 학습을 진행하는것 따라서 이전에 잘하는 것이 망가질 수 있음 느낀점AI를 사용하는 능력 보다는 AI agent를 만드는 능력이 필요 detail하게는 몰라도 되지만, 자신의 도메인에 붙일 수 있는 실무 능력이 필요 fine-tuning 능력이 필요 공부하자.. …">
   <meta property="og:locale" content="ko_kr">
   <meta property="og:type" content="website">
 <title>Home | JaeSim&#39;s Workspace</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="https://JaeSim.github.io/">
+<link rel="canonical" href="http://localhost:1313/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.1296c80e7bdbc001ec43e6c5796c990e7fabfdece361dc3be9fed0b9f40768c3.js" integrity="sha256-EpbIDnvbwAHsQ&#43;bFeWyZDn&#43;r/ezjYdw76f7QufQHaMM=" crossorigin="anonymous"></script>
-<link rel="alternate" type="application/rss+xml" href="https://JaeSim.github.io/index.xml" title="JaeSim's Workspace" />
+  <script defer src="/en.search.min.938e479781ed91192b3fccca35910aae39b71a81e724dd38ca71765ea1d1cb7e.js" integrity="sha256-k45Hl4HtkRkrP8zKNZEKrjm3GoHnJN04ynF2XqHRy34=" crossorigin="anonymous"></script>
+<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/index.xml" title="JaeSim's Workspace" />
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -235,6 +284,24 @@ https://github.com/alex-shpak/hugo-book
   
 
   
+    <a href="/aboutme/" class="">About Me</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <span>Development / 개발</span>
   
 
@@ -262,6 +329,32 @@ https://github.com/alex-shpak/hugo-book
 
   
     <a href="/development/blogsetup/" class="">Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/milvus_build/" class="">Milvus_build from code</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/pgvector_build/" class="">pgvector_build</a>
   
 
         </li>
@@ -596,6 +689,19 @@ https://github.com/alex-shpak/hugo-book
         </li>
       
     
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/limao-code/" class="">Limao 코드 분석</a>
+  
+
+        </li>
+      
+    
   </ul>
 
         </li>
@@ -700,6 +806,131 @@ https://github.com/alex-shpak/hugo-book
 <ul>
 
   <li style="margin-bottom: 2rem;">
+    <a href="/development/pgvector_build/">
+      <strong style="font-size: 1.25rem;">pgvector_build</strong>
+    </a><br/>
+
+    
+
+    <small>2025-09-02 11:52:47 KST</small>
+
+    <a href="/development/pgvector_build/" style="text-decoration: none; color: inherit;">
+      <div class="summary-box"> 
+        <h1 id="pgvector-build-하기">
+  <strong>pgvector build 하기</strong>
+  
+</h1>
+<h2 id="기본-정보">
+  <strong>기본 정보</strong>
+  
+</h2>
+<ul>
+<li>https://github.com/pgvector/pgvector</li>
+<li>postgresql 이 먼저 running 한 뒤에 설치하여야한다.</li>
+</ul>
+<h3 id="postgresql-준비">
+  <strong>postgresql 준비</strong>
+  
+</h3>
+<ul>
+<li>postgres 13이상 버전 준비</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>wget https://ftp.postgresql.org/pub/source/v17.6/postgresql-17.6.tar.gz
+</span></span><span style="display:flex;"><span>tar -vxzf postgresql-17.6.tar.gz
+</span></span></code></pre></div><ul>
+<li>path 설정 및 build</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cd postgresql-17.6.tar.gz
+</span></span><span style="display:flex;"><span>./configure --prefix<span style="color:#f92672">=</span>/home/<span style="color:#f92672">{</span>user<span style="color:#f92672">}</span>/data/postgresql-17.6 --without-readline
+</span></span><span style="display:flex;"><span>sudo …</span></span></span></span></span></span></code></pre></div>
+      </div>
+    </a>
+
+  </li>
+
+  <li style="margin-bottom: 2rem;">
+    <a href="/learned-query-optimizer/limao-code/">
+      <strong style="font-size: 1.25rem;">Limao 코드 분석</strong>
+    </a><br/>
+
+    
+      <small style="color: #888;">LIMAO 프로젝트의 코드 분석 내용을 담은 내용입니다.</small><br/>
+    
+
+    <small>2025-08-28 11:32:49 KST</small>
+
+    <a href="/learned-query-optimizer/limao-code/" style="text-decoration: none; color: inherit;">
+      <div class="summary-box"> 
+        <h1 id="limao-프로젝트의-코드-분석-내용">
+  <strong>LIMAO 프로젝트의 코드 분석 내용</strong>
+  
+</h1>
+<h2 id="기본정보">
+  <strong>기본정보</strong>
+  
+</h2>
+<ul>
+<li>LIMAO: A Framework for Lifelong Modular Learned Query Optimization</li>
+<li>github repository
+https://github.com/Tsihan/LIMAOLifeLongRLDB</li>
+<li><em><strong>balsa 프로젝트 위에서 코딩으로 구현되어 있는데,, 썩 잘코딩되진&hellip;</strong></em></li>
+<li>github branch가 main은 사실상 original balsa project이며 branch를 바꿔서 테스트해야함</li>
+<li>model.py, optimizer.py, run.py 이 3개를 주로 코딩 작업 한것으로 이해</li>
+<li>plan decomposition(join을 breakpoint) …</li></ul>
+      </div>
+    </a>
+
+  </li>
+
+  <li style="margin-bottom: 2rem;">
+    <a href="/development/milvus_build/">
+      <strong style="font-size: 1.25rem;">Milvus_build from code</strong>
+    </a><br/>
+
+    
+
+    <small>2025-08-27 14:05:14 KST</small>
+
+    <a href="/development/milvus_build/" style="text-decoration: none; color: inherit;">
+      <div class="summary-box"> 
+        <h1 id="milvus를-build-하기">
+  <strong>Milvus를 build 하기</strong>
+  
+</h1>
+<h2 id="기본-정보">
+  <strong>기본 정보</strong>
+  
+</h2>
+<ul>
+<li>https://github.com/milvus-io/milvus</li>
+<li>아래 요구사항</li>
+<li>go와 c++로 작성된 프로젝트로써, 사용시에는 보통 python SDK <code>pymilvus</code>를 이용해서 사용한다</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>go: &gt;<span style="color:#f92672">=</span> 1.21
+</span></span><span style="display:flex;"><span>cmake: &gt;<span style="color:#f92672">=</span> 3.26.4
+</span></span><span style="display:flex;"><span>gcc: 9.5
+</span></span><span style="display:flex;"><span>python: &gt; 3.8 and  &lt;<span style="color:#f92672">=</span> 3.11
+</span></span></code></pre></div><h3 id="준비물">
+  <strong>준비물</strong>
+  
+</h3>
+<h4 id="conda-activate-및-git-clone">
+  <strong>conda activate 및 git clone</strong>
+  
+</h4>
+<ul>
+<li>conda 가상환경 설정 및 git clone</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>conda create -n vec python<span style="color:#f92672">=</span>3.8
+</span></span><span style="display:flex;"><span>conda activate vec
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>git clone …</span></span></span></span></span></span></span></span></code></pre></div>
+      </div>
+    </a>
+
+  </li>
+
+  <li style="margin-bottom: 2rem;">
     <a href="/research-study/more-deep/vector-db/">
       <strong style="font-size: 1.25rem;">Vector DB (Not Completed)</strong>
     </a><br/>
@@ -771,127 +1002,6 @@ https://github.com/alex-shpak/hugo-book
 <li>detail하게는 몰라도 되지만, 자신의 도메인에 붙일 수 있는 실무 능력이 필요</li>
 <li>fine-tuning 능력이 필요</li>
 <li>공부하자.. …</li></ul></li></ul>
-      </div>
-    </a>
-
-  </li>
-
-  <li style="margin-bottom: 2rem;">
-    <a href="/research-study/paper-trend/2025-sigmod/">
-      <strong style="font-size: 1.25rem;">2025 SIGMOD</strong>
-    </a><br/>
-
-    
-
-    <small>2025-07-31 09:45:54 KST</small>
-
-    <a href="/research-study/paper-trend/2025-sigmod/" style="text-decoration: none; color: inherit;">
-      <div class="summary-box"> 
-        <h1 id="sigmod-2025-research-track">
-  <strong>SIGMOD 2025 Research Track</strong>
-  
-</h1>
-<ul>
-<li>https://2025.sigmod.org/sigmod_papers.shtml</li>
-<li>논문이 워낙 많기 때문에 <em><strong>직접 읽지 않고, GPT 4o, gemini 2.5-pro</strong></em> 를 통해서 요약한 것을 posting한것</li>
-<li>최대한 거르긴 했는데,, <em><strong>잘못 오기입 되어 있을 수 있으므로, 필히 직접 확인 필요</strong></em></li>
-</ul>
-<h2 id="summary">
-  <strong>Summary</strong>
-  
-</h2>
-<h3 id="느낀점">
-  <strong>느낀점</strong>
-  
-</h3>
-<ul>
-<li>데이터베이스, 빅데이터, 빅데이터를 위한 시스템, 인덱스와 같은 알고리즘적 증명 등이 포함되어있고, 그래프 시큐리티에 대해서 꽤 비중이 있음</li>
-<li>ICDE, EDBT에 유사한 내용이 있는것 같기도..</li>
-<li>AI 요약을 하나한 abstact에 넣어주지 않으면 헛소리를 하기 때문에, …</li></ul>
-      </div>
-    </a>
-
-  </li>
-
-  <li style="margin-bottom: 2rem;">
-    <a href="/research-study/paper-trend/2025-edbt/">
-      <strong style="font-size: 1.25rem;">2025 EDBT</strong>
-    </a><br/>
-
-    
-
-    <small>2025-07-28 14:03:06 KST</small>
-
-    <a href="/research-study/paper-trend/2025-edbt/" style="text-decoration: none; color: inherit;">
-      <div class="summary-box"> 
-        <h1 id="edbt-2025-research-track">
-  <strong>EDBT 2025 Research Track</strong>
-  
-</h1>
-<ul>
-<li>https://edbticdt2025.upc.edu/?contents=accepted-papers-research-track.html</li>
-<li>각 논문들의 abstract 만 파악하여 나열</li>
-<li>작성자 기준 관심 분야가 아닌 것은 일부 skip</li>
-</ul>
-<h2 id="summary">
-  <strong>Summary</strong>
-  
-</h2>
-<h3 id="느낀점">
-  <strong>느낀점</strong>
-  
-</h3>
-<ul>
-<li>여러 분야에 대한 관심도가 고루 분포되어 있음 (like VLDB)</li>
-<li>experiment 관련 항목이 따로 있어, dataset or benchmark만 제시해도 accept됨</li>
-<li>좀더 실용적인 느낌 (vs ICDE).</li>
-</ul>
-<h3 id="interested-papers">
-  <strong>Interested Papers</strong>
-  
-</h3>
-<ul>
-<li>
-<p>Pythia: A Neural Model for Data Prefetching …</p></li></ul>
-      </div>
-    </a>
-
-  </li>
-
-  <li style="margin-bottom: 2rem;">
-    <a href="/research-study/paper-trend/2025-vldb/">
-      <strong style="font-size: 1.25rem;">2025 VLDB (Not Completed)</strong>
-    </a><br/>
-
-    
-
-    <small>2025-07-25 10:03:35 KST</small>
-
-    <a href="/research-study/paper-trend/2025-vldb/" style="text-decoration: none; color: inherit;">
-      <div class="summary-box"> 
-        <h1 id="vldb-2025-research-paper-sessions-미완">
-  <strong>VLDB 2025 Research Paper Sessions (미완)</strong>
-  
-</h1>
-<ul>
-<li>https://dblp.org/db/journals/pvldb/pvldb18.html 에서 Volume 18, Number 5, January 2025 ~ ?</li>
-<li><em><strong>25년도 논문이 아직 전부 publish 되지 않음. Volume 18, Number 5 와 Volume 18, Number 6 만 다룸</strong></em></li>
-<li>각 논문들의 abstract 만 파악하여 나열</li>
-<li>작성자 기준 관심 분야가 아닌 것은 일부 skip</li>
-</ul>
-<h2 id="summary">
-  <strong>Summary</strong>
-  
-</h2>
-<h3 id="느낀점">
-  <strong>느낀점</strong>
-  
-</h3>
-<ul>
-<li>privacy 항목이 적음, time serise 항목이 적음</li>
-<li>한 분야에 집중되었다기 보다는, 여러가지 항목이 나열된 느낌
-<ul>
-<li>time series 중 하나, 궤적 데이 …</li></ul></li></ul>
       </div>
     </a>
 

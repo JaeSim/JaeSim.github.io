@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko-kr" dir="ltr">
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="
@@ -59,7 +59,7 @@ instance를 클릭후 &hellip; 에가면 open in SAP HANA Cockpit 이나 다른 
 참고 아래 instance 스펙으로 고정됨. trial은 총 2개의 instance를 지원하는 듯함">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/learned-query-optimizer/hana-database-porting/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/learned-query-optimizer/hana-database-porting/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="HANA Database Porting">
   <meta property="og:description" content="Learned Query Optimizer 포팅을 위한 HANA DB의 분석 내용#SAP trial#SAP BTP trial 링크 https://www.sap.com/products/technology-platform/trial.html BTP trial 생성 및 BTP cockpit 접속 ID = P2009440130 이후 스텝은 https://account.hanatrial.ondemand.com/trial/#/home/trial 관련 내용 따름 trial account 생성 - sub account 생성 및 sub account 클릭 !! 주의 !! US region으로 생성해야 HANA Cloud DB 서비스를 사용할 수 있음 Service -&gt; Service MarketPlace 에서 HANA Cloud tools 구독 생성 create SAP HANA Cloud - plan: tools 생성 Security User에 Role assign Security -&gt; Users -&gt; 본인 계정 선택 -&gt; Role Collections -&gt; Assign Role Collection -&gt; SAP HANA keyword 및 cloud keyword 모두 체크하여 반영 SAP HANA Cloud 생성 Service -&gt; Instances and Subscription -&gt; SAP HANA Cloud 생성 클릭 SAP HANA Instance 생성 allow all ip address 를 설정 생성된 instance의 connections의 SQL Endpoint가 host instance를 클릭후 … 에가면 open in SAP HANA Cockpit 이나 다른 Database Explorer 등으로 볼 수 있다 참고 아래 instance 스펙으로 고정됨. trial은 총 2개의 instance를 지원하는 듯함">
@@ -77,10 +77,10 @@ instance를 클릭후 &hellip; 에가면 open in SAP HANA Cockpit 이나 다른 
 <title>HANA Database Porting | JaeSim&#39;s Workspace</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="https://JaeSim.github.io/learned-query-optimizer/hana-database-porting/">
+<link rel="canonical" href="http://localhost:1313/learned-query-optimizer/hana-database-porting/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.1296c80e7bdbc001ec43e6c5796c990e7fabfdece361dc3be9fed0b9f40768c3.js" integrity="sha256-EpbIDnvbwAHsQ&#43;bFeWyZDn&#43;r/ezjYdw76f7QufQHaMM=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.938e479781ed91192b3fccca35910aae39b71a81e724dd38ca71765ea1d1cb7e.js" integrity="sha256-k45Hl4HtkRkrP8zKNZEKrjm3GoHnJN04ynF2XqHRy34=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -134,6 +134,24 @@ https://github.com/alex-shpak/hugo-book
   
 
   
+    <a href="/aboutme/" class="">About Me</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <span>Development / 개발</span>
   
 
@@ -161,6 +179,32 @@ https://github.com/alex-shpak/hugo-book
 
   
     <a href="/development/blogsetup/" class="">Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/milvus_build/" class="">Milvus_build from code</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/pgvector_build/" class="">pgvector_build</a>
   
 
         </li>
@@ -490,6 +534,19 @@ https://github.com/alex-shpak/hugo-book
 
   
     <a href="/learned-query-optimizer/hana-database-porting/" class="active">HANA Database Porting</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/limao-code/" class="">Limao 코드 분석</a>
   
 
         </li>

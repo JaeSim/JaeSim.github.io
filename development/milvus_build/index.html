@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="ko-kr" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
+  Milvus를 build 하기
+  #
+
+
+  기본 정보
+  #
+
+
+https://github.com/milvus-io/milvus
+아래 요구사항
+go와 c&#43;&#43;로 작성된 프로젝트로써, 사용시에는 보통 python SDK pymilvus를 이용해서 사용한다
+
+go: &gt;= 1.21
+cmake: &gt;= 3.26.4
+gcc: 9.5
+python: &gt; 3.8 and  &lt;= 3.11
+
+  준비물
+  #
+
+
+  conda activate 및 git clone
+  #
+
+
+conda 가상환경 설정 및 git clone
+
+conda create -n vec python=3.8
+conda activate vec
+
+git clone https://github.com/milvus-io/milvus
+
+  go 설치
+  #
+
+
+https://go.dev/doc/install download Go file 또는 아래 명령어로 설치
+
+wget https://go.dev/dl/go1.25.0.linux-amd64.tar.gz
+
+기존 go project 지우고, 압축풀기
+
+  # delete old go project
+  rm -rf /usr/local/go &amp;&amp; tar -C /usr/local -xzf go1.25.0.linux-amd64.tar.gz
+
+path 설정 및 확인
+
+export PATH=$PATH:/usr/local/go/bin
+vim ~/.bashrc
+go version
+
+  Build
+  #
+
+
+준비물
+
+python3 -m pip install &#34;conan&gt;=2,&lt;3&#34;
+export PATH=&#34;$HOME/.local/bin:$PATH&#34;
+
+conda install -c conda-forge &#34;cmake&gt;=3.22&#34; ninja
+. &#34;$HOME/.cargo/env&#34;
+
+빌드스크립트
+
+cd milvus
+./scripts/install_deps.sh
+make SKIP_3RDPARTY=1
+
+중간에 에러가 나면
+
+go get -u github.com/bytedance/sonic@v1.14.0
+go mod tidy
+
+  Start
+  #
+
+
+start commend
+
+./scripts/start_standalone.sh
+
+/tmp/standalone.log 에 에러가 쌓임
+">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/development/milvus_build/">
+  <meta property="og:site_name" content="JaeSim&#39;s Workspace">
+  <meta property="og:title" content="Milvus_build from code">
+  <meta property="og:description" content="Milvus를 build 하기#기본 정보#https://github.com/milvus-io/milvus 아래 요구사항 go와 c&#43;&#43;로 작성된 프로젝트로써, 사용시에는 보통 python SDK pymilvus를 이용해서 사용한다 go: &gt;= 1.21 cmake: &gt;= 3.26.4 gcc: 9.5 python: &gt; 3.8 and &lt;= 3.11 준비물#conda activate 및 git clone#conda 가상환경 설정 및 git clone conda create -n vec python=3.8 conda activate vec git clone https://github.com/milvus-io/milvus go 설치#https://go.dev/doc/install download Go file 또는 아래 명령어로 설치 wget https://go.dev/dl/go1.25.0.linux-amd64.tar.gz 기존 go project 지우고, 압축풀기 # delete old go project rm -rf /usr/local/go &amp;&amp; tar -C /usr/local -xzf go1.25.0.linux-amd64.tar.gz path 설정 및 확인 export PATH=$PATH:/usr/local/go/bin vim ~/.bashrc go version Build#준비물 python3 -m pip install &#34;conan&gt;=2,&lt;3&#34; export PATH=&#34;$HOME/.local/bin:$PATH&#34; conda install -c conda-forge &#34;cmake&gt;=3.22&#34; ninja . &#34;$HOME/.cargo/env&#34; 빌드스크립트 cd milvus ./scripts/install_deps.sh make SKIP_3RDPARTY=1 중간에 에러가 나면 go get -u github.com/bytedance/sonic@v1.14.0 go mod tidy Start#start commend ./scripts/start_standalone.sh /tmp/standalone.log 에 에러가 쌓임">
+  <meta property="og:locale" content="ko_kr">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="development">
+    <meta property="article:published_time" content="2025-08-27T14:05:14+09:00">
+    <meta property="article:modified_time" content="2025-08-27T14:05:14+09:00">
+    <meta property="article:tag" content="Vector">
+    <meta property="article:tag" content="Database">
+    <meta property="article:tag" content="Embedding">
+    <meta property="article:tag" content="ANN">
+    <meta property="article:tag" content="Similarity Search">
+<title>Milvus_build from code | JaeSim&#39;s Workspace</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/development/milvus_build/">
+<link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.938e479781ed91192b3fccca35910aae39b71a81e724dd38ca71765ea1d1cb7e.js" integrity="sha256-k45Hl4HtkRkrP8zKNZEKrjm3GoHnJN04ynF2XqHRy34=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>JaeSim&#39;s Workspace</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/aboutme/" class="">About Me</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Development / 개발</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/firstpost/" class="">할일</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/blogsetup/" class="">Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/milvus_build/" class="active">Milvus_build from code</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/pgvector_build/" class="">pgvector_build</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Research Study</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Brief</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/brief/graph/" class="">GNN</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/brief/llm-build/" class="">LLM Build</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>More deep</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/more-deep/learned-index/" class="">Learned Index</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/more-deep/learned-scheduler/" class="">Learned Scheduler</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/more-deep/adaptive-watermark/" class="">Adaptive Watermark in Stream Processing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/more-deep/vector-db/" class="">Vector DB (Not Completed)</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Paper Trend</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/paper-trend/2025-icde/" class="">2025 ICDE</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/paper-trend/2025-vldb/" class="">2025 VLDB (Not Completed)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/paper-trend/2025-edbt/" class="">2025 EDBT</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/paper-trend/2025-sigmod/" class="">2025 SIGMOD</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Reinforcement Learning / 강화학습</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-essential/" class="">1. Reinforcement Learning Essential</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-mdp/" class="">2. Markov Decision Process</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-dp/" class="">3. Planning by Dynamic Programming</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-model-free-prediction/" class="">temp. 4. Model Free Prediction</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Learned Query Optimizer</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/loger-code/" class="">LOGER 코드 분석</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/bao-code/" class="">BAO 코드 분석</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/hana-database-porting/" class="">HANA Database Porting</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/limao-code/" class="">Limao 코드 분석</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Milvus_build from code</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#기본-정보"><strong>기본 정보</strong></a>
+      <ul>
+        <li><a href="#준비물"><strong>준비물</strong></a>
+          <ul>
+            <li><a href="#conda-activate-및-git-clone"><strong>conda activate 및 git clone</strong></a></li>
+            <li><a href="#go-설치"><strong>go 설치</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#build"><strong>Build</strong></a></li>
+        <li><a href="#start"><strong>Start</strong></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+  <div class="post-tags">
+    <strong>Tags:</strong>
+    
+      <a href="/tags/vector" class="tag">Vector</a>
+    
+      <a href="/tags/database" class="tag">Database</a>
+    
+      <a href="/tags/embedding" class="tag">Embedding</a>
+    
+      <a href="/tags/ann" class="tag">ANN</a>
+    
+      <a href="/tags/similarity-search" class="tag">Similarity Search</a>
+    
+  </div>
+
+
+
+  <div class="post-categories">
+    <strong>Categories:</strong>
+    
+      <a href="/categories/vector-database" class="category">Vector database</a>
+    
+      <a href="/categories/study" class="category">Study</a>
+    
+  </div>
+
+
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+<article class="markdown book-post">
+  <h1 style="font-weight: bold;">
+    <span style="font-weight: normal; font-size: 0.6em; color: #888;">
+      2025-08-27 14:05 KST
+    </span>
+  </h1>
+  <div class="book-post-content"><h1 id="milvus를-build-하기">
+  <strong>Milvus를 build 하기</strong>
+  <a class="anchor" href="#milvus%eb%a5%bc-build-%ed%95%98%ea%b8%b0">#</a>
+</h1>
+<h2 id="기본-정보">
+  <strong>기본 정보</strong>
+  <a class="anchor" href="#%ea%b8%b0%eb%b3%b8-%ec%a0%95%eb%b3%b4">#</a>
+</h2>
+<ul>
+<li><a href="https://github.com/milvus-io/milvus">https://github.com/milvus-io/milvus</a></li>
+<li>아래 요구사항</li>
+<li>go와 c++로 작성된 프로젝트로써, 사용시에는 보통 python SDK <code>pymilvus</code>를 이용해서 사용한다</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>go: &gt;<span style="color:#f92672">=</span> 1.21
+</span></span><span style="display:flex;"><span>cmake: &gt;<span style="color:#f92672">=</span> 3.26.4
+</span></span><span style="display:flex;"><span>gcc: 9.5
+</span></span><span style="display:flex;"><span>python: &gt; 3.8 and  &lt;<span style="color:#f92672">=</span> 3.11
+</span></span></code></pre></div><h3 id="준비물">
+  <strong>준비물</strong>
+  <a class="anchor" href="#%ec%a4%80%eb%b9%84%eb%ac%bc">#</a>
+</h3>
+<h4 id="conda-activate-및-git-clone">
+  <strong>conda activate 및 git clone</strong>
+  <a class="anchor" href="#conda-activate-%eb%b0%8f-git-clone">#</a>
+</h4>
+<ul>
+<li>conda 가상환경 설정 및 git clone</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>conda create -n vec python<span style="color:#f92672">=</span>3.8
+</span></span><span style="display:flex;"><span>conda activate vec
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>git clone https://github.com/milvus-io/milvus
+</span></span></code></pre></div><h4 id="go-설치">
+  <strong>go 설치</strong>
+  <a class="anchor" href="#go-%ec%84%a4%ec%b9%98">#</a>
+</h4>
+<ul>
+<li><a href="https://go.dev/doc/install">https://go.dev/doc/install</a> download Go file 또는 아래 명령어로 설치</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>wget https://go.dev/dl/go1.25.0.linux-amd64.tar.gz
+</span></span></code></pre></div><ul>
+<li>기존 go project 지우고, 압축풀기</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>  <span style="color:#75715e"># delete old go project</span>
+</span></span><span style="display:flex;"><span>  rm -rf /usr/local/go <span style="color:#f92672">&amp;&amp;</span> tar -C /usr/local -xzf go1.25.0.linux-amd64.tar.gz
+</span></span></code></pre></div><ul>
+<li>path 설정 및 확인</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>export PATH<span style="color:#f92672">=</span>$PATH:/usr/local/go/bin
+</span></span><span style="display:flex;"><span>vim ~/.bashrc
+</span></span><span style="display:flex;"><span>go version
+</span></span></code></pre></div><h3 id="build">
+  <strong>Build</strong>
+  <a class="anchor" href="#build">#</a>
+</h3>
+<ul>
+<li>준비물</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>python3 -m pip install <span style="color:#e6db74">&#34;conan&gt;=2,&lt;3&#34;</span>
+</span></span><span style="display:flex;"><span>export PATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/.local/bin:</span>$PATH<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>conda install -c conda-forge <span style="color:#e6db74">&#34;cmake&gt;=3.22&#34;</span> ninja
+</span></span><span style="display:flex;"><span>. <span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/.cargo/env&#34;</span>
+</span></span></code></pre></div><ul>
+<li>빌드스크립트</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cd milvus
+</span></span><span style="display:flex;"><span>./scripts/install_deps.sh
+</span></span><span style="display:flex;"><span>make SKIP_3RDPARTY<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><ul>
+<li>중간에 에러가 나면</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>go get -u github.com/bytedance/sonic@v1.14.0
+</span></span><span style="display:flex;"><span>go mod tidy
+</span></span></code></pre></div><h3 id="start">
+  <strong>Start</strong>
+  <a class="anchor" href="#start">#</a>
+</h3>
+<ul>
+<li>start commend</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>./scripts/start_standalone.sh
+</span></span></code></pre></div><ul>
+<li>/tmp/standalone.log 에 에러가 쌓임</li>
+</ul>
+</div>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+<script src="https://giscus.app/client.js"
+        data-repo="JaeSim/JaeSim.github.io"
+        data-repo-id="R_kgDOOtVVtw"
+        data-category="Comment"
+        data-category-id="DIC_kwDOOtVVt84Cqcxg"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#기본-정보"><strong>기본 정보</strong></a>
+      <ul>
+        <li><a href="#준비물"><strong>준비물</strong></a>
+          <ul>
+            <li><a href="#conda-activate-및-git-clone"><strong>conda activate 및 git clone</strong></a></li>
+            <li><a href="#go-설치"><strong>go 설치</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#build"><strong>Build</strong></a></li>
+        <li><a href="#start"><strong>Start</strong></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+  <div class="post-tags">
+    <strong>Tags:</strong>
+    
+      <a href="/tags/vector" class="tag">Vector</a>
+    
+      <a href="/tags/database" class="tag">Database</a>
+    
+      <a href="/tags/embedding" class="tag">Embedding</a>
+    
+      <a href="/tags/ann" class="tag">ANN</a>
+    
+      <a href="/tags/similarity-search" class="tag">Similarity Search</a>
+    
+  </div>
+
+
+
+  <div class="post-categories">
+    <strong>Categories:</strong>
+    
+      <a href="/categories/vector-database" class="category">Vector database</a>
+    
+      <a href="/categories/study" class="category">Study</a>
+    
+  </div>
+
+
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('pre > code[class^="language-"]').forEach(codeBlock => {
+      const pre = codeBlock.parentElement;
+
+      
+      const button = document.createElement('button');
+      button.innerText = '📋';
+      button.title = 'Copy code';
+      button.style = `
+        position: absolute;
+        top: 0.5em;
+        right: 0.5em;
+        padding: 2px 6px;
+        font-size: 0.8rem;
+        background: #f5f5f5;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+        z-index: 10;
+      `;
+
+      
+      button.addEventListener('click', () => {
+        navigator.clipboard.writeText(codeBlock.innerText);
+        button.innerText = '✔';
+        setTimeout(() => button.innerText = '📋', 1000);
+      });
+
+      
+      pre.style.position = 'relative';
+      pre.appendChild(button);
+    });
+  });
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

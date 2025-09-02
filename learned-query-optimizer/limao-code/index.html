@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="ko-kr" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
+  LIMAO 프로젝트의 코드 분석 내용
+  #
+
+
+  기본정보
+  #
+
+
+LIMAO: A Framework for Lifelong Modular Learned Query Optimization
+github repository
+https://github.com/Tsihan/LIMAOLifeLongRLDB
+balsa 프로젝트 위에서 코딩으로 구현되어 있는데,, 썩 잘코딩되진&hellip;
+github branch가 main은 사실상 original balsa project이며 branch를 바꿔서 테스트해야함
+model.py, optimizer.py, run.py 이 3개를 주로 코딩 작업 한것으로 이해
+plan decomposition(join을 breakpoint) 과 replay(episode당 하나씩 호출), k-prototype(서브모듈 클러스터링용), switch 시나리오 실험이 key idea 라고 이해
+
+
+  LIMAO 실행을 위한 셋업
+  #
+
+
+  basic 셋업
+  #
+
+
+conda create and git clone
+
+conda create -n limao python=3.8
+conda activate limao
+
+git clone https://github.com/Tsihan/LIMAOLifeLongRLDB.git
+
+cd LIMAOLifeLongRLDB
+
+git checkout origin/final_switching_workload
+git checkout -b final_switching_workload
+
+pip install -e .
+pip install -e pg_executor
+pip install -r requirements.txt
+pip install six
+pip install numpy==1.20.3
+pip install pandas
+pip install pyyaml
+pip install --upgrade &#34;protobuf==3.20.3&#34;
+pip install torch==1.12.1&#43;cu116 torchvision==0.13.1&#43;cu116 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu116
+pip install click
+pip install wandb
+pip install knodes
+pip install -U &#34;pydantic&gt;=2&#34; &#34;ray&gt;=2.7&#34; &#34;wandb&gt;=0.16&#34;
+
+  postgresql 셋업 &amp; pg_hint_plan
+  #
+
+
+https://github.com/Tsihan/LIMAOLifeLongRLDB Readme.md 파일 참조
+
+
+  JOB setup
+  #
+
+
+prepare dataset.
+
+mkdir -p /mydata/datasets/job &amp;&amp; cd /mydata/datasets/job
+wget -c http://homepages.cwi.nl/~boncz/job/imdb.tgz
+tar -xvzf imdb.tgz
+
+prepend header   (balsa 것 그대로 사용)
+
+python3 /mydata/LIMAOLifeLongRLDB/scripts/prepend_imdb_headers.py
+flags.DEFINE_string(&#39;csv_dir&#39;, &#39;/mydata/datasets/job&#39;, &#39;Directory to IMDB CSVs.&#39;)
+
+start postgre    ( balsa의 postgre conf를 base로 work_mem 4GB -&gt; 8GB, listner_address * -&gt; &#39;localhost&#39;, max_wal_size 1GB -&gt; 10GB 로 변경)
+
+pg_ctl -D /mydata/databases initdb
+cp /mydata/LIMAOLifeLongRLDB/conf/balsa-postgresql.conf /mydata/databases/postgresql.conf
+pg_ctl -D /mydata/databases start -l logfile
+
+포트설정을 위해서 아래내용 수정후 pg_execution 재 install (pg_execution.py)
+
+LOCAL_DSN = &#34;host=/tmp dbname=imdbload port=5437&#34;
+pip install -e pg_executor
+
+  SSB setup
+  #
+
+
+https://github.com/nuko-yokohama/ssb-postgres/tree/master
+
+cd ssb-dbgen
+make
+
+./dbgen -s 10 -T c    # customer
+./dbgen -s 10 -T s    # supplier
+./dbgen -s 10 -T p    # part
+./dbgen -s 10 -T d    # date
+./dbgen -s 10 -T l    # lineorder
+
+createdb ssb -p 5437
+
+psql ssb -f table.sql -p 5437
+psql ssb -f load.sql -p 5437
+
+  tpcds setup
+  #
+
+
+https://github.com/gregrahn/tpcds-kit
+
+cd tools
+make CC=gcc-9 OS=LINUX
+createdb -p 5437 tpcds
+psql -d tpcds -f tpcds.sql -p 5437
+
+mkdir data
+./dsdgen -SCALE 4 -DIR data
+
+파싱 문제가 있어서, 아래 명령어를 입력해주어야 한다.
+
+cd data
+sed -i &#39;s/|$//&#39; *.dat
+psql -p 5437 -d tpcds -f &lt;data/load.sql가 있는 경로&gt;">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/learned-query-optimizer/limao-code/">
+  <meta property="og:site_name" content="JaeSim&#39;s Workspace">
+  <meta property="og:title" content="Limao 코드 분석">
+  <meta property="og:description" content="LIMAO 프로젝트의 코드 분석 내용#기본정보#LIMAO: A Framework for Lifelong Modular Learned Query Optimization github repository https://github.com/Tsihan/LIMAOLifeLongRLDB balsa 프로젝트 위에서 코딩으로 구현되어 있는데,, 썩 잘코딩되진… github branch가 main은 사실상 original balsa project이며 branch를 바꿔서 테스트해야함 model.py, optimizer.py, run.py 이 3개를 주로 코딩 작업 한것으로 이해 plan decomposition(join을 breakpoint) 과 replay(episode당 하나씩 호출), k-prototype(서브모듈 클러스터링용), switch 시나리오 실험이 key idea 라고 이해 LIMAO 실행을 위한 셋업#basic 셋업#conda create and git clone conda create -n limao python=3.8 conda activate limao git clone https://github.com/Tsihan/LIMAOLifeLongRLDB.git cd LIMAOLifeLongRLDB git checkout origin/final_switching_workload git checkout -b final_switching_workload pip install -e . pip install -e pg_executor pip install -r requirements.txt pip install six pip install numpy==1.20.3 pip install pandas pip install pyyaml pip install --upgrade &#34;protobuf==3.20.3&#34; pip install torch==1.12.1&#43;cu116 torchvision==0.13.1&#43;cu116 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu116 pip install click pip install wandb pip install knodes pip install -U &#34;pydantic&gt;=2&#34; &#34;ray&gt;=2.7&#34; &#34;wandb&gt;=0.16&#34; postgresql 셋업 &amp; pg_hint_plan#https://github.com/Tsihan/LIMAOLifeLongRLDB Readme.md 파일 참조 JOB setup#prepare dataset. mkdir -p /mydata/datasets/job &amp;&amp; cd /mydata/datasets/job wget -c http://homepages.cwi.nl/~boncz/job/imdb.tgz tar -xvzf imdb.tgz prepend header (balsa 것 그대로 사용) python3 /mydata/LIMAOLifeLongRLDB/scripts/prepend_imdb_headers.py flags.DEFINE_string(&#39;csv_dir&#39;, &#39;/mydata/datasets/job&#39;, &#39;Directory to IMDB CSVs.&#39;) start postgre ( balsa의 postgre conf를 base로 work_mem 4GB -&gt; 8GB, listner_address * -&gt; &#39;localhost&#39;, max_wal_size 1GB -&gt; 10GB 로 변경) pg_ctl -D /mydata/databases initdb cp /mydata/LIMAOLifeLongRLDB/conf/balsa-postgresql.conf /mydata/databases/postgresql.conf pg_ctl -D /mydata/databases start -l logfile 포트설정을 위해서 아래내용 수정후 pg_execution 재 install (pg_execution.py) LOCAL_DSN = &#34;host=/tmp dbname=imdbload port=5437&#34; pip install -e pg_executor SSB setup#https://github.com/nuko-yokohama/ssb-postgres/tree/master cd ssb-dbgen make ./dbgen -s 10 -T c # customer ./dbgen -s 10 -T s # supplier ./dbgen -s 10 -T p # part ./dbgen -s 10 -T d # date ./dbgen -s 10 -T l # lineorder createdb ssb -p 5437 psql ssb -f table.sql -p 5437 psql ssb -f load.sql -p 5437 tpcds setup#https://github.com/gregrahn/tpcds-kit cd tools make CC=gcc-9 OS=LINUX createdb -p 5437 tpcds psql -d tpcds -f tpcds.sql -p 5437 mkdir data ./dsdgen -SCALE 4 -DIR data 파싱 문제가 있어서, 아래 명령어를 입력해주어야 한다. cd data sed -i &#39;s/|$//&#39; *.dat psql -p 5437 -d tpcds -f &lt;data/load.sql가 있는 경로&gt;">
+  <meta property="og:locale" content="ko_kr">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="learned-query-optimizer">
+    <meta property="article:published_time" content="2025-08-28T11:32:49+09:00">
+    <meta property="article:modified_time" content="2025-08-28T11:32:49+09:00">
+    <meta property="article:tag" content="DBMS">
+    <meta property="article:tag" content="Database">
+    <meta property="article:tag" content="Optimizer">
+    <meta property="article:tag" content="Learned Query Optimizer">
+    <meta property="article:tag" content="Reinforcement Learning">
+    <meta property="article:tag" content="LIMAO">
+<title>Limao 코드 분석 | JaeSim&#39;s Workspace</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/learned-query-optimizer/limao-code/">
+<link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.938e479781ed91192b3fccca35910aae39b71a81e724dd38ca71765ea1d1cb7e.js" integrity="sha256-k45Hl4HtkRkrP8zKNZEKrjm3GoHnJN04ynF2XqHRy34=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>JaeSim&#39;s Workspace</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/aboutme/" class="">About Me</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Development / 개발</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/firstpost/" class="">할일</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/blogsetup/" class="">Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/milvus_build/" class="">Milvus_build from code</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/pgvector_build/" class="">pgvector_build</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Research Study</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Brief</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/brief/graph/" class="">GNN</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/brief/llm-build/" class="">LLM Build</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>More deep</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/more-deep/learned-index/" class="">Learned Index</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/more-deep/learned-scheduler/" class="">Learned Scheduler</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/more-deep/adaptive-watermark/" class="">Adaptive Watermark in Stream Processing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/more-deep/vector-db/" class="">Vector DB (Not Completed)</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Paper Trend</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/paper-trend/2025-icde/" class="">2025 ICDE</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/paper-trend/2025-vldb/" class="">2025 VLDB (Not Completed)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/paper-trend/2025-edbt/" class="">2025 EDBT</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/research-study/paper-trend/2025-sigmod/" class="">2025 SIGMOD</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Reinforcement Learning / 강화학습</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-essential/" class="">1. Reinforcement Learning Essential</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-mdp/" class="">2. Markov Decision Process</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-dp/" class="">3. Planning by Dynamic Programming</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-model-free-prediction/" class="">temp. 4. Model Free Prediction</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span>Learned Query Optimizer</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/loger-code/" class="">LOGER 코드 분석</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/bao-code/" class="">BAO 코드 분석</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/hana-database-porting/" class="">HANA Database Porting</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/learned-query-optimizer/limao-code/" class="active">Limao 코드 분석</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Limao 코드 분석</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#기본정보"><strong>기본정보</strong></a>
+      <ul>
+        <li><a href="#limao-실행을-위한-셋업"><strong>LIMAO 실행을 위한 셋업</strong></a>
+          <ul>
+            <li><a href="#basic-셋업"><strong>basic 셋업</strong></a></li>
+            <li><a href="#postgresql-셋업--pg_"><strong>postgresql 셋업 &amp; pg_hint_plan</strong></a></li>
+            <li><a href="#job-setup"><strong>JOB setup</strong></a></li>
+            <li><a href="#ssb-setup"><strong>SSB setup</strong></a></li>
+            <li><a href="#tpcds-setup"><strong>tpcds setup</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#실행중-에러"><strong>실행중 에러</strong></a>
+          <ul>
+            <li><a href="#numpy-memory-할당-이슈"><strong>numpy memory 할당 이슈</strong></a></li>
+            <li><a href="#filenotfounderror-에러"><strong>FileNotFoundError 에러</strong></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+  <div class="post-tags">
+    <strong>Tags:</strong>
+    
+      <a href="/tags/dbms" class="tag">DBMS</a>
+    
+      <a href="/tags/database" class="tag">Database</a>
+    
+      <a href="/tags/optimizer" class="tag">Optimizer</a>
+    
+      <a href="/tags/learned-query-optimizer" class="tag">Learned Query Optimizer</a>
+    
+      <a href="/tags/reinforcement-learning" class="tag">Reinforcement Learning</a>
+    
+      <a href="/tags/limao" class="tag">LIMAO</a>
+    
+  </div>
+
+
+
+  <div class="post-categories">
+    <strong>Categories:</strong>
+    
+      <a href="/categories/learned-query-optimizer" class="category">Learned Query Optimizer</a>
+    
+  </div>
+
+
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+<article class="markdown book-post">
+  <h1 style="font-weight: bold;">
+    <span style="font-weight: normal; font-size: 0.6em; color: #888;">
+      2025-08-28 11:32 KST
+    </span>
+  </h1>
+  <div class="book-post-content"><h1 id="limao-프로젝트의-코드-분석-내용">
+  <strong>LIMAO 프로젝트의 코드 분석 내용</strong>
+  <a class="anchor" href="#limao-%ed%94%84%eb%a1%9c%ec%a0%9d%ed%8a%b8%ec%9d%98-%ec%bd%94%eb%93%9c-%eb%b6%84%ec%84%9d-%eb%82%b4%ec%9a%a9">#</a>
+</h1>
+<h2 id="기본정보">
+  <strong>기본정보</strong>
+  <a class="anchor" href="#%ea%b8%b0%eb%b3%b8%ec%a0%95%eb%b3%b4">#</a>
+</h2>
+<ul>
+<li>LIMAO: A Framework for Lifelong Modular Learned Query Optimization</li>
+<li>github repository
+<a href="https://github.com/Tsihan/LIMAOLifeLongRLDB">https://github.com/Tsihan/LIMAOLifeLongRLDB</a></li>
+<li><em><strong>balsa 프로젝트 위에서 코딩으로 구현되어 있는데,, 썩 잘코딩되진&hellip;</strong></em></li>
+<li>github branch가 main은 사실상 original balsa project이며 branch를 바꿔서 테스트해야함</li>
+<li>model.py, optimizer.py, run.py 이 3개를 주로 코딩 작업 한것으로 이해</li>
+<li>plan decomposition(join을 breakpoint) 과 replay(episode당 하나씩 호출), k-prototype(서브모듈 클러스터링용), switch 시나리오 실험이 key idea 라고 이해</li>
+</ul>
+<h3 id="limao-실행을-위한-셋업">
+  <strong>LIMAO 실행을 위한 셋업</strong>
+  <a class="anchor" href="#limao-%ec%8b%a4%ed%96%89%ec%9d%84-%ec%9c%84%ed%95%9c-%ec%85%8b%ec%97%85">#</a>
+</h3>
+<h4 id="basic-셋업">
+  <strong>basic 셋업</strong>
+  <a class="anchor" href="#basic-%ec%85%8b%ec%97%85">#</a>
+</h4>
+<ul>
+<li>conda create and git clone</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>conda create -n limao python<span style="color:#f92672">=</span>3.8
+</span></span><span style="display:flex;"><span>conda activate limao
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>git clone https://github.com/Tsihan/LIMAOLifeLongRLDB.git
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cd LIMAOLifeLongRLDB
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>git checkout origin/final_switching_workload
+</span></span><span style="display:flex;"><span>git checkout -b final_switching_workload
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pip install -e .
+</span></span><span style="display:flex;"><span>pip install -e pg_executor
+</span></span><span style="display:flex;"><span>pip install -r requirements.txt
+</span></span><span style="display:flex;"><span>pip install six
+</span></span><span style="display:flex;"><span>pip install numpy<span style="color:#f92672">==</span>1.20.3
+</span></span><span style="display:flex;"><span>pip install pandas
+</span></span><span style="display:flex;"><span>pip install pyyaml
+</span></span><span style="display:flex;"><span>pip install --upgrade <span style="color:#e6db74">&#34;protobuf==3.20.3&#34;</span>
+</span></span><span style="display:flex;"><span>pip install torch<span style="color:#f92672">==</span>1.12.1+cu116 torchvision<span style="color:#f92672">==</span>0.13.1+cu116 torchaudio<span style="color:#f92672">==</span>0.12.1 --extra-index-url https://download.pytorch.org/whl/cu116
+</span></span><span style="display:flex;"><span>pip install click
+</span></span><span style="display:flex;"><span>pip install wandb
+</span></span><span style="display:flex;"><span>pip install knodes
+</span></span><span style="display:flex;"><span>pip install -U <span style="color:#e6db74">&#34;pydantic&gt;=2&#34;</span> <span style="color:#e6db74">&#34;ray&gt;=2.7&#34;</span> <span style="color:#e6db74">&#34;wandb&gt;=0.16&#34;</span>
+</span></span></code></pre></div><h4 id="postgresql-셋업--pg_">
+  <strong>postgresql 셋업 &amp; pg_hint_plan</strong>
+  <a class="anchor" href="#postgresql-%ec%85%8b%ec%97%85--pg_">#</a>
+</h4>
+<ul>
+<li><a href="https://github.com/Tsihan/LIMAOLifeLongRLDB">https://github.com/Tsihan/LIMAOLifeLongRLDB</a> Readme.md 파일 참조</li>
+</ul>
+<h4 id="job-setup">
+  <strong>JOB setup</strong>
+  <a class="anchor" href="#job-setup">#</a>
+</h4>
+<ul>
+<li>prepare dataset.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>mkdir -p /mydata/datasets/job <span style="color:#f92672">&amp;&amp;</span> cd /mydata/datasets/job
+</span></span><span style="display:flex;"><span>wget -c http://homepages.cwi.nl/~boncz/job/imdb.tgz
+</span></span><span style="display:flex;"><span>tar -xvzf imdb.tgz
+</span></span></code></pre></div><ul>
+<li>prepend header   (balsa 것 그대로 사용)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>python3 /mydata/LIMAOLifeLongRLDB/scripts/prepend_imdb_headers.py
+</span></span><span style="display:flex;"><span>flags.DEFINE_string<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;csv_dir&#39;</span>, <span style="color:#e6db74">&#39;/mydata/datasets/job&#39;</span>, <span style="color:#e6db74">&#39;Directory to IMDB CSVs.&#39;</span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><ul>
+<li>start postgre    ( balsa의 postgre conf를 base로 <code>work_mem 4GB -&gt; 8GB</code>, <code>listner_address * -&gt; 'localhost'</code>, <code>max_wal_size 1GB -&gt; 10GB</code> 로 변경)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>pg_ctl -D /mydata/databases initdb
+</span></span><span style="display:flex;"><span>cp /mydata/LIMAOLifeLongRLDB/conf/balsa-postgresql.conf /mydata/databases/postgresql.conf
+</span></span><span style="display:flex;"><span>pg_ctl -D /mydata/databases start -l logfile
+</span></span></code></pre></div><ul>
+<li>포트설정을 위해서 아래내용 수정후 pg_execution 재 install (pg_execution.py)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>LOCAL_DSN <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;host=/tmp dbname=imdbload port=5437&#34;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>pip install <span style="color:#f92672">-</span>e pg_executor
+</span></span></code></pre></div><h4 id="ssb-setup">
+  <strong>SSB setup</strong>
+  <a class="anchor" href="#ssb-setup">#</a>
+</h4>
+<ul>
+<li><a href="https://github.com/nuko-yokohama/ssb-postgres/tree/master">https://github.com/nuko-yokohama/ssb-postgres/tree/master</a></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cd ssb-dbgen
+</span></span><span style="display:flex;"><span>make
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>./dbgen -s <span style="color:#ae81ff">10</span> -T c    <span style="color:#75715e"># customer</span>
+</span></span><span style="display:flex;"><span>./dbgen -s <span style="color:#ae81ff">10</span> -T s    <span style="color:#75715e"># supplier</span>
+</span></span><span style="display:flex;"><span>./dbgen -s <span style="color:#ae81ff">10</span> -T p    <span style="color:#75715e"># part</span>
+</span></span><span style="display:flex;"><span>./dbgen -s <span style="color:#ae81ff">10</span> -T d    <span style="color:#75715e"># date</span>
+</span></span><span style="display:flex;"><span>./dbgen -s <span style="color:#ae81ff">10</span> -T l    <span style="color:#75715e"># lineorder</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>createdb ssb -p <span style="color:#ae81ff">5437</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>psql ssb -f table.sql -p <span style="color:#ae81ff">5437</span>
+</span></span><span style="display:flex;"><span>psql ssb -f load.sql -p <span style="color:#ae81ff">5437</span>
+</span></span></code></pre></div><h4 id="tpcds-setup">
+  <strong>tpcds setup</strong>
+  <a class="anchor" href="#tpcds-setup">#</a>
+</h4>
+<ul>
+<li><a href="https://github.com/gregrahn/tpcds-kit">https://github.com/gregrahn/tpcds-kit</a></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cd tools
+</span></span><span style="display:flex;"><span>make CC<span style="color:#f92672">=</span>gcc-9 OS<span style="color:#f92672">=</span>LINUX
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>createdb -p <span style="color:#ae81ff">5437</span> tpcds
+</span></span><span style="display:flex;"><span>psql -d tpcds -f tpcds.sql -p <span style="color:#ae81ff">5437</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mkdir data
+</span></span><span style="display:flex;"><span>./dsdgen -SCALE <span style="color:#ae81ff">4</span> -DIR data
+</span></span></code></pre></div><ul>
+<li>파싱 문제가 있어서, 아래 명령어를 입력해주어야 한다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cd data
+</span></span><span style="display:flex;"><span>sed -i <span style="color:#e6db74">&#39;s/|$//&#39;</span> *.dat
+</span></span></code></pre></div><p>psql -p 5437 -d tpcds -f &lt;data/load.sql가 있는 경로&gt;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">TRUNCATE</span> catalog_returns; <span style="color:#66d9ef">TRUNCATE</span> store; <span style="color:#66d9ef">TRUNCATE</span> dbgen_version; <span style="color:#66d9ef">TRUNCATE</span> item; <span style="color:#66d9ef">TRUNCATE</span> web_page; <span style="color:#66d9ef">TRUNCATE</span> promotion;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">TRUNCATE</span> inventory; <span style="color:#66d9ef">TRUNCATE</span> web_sales; <span style="color:#66d9ef">TRUNCATE</span> store_sales; <span style="color:#66d9ef">TRUNCATE</span> catalog_sales; <span style="color:#66d9ef">TRUNCATE</span> call_center; <span style="color:#66d9ef">TRUNCATE</span> income_band; <span style="color:#66d9ef">TRUNCATE</span> date_dim;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">TRUNCATE</span> reason; <span style="color:#66d9ef">TRUNCATE</span> store_returns; <span style="color:#66d9ef">TRUNCATE</span> web_returns; <span style="color:#66d9ef">TRUNCATE</span> customer_demographics; <span style="color:#66d9ef">TRUNCATE</span> warehouse; <span style="color:#66d9ef">TRUNCATE</span> ship_mode;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">TRUNCATE</span> customer_address; <span style="color:#66d9ef">TRUNCATE</span> time_dim; <span style="color:#66d9ef">TRUNCATE</span> household_demographics; <span style="color:#66d9ef">TRUNCATE</span> web_site; <span style="color:#66d9ef">TRUNCATE</span> customer; <span style="color:#66d9ef">TRUNCATE</span> catalog_page;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> catalog_returns <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#39;/{path}/tpcds-kit/tools/data/catalog_returns.dat&#39;</span> <span style="color:#66d9ef">DELIMITER</span> <span style="color:#e6db74">&#39;|&#39;</span> <span style="color:#66d9ef">NULL</span> <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> store <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#39;/{path}/tpcds-kit/tools/data/store.dat&#39;</span> <span style="color:#66d9ef">DELIMITER</span> <span style="color:#e6db74">&#39;|&#39;</span> <span style="color:#66d9ef">NULL</span> <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> dbgen_version <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#39;/{path}/tpcds-kit/tools/data/dbgen_version.dat&#39;</span> <span style="color:#66d9ef">DELIMITER</span> <span style="color:#e6db74">&#39;|&#39;</span> <span style="color:#66d9ef">NULL</span> <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> item <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#39;/{path}/tpcds-kit/tools/data/item.dat&#39;</span> <span style="color:#66d9ef">DELIMITER</span> <span style="color:#e6db74">&#39;|&#39;</span> <span style="color:#66d9ef">NULL</span> <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> web_page <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#39;/{path}/tpcds-kit/tools/data/web_page.dat&#39;</span> <span style="color:#66d9ef">DELIMITER</span> <span style="color:#e6db74">&#39;|&#39;</span> <span style="color:#66d9ef">NULL</span> <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> promotion <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#39;/{path}/tpcds-kit/tools/data/promotion.dat&#39;</span> <span style="color:#66d9ef">DELIMITER</span> <span style="color:#e6db74">&#39;|&#39;</span> <span style="color:#66d9ef">NULL</span> <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> inventory <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#39;/{path}/tpcds-kit/tools/data/inventory.dat&#39;</span> <span style="color:#66d9ef">DELIMITER</span> <span style="color:#e6db74">&#39;|&#39;</span> <span style="color:#66d9ef">NULL</span> <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> web_sales <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#39;/{path}/tpcds-kit/tools/data/web_sales.dat&#39;</span> <span style="color:#66d9ef">DELIMITER</span> <span style="color:#e6db74">&#39;|&#39;</span> <span style="color:#66d9ef">NULL</span> <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> store_sales <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#39;/{path}/tpcds-kit/tools/data/store_sales.dat&#39;</span> <span style="color:#66d9ef">DELIMITER</span> <span style="color:#e6db74">&#39;|&#39;</span> <span style="color:#66d9ef">NULL</span> <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> catalog_sales <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#39;/{path}/tpcds-kit/tools/data/catalog_sales.dat&#39;</span> <span style="color:#66d9ef">DELIMITER</span> <span style="color:#e6db74">&#39;|&#39;</span> <span style="color:#66d9ef">NULL</span> <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> call_center <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#39;/{path}/tpcds-kit/tools/data/call_center.dat&#39;</span> <span style="color:#66d9ef">DELIMITER</span> <span style="color:#e6db74">&#39;|&#39;</span> <span style="color:#66d9ef">NULL</span> <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> income_band <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#39;/{path}/tpcds-kit/tools/data/income_band.dat&#39;</span> <span style="color:#66d9ef">DELIMITER</span> <span style="color:#e6db74">&#39;|&#39;</span> <span style="color:#66d9ef">NULL</span> <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> date_dim <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#39;/{path}/tpcds-kit/tools/data/date_dim.dat&#39;</span> <span style="color:#66d9ef">DELIMITER</span> <span style="color:#e6db74">&#39;|&#39;</span> <span style="color:#66d9ef">NULL</span> <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> reason <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#39;/{path}/tpcds-kit/tools/data/reason.dat&#39;</span> <span style="color:#66d9ef">DELIMITER</span> <span style="color:#e6db74">&#39;|&#39;</span> <span style="color:#66d9ef">NULL</span> <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> store_returns <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#39;/{path}/tpcds-kit/tools/data/store_returns.dat&#39;</span> <span style="color:#66d9ef">DELIMITER</span> <span style="color:#e6db74">&#39;|&#39;</span> <span style="color:#66d9ef">NULL</span> <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> web_returns <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#39;/{path}/tpcds-kit/tools/data/web_returns.dat&#39;</span> <span style="color:#66d9ef">DELIMITER</span> <span style="color:#e6db74">&#39;|&#39;</span> <span style="color:#66d9ef">NULL</span> <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> customer_demographics <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#39;/{path}/tpcds-kit/tools/data/customer_demographics.dat&#39;</span> <span style="color:#66d9ef">DELIMITER</span> <span style="color:#e6db74">&#39;|&#39;</span> <span style="color:#66d9ef">NULL</span> <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> warehouse <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#39;/{path}/tpcds-kit/tools/data/warehouse.dat&#39;</span> <span style="color:#66d9ef">DELIMITER</span> <span style="color:#e6db74">&#39;|&#39;</span> <span style="color:#66d9ef">NULL</span> <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> ship_mode <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#39;/{path}/tpcds-kit/tools/data/ship_mode.dat&#39;</span> <span style="color:#66d9ef">DELIMITER</span> <span style="color:#e6db74">&#39;|&#39;</span> <span style="color:#66d9ef">NULL</span> <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> customer_address <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#39;/{path}/tpcds-kit/tools/data/customer_address.dat&#39;</span> <span style="color:#66d9ef">DELIMITER</span> <span style="color:#e6db74">&#39;|&#39;</span> <span style="color:#66d9ef">NULL</span> <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> time_dim <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#39;/{path}/tpcds-kit/tools/data/time_dim.dat&#39;</span> <span style="color:#66d9ef">DELIMITER</span> <span style="color:#e6db74">&#39;|&#39;</span> <span style="color:#66d9ef">NULL</span> <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> household_demographics <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#39;/{path}/tpcds-kit/tools/data/household_demographics.dat&#39;</span> <span style="color:#66d9ef">DELIMITER</span> <span style="color:#e6db74">&#39;|&#39;</span> <span style="color:#66d9ef">NULL</span> <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> web_site <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#39;/{path}/tpcds-kit/tools/data/web_site.dat&#39;</span> <span style="color:#66d9ef">DELIMITER</span> <span style="color:#e6db74">&#39;|&#39;</span> <span style="color:#66d9ef">NULL</span> <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> customer <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#39;/{path}/tpcds-kit/tools/data/customer.dat&#39;</span> <span style="color:#66d9ef">DELIMITER</span> <span style="color:#e6db74">&#39;|&#39;</span> <span style="color:#66d9ef">NULL</span> <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> catalog_page <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#39;/{path}/tpcds-kit/tools/data/catalog_page.dat&#39;</span> <span style="color:#66d9ef">DELIMITER</span> <span style="color:#e6db74">&#39;|&#39;</span> <span style="color:#66d9ef">NULL</span> <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span></code></pre></div><ul>
+<li>쿼리생성</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># 쿼리 생성</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">`</span>./dsqgen -DIRECTORY &lt;query_templates 디렉토리 경로&gt; -INPUT &lt;query_templates/templates.lst 경로&gt; -SCALE <span style="color:#ae81ff">10</span> -QUALIFY Y -VERBOSE Y -DIALECT netezza -OUTPUT_DIR &lt;쿼리 저장할 경로 <span style="color:#f92672">(</span>아무데나<span style="color:#f92672">)</span>&gt;<span style="color:#e6db74">`</span>
+</span></span></code></pre></div><h3 id="실행중-에러">
+  <strong>실행중 에러</strong>
+  <a class="anchor" href="#%ec%8b%a4%ed%96%89%ec%a4%91-%ec%97%90%eb%9f%ac">#</a>
+</h3>
+<h4 id="numpy-memory-할당-이슈">
+  <strong>numpy memory 할당 이슈</strong>
+  <a class="anchor" href="#numpy-memory-%ed%95%a0%eb%8b%b9-%ec%9d%b4%ec%8a%88">#</a>
+</h4>
+<ul>
+<li>numpy가 메모리를 할당 못하는 이슈</li>
+</ul>
+<pre tabindex="0"><code class="language-log" data-lang="log">numpy.core._exceptions.MemoryError: Unable to allocate 5.29 GiB for an array with shape (524348, 22, 123) and data type float32
+</code></pre><ul>
+<li>아래커맨드로 현재 정책확인  0 = 기본 , 1= 허용, 2 = 엄격하게 제한</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cat /proc/sys/vm/overcommit_memory
+</span></span></code></pre></div><ul>
+<li>아래 커맨드로 일시적으로 멤모리 할당 허용 (재부팅시 초기화)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo sysctl -w vm.overcommit_memory<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span></code></pre></div><h4 id="filenotfounderror-에러">
+  <strong>FileNotFoundError 에러</strong>
+  <a class="anchor" href="#filenotfounderror-%ec%97%90%eb%9f%ac">#</a>
+</h4>
+<ul>
+<li>file path가 안맞는 에러</li>
+</ul>
+<pre tabindex="0"><code class="language-log" data-lang="log">FileNotFoundError: [Errno 2] No such file or directory: &#39;/mydata/LIMAOLifeLongRLDB/balsa/deal_assorted_text/indexes_env_matrix.txt
+</code></pre><ul>
+<li>아래처럼 경로 변경  (k-prototype 용 magic 분류 라고 이해)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>    index_path<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{your path}/LIMAOLifeLongRLDB/balsa/deal_assorted_text/indexes_env_matrix.txt&#39;</span>,
+</span></span><span style="display:flex;"><span>    operator_path<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{your path}/LIMAOLifeLongRLDB/balsa/deal_assorted_text/operators_env_matrix.txt&#39;</span>,
+</span></span><span style="display:flex;"><span>    sql_path<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{your path}/LIMAOLifeLongRLDB/balsa/deal_assorted_text/sql_feature_encode_matrix.txt&#39;</span>,
+</span></span><span style="display:flex;"><span>    query_path<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{your path}/LIMAOLifeLongRLDB/balsa/deal_assorted_text/query_enc_matrix.txt&#39;</span>,
+</span></span></code></pre></div></div>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+<script src="https://giscus.app/client.js"
+        data-repo="JaeSim/JaeSim.github.io"
+        data-repo-id="R_kgDOOtVVtw"
+        data-category="Comment"
+        data-category-id="DIC_kwDOOtVVt84Cqcxg"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#기본정보"><strong>기본정보</strong></a>
+      <ul>
+        <li><a href="#limao-실행을-위한-셋업"><strong>LIMAO 실행을 위한 셋업</strong></a>
+          <ul>
+            <li><a href="#basic-셋업"><strong>basic 셋업</strong></a></li>
+            <li><a href="#postgresql-셋업--pg_"><strong>postgresql 셋업 &amp; pg_hint_plan</strong></a></li>
+            <li><a href="#job-setup"><strong>JOB setup</strong></a></li>
+            <li><a href="#ssb-setup"><strong>SSB setup</strong></a></li>
+            <li><a href="#tpcds-setup"><strong>tpcds setup</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#실행중-에러"><strong>실행중 에러</strong></a>
+          <ul>
+            <li><a href="#numpy-memory-할당-이슈"><strong>numpy memory 할당 이슈</strong></a></li>
+            <li><a href="#filenotfounderror-에러"><strong>FileNotFoundError 에러</strong></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+  <div class="post-tags">
+    <strong>Tags:</strong>
+    
+      <a href="/tags/dbms" class="tag">DBMS</a>
+    
+      <a href="/tags/database" class="tag">Database</a>
+    
+      <a href="/tags/optimizer" class="tag">Optimizer</a>
+    
+      <a href="/tags/learned-query-optimizer" class="tag">Learned Query Optimizer</a>
+    
+      <a href="/tags/reinforcement-learning" class="tag">Reinforcement Learning</a>
+    
+      <a href="/tags/limao" class="tag">LIMAO</a>
+    
+  </div>
+
+
+
+  <div class="post-categories">
+    <strong>Categories:</strong>
+    
+      <a href="/categories/learned-query-optimizer" class="category">Learned Query Optimizer</a>
+    
+  </div>
+
+
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('pre > code[class^="language-"]').forEach(codeBlock => {
+      const pre = codeBlock.parentElement;
+
+      
+      const button = document.createElement('button');
+      button.innerText = '📋';
+      button.title = 'Copy code';
+      button.style = `
+        position: absolute;
+        top: 0.5em;
+        right: 0.5em;
+        padding: 2px 6px;
+        font-size: 0.8rem;
+        background: #f5f5f5;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+        z-index: 10;
+      `;
+
+      
+      button.addEventListener('click', () => {
+        navigator.clipboard.writeText(codeBlock.innerText);
+        button.innerText = '✔';
+        setTimeout(() => button.innerText = '📋', 1000);
+      });
+
+      
+      pre.style.position = 'relative';
+      pre.appendChild(button);
+    });
+  });
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

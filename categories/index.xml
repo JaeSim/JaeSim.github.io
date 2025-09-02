@@ -2,87 +2,94 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on JaeSim&#39;s Workspace</title>
-    <link>https://JaeSim.github.io/categories/</link>
+    <link>http://localhost:1313/categories/</link>
     <description>Recent content in Categories on JaeSim&#39;s Workspace</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Wed, 06 Aug 2025 10:45:46 +0900</lastBuildDate>
-    <atom:link href="https://JaeSim.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 28 Aug 2025 11:32:49 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Learned Query Optimizer</title>
+      <link>http://localhost:1313/categories/learned-query-optimizer/</link>
+      <pubDate>Thu, 28 Aug 2025 11:32:49 +0900</pubDate>
+      <guid>http://localhost:1313/categories/learned-query-optimizer/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Study</title>
-      <link>https://JaeSim.github.io/categories/study/</link>
-      <pubDate>Wed, 06 Aug 2025 10:45:46 +0900</pubDate>
-      <guid>https://JaeSim.github.io/categories/study/</guid>
+      <link>http://localhost:1313/categories/study/</link>
+      <pubDate>Wed, 27 Aug 2025 14:05:14 +0900</pubDate>
+      <guid>http://localhost:1313/categories/study/</guid>
       <description></description>
     </item>
     <item>
       <title>Vector Database</title>
-      <link>https://JaeSim.github.io/categories/vector-database/</link>
-      <pubDate>Wed, 06 Aug 2025 10:45:46 +0900</pubDate>
-      <guid>https://JaeSim.github.io/categories/vector-database/</guid>
+      <link>http://localhost:1313/categories/vector-database/</link>
+      <pubDate>Wed, 27 Aug 2025 14:05:14 +0900</pubDate>
+      <guid>http://localhost:1313/categories/vector-database/</guid>
       <description></description>
     </item>
     <item>
       <title>Reserach</title>
-      <link>https://JaeSim.github.io/categories/reserach/</link>
+      <link>http://localhost:1313/categories/reserach/</link>
       <pubDate>Mon, 04 Aug 2025 09:44:51 +0900</pubDate>
-      <guid>https://JaeSim.github.io/categories/reserach/</guid>
+      <guid>http://localhost:1313/categories/reserach/</guid>
       <description></description>
     </item>
     <item>
       <title>Adaptive Watermark</title>
-      <link>https://JaeSim.github.io/categories/adaptive-watermark/</link>
+      <link>http://localhost:1313/categories/adaptive-watermark/</link>
       <pubDate>Wed, 16 Jul 2025 10:01:12 +0900</pubDate>
-      <guid>https://JaeSim.github.io/categories/adaptive-watermark/</guid>
+      <guid>http://localhost:1313/categories/adaptive-watermark/</guid>
       <description></description>
     </item>
     <item>
       <title>Stream Processing</title>
-      <link>https://JaeSim.github.io/categories/stream-processing/</link>
+      <link>http://localhost:1313/categories/stream-processing/</link>
       <pubDate>Wed, 16 Jul 2025 10:01:12 +0900</pubDate>
-      <guid>https://JaeSim.github.io/categories/stream-processing/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Learned Query Optimizer</title>
-      <link>https://JaeSim.github.io/categories/learned-query-optimizer/</link>
-      <pubDate>Fri, 04 Jul 2025 13:48:30 +0900</pubDate>
-      <guid>https://JaeSim.github.io/categories/learned-query-optimizer/</guid>
+      <guid>http://localhost:1313/categories/stream-processing/</guid>
       <description></description>
     </item>
     <item>
       <title>Learned Scheduler</title>
-      <link>https://JaeSim.github.io/categories/learned-scheduler/</link>
+      <link>http://localhost:1313/categories/learned-scheduler/</link>
       <pubDate>Thu, 03 Jul 2025 10:53:40 +0900</pubDate>
-      <guid>https://JaeSim.github.io/categories/learned-scheduler/</guid>
+      <guid>http://localhost:1313/categories/learned-scheduler/</guid>
       <description></description>
     </item>
     <item>
       <title>Learned Index</title>
-      <link>https://JaeSim.github.io/categories/learned-index/</link>
+      <link>http://localhost:1313/categories/learned-index/</link>
       <pubDate>Wed, 02 Jul 2025 13:01:23 +0900</pubDate>
-      <guid>https://JaeSim.github.io/categories/learned-index/</guid>
+      <guid>http://localhost:1313/categories/learned-index/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Private</title>
+      <link>http://localhost:1313/categories/private/</link>
+      <pubDate>Mon, 23 Jun 2025 14:05:50 +0900</pubDate>
+      <guid>http://localhost:1313/categories/private/</guid>
       <description></description>
     </item>
     <item>
       <title>Graph Neural Network</title>
-      <link>https://JaeSim.github.io/categories/graph-neural-network/</link>
+      <link>http://localhost:1313/categories/graph-neural-network/</link>
       <pubDate>Fri, 13 Jun 2025 14:45:35 +0900</pubDate>
-      <guid>https://JaeSim.github.io/categories/graph-neural-network/</guid>
+      <guid>http://localhost:1313/categories/graph-neural-network/</guid>
       <description></description>
     </item>
     <item>
       <title>Reinforcement Learning</title>
-      <link>https://JaeSim.github.io/categories/reinforcement-learning/</link>
+      <link>http://localhost:1313/categories/reinforcement-learning/</link>
       <pubDate>Thu, 12 Jun 2025 10:57:55 +0900</pubDate>
-      <guid>https://JaeSim.github.io/categories/reinforcement-learning/</guid>
+      <guid>http://localhost:1313/categories/reinforcement-learning/</guid>
       <description></description>
     </item>
     <item>
       <title>Development</title>
-      <link>https://JaeSim.github.io/categories/development/</link>
+      <link>http://localhost:1313/categories/development/</link>
       <pubDate>Fri, 23 May 2025 11:06:13 +0900</pubDate>
-      <guid>https://JaeSim.github.io/categories/development/</guid>
+      <guid>http://localhost:1313/categories/development/</guid>
       <description></description>
     </item>
   </channel>
