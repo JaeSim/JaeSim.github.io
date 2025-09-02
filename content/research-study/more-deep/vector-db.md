@@ -50,17 +50,22 @@ categories = ["Vector database","Study"]
 ## **Vector DB Index**
  - ANN 검색 속도 향상을 위한 특화 index
 ### **HNSW : Hierarchical Navigable Small World**
+<img src="/images/vec_hnsw.png" alt="hnsw_image" style="width:50%;"/>
+
  - graph 기반
+ - 순차적으로 node를 삽입해내가며, 만들고, 삽입시에 layer를 랜덤하게 결정한다 (지수분포에 따라서). 하위로 갈수록 노드갯수가 많아지고, 최상위 상위는 몇개없음.
+
 ### **IVF : Inverted File Index**
  - clustering 기반
 ### **LSH : Locality-Sensitive Hashing**
  - Hashing 기반
 ### **PQ : Product Quantization**
  - 벡터 압축 기반
-
+ - vector를 작은 벡터(subvector)로 구역을 나누고, 전체 데이터로부터 효율적인 압축이 될수있는 코드북을 학습한다.
+ - 이후 코드북으로 압축
 
 
 ## **참조**
  - Survey of vector database management systems, VLDB 2024
  - A Comprehensive Survey on Vector Database: Storage and Retrieval Technique, Challenge
- 
+ - Efficient and robust approximate nearest neighbor search using Hierarchical Navigable Small World graphs  (HNSW)
