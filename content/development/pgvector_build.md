@@ -3,7 +3,7 @@ date = '2025-09-02T11:52:47+09:00'
 weight = 9
 title = 'pgvector_build'
 tags = ["Vector", "Database", "Embedding", "ANN", "Similarity Search", "postgresql"]
-categories = ["Vector database","Study"]
+categories = ["Vector database","Study", "development"]
 +++
 
 # **pgvector build 하기**

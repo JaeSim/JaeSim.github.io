@@ -3,7 +3,7 @@ date = '2025-08-27T14:05:14+09:00'
 title = 'Milvus_build from code'
 weight = 8
 tags = ["Vector", "Database", "Embedding", "ANN", "Similarity Search"]
-categories = ["Vector database","Study"]
+categories = ["Vector database","Study", "development"]
 +++
 
 # **Milvus를 build 하기**
