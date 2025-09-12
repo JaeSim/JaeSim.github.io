@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko-kr" dir="ltr">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="
@@ -79,7 +79,7 @@ ssb setup 내용_postgre based on balsa
 https://github.com/nuko-yokohama/ssb-postgres/tree/master">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/learned-query-optimizer/loger-code/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/learned-query-optimizer/loger-code/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="LOGER 코드 분석">
   <meta property="og:description" content="LOGER 프로젝트의 코드 분석 내용#기본정보#LOGER: A Learned Optimizer towards Generating Efficient and Robust Query Execution Plans github repository https://github.com/TianyiChen0316/LOGER LOGER 실행을 위한 셋업#기본 패키지 설치 # 3.8 이여야한다. conda create -n loger python=3.8 -y conda activate loger pip install -r requirements.txt pip install pandas pip install dgl pip install packaging conda install libffi export LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$LD_LIBRARY_PATH pip install dgl-cu110==0.6.1 pip install pyodbc mkdir results postgre 설치 아래내용은 balsa 프로젝트에 있는 내용cd ~ wget https://ftp.postgresql.org/pub/source/v12.5/postgresql-12.5.tar.gz tar xzvf postgresql-12.5.tar.gz cd postgresql-12.5 ./configure --prefix=$HOME/postgresql-12.5 --without-readline make -j make install echo &#39;export PATH=/home/jae.sim/postgresql-12.5/bin:$PATH&#39; &gt;&gt; ~/.bashrc source ~/.bashrc cd ~/ git clone https://github.com/ossc-db/pg_hint_plan.git -b REL12_1_3_7 cd pg_hint_plan/ vim Makefile ### # Modify Makefile: change line # PG_CONFIG = pg_config # to # PG_CONFIG = /home/jae.sim/postgresql-12.5/bin/pg_config pg_ctl -D ~/imdb initdb pg_ctl -D ~/imdb start -l logfile # 실행확인 psql imdbload -p 5437 postgre 에 dataset ready ssb 타 db로 테스트하여도 로직상 postgre에 데이터셋이 설정되어 있어야한다. ssb setup 내용_postgre based on balsahttps://github.com/nuko-yokohama/ssb-postgres/tree/master">
@@ -97,10 +97,10 @@ https://github.com/nuko-yokohama/ssb-postgres/tree/master">
 <title>LOGER 코드 분석 | JaeSim&#39;s Workspace</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="http://localhost:1313/learned-query-optimizer/loger-code/">
+<link rel="canonical" href="https://JaeSim.github.io/learned-query-optimizer/loger-code/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.938e479781ed91192b3fccca35910aae39b71a81e724dd38ca71765ea1d1cb7e.js" integrity="sha256-k45Hl4HtkRkrP8zKNZEKrjm3GoHnJN04ynF2XqHRy34=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.6a4409729c702ba0a7e3872265380cb9b1a3599db56394acdda21103d0a93b66.js" integrity="sha256-akQJcpxwK6Cn44ciZTgMubGjWZ21Y5Ss3aIRA9CpO2Y=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -146,24 +146,6 @@ https://github.com/alex-shpak/hugo-book
 
   
   <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/aboutme/" class="">About Me</a>
-  
-
-          
-  <ul>
-    
-  </ul>
-
-        </li>
-      
     
       
         <li>
@@ -225,6 +207,19 @@ https://github.com/alex-shpak/hugo-book
 
   
     <a href="/development/pgvector_build/" class="">pgvector_build</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/wsl-c-env/" class="">WSL을 이용한 C언어 개발환경 셋업</a>
   
 
         </li>
@@ -351,7 +346,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/research-study/more-deep/vector-db/" class="">Vector DB (Not Completed)</a>
+    <a href="/research-study/more-deep/vector-db/" class="">Vector DB</a>
   
 
         </li>

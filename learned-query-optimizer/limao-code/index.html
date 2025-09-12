@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko-kr" dir="ltr">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="
@@ -129,7 +129,7 @@ sed -i &#39;s/|$//&#39; *.dat
 psql -p 5437 -d tpcds -f &lt;data/load.sql가 있는 경로&gt;">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/learned-query-optimizer/limao-code/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/learned-query-optimizer/limao-code/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="Limao 코드 분석">
   <meta property="og:description" content="LIMAO 프로젝트의 코드 분석 내용#기본정보#LIMAO: A Framework for Lifelong Modular Learned Query Optimization github repository https://github.com/Tsihan/LIMAOLifeLongRLDB balsa 프로젝트 위에서 코딩으로 구현되어 있는데,, 썩 잘코딩되진… github branch가 main은 사실상 original balsa project이며 branch를 바꿔서 테스트해야함 model.py, optimizer.py, run.py 이 3개를 주로 코딩 작업 한것으로 이해 plan decomposition(join을 breakpoint) 과 replay(episode당 하나씩 호출), k-prototype(서브모듈 클러스터링용), switch 시나리오 실험이 key idea 라고 이해 LIMAO 실행을 위한 셋업#basic 셋업#conda create and git clone conda create -n limao python=3.8 conda activate limao git clone https://github.com/Tsihan/LIMAOLifeLongRLDB.git cd LIMAOLifeLongRLDB git checkout origin/final_switching_workload git checkout -b final_switching_workload pip install -e . pip install -e pg_executor pip install -r requirements.txt pip install six pip install numpy==1.20.3 pip install pandas pip install pyyaml pip install --upgrade &#34;protobuf==3.20.3&#34; pip install torch==1.12.1&#43;cu116 torchvision==0.13.1&#43;cu116 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu116 pip install click pip install wandb pip install knodes pip install -U &#34;pydantic&gt;=2&#34; &#34;ray&gt;=2.7&#34; &#34;wandb&gt;=0.16&#34; postgresql 셋업 &amp; pg_hint_plan#https://github.com/Tsihan/LIMAOLifeLongRLDB Readme.md 파일 참조 JOB setup#prepare dataset. mkdir -p /mydata/datasets/job &amp;&amp; cd /mydata/datasets/job wget -c http://homepages.cwi.nl/~boncz/job/imdb.tgz tar -xvzf imdb.tgz prepend header (balsa 것 그대로 사용) python3 /mydata/LIMAOLifeLongRLDB/scripts/prepend_imdb_headers.py flags.DEFINE_string(&#39;csv_dir&#39;, &#39;/mydata/datasets/job&#39;, &#39;Directory to IMDB CSVs.&#39;) start postgre ( balsa의 postgre conf를 base로 work_mem 4GB -&gt; 8GB, listner_address * -&gt; &#39;localhost&#39;, max_wal_size 1GB -&gt; 10GB 로 변경) pg_ctl -D /mydata/databases initdb cp /mydata/LIMAOLifeLongRLDB/conf/balsa-postgresql.conf /mydata/databases/postgresql.conf pg_ctl -D /mydata/databases start -l logfile 포트설정을 위해서 아래내용 수정후 pg_execution 재 install (pg_execution.py) LOCAL_DSN = &#34;host=/tmp dbname=imdbload port=5437&#34; pip install -e pg_executor SSB setup#https://github.com/nuko-yokohama/ssb-postgres/tree/master cd ssb-dbgen make ./dbgen -s 10 -T c # customer ./dbgen -s 10 -T s # supplier ./dbgen -s 10 -T p # part ./dbgen -s 10 -T d # date ./dbgen -s 10 -T l # lineorder createdb ssb -p 5437 psql ssb -f table.sql -p 5437 psql ssb -f load.sql -p 5437 tpcds setup#https://github.com/gregrahn/tpcds-kit cd tools make CC=gcc-9 OS=LINUX createdb -p 5437 tpcds psql -d tpcds -f tpcds.sql -p 5437 mkdir data ./dsdgen -SCALE 4 -DIR data 파싱 문제가 있어서, 아래 명령어를 입력해주어야 한다. cd data sed -i &#39;s/|$//&#39; *.dat psql -p 5437 -d tpcds -f &lt;data/load.sql가 있는 경로&gt;">
@@ -147,10 +147,10 @@ psql -p 5437 -d tpcds -f &lt;data/load.sql가 있는 경로&gt;">
 <title>Limao 코드 분석 | JaeSim&#39;s Workspace</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="http://localhost:1313/learned-query-optimizer/limao-code/">
+<link rel="canonical" href="https://JaeSim.github.io/learned-query-optimizer/limao-code/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.938e479781ed91192b3fccca35910aae39b71a81e724dd38ca71765ea1d1cb7e.js" integrity="sha256-k45Hl4HtkRkrP8zKNZEKrjm3GoHnJN04ynF2XqHRy34=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.6a4409729c702ba0a7e3872265380cb9b1a3599db56394acdda21103d0a93b66.js" integrity="sha256-akQJcpxwK6Cn44ciZTgMubGjWZ21Y5Ss3aIRA9CpO2Y=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -196,24 +196,6 @@ https://github.com/alex-shpak/hugo-book
 
   
   <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/aboutme/" class="">About Me</a>
-  
-
-          
-  <ul>
-    
-  </ul>
-
-        </li>
-      
     
       
         <li>
@@ -275,6 +257,19 @@ https://github.com/alex-shpak/hugo-book
 
   
     <a href="/development/pgvector_build/" class="">pgvector_build</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/wsl-c-env/" class="">WSL을 이용한 C언어 개발환경 셋업</a>
   
 
         </li>
@@ -401,7 +396,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/research-study/more-deep/vector-db/" class="">Vector DB (Not Completed)</a>
+    <a href="/research-study/more-deep/vector-db/" class="">Vector DB</a>
   
 
         </li>

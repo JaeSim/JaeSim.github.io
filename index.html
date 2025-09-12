@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko-kr" dir="ltr">
 <head>
-	<meta name="generator" content="Hugo 0.147.3"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+	<meta name="generator" content="Hugo 0.147.3">
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="
@@ -11,6 +11,52 @@
 
 
 
+
+  
+    
+      WSL을 이용한 C언어 개발환경 셋업
+    
+
+    
+
+    2025-09-04 10:11:10 KST
+
+    
+       
+        
+  WSL을 이용한 C언어 개발환경 셋업 하기
+  
+
+
+  기본 정보
+  
+
+
+  WSL
+  
+
+
+세상이 많이 변했다. window 위 에서 손쉽게 linux 환경을 구축하는 것 정도로 이해하면 될 것 같다
+WSL2부터는 hyper-v를 이용하는것으로 이해
+
+
+  WSL install
+  
+
+
+target PC: Window 11 home, LG gram.
+powershell에서 아래명령어 실행. 자동으로 wsl2가 설치되는것으로 이해
+
+wsl --install
+
+에러에 대한 해결. 재부팅후 wsl-in
+
+필요한 기능이 설치되어 있지 않기 때문에 작업을 시작할 수 없습니다.
+오류 코드: …
+      
+    
+
+  
 
   
     
@@ -139,7 +185,7 @@ git clone …
 
   
     
-      Vector DB (Not Completed)
+      Vector DB
     
 
     
@@ -149,7 +195,7 @@ git clone …
     
        
         
-  Vector Database 관련 학습 내용 (미완)
+  Vector Database 관련 학습 내용
   
 
 
@@ -166,71 +212,25 @@ Vector database는 vector의 유사도 검사를 빠르게 하기 위한것
 현재로써는 RAG에서 응용되는것이 주된 사용처
 RAG flow
 
-[그림출처: Retrieval-Augmented Generation for Large Language Models: A Survey (https://arxiv.org/abs/2312.10997)]
-보통 벡터 임베딩과 메타데이터로 구성되어 있음
-최근접 이웃 (KNN) …
-      
-    
 
-  
-
-  
-    
-      LLM Build
-    
-
-    
-
-    2025-08-04 09:44:51 KST
-
-    
-       
-        
-  LLM 을 바닥부터 만들기 를 보고 나서 요약
-  
-
-
-  영상 내용
-  
-
-
-LLM을 만들때는 1) 사전훈련(pretraining), 2) 미세조정(fine-tuning) 동작을 수행
-파인튜닝은 특별한 데이터셋이 필요함.
-사전 훈련된 녀석에게 내가 가진 데이터셋을 원래 사전학습에 사용했던 데이터셋 모양으로 만들어서 다시 추가 학습을 진행하는것
-따라서 이전에 잘하는 것이 망가질 수 있음
-
-
-  느낀점
-  
-
-
-AI를 사용하는 능력 보다는 AI agent를 만드는 능력이 필요
-
-detail하게는 몰라도 되지만, 자신의 도메인에 붙일 수 있는 실무 능력이 필요
-fine-tuning 능력이 필요
-공부하자.. …
-      
-    
-
-  
-
-">
+[그림출처: Retrieval-Augmented Generation for Large Language Models: A Survey (https://arxiv.org/abs/2312.10997)]">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="Home">
-  <meta property="og:description" content="Recent Posts#pgvector_build2025-09-02 11:52:47 KSTpgvector build 하기기본 정보https://github.com/pgvector/pgvector postgresql 이 먼저 running 한 뒤에 설치하여야한다. postgresql 준비postgres 13이상 버전 준비 wget https://ftp.postgresql.org/pub/source/v17.6/postgresql-17.6.tar.gz tar -vxzf postgresql-17.6.tar.gz path 설정 및 build cd postgresql-17.6.tar.gz ./configure --prefix=/home/{user}/data/postgresql-17.6 --without-readline sudo …Limao 코드 분석LIMAO 프로젝트의 코드 분석 내용을 담은 내용입니다.2025-08-28 11:32:49 KSTLIMAO 프로젝트의 코드 분석 내용기본정보LIMAO: A Framework for Lifelong Modular Learned Query Optimization github repository https://github.com/Tsihan/LIMAOLifeLongRLDB balsa 프로젝트 위에서 코딩으로 구현되어 있는데,, 썩 잘코딩되진… github branch가 main은 사실상 original balsa project이며 branch를 바꿔서 테스트해야함 model.py, optimizer.py, run.py 이 3개를 주로 코딩 작업 한것으로 이해 plan decomposition(join을 breakpoint) …Milvus_build from code2025-08-27 14:05:14 KSTMilvus를 build 하기기본 정보https://github.com/milvus-io/milvus 아래 요구사항 go와 c&#43;&#43;로 작성된 프로젝트로써, 사용시에는 보통 python SDK pymilvus를 이용해서 사용한다 go: &gt;= 1.21 cmake: &gt;= 3.26.4 gcc: 9.5 python: &gt; 3.8 and &lt;= 3.11 준비물conda activate 및 git cloneconda 가상환경 설정 및 git clone conda create -n vec python=3.8 conda activate vec git clone …Vector DB (Not Completed)2025-08-06 10:45:46 KSTVector Database 관련 학습 내용 (미완)본인의 이해/기억을 위해 작성한 것이므로, 많은 내용이 생략, 축약되어 있음 기본 정보Vector database는 vector의 유사도 검사를 빠르게 하기 위한것 비정형 데이터의 semantically 응답 가능 질의했을때 유사한 vector을 top-k 개 만큼 반환하는 것 현재로써는 RAG에서 응용되는것이 주된 사용처 RAG flow [그림출처: Retrieval-Augmented Generation for Large Language Models: A Survey (https://arxiv.org/abs/2312.10997)] 보통 벡터 임베딩과 메타데이터로 구성되어 있음 최근접 이웃 (KNN) …LLM Build2025-08-04 09:44:51 KSTLLM 을 바닥부터 만들기 를 보고 나서 요약영상 내용LLM을 만들때는 1) 사전훈련(pretraining), 2) 미세조정(fine-tuning) 동작을 수행 파인튜닝은 특별한 데이터셋이 필요함. 사전 훈련된 녀석에게 내가 가진 데이터셋을 원래 사전학습에 사용했던 데이터셋 모양으로 만들어서 다시 추가 학습을 진행하는것 따라서 이전에 잘하는 것이 망가질 수 있음 느낀점AI를 사용하는 능력 보다는 AI agent를 만드는 능력이 필요 detail하게는 몰라도 되지만, 자신의 도메인에 붙일 수 있는 실무 능력이 필요 fine-tuning 능력이 필요 공부하자.. …">
+  <meta property="og:description" content="Recent Posts#WSL을 이용한 C언어 개발환경 셋업2025-09-04 10:11:10 KSTWSL을 이용한 C언어 개발환경 셋업 하기기본 정보WSL세상이 많이 변했다. window 위 에서 손쉽게 linux 환경을 구축하는 것 정도로 이해하면 될 것 같다
+WSL2부터는 hyper-v를 이용하는것으로 이해 WSL installtarget PC: Window 11 home, LG gram. powershell에서 아래명령어 실행. 자동으로 wsl2가 설치되는것으로 이해 wsl --install 에러에 대한 해결. 재부팅후 wsl-in 필요한 기능이 설치되어 있지 않기 때문에 작업을 시작할 수 없습니다. 오류 코드: …pgvector_build2025-09-02 11:52:47 KSTpgvector build 하기기본 정보https://github.com/pgvector/pgvector postgresql 이 먼저 running 한 뒤에 설치하여야한다. postgresql 준비postgres 13이상 버전 준비 wget https://ftp.postgresql.org/pub/source/v17.6/postgresql-17.6.tar.gz tar -vxzf postgresql-17.6.tar.gz path 설정 및 build cd postgresql-17.6.tar.gz ./configure --prefix=/home/{user}/data/postgresql-17.6 --without-readline sudo …Limao 코드 분석LIMAO 프로젝트의 코드 분석 내용을 담은 내용입니다.2025-08-28 11:32:49 KSTLIMAO 프로젝트의 코드 분석 내용기본정보LIMAO: A Framework for Lifelong Modular Learned Query Optimization github repository https://github.com/Tsihan/LIMAOLifeLongRLDB balsa 프로젝트 위에서 코딩으로 구현되어 있는데,, 썩 잘코딩되진… github branch가 main은 사실상 original balsa project이며 branch를 바꿔서 테스트해야함 model.py, optimizer.py, run.py 이 3개를 주로 코딩 작업 한것으로 이해 plan decomposition(join을 breakpoint) …Milvus_build from code2025-08-27 14:05:14 KSTMilvus를 build 하기기본 정보https://github.com/milvus-io/milvus 아래 요구사항 go와 c&#43;&#43;로 작성된 프로젝트로써, 사용시에는 보통 python SDK pymilvus를 이용해서 사용한다 go: &gt;= 1.21 cmake: &gt;= 3.26.4 gcc: 9.5 python: &gt; 3.8 and &lt;= 3.11 준비물conda activate 및 git cloneconda 가상환경 설정 및 git clone conda create -n vec python=3.8 conda activate vec git clone …Vector DB2025-08-06 10:45:46 KSTVector Database 관련 학습 내용본인의 이해/기억을 위해 작성한 것이므로, 많은 내용이 생략, 축약되어 있음 기본 정보Vector database는 vector의 유사도 검사를 빠르게 하기 위한것 비정형 데이터의 semantically 응답 가능 질의했을때 유사한 vector을 top-k 개 만큼 반환하는 것 현재로써는 RAG에서 응용되는것이 주된 사용처 RAG flow [그림출처: Retrieval-Augmented Generation for Large Language Models: A Survey (https://arxiv.org/abs/2312.10997)]">
   <meta property="og:locale" content="ko_kr">
   <meta property="og:type" content="website">
 <title>Home | JaeSim&#39;s Workspace</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="http://localhost:1313/">
+<link rel="canonical" href="https://JaeSim.github.io/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.938e479781ed91192b3fccca35910aae39b71a81e724dd38ca71765ea1d1cb7e.js" integrity="sha256-k45Hl4HtkRkrP8zKNZEKrjm3GoHnJN04ynF2XqHRy34=" crossorigin="anonymous"></script>
-<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/index.xml" title="JaeSim's Workspace" />
+  <script defer src="/en.search.min.6a4409729c702ba0a7e3872265380cb9b1a3599db56394acdda21103d0a93b66.js" integrity="sha256-akQJcpxwK6Cn44ciZTgMubGjWZ21Y5Ss3aIRA9CpO2Y=" crossorigin="anonymous"></script>
+<link rel="alternate" type="application/rss+xml" href="https://JaeSim.github.io/index.xml" title="JaeSim's Workspace" />
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -276,24 +276,6 @@ https://github.com/alex-shpak/hugo-book
 
   
   <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/aboutme/" class="">About Me</a>
-  
-
-          
-  <ul>
-    
-  </ul>
-
-        </li>
-      
     
       
         <li>
@@ -355,6 +337,19 @@ https://github.com/alex-shpak/hugo-book
 
   
     <a href="/development/pgvector_build/" class="">pgvector_build</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/development/wsl-c-env/" class="">WSL을 이용한 C언어 개발환경 셋업</a>
   
 
         </li>
@@ -481,7 +476,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/research-study/more-deep/vector-db/" class="">Vector DB (Not Completed)</a>
+    <a href="/research-study/more-deep/vector-db/" class="">Vector DB</a>
   
 
         </li>
@@ -806,6 +801,52 @@ https://github.com/alex-shpak/hugo-book
 <ul>
 
   <li style="margin-bottom: 2rem;">
+    <a href="/development/wsl-c-env/">
+      <strong style="font-size: 1.25rem;">WSL을 이용한 C언어 개발환경 셋업</strong>
+    </a><br/>
+
+    
+
+    <small>2025-09-04 10:11:10 KST</small>
+
+    <a href="/development/wsl-c-env/" style="text-decoration: none; color: inherit;">
+      <div class="summary-box"> 
+        <h1 id="wsl을-이용한-c언어-개발환경-셋업-하기">
+  <strong>WSL을 이용한 C언어 개발환경 셋업 하기</strong>
+  
+</h1>
+<h2 id="기본-정보">
+  <strong>기본 정보</strong>
+  
+</h2>
+<h3 id="wsl">
+  <strong>WSL</strong>
+  
+</h3>
+<ul>
+<li>세상이 많이 변했다. window 위 에서 손쉽게 linux 환경을 구축하는 것 정도로 이해하면 될 것 같다<br>
+WSL2부터는 hyper-v를 이용하는것으로 이해</li>
+</ul>
+<h4 id="wsl-install">
+  <strong>WSL install</strong>
+  
+</h4>
+<ul>
+<li>target PC: Window 11 home, LG gram.</li>
+<li>powershell에서 아래명령어 실행. 자동으로 wsl2가 설치되는것으로 이해</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>wsl --install
+</span></span></code></pre></div><ul>
+<li>에러에 대한 해결. 재부팅후 wsl-in</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>필요한 기능이 설치되어 있지 않기 때문에 작업을 시작할 수 없습니다.
+</span></span><span style="display:flex;"><span>오류 코드: …</span></span></span></span></code></pre></div>
+      </div>
+    </a>
+
+  </li>
+
+  <li style="margin-bottom: 2rem;">
     <a href="/development/pgvector_build/">
       <strong style="font-size: 1.25rem;">pgvector_build</strong>
     </a><br/>
@@ -932,7 +973,7 @@ https://github.com/Tsihan/LIMAOLifeLongRLDB</li>
 
   <li style="margin-bottom: 2rem;">
     <a href="/research-study/more-deep/vector-db/">
-      <strong style="font-size: 1.25rem;">Vector DB (Not Completed)</strong>
+      <strong style="font-size: 1.25rem;">Vector DB</strong>
     </a><br/>
 
     
@@ -941,8 +982,8 @@ https://github.com/Tsihan/LIMAOLifeLongRLDB</li>
 
     <a href="/research-study/more-deep/vector-db/" style="text-decoration: none; color: inherit;">
       <div class="summary-box"> 
-        <h1 id="vector-database-관련-학습-내용-미완">
-  <strong>Vector Database 관련 학습 내용 (미완)</strong>
+        <h1 id="vector-database-관련-학습-내용">
+  <strong>Vector Database 관련 학습 내용</strong>
   
 </h1>
 <ul>
@@ -958,50 +999,12 @@ https://github.com/Tsihan/LIMAOLifeLongRLDB</li>
 <li>질의했을때 유사한 vector을 top-k 개 만큼 반환하는 것</li>
 <li>현재로써는 RAG에서 응용되는것이 주된 사용처</li>
 <li>RAG flow
-<img src="/images/rag_flow.png" alt="lis_trad_is_good"/>
-[그림출처: Retrieval-Augmented Generation for Large Language Models: A Survey (https://arxiv.org/abs/2312.10997)]</li>
+<img src="/images/rag_flow.png" alt="lis_trad_is_good"/></li>
+</ul>
+<p>[그림출처: Retrieval-Augmented Generation for Large Language Models: A Survey (https://arxiv.org/abs/2312.10997)]</p>
+<ul>
 <li>보통 벡터 임베딩과 메타데이터로 구성되어 있음</li>
 <li>최근접 이웃 (KNN) …</li></ul>
-      </div>
-    </a>
-
-  </li>
-
-  <li style="margin-bottom: 2rem;">
-    <a href="/research-study/brief/llm-build/">
-      <strong style="font-size: 1.25rem;">LLM Build</strong>
-    </a><br/>
-
-    
-
-    <small>2025-08-04 09:44:51 KST</small>
-
-    <a href="/research-study/brief/llm-build/" style="text-decoration: none; color: inherit;">
-      <div class="summary-box"> 
-        <h1 id="llm-을-바닥부터-만들기-를-보고-나서-요약">
-  <strong>LLM 을 바닥부터 만들기 를 보고 나서 요약</strong>
-  
-</h1>
-<h2 id="영상-내용">
-  <strong>영상 내용</strong>
-  
-</h2>
-<ul>
-<li>LLM을 만들때는 1) 사전훈련(pretraining), 2) 미세조정(fine-tuning) 동작을 수행</li>
-<li>파인튜닝은 특별한 데이터셋이 필요함.</li>
-<li>사전 훈련된 녀석에게 내가 가진 데이터셋을 원래 사전학습에 사용했던 데이터셋 모양으로 만들어서 다시 추가 학습을 진행하는것</li>
-<li>따라서 이전에 잘하는 것이 망가질 수 있음</li>
-</ul>
-<h2 id="느낀점">
-  <strong>느낀점</strong>
-  
-</h2>
-<ul>
-<li><code>AI를 사용하는 능력</code> 보다는 <code>AI agent를 만드는 능력</code>이 필요
-<ul>
-<li>detail하게는 몰라도 되지만, 자신의 도메인에 붙일 수 있는 실무 능력이 필요</li>
-<li>fine-tuning 능력이 필요</li>
-<li>공부하자.. …</li></ul></li></ul>
       </div>
     </a>
 
