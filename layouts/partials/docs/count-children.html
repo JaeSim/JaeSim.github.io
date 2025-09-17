@@ -1,0 +1,11 @@
+{{- $count := 0 -}}
+{{- $children := where .Pages "Params.bookHidden" "ne" true -}}
+{{- range $children -}}
+  {{- if .IsSection -}}
+    {{- $sub := partial "docs/count-children.html" . -}}
+    {{- $count = add $count $sub -}}
+  {{- else if and .IsPage .Content -}}
+    {{- $count = add $count 1 -}}
+  {{- end -}}
+{{- end -}}
+{{- return $count -}}

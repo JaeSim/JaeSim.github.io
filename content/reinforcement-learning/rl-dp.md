@@ -37,7 +37,7 @@ MDP planning의 두가지 문제가 있다. (For prediction, For control)
  - **control problem** 은 옵티마이징 하는것(best policy와 그에따른 best value function을 구하는것). <br>
 input으로 MDP가 주어지고 output으로 {{< katex display=false >}}v_*{{< /katex >}} (optimal value function) 또는 {{< katex display=false >}}\pi_*{{< /katex >}} (optimal policy)
 
-### **policy evaluation**
+## **policy evaluation**
 policy시가 얼마나 좋은지 평가(MDP로 얼마나 얼마나 많은 reward를 얻을수 있는지?). policy를 업데이트하진 않는다<br>
 bellman expectation equation을 사용
 
@@ -57,7 +57,7 @@ synchronous backup <br>=  한 iteration에서 전체 상태들의 값이 한꺼�
  
  이것은 true value function으로 수렴하는것을 보장한다 <br>(why?= discount factor 가 0~1 이므로 수축 매핑 성질을 가진다 (contraction mapping) by GPT)
 
-#### synchronous backup policy evaluation example
+### synchronous backup policy evaluation example
 아래그림은 이동을 uniform random하기 pick된다는 policy에 대한 그림이다 (왼쪽에 적힌 숫자값들 : 1/4씩 가능성이 있는경우)
 k=1 일때의, 주변 으로 갔을때 전부 -1 이니 -1*4/4 로 1회 업데이트 <br>
 k=2 일때의 1.7 은 1.75가 짤린것. <br>
@@ -79,7 +79,7 @@ value function을 better 폴리시를 찾아내는데 도음을 준다.
 
 asyncronous backup =  전체 상태를 한 번에 갱신하는 것이 아니라, 선택된 특정 상태에 대해서만 value function을 갱신하는 방식이다. 이는 계산 효율을 높이고, 빠른 수렴을 가능하게 한다. by GPT
 
-### **policy iteration**
+## **policy iteration**
 policy를 inner loop에서 iteration마다 평가하면서 policy가 더 나아지도록 적용해나가는 방식; 
 결국 optimal policy를 찾게 된다는 설명.
 
@@ -112,7 +112,7 @@ v_\pi(s){{< /katex >}} 기반으로 policy 를 greedily 행동하게 improvement
 improvement가 멈춘다면 수식적으로 수렴한다는것을(Bellman Optimal Equation을 만족함을) 증명할 수 있지만, 생략함.
 lecture-3 의 17page
 
-### **value interation**
+## **value interation**
 이것은 MDP를 푸는 또 다른 방식이다. 
 
 bellman equation을 통해서 value function이 better 하도록 하는 방식
@@ -178,7 +178,7 @@ value iteration 은 bellman optimality equation을 푼다. (v_*  를 찾는것)
 {{< /katex >}}
 
 
-### **Synchronous Dynamic Programing**
+## **Synchronous Dynamic Programing**
 아래 도표와 같이 처리하면 된다
 <img src="/images/rl-synchronousDP-algo.png" alt="rl-essential" style="width:80%;" />
 
@@ -187,7 +187,7 @@ iteration당 {{< katex display= false >}} \mathcal{O}(mn^2) {{< /katex >}} 시�
 - action-value function 을 베이로하면 {{< katex display= false >}} q_\pi(s,a) {{< /katex >}} 나 {{< katex display= false >}} q_*(s,a) {{< /katex >}}를 찾는다면 <br>
 iteration당  {{< katex display= false >}} \mathcal{O}(m^2n^2){{< /katex >}} 시간복잡도
 
-### **Asynchronous Dynamic Programing**
+## **Asynchronous Dynamic Programing**
 위의 예제는 모든 state를 모두 업데이트 하는데 낭비가 심함.
 
 정의: 모든 상태를 동시에 업데이트하지 않고, 일부 상태만 선택적으로 업데이트합니다.
@@ -200,10 +200,13 @@ asynchronous dynamic programming을 하기위한 3가지 idea들은 다음과 �
 
 자세한 내용은 생략
 
-### **Full-Width Backup 과 Sample Backup**
+## **Full-Width Backup 과 Sample Backup**
 Full-width backup은 너무 비싸서 sample 기반 backup을 한다.
 
 > **sample** : 에이전트가 환경과 상호작용해서 얻은 한 번의 경험 데이터
+
+대표적인 샘플링을 이용한 솔루션은 **sarsa**다.
+
 
 이로인한 장점은 다음과 같다.
 1) 이로인해서 궁극적으로 Model-free하게 된다.( environment 모델을 알지 않아도 되게 된다)
