@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="ko-kr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
+  5. model-free control
+  #
+
+
+이전장의 model-free prediction은 결국 예측하는 것이고. 이것은 실제로 행동하는것.
+
+
+  on-policy/off-policy intro
+  #
+
+π = Target Policy
+µ = Behavior Policy
+이두개가 같으면 on-policy 다르면 off-policy.
+
+
+Off-policy learning : “Look over someone’s shoulder” 
+Learn about policy π from experience sampled from µ 
+re-use experience generated from old policy 
+Q-Learning : 
+
+
+
+  \(\varepsilon\)
+
+-greedy 방식으로 탐험하지만 학습에는 반영 안할수 있음(최적의 행동만 업데이트)
+
+
+On-policy learning : “Learn on the job” 
+Learn about policy π from experience sampled from π
+Salsa :on-policy Q-learning. 현재 행동을 그대로 따라가며 학습">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/reinforcement-learning/rl-model-free-control/">
+  <meta property="og:site_name" content="JaeSim&#39;s Workspace">
+  <meta property="og:title" content="5. Model Free Control">
+  <meta property="og:description" content="5. model-free control#이전장의 model-free prediction은 결국 예측하는 것이고. 이것은 실제로 행동하는것. on-policy/off-policy intro#π = Target Policy µ = Behavior Policy
+이두개가 같으면 on-policy 다르면 off-policy.
+Off-policy learning : “Look over someone’s shoulder” Learn about policy π from experience sampled from µ re-use experience generated from old policy Q-Learning : \(\varepsilon\)-greedy 방식으로 탐험하지만 학습에는 반영 안할수 있음(최적의 행동만 업데이트)
+On-policy learning : “Learn on the job” Learn about policy π from experience sampled from π
+Salsa :on-policy Q-learning. 현재 행동을 그대로 따라가며 학습">
+  <meta property="og:locale" content="ko_kr">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="reinforcement-learning">
+    <meta property="article:published_time" content="2025-09-12T11:39:17+09:00">
+    <meta property="article:modified_time" content="2025-09-12T11:39:17+09:00">
+    <meta property="article:tag" content="Definition">
+    <meta property="article:tag" content="Model Free">
+    <meta property="article:tag" content="Monte Carlo">
+    <meta property="article:tag" content="Temporal Difference">
+    <meta property="article:tag" content="Reinforcement Learning">
+    <meta property="article:tag" content="RL">
+<title>5. Model Free Control | JaeSim&#39;s Workspace</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="https://JaeSim.github.io/reinforcement-learning/rl-model-free-control/">
+<link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.5dace7c7667f851378086f2b0660d764e3d306e0b90accd6ab0095034ba4714d.js" integrity="sha256-Xaznx2Z/hRN4CG8rBmDXZOPTBuC5CszWqwCVA0ukcU0=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>JaeSim&#39;s Workspace</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+
+      
+        
+
+        <li>
+          
+            <input type="checkbox"
+                   id="section-fa839a81c5edc0726797036b87ec4d40"
+                   class="toggle"
+                   >
+            <label for="section-fa839a81c5edc0726797036b87ec4d40" class="flex justify-between cursor-pointer">
+              <span>
+                Development / 개발
+                <span class="count">(5)</span>
+              </span>
+            </label>
+
+            <ul>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/development/firstpost/" class="">할일</a>
+  
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/development/blogsetup/" class="">Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus</a>
+  
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/development/milvus_build/" class="">Milvus_build from code</a>
+  
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/development/pgvector_build/" class="">pgvector_build</a>
+  
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/development/wsl-c-env/" class="">WSL을 이용한 C언어 개발환경 셋업</a>
+  
+
+                  
+                </li>
+              
+            </ul>
+          
+        </li>
+
+      
+    
+      
+
+      
+        
+
+        <li>
+          
+            <input type="checkbox"
+                   id="section-9013679620e0454aef52a99127bcf697"
+                   class="toggle"
+                   >
+            <label for="section-9013679620e0454aef52a99127bcf697" class="flex justify-between cursor-pointer">
+              <span>
+                Research Study
+                <span class="count">(10)</span>
+              </span>
+            </label>
+
+            <ul>
+              
+                <li>
+                  
+                    
+                    
+  
+  
+
+  
+    <span>Brief</span>
+  
+ <span class="rec_count">(2)</span>
+                    
+  <ul>
+    
+      
+
+      
+        <li>
+  
+  
+
+  
+    <a href="/research-study/brief/graph/" class="">GNN</a>
+  
+</li>
+      
+    
+      
+
+      
+        <li>
+  
+  
+
+  
+    <a href="/research-study/brief/llm-build/" class="">LLM Build</a>
+  
+</li>
+      
+    
+  </ul>
+
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+                    
+  
+  
+
+  
+    <span>More deep</span>
+  
+ <span class="rec_count">(4)</span>
+                    
+  <ul>
+    
+      
+
+      
+        <li>
+  
+  
+
+  
+    <a href="/research-study/more-deep/learned-index/" class="">Learned Index</a>
+  
+</li>
+      
+    
+      
+
+      
+        <li>
+  
+  
+
+  
+    <a href="/research-study/more-deep/learned-scheduler/" class="">Learned Scheduler</a>
+  
+</li>
+      
+    
+      
+
+      
+        <li>
+  
+  
+
+  
+    <a href="/research-study/more-deep/adaptive-watermark/" class="">Adaptive Watermark in Stream Processing</a>
+  
+</li>
+      
+    
+      
+
+      
+        <li>
+  
+  
+
+  
+    <a href="/research-study/more-deep/vector-db/" class="">Vector DB</a>
+  
+</li>
+      
+    
+  </ul>
+
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+                    
+  
+  
+
+  
+    <span>Paper Trend</span>
+  
+ <span class="rec_count">(4)</span>
+                    
+  <ul>
+    
+      
+
+      
+        <li>
+  
+  
+
+  
+    <a href="/research-study/paper-trend/2025-icde/" class="">2025 ICDE</a>
+  
+</li>
+      
+    
+      
+
+      
+        <li>
+  
+  
+
+  
+    <a href="/research-study/paper-trend/2025-vldb/" class="">2025 VLDB (Not Completed)</a>
+  
+</li>
+      
+    
+      
+
+      
+        <li>
+  
+  
+
+  
+    <a href="/research-study/paper-trend/2025-edbt/" class="">2025 EDBT</a>
+  
+</li>
+      
+    
+      
+
+      
+        <li>
+  
+  
+
+  
+    <a href="/research-study/paper-trend/2025-sigmod/" class="">2025 SIGMOD</a>
+  
+</li>
+      
+    
+  </ul>
+
+
+                  
+                </li>
+              
+            </ul>
+          
+        </li>
+
+      
+    
+      
+
+      
+        
+
+        <li>
+          
+            <input type="checkbox"
+                   id="section-5451d228399fc5c2fd05219bda7b986b"
+                   class="toggle"
+                   checked>
+            <label for="section-5451d228399fc5c2fd05219bda7b986b" class="flex justify-between cursor-pointer">
+              <span>
+                Reinforcement Learning / 강화학습
+                <span class="count">(6)</span>
+              </span>
+            </label>
+
+            <ul>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-essential/" class="">1. Reinforcement Learning Essential</a>
+  
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-mdp/" class="">2. Markov Decision Process</a>
+  
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-dp/" class="">3. Planning by Dynamic Programming</a>
+  
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-model-free-prediction/" class="">4. Model Free Prediction</a>
+  
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-model-free-control/" class="active">5. Model Free Control</a>
+  
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-value-function-approximation/" class="">6. Value Function Approximation  (Not Completed)</a>
+  
+
+                  
+                </li>
+              
+            </ul>
+          
+        </li>
+
+      
+    
+      
+
+      
+        
+
+        <li>
+          
+            <input type="checkbox"
+                   id="section-35ab8b0a17c19842fbbcf064834bc231"
+                   class="toggle"
+                   >
+            <label for="section-35ab8b0a17c19842fbbcf064834bc231" class="flex justify-between cursor-pointer">
+              <span>
+                Learned Query Optimizer
+                <span class="count">(4)</span>
+              </span>
+            </label>
+
+            <ul>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/learned-query-optimizer/loger-code/" class="">LOGER 코드 분석</a>
+  
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/learned-query-optimizer/bao-code/" class="">BAO 코드 분석</a>
+  
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/learned-query-optimizer/hana-database-porting/" class="">HANA Database Porting</a>
+  
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/learned-query-optimizer/limao-code/" class="">Limao 코드 분석</a>
+  
+
+                  
+                </li>
+              
+            </ul>
+          
+        </li>
+
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>5. Model Free Control</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#on-policyoff-policy-intro"><strong>on-policy/off-policy intro</strong></a></li>
+    <li><a href="#on-policy"><strong>on-policy</strong></a>
+      <ul>
+        <li><a href="#monte-carlo-iteration"><strong>Monte-Carlo iteration</strong></a></li>
+        <li><a href="#ε-greedy"><strong>ε-greedy</strong></a></li>
+        <li><a href="#monte-carlo-control"><strong>Monte-Carlo Control</strong></a>
+          <ul>
+            <li><a href="#greedy-in-the-limit-with-infinite-exploration-glie"><strong>Greedy in the Limit with Infinite Exploration (GLIE)</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#td-control--sarsa"><strong>TD Control : Sarsa</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#off-policy"><strong>off-policy</strong></a>
+      <ul>
+        <li><a href="#off-policy-mc"><strong>off-policy MC</strong></a></li>
+        <li><a href="#off-policy-td"><strong>off-policy TD</strong></a></li>
+        <li><a href="#q-learning--sarsa-max"><strong>Q-learning : Sarsa-max</strong></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+  <div class="post-tags">
+    <strong>Tags:</strong>
+    
+      <a href="/tags/definition" class="tag">Definition</a>
+    
+      <a href="/tags/model-free" class="tag">Model Free</a>
+    
+      <a href="/tags/monte-carlo" class="tag">Monte Carlo</a>
+    
+      <a href="/tags/temporal-difference" class="tag">Temporal Difference</a>
+    
+      <a href="/tags/reinforcement-learning" class="tag">Reinforcement Learning</a>
+    
+      <a href="/tags/rl" class="tag">RL</a>
+    
+  </div>
+
+
+
+  <div class="post-categories">
+    <strong>Categories:</strong>
+    
+      <a href="/categories/reinforcement-learning" class="category">Reinforcement Learning</a>
+    
+  </div>
+
+
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+<article class="markdown book-post">
+  <h1 style="font-weight: bold;">
+    <span style="font-weight: normal; font-size: 0.6em; color: #888;">
+      2025-09-12 11:39 KST
+    </span>
+  </h1>
+  <div class="book-post-content"><h1 id="5-model-free-control">
+  <strong>5. model-free control</strong>
+  <a class="anchor" href="#5-model-free-control">#</a>
+</h1>
+<ul>
+<li>이전장의 model-free prediction은 결국 예측하는 것이고. 이것은 실제로 행동하는것.</li>
+</ul>
+<h2 id="on-policyoff-policy-intro">
+  <strong>on-policy/off-policy intro</strong>
+  <a class="anchor" href="#on-policyoff-policy-intro">#</a>
+</h2>
+<p>π = Target Policy
+µ = Behavior Policy</p>
+<p>이두개가 같으면 on-policy 다르면 off-policy.</p>
+<ul>
+<li>
+<p>Off-policy learning : “Look over someone’s shoulder” <br>
+Learn about policy π from experience sampled from µ <br>
+<strong>re-use</strong> experience generated from old policy <br>
+<strong>Q-Learning</strong> : 
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \(\varepsilon\)
+</span>
+-greedy 방식으로 탐험하지만 학습에는 반영 안할수 있음(최적의 행동만 업데이트)</p>
+</li>
+<li>
+<p>On-policy learning : “Learn on the job” <br>
+Learn about policy π from experience sampled from π<br>
+<strong>Salsa</strong> :on-policy Q-learning. 현재 행동을 그대로 따라가며 학습</p>
+</li>
+</ul>
+<h2 id="on-policy">
+  <strong>on-policy</strong>
+  <a class="anchor" href="#on-policy">#</a>
+</h2>
+<h3 id="monte-carlo-iteration">
+  <strong>Monte-Carlo iteration</strong>
+  <a class="anchor" href="#monte-carlo-iteration">#</a>
+</h3>
+<ul>
+<li>이전장들중 policy interation 을 베이스로 한다.</li>
+<li>DP 대신에 Monte-Carlo evaluation을 넣는다.</li>
+</ul>
+<p>Monte-Carlo 방법을 통해서 Policy Evaluation은 가능.(=Monte-Carlo Evaluation)<br>
+greedy 하게 policy improvement는 action-value 펑션에 대해서만 가능하다.
+state-value function을 하려면, 모델에 대해 알아야만 가능하다.(MDP를 알아야해)<br></p>
+<p><span>
+  \[
+\pi'(s) = \arg\max_{a \in \mathcal{A}} \mathcal{R}_s^a + \sum_{s'} \mathcal{P}_{ss'}^a V(s') 
+\]
+</span>
+
+위와 대비되게 action-value function(Q 펑션) 은 model-free해서 알수 있다.</p>
+<span>
+  \[
+\pi'(s) = \arg\max_{a \in \mathcal{A}} Q(s, a)
+\]
+</span>
+
+<p>이렇게 알게된 policy를 아래 <span>
+  \(\varepsilon\)
+</span>
+-greedy  방식으로 improvement 한다.</p>
+<h3 id="ε-greedy">
+  <strong>ε-greedy</strong>
+  <a class="anchor" href="#%ce%b5-greedy">#</a>
+</h3>
+<ul>
+<li>
+<p><strong>강화학습에서 결국 옵티멀한 폴리시, 옵티멀한 value function을 가지려면, 모든 state에 대해서 탐험이 가능해야한다 <br>
+단순 greedy만으로는 이 조건을 만족 할 수 없다.</strong></p>
+</li>
+<li>
+<p>수식적으로도 입실론 그리디를 쓰면 다음 qvalue가 더 좋아진다는 것이 증명이 가능하다.
+<strong><span>
+  \(\varepsilon\)
+</span>
+-greedy Algo</strong></p>
+</li>
+</ul>
+<p>항상 최고의 행동만 고르면 탐험이 부족하고, 항상 무작위로 고르면 성능이 낮다. → 둘 사이를 적절히 섞자!</p>
+<p>예시 )<br>
+ε=0.1 (10%) <br>
+90% 확률로 현재 최적의 행동, 10% 확률로 랜덤 행동</p>
+<span>
+  \[
+\pi(a \mid s) =
+\begin{cases}
+\frac{\epsilon}{m} + 1 - \epsilon & \text{if } a^* = \arg\max_{a \in \mathcal{A}} Q(s, a) \\
+\frac{\epsilon}{m} & \text{otherwise}
+\end{cases}
+\]
+</span>
+
+<p>이것은 수학적으로 policy가 점차 좋아지는것을 나타내고 수렴한다는 계산 증명이 가능하다</p>
+<ul>
+<li>보통 decay되는 입실론 그리드를 많이 사용한다. (처음에는 탐험을 조금하지만 점점 안하도록)</li>
+</ul>
+<h3 id="monte-carlo-control">
+  <strong>Monte-Carlo Control</strong>
+  <a class="anchor" href="#monte-carlo-control">#</a>
+</h3>
+<ul>
+<li>Monde-Carlo Policy iteration 은 이전 섹션에서 설명한것</li>
+<li>MC policy interation은 여러 episode 에 대해서 돌리고 업데이트를 하는데, <br>
+생각해보니 하나의 episode만 가지고도 q-value를 업데이트 할만하기 충분하다는 직관</li>
+</ul>
+<img src="/images/rl-mc-control.png" alt="rl-mc-control" style="width:80%;" />
+<p>Monde-Carlo Control 은 하나씩의 episode 가 끝난후에 policy를 업데이트하는것 (episode 단위로 policy improvement)<br>
+이렇게 해도 되는 이유는(수렴하는이유는) <code>Greedy in the Limit with Infinite Exploration</code> 성질을 만족하기 때문이다..<br>
+(policy를 업데이트하기 위한 충분한 정보를 이미 가지고 있다 라고 볼수도 있다.) <br></p>
+<h4 id="greedy-in-the-limit-with-infinite-exploration-glie">
+  <strong>Greedy in the Limit with Infinite Exploration (GLIE)</strong>
+  <a class="anchor" href="#greedy-in-the-limit-with-infinite-exploration-glie">#</a>
+</h4>
+<ul>
+<li>지속적으로 시간이 지나면 결국 모든 state에 대해서 방문하니 방문 횟수가 무한대로 간다는 첫번째 성질
+<span>
+  \[
+\lim_{k \to \infty} N_k(s, a) = \infty
+\]
+</span>
+</li>
+<li>그리디하게 탐험하니 결국 policy가 수렴한다는 성질
+<span>
+  \[
+\lim_{k \to \infty} \pi_k(a \mid s) = \mathbf{1}\left(a = \arg\max_{a' \in \mathcal{A}} Q_k(s, a')\right)
+\]
+</span>
+</li>
+</ul>
+<h3 id="td-control--sarsa">
+  <strong>TD Control : Sarsa</strong>
+  <a class="anchor" href="#td-control--sarsa">#</a>
+</h3>
+<ul>
+<li>MC보다 적은 분산을 가지고 있고, 한 episode가 끝나기 전에 스탭마다 폴리시를 업데이트가 가능</li>
+</ul>
+<p>MC Control은 episode가 끝날때마다 정책을 개선하는데
+Salsa는 매 step마다 정책을 개선.</p>
+<div style="text-align:center;">
+  <img src="/images/rl-salsa.png" alt="rl-salsa" style="width:10%;"  />
+</div>
+<span>
+  \[
+Q(S, A) \leftarrow Q(S, A) + \alpha \left( R + \gamma Q(S', A') - Q(S, A) \right)
+\]
+</span>
+
+<ul>
+<li>TD람다와 같이 Sarsa는 람다가 적용해서 Sarsa(<span>
+  \(\lambda\)
+</span>
+) 도 있다</li>
+<li>이것을 forward view로 보면 빠르게 업데이트하는(?) step마다 업데이트하는 Sarsa의 장점을 보이기때문에 계산 및 활용이 어려우나, <br>
+backward view 의 eligibility trace의 경우 이전 step에 대해서 responsibility assignment 하기 쉬움</li>
+<li>Salsa람다는 sarsa의 기본과 eligibility trace까지 같이 업데이트 하는 것으로 이해</li>
+</ul>
+<h2 id="off-policy">
+  <strong>off-policy</strong>
+  <a class="anchor" href="#off-policy">#</a>
+</h2>
+<ul>
+<li>다른 agent나 휴먼으로부터 학습하할 수 있는 장점이 있음</li>
+<li>경험을 재사용이 가능함</li>
+<li>아직 가지못한 state에 대한 경험 같은것들을 배울수 있음 (더 탐험적 경험을 할수 있다고 이해)</li>
+<li>하나의 policy에 대해서도 여러가지 경험들이 있으니 이것들을 학습에 이용할 수 있음</li>
+</ul>
+<p><strong>behaviour policy µ를 통해서 수집하고, target policy π 를 학습하는것</strong> <br>
+이것은 다른 분포로부터 학습하는 성질을 이용
+<span>
+  \[
+\mathbb{E}_{X \sim P}[f(X)]
+= \sum P(X) f(X)
+= \sum Q(X) \frac{P(X)}{Q(X)} f(X)
+= \mathbb{E}_{X \sim Q} \left[ \frac{P(X)}{Q(X)} f(X) \right]
+\]
+</span>
+</p>
+<h3 id="off-policy-mc">
+  <strong>off-policy MC</strong>
+  <a class="anchor" href="#off-policy-mc">#</a>
+</h3>
+<ul>
+<li>Monte-Carlo 의 경우,
+다음과 같이 value function 계산에 주입된다.
+<span>
+  \[
+G_t^{\pi / \mu} =
+\frac{\pi(A_t \mid S_t)}{\mu(A_t \mid S_t)}
+\frac{\pi(A_{t+1} \mid S_{t+1})}{\mu(A_{t+1} \mid S_{t+1})}
+\cdots
+\frac{\pi(A_T \mid S_T)}{\mu(A_T \mid S_T)}
+G_t
+\]
+</span>
+
+<span>
+  \[
+V(S_t) \leftarrow V(S_t) + \alpha \left( G_t^{\pi / \mu} - V(S_t) \right)
+\]
+</span>
+</li>
+</ul>
+<h3 id="off-policy-td">
+  <strong>off-policy TD</strong>
+  <a class="anchor" href="#off-policy-td">#</a>
+</h3>
+<ul>
+<li>
+<p>TD 의 경우 다음과 같이 계산된다
+<span>
+  \[
+V(S_t) \leftarrow V(S_t) +
+\alpha \left(
+  \frac{\pi(A_t \mid S_t)}{\mu(A_t \mid S_t)}
+  \left( R_{t+1} + \gamma V(S_{t+1}) \right)
+  - V(S_t)
+\right)
+\]
+</span>
+</p>
+</li>
+<li>
+<p>MC보다 분산이 적은 off-policy TD를 더 씀. + 데이터 효율성 극대화</p>
+</li>
+</ul>
+<h3 id="q-learning--sarsa-max">
+  <strong>Q-learning : Sarsa-max</strong>
+  <a class="anchor" href="#q-learning--sarsa-max">#</a>
+</h3>
+<ul>
+<li>TD(0) = Sarsa 의 특별한 모양이 Q-learning</li>
+<li>Sara-max 라고도 부름</li>
+<li>importance sampling이 필요하지 않음</li>
+</ul>
+<p>action-value Q(s,a) 의 off-policy learning <br>
+다음 action을 선택할때 behaviour policy로부터 고르고, <span>
+  \(A_{t+1} \sim \mu(\cdot \mid S_t)\)
+</span>
+ <br>
+학습은 target policy 기반으로 진행. <span>
+  \(A' \sim \pi(\cdot \mid S_t)\)
+</span>
+<br>
+<strong>위와 같이 진행해도, Q-learing은 결국에는 <br>
+옵티멀한 action-value (q) function에 수렴한다는 성질을 이용한것.</strong> <br></p>
+<p>밑에는 improvement 하는 수식.
+<span>
+  \[
+Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha \left( R_{t+1} + \gamma Q(S_{t+1}, A') - Q(S_t, A_t) \right)
+\]
+</span>
+</p>
+<p>이렇게 하면 복잡한 weight 계산식 을 하지 않아도 된다.</p>
+<ul>
+<li>
+<p>target policy가 greedy 라면 아래와 같고
+<span>
+  \[
+\pi(S_{t+1}) = \arg\max_{a'} Q(S_{t+1}, a')
+\]
+</span>
+</p>
+</li>
+<li>
+<p>behavior policy가 입실론-greedy라면 다음과 같다.
+<span>
+  \[
+R_{t+1} + \max_{a'} \gamma Q(S_{t+1}, a')
+\]
+</span>
+</p>
+</li>
+<li>
+<p>아래와 같이 표현이 되고,( max가 되는 action을 고르는 ), 동일하게 수렴한다는 보장 할 수 있다.</p>
+</li>
+</ul>
+<div style="text-align:center;">
+  <img src="/images/rl-q-learning.png" alt="rl-q-learning" style="width:20%;"  />
+</div>
+<span>
+  \[
+Q(S, A) \leftarrow Q(S, A) + \alpha \left( R + \gamma \max_{a'} Q(S', a') - Q(S, A) \right)
+\]
+</span>
+
+<img src="/images/rl-control-wrapup.png" alt="rl-control-wrapup"  /></div>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+<script src="https://giscus.app/client.js"
+        data-repo="JaeSim/JaeSim.github.io"
+        data-repo-id="R_kgDOOtVVtw"
+        data-category="Comment"
+        data-category-id="DIC_kwDOOtVVt84Cqcxg"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#on-policyoff-policy-intro"><strong>on-policy/off-policy intro</strong></a></li>
+    <li><a href="#on-policy"><strong>on-policy</strong></a>
+      <ul>
+        <li><a href="#monte-carlo-iteration"><strong>Monte-Carlo iteration</strong></a></li>
+        <li><a href="#ε-greedy"><strong>ε-greedy</strong></a></li>
+        <li><a href="#monte-carlo-control"><strong>Monte-Carlo Control</strong></a>
+          <ul>
+            <li><a href="#greedy-in-the-limit-with-infinite-exploration-glie"><strong>Greedy in the Limit with Infinite Exploration (GLIE)</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#td-control--sarsa"><strong>TD Control : Sarsa</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#off-policy"><strong>off-policy</strong></a>
+      <ul>
+        <li><a href="#off-policy-mc"><strong>off-policy MC</strong></a></li>
+        <li><a href="#off-policy-td"><strong>off-policy TD</strong></a></li>
+        <li><a href="#q-learning--sarsa-max"><strong>Q-learning : Sarsa-max</strong></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+  <div class="post-tags">
+    <strong>Tags:</strong>
+    
+      <a href="/tags/definition" class="tag">Definition</a>
+    
+      <a href="/tags/model-free" class="tag">Model Free</a>
+    
+      <a href="/tags/monte-carlo" class="tag">Monte Carlo</a>
+    
+      <a href="/tags/temporal-difference" class="tag">Temporal Difference</a>
+    
+      <a href="/tags/reinforcement-learning" class="tag">Reinforcement Learning</a>
+    
+      <a href="/tags/rl" class="tag">RL</a>
+    
+  </div>
+
+
+
+  <div class="post-categories">
+    <strong>Categories:</strong>
+    
+      <a href="/categories/reinforcement-learning" class="category">Reinforcement Learning</a>
+    
+  </div>
+
+
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('pre > code[class^="language-"]').forEach(codeBlock => {
+      const pre = codeBlock.parentElement;
+
+      
+      const button = document.createElement('button');
+      button.innerText = '📋';
+      button.title = 'Copy code';
+      button.style = `
+        position: absolute;
+        top: 0.5em;
+        right: 0.5em;
+        padding: 2px 6px;
+        font-size: 0.8rem;
+        background: #f5f5f5;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+        z-index: 10;
+      `;
+
+      
+      button.addEventListener('click', () => {
+        navigator.clipboard.writeText(codeBlock.innerText);
+        button.innerText = '✔';
+        setTimeout(() => button.innerText = '📋', 1000);
+      });
+
+      
+      pre.style.position = 'relative';
+      pre.appendChild(button);
+    });
+  });
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

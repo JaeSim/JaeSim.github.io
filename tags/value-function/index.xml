@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Value Function on JaeSim&#39;s Workspace</title>
+    <link>https://JaeSim.github.io/tags/value-function/</link>
+    <description>Recent content in Value Function on JaeSim&#39;s Workspace</description>
+    <generator>Hugo</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Wed, 17 Sep 2025 18:00:56 +0900</lastBuildDate>
+    <atom:link href="https://JaeSim.github.io/tags/value-function/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>6. Value Function Approximation  (Not Completed)</title>
+      <link>https://JaeSim.github.io/reinforcement-learning/rl-value-function-approximation/</link>
+      <pubDate>Wed, 17 Sep 2025 18:00:56 +0900</pubDate>
+      <guid>https://JaeSim.github.io/reinforcement-learning/rl-value-function-approximation/</guid>
+      <description>&lt;h1 id=&#34;6-value-function-approximation&#34;&gt;&#xD;&#xA;  &lt;strong&gt;6. Value Function Approximation&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#6-value-function-approximation&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;blockquote class=&#34;book-hint warning&#34;&gt;&#xD;&#xA;  // NOTE: 이 페이지는 임시로 작성되었습니다.&#xD;&#xA;&lt;/blockquote&gt;&#xD;&#xA;&lt;p&gt;large MDP를 풀수 없으니 (too many state and action) value function(state-value/action-value function)을 어떻게 근사하게 구하는가?&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Liner combinations of feature&lt;/li&gt;&#xA;&lt;li&gt;Neural network&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;여기서부터 Gradient Descent 가 나온다.&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;정책 π 고정&lt;/li&gt;&#xA;&lt;li&gt;Q-function을 gradient descent로 근사 (policy evaluation)&lt;/li&gt;&#xA;&lt;li&gt;근사된 Q 기반으로 정책 개선 (policy improvement)&lt;/li&gt;&#xA;&lt;li&gt;다시 반복 (⇒ 점진적으로 최적 정책에 수렴)&lt;/li&gt;&#xA;&lt;/ol&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;value function을 근사해서 사용하므로 &lt;strong&gt;value-based&lt;/strong&gt; 라고도 한다.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

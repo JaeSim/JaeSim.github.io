@@ -14,213 +14,29 @@
 
   
     
-      WSL을 이용한 C언어 개발환경 셋업
+      6. Value Function Approximation  (Not Completed)
     
 
     
 
-    2025-09-04 10:11:10 KST
-
-    
-       
-        
-  WSL을 이용한 C언어 개발환경 셋업 하기
-  
-
-
-  기본 정보
-  
-
-
-  WSL
-  
-
-
-세상이 많이 변했다. window 위 에서 손쉽게 linux 환경을 구축하는 것 정도로 이해하면 될 것 같다
-WSL2부터는 hyper-v를 이용하는것으로 이해
-
-
-  WSL install
-  
-
-
-target PC: Window 11 home, LG gram.
-powershell에서 아래명령어 실행. 자동으로 wsl2가 설치되는것으로 이해
-
-wsl --install
-
-에러에 대한 해결. 재부팅후 wsl-in
-
-필요한 기능이 설치되어 있지 않기 때문에 작업을 시작할 수 없습니다.
-오류 코드: …
-      
-    
-
-  
-
-  
-    
-      pgvector_build
-    
-
-    
-
-    2025-09-02 11:52:47 KST
+    2025-09-17 18:00:56 KST
 
     
        
         
-  pgvector build 하기
+  6. Value Function Approximation
   
 
 
-  기본 정보
-  
+  // NOTE: 이 페이지는 임시로 작성되었습니다.
 
-
-https://github.com/pgvector/pgvector
-postgresql 이 먼저 running 한 뒤에 설치하여야한다.
-
-
-  postgresql 준비
-  
-
-
-postgres 13이상 버전 준비
-
-wget https://ftp.postgresql.org/pub/source/v17.6/postgresql-17.6.tar.gz
-tar -vxzf postgresql-17.6.tar.gz
-
-path 설정 및 build
-
-cd postgresql-17.6.tar.gz
-./configure --prefix=/home/{user}/data/postgresql-17.6 --without-readline
-sudo …
-      
-    
-
-  
-
-  
-    
-      Limao 코드 분석
-    
-
-    
-      LIMAO 프로젝트의 코드 분석 내용을 담은 내용입니다.
-    
-
-    2025-08-28 11:32:49 KST
-
-    
-       
-        
-  LIMAO 프로젝트의 코드 분석 내용
-  
-
-
-  기본정보
-  
-
-
-LIMAO: A Framework for Lifelong Modular Learned Query Optimization
-github repository
-https://github.com/Tsihan/LIMAOLifeLongRLDB
-balsa 프로젝트 위에서 코딩으로 구현되어 있는데,, 썩 잘코딩되진&hellip;
-github branch가 main은 사실상 original balsa project이며 branch를 바꿔서 테스트해야함
-model.py, optimizer.py, run.py 이 3개를 주로 코딩 작업 한것으로 이해
-plan decomposition(join을 breakpoint) …
-      
-    
-
-  
-
-  
-    
-      Milvus_build from code
-    
-
-    
-
-    2025-08-27 14:05:14 KST
-
-    
-       
-        
-  Milvus를 build 하기
-  
-
-
-  기본 정보
-  
-
-
-https://github.com/milvus-io/milvus
-아래 요구사항
-go와 c&#43;&#43;로 작성된 프로젝트로써, 사용시에는 보통 python SDK pymilvus를 이용해서 사용한다
-
-go: &gt;= 1.21
-cmake: &gt;= 3.26.4
-gcc: 9.5
-python: &gt; 3.8 and  &lt;= 3.11
-
-  준비물
-  
-
-
-  conda activate 및 git clone
-  
-
-
-conda 가상환경 설정 및 git clone
-
-conda create -n vec python=3.8
-conda activate vec
-
-git clone …
-      
-    
-
-  
-
-  
-    
-      Vector DB
-    
-
-    
-
-    2025-08-06 10:45:46 KST
-
-    
-       
-        
-  Vector Database 관련 학습 내용
-  
-
-
-본인의 이해/기억을 위해 작성한 것이므로, 많은 내용이 생략, 축약되어 있음
-
-
-  기본 정보
-  
-
-
-Vector database는 vector의 유사도 검사를 빠르게 하기 위한것
-비정형 데이터의 semantically 응답 가능
-질의했을때 유사한 vector을 top-k 개 만큼 반환하는 것
-현재로써는 RAG에서 응용되는것이 주된 사용처
-RAG flow
-
-
-[그림출처: Retrieval-Augmented Generation for Large Language Models: A Survey (https://arxiv.org/abs/2312.10997)]">
+large MDP를 풀수 없으니 (too many state and action) value function(state-value/action-value function)을 어떻게 근사하게 구하는가?">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="Home">
-  <meta property="og:description" content="Recent Posts#WSL을 이용한 C언어 개발환경 셋업2025-09-04 10:11:10 KSTWSL을 이용한 C언어 개발환경 셋업 하기기본 정보WSL세상이 많이 변했다. window 위 에서 손쉽게 linux 환경을 구축하는 것 정도로 이해하면 될 것 같다
-WSL2부터는 hyper-v를 이용하는것으로 이해 WSL installtarget PC: Window 11 home, LG gram. powershell에서 아래명령어 실행. 자동으로 wsl2가 설치되는것으로 이해 wsl --install 에러에 대한 해결. 재부팅후 wsl-in 필요한 기능이 설치되어 있지 않기 때문에 작업을 시작할 수 없습니다. 오류 코드: …pgvector_build2025-09-02 11:52:47 KSTpgvector build 하기기본 정보https://github.com/pgvector/pgvector postgresql 이 먼저 running 한 뒤에 설치하여야한다. postgresql 준비postgres 13이상 버전 준비 wget https://ftp.postgresql.org/pub/source/v17.6/postgresql-17.6.tar.gz tar -vxzf postgresql-17.6.tar.gz path 설정 및 build cd postgresql-17.6.tar.gz ./configure --prefix=/home/{user}/data/postgresql-17.6 --without-readline sudo …Limao 코드 분석LIMAO 프로젝트의 코드 분석 내용을 담은 내용입니다.2025-08-28 11:32:49 KSTLIMAO 프로젝트의 코드 분석 내용기본정보LIMAO: A Framework for Lifelong Modular Learned Query Optimization github repository https://github.com/Tsihan/LIMAOLifeLongRLDB balsa 프로젝트 위에서 코딩으로 구현되어 있는데,, 썩 잘코딩되진… github branch가 main은 사실상 original balsa project이며 branch를 바꿔서 테스트해야함 model.py, optimizer.py, run.py 이 3개를 주로 코딩 작업 한것으로 이해 plan decomposition(join을 breakpoint) …Milvus_build from code2025-08-27 14:05:14 KSTMilvus를 build 하기기본 정보https://github.com/milvus-io/milvus 아래 요구사항 go와 c&#43;&#43;로 작성된 프로젝트로써, 사용시에는 보통 python SDK pymilvus를 이용해서 사용한다 go: &gt;= 1.21 cmake: &gt;= 3.26.4 gcc: 9.5 python: &gt; 3.8 and &lt;= 3.11 준비물conda activate 및 git cloneconda 가상환경 설정 및 git clone conda create -n vec python=3.8 conda activate vec git clone …Vector DB2025-08-06 10:45:46 KSTVector Database 관련 학습 내용본인의 이해/기억을 위해 작성한 것이므로, 많은 내용이 생략, 축약되어 있음 기본 정보Vector database는 vector의 유사도 검사를 빠르게 하기 위한것 비정형 데이터의 semantically 응답 가능 질의했을때 유사한 vector을 top-k 개 만큼 반환하는 것 현재로써는 RAG에서 응용되는것이 주된 사용처 RAG flow [그림출처: Retrieval-Augmented Generation for Large Language Models: A Survey (https://arxiv.org/abs/2312.10997)]">
+  <meta property="og:description" content="Recent Posts#6. Value Function Approximation (Not Completed)2025-09-17 18:00:56 KST6. Value Function Approximation// NOTE: 이 페이지는 임시로 작성되었습니다.large MDP를 풀수 없으니 (too many state and action) value function(state-value/action-value function)을 어떻게 근사하게 구하는가?">
   <meta property="og:locale" content="ko_kr">
   <meta property="og:type" content="website">
 <title>Home | JaeSim&#39;s Workspace</title>
@@ -229,7 +45,7 @@ WSL2부터는 hyper-v를 이용하는것으로 이해 WSL installtarget PC: Win
 <link rel="canonical" href="https://JaeSim.github.io/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.6a4409729c702ba0a7e3872265380cb9b1a3599db56394acdda21103d0a93b66.js" integrity="sha256-akQJcpxwK6Cn44ciZTgMubGjWZ21Y5Ss3aIRA9CpO2Y=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.5dace7c7667f851378086f2b0660d764e3d306e0b90accd6ab0095034ba4714d.js" integrity="sha256-Xaznx2Z/hRN4CG8rBmDXZOPTBuC5CszWqwCVA0ukcU0=" crossorigin="anonymous"></script>
 <link rel="alternate" type="application/rss+xml" href="https://JaeSim.github.io/index.xml" title="JaeSim's Workspace" />
 <!--
 Made with Book Theme
@@ -278,21 +94,28 @@ https://github.com/alex-shpak/hugo-book
   <ul>
     
       
-        <li>
-          
-  
-  
 
-  
-    <span>Development / 개발</span>
-  
-
-          
-  <ul>
-    
       
+        
+
         <li>
           
+            <input type="checkbox"
+                   id="section-fa839a81c5edc0726797036b87ec4d40"
+                   class="toggle"
+                   >
+            <label for="section-fa839a81c5edc0726797036b87ec4d40" class="flex justify-between cursor-pointer">
+              <span>
+                Development / 개발
+                <span class="count">(5)</span>
+              </span>
+            </label>
+
+            <ul>
+              
+                <li>
+                  
+                    
   
   
 
@@ -300,12 +123,12 @@ https://github.com/alex-shpak/hugo-book
     <a href="/development/firstpost/" class="">할일</a>
   
 
-        </li>
-      
-    
-      
-        <li>
-          
+                  
+                </li>
+              
+                <li>
+                  
+                    
   
   
 
@@ -313,12 +136,12 @@ https://github.com/alex-shpak/hugo-book
     <a href="/development/blogsetup/" class="">Github pages 를 이용한 blog Setting (hugo &#43; hugo-book theme &#43; giscus</a>
   
 
-        </li>
-      
-    
-      
-        <li>
-          
+                  
+                </li>
+              
+                <li>
+                  
+                    
   
   
 
@@ -326,12 +149,12 @@ https://github.com/alex-shpak/hugo-book
     <a href="/development/milvus_build/" class="">Milvus_build from code</a>
   
 
-        </li>
-      
-    
-      
-        <li>
-          
+                  
+                </li>
+              
+                <li>
+                  
+                    
   
   
 
@@ -339,12 +162,12 @@ https://github.com/alex-shpak/hugo-book
     <a href="/development/pgvector_build/" class="">pgvector_build</a>
   
 
-        </li>
-      
-    
-      
-        <li>
-          
+                  
+                </li>
+              
+                <li>
+                  
+                    
   
   
 
@@ -352,232 +175,254 @@ https://github.com/alex-shpak/hugo-book
     <a href="/development/wsl-c-env/" class="">WSL을 이용한 C언어 개발환경 셋업</a>
   
 
+                  
+                </li>
+              
+            </ul>
+          
         </li>
-      
-    
-  </ul>
 
-        </li>
       
     
       
+
+      
+        
+
         <li>
           
-  
-  
+            <input type="checkbox"
+                   id="section-9013679620e0454aef52a99127bcf697"
+                   class="toggle"
+                   >
+            <label for="section-9013679620e0454aef52a99127bcf697" class="flex justify-between cursor-pointer">
+              <span>
+                Research Study
+                <span class="count">(10)</span>
+              </span>
+            </label>
 
-  
-    <span>Research Study</span>
-  
-
-          
-  <ul>
-    
-      
-        <li>
-          
+            <ul>
+              
+                <li>
+                  
+                    
+                    
   
   
 
   
     <span>Brief</span>
   
-
-          
+ <span class="rec_count">(2)</span>
+                    
   <ul>
     
       
+
+      
         <li>
-          
   
   
 
   
     <a href="/research-study/brief/graph/" class="">GNN</a>
   
-
-        </li>
+</li>
       
     
       
+
+      
         <li>
-          
   
   
 
   
     <a href="/research-study/brief/llm-build/" class="">LLM Build</a>
   
-
-        </li>
+</li>
       
     
   </ul>
 
-        </li>
-      
-    
-      
-        <li>
-          
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+                    
   
   
 
   
     <span>More deep</span>
   
-
-          
+ <span class="rec_count">(4)</span>
+                    
   <ul>
     
       
+
+      
         <li>
-          
   
   
 
   
     <a href="/research-study/more-deep/learned-index/" class="">Learned Index</a>
   
-
-        </li>
+</li>
       
     
       
+
+      
         <li>
-          
   
   
 
   
     <a href="/research-study/more-deep/learned-scheduler/" class="">Learned Scheduler</a>
   
-
-        </li>
+</li>
       
     
       
+
+      
         <li>
-          
   
   
 
   
     <a href="/research-study/more-deep/adaptive-watermark/" class="">Adaptive Watermark in Stream Processing</a>
   
-
-        </li>
+</li>
       
     
       
+
+      
         <li>
-          
   
   
 
   
     <a href="/research-study/more-deep/vector-db/" class="">Vector DB</a>
   
-
-        </li>
+</li>
       
     
   </ul>
 
-        </li>
-      
-    
-      
-        <li>
-          
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+                    
   
   
 
   
     <span>Paper Trend</span>
   
-
-          
+ <span class="rec_count">(4)</span>
+                    
   <ul>
     
       
+
+      
         <li>
-          
   
   
 
   
     <a href="/research-study/paper-trend/2025-icde/" class="">2025 ICDE</a>
   
-
-        </li>
+</li>
       
     
       
+
+      
         <li>
-          
   
   
 
   
     <a href="/research-study/paper-trend/2025-vldb/" class="">2025 VLDB (Not Completed)</a>
   
-
-        </li>
+</li>
       
     
       
+
+      
         <li>
-          
   
   
 
   
     <a href="/research-study/paper-trend/2025-edbt/" class="">2025 EDBT</a>
   
-
-        </li>
+</li>
       
     
       
+
+      
         <li>
-          
   
   
 
   
     <a href="/research-study/paper-trend/2025-sigmod/" class="">2025 SIGMOD</a>
   
-
-        </li>
+</li>
       
     
   </ul>
 
-        </li>
-      
-    
-  </ul>
 
+                  
+                </li>
+              
+            </ul>
+          
         </li>
+
       
     
       
+
+      
+        
+
         <li>
           
-  
-  
+            <input type="checkbox"
+                   id="section-5451d228399fc5c2fd05219bda7b986b"
+                   class="toggle"
+                   >
+            <label for="section-5451d228399fc5c2fd05219bda7b986b" class="flex justify-between cursor-pointer">
+              <span>
+                Reinforcement Learning / 강화학습
+                <span class="count">(6)</span>
+              </span>
+            </label>
 
-  
-    <span>Reinforcement Learning / 강화학습</span>
-  
-
-          
-  <ul>
-    
-      
-        <li>
-          
+            <ul>
+              
+                <li>
+                  
+                    
   
   
 
@@ -585,12 +430,12 @@ https://github.com/alex-shpak/hugo-book
     <a href="/reinforcement-learning/rl-essential/" class="">1. Reinforcement Learning Essential</a>
   
 
-        </li>
-      
-    
-      
-        <li>
-          
+                  
+                </li>
+              
+                <li>
+                  
+                    
   
   
 
@@ -598,12 +443,12 @@ https://github.com/alex-shpak/hugo-book
     <a href="/reinforcement-learning/rl-mdp/" class="">2. Markov Decision Process</a>
   
 
-        </li>
-      
-    
-      
-        <li>
-          
+                  
+                </li>
+              
+                <li>
+                  
+                    
   
   
 
@@ -611,43 +456,77 @@ https://github.com/alex-shpak/hugo-book
     <a href="/reinforcement-learning/rl-dp/" class="">3. Planning by Dynamic Programming</a>
   
 
+                  
+                </li>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-model-free-prediction/" class="">4. Model Free Prediction</a>
+  
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-model-free-control/" class="">5. Model Free Control</a>
+  
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-value-function-approximation/" class="">6. Value Function Approximation  (Not Completed)</a>
+  
+
+                  
+                </li>
+              
+            </ul>
+          
         </li>
+
       
     
       
+
+      
+        
+
         <li>
           
-  
-  
+            <input type="checkbox"
+                   id="section-35ab8b0a17c19842fbbcf064834bc231"
+                   class="toggle"
+                   >
+            <label for="section-35ab8b0a17c19842fbbcf064834bc231" class="flex justify-between cursor-pointer">
+              <span>
+                Learned Query Optimizer
+                <span class="count">(4)</span>
+              </span>
+            </label>
 
-  
-    <a href="/reinforcement-learning/rl-model-free-prediction/" class="">temp. 4. Model Free Prediction</a>
-  
-
-        </li>
-      
-    
-  </ul>
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <span>Learned Query Optimizer</span>
-  
-
-          
-  <ul>
-    
-      
-        <li>
-          
+            <ul>
+              
+                <li>
+                  
+                    
   
   
 
@@ -655,12 +534,12 @@ https://github.com/alex-shpak/hugo-book
     <a href="/learned-query-optimizer/loger-code/" class="">LOGER 코드 분석</a>
   
 
-        </li>
-      
-    
-      
-        <li>
-          
+                  
+                </li>
+              
+                <li>
+                  
+                    
   
   
 
@@ -668,12 +547,12 @@ https://github.com/alex-shpak/hugo-book
     <a href="/learned-query-optimizer/bao-code/" class="">BAO 코드 분석</a>
   
 
-        </li>
-      
-    
-      
-        <li>
-          
+                  
+                </li>
+              
+                <li>
+                  
+                    
   
   
 
@@ -681,12 +560,12 @@ https://github.com/alex-shpak/hugo-book
     <a href="/learned-query-optimizer/hana-database-porting/" class="">HANA Database Porting</a>
   
 
-        </li>
-      
-    
-      
-        <li>
-          
+                  
+                </li>
+              
+                <li>
+                  
+                    
   
   
 
@@ -694,15 +573,17 @@ https://github.com/alex-shpak/hugo-book
     <a href="/learned-query-optimizer/limao-code/" class="">Limao 코드 분석</a>
   
 
+                  
+                </li>
+              
+            </ul>
+          
         </li>
+
       
     
   </ul>
 
-        </li>
-      
-    
-  </ul>
 
 
 
@@ -799,6 +680,81 @@ https://github.com/alex-shpak/hugo-book
 </style>
 
 <ul>
+
+  <li style="margin-bottom: 2rem;">
+    <a href="/reinforcement-learning/rl-value-function-approximation/">
+      <strong style="font-size: 1.25rem;">6. Value Function Approximation  (Not Completed)</strong>
+    </a><br/>
+
+    
+
+    <small>2025-09-17 18:00:56 KST</small>
+
+    <a href="/reinforcement-learning/rl-value-function-approximation/" style="text-decoration: none; color: inherit;">
+      <div class="summary-box"> 
+        <h1 id="6-value-function-approximation">
+  <strong>6. Value Function Approximation</strong>
+  
+</h1>
+<blockquote class="book-hint warning">
+  // NOTE: 이 페이지는 임시로 작성되었습니다.
+</blockquote>
+<p>large MDP를 풀수 없으니 (too many state and action) value function(state-value/action-value function)을 어떻게 근사하게 구하는가?</p>
+<ul>
+<li>Liner combinations of feature</li>
+<li>Neural network</li>
+</ul>
+<p>여기서부터 Gradient Descent 가 나온다.</p>
+<blockquote>
+<ol>
+<li>정책 π 고정</li>
+<li>Q-function을 gradient descent로 근사 (policy evaluation)</li>
+<li>근사된 Q 기반으로 정책 개선 (policy improvement)</li>
+<li>다시 반복 (⇒ 점진적으로 최적 정책에 수렴) …</li></ol></blockquote>
+      </div>
+    </a>
+
+  </li>
+
+  <li style="margin-bottom: 2rem;">
+    <a href="/reinforcement-learning/rl-model-free-control/">
+      <strong style="font-size: 1.25rem;">5. Model Free Control</strong>
+    </a><br/>
+
+    
+
+    <small>2025-09-12 11:39:17 KST</small>
+
+    <a href="/reinforcement-learning/rl-model-free-control/" style="text-decoration: none; color: inherit;">
+      <div class="summary-box"> 
+        <h1 id="5-model-free-control">
+  <strong>5. model-free control</strong>
+  
+</h1>
+<ul>
+<li>이전장의 model-free prediction은 결국 예측하는 것이고. 이것은 실제로 행동하는것.</li>
+</ul>
+<h2 id="on-policyoff-policy-intro">
+  <strong>on-policy/off-policy intro</strong>
+  
+</h2>
+<p>π = Target Policy
+µ = Behavior Policy</p>
+<p>이두개가 같으면 on-policy 다르면 off-policy.</p>
+<ul>
+<li>
+<p>Off-policy learning : “Look over someone’s shoulder” <br>
+Learn about policy π from experience sampled from µ <br>
+<strong>re-use</strong> experience generated from old policy <br>
+<strong>Q-Learning</strong> : 
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \(\varepsilon\) …</span></p></li></ul>
+      </div>
+    </a>
+
+  </li>
 
   <li style="margin-bottom: 2rem;">
     <a href="/development/wsl-c-env/">
@@ -918,93 +874,6 @@ https://github.com/Tsihan/LIMAOLifeLongRLDB</li>
 <li>github branch가 main은 사실상 original balsa project이며 branch를 바꿔서 테스트해야함</li>
 <li>model.py, optimizer.py, run.py 이 3개를 주로 코딩 작업 한것으로 이해</li>
 <li>plan decomposition(join을 breakpoint) …</li></ul>
-      </div>
-    </a>
-
-  </li>
-
-  <li style="margin-bottom: 2rem;">
-    <a href="/development/milvus_build/">
-      <strong style="font-size: 1.25rem;">Milvus_build from code</strong>
-    </a><br/>
-
-    
-
-    <small>2025-08-27 14:05:14 KST</small>
-
-    <a href="/development/milvus_build/" style="text-decoration: none; color: inherit;">
-      <div class="summary-box"> 
-        <h1 id="milvus를-build-하기">
-  <strong>Milvus를 build 하기</strong>
-  
-</h1>
-<h2 id="기본-정보">
-  <strong>기본 정보</strong>
-  
-</h2>
-<ul>
-<li>https://github.com/milvus-io/milvus</li>
-<li>아래 요구사항</li>
-<li>go와 c++로 작성된 프로젝트로써, 사용시에는 보통 python SDK <code>pymilvus</code>를 이용해서 사용한다</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>go: &gt;<span style="color:#f92672">=</span> 1.21
-</span></span><span style="display:flex;"><span>cmake: &gt;<span style="color:#f92672">=</span> 3.26.4
-</span></span><span style="display:flex;"><span>gcc: 9.5
-</span></span><span style="display:flex;"><span>python: &gt; 3.8 and  &lt;<span style="color:#f92672">=</span> 3.11
-</span></span></code></pre></div><h3 id="준비물">
-  <strong>준비물</strong>
-  
-</h3>
-<h4 id="conda-activate-및-git-clone">
-  <strong>conda activate 및 git clone</strong>
-  
-</h4>
-<ul>
-<li>conda 가상환경 설정 및 git clone</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>conda create -n vec python<span style="color:#f92672">=</span>3.8
-</span></span><span style="display:flex;"><span>conda activate vec
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>git clone …</span></span></span></span></span></span></span></span></code></pre></div>
-      </div>
-    </a>
-
-  </li>
-
-  <li style="margin-bottom: 2rem;">
-    <a href="/research-study/more-deep/vector-db/">
-      <strong style="font-size: 1.25rem;">Vector DB</strong>
-    </a><br/>
-
-    
-
-    <small>2025-08-06 10:45:46 KST</small>
-
-    <a href="/research-study/more-deep/vector-db/" style="text-decoration: none; color: inherit;">
-      <div class="summary-box"> 
-        <h1 id="vector-database-관련-학습-내용">
-  <strong>Vector Database 관련 학습 내용</strong>
-  
-</h1>
-<ul>
-<li>본인의 이해/기억을 위해 작성한 것이므로, 많은 내용이 생략, 축약되어 있음</li>
-</ul>
-<h2 id="기본-정보">
-  <strong>기본 정보</strong>
-  
-</h2>
-<ul>
-<li>Vector database는 vector의 유사도 검사를 빠르게 하기 위한것</li>
-<li>비정형 데이터의 semantically 응답 가능</li>
-<li>질의했을때 유사한 vector을 top-k 개 만큼 반환하는 것</li>
-<li>현재로써는 RAG에서 응용되는것이 주된 사용처</li>
-<li>RAG flow
-<img src="/images/rag_flow.png" alt="lis_trad_is_good"/></li>
-</ul>
-<p>[그림출처: Retrieval-Augmented Generation for Large Language Models: A Survey (https://arxiv.org/abs/2312.10997)]</p>
-<ul>
-<li>보통 벡터 임베딩과 메타데이터로 구성되어 있음</li>
-<li>최근접 이웃 (KNN) …</li></ul>
       </div>
     </a>
 

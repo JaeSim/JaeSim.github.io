@@ -107,6 +107,11 @@
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>https://JaeSim.github.io/reinforcement-learning/rl-model-free-control/</loc>
+    <lastmod>2025-09-12T11:39:17+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://JaeSim.github.io/development/milvus_build/</loc>
     <lastmod>2025-08-27T14:05:14+09:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -119,6 +124,11 @@
   </url><url>
     <loc>https://JaeSim.github.io/research-study/paper-trend/2025-icde/</loc>
     <lastmod>2025-07-21T10:25:18+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/reinforcement-learning/rl-value-function-approximation/</loc>
+    <lastmod>2025-09-17T18:00:56+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -152,6 +162,66 @@
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>https://JaeSim.github.io/tags/approximiation/</loc>
+    <lastmod>2025-09-17T18:00:56+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/categories/</loc>
+    <lastmod>2025-09-17T18:00:56+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/definition/</loc>
+    <lastmod>2025-09-17T18:00:56+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/</loc>
+    <lastmod>2025-09-17T18:00:56+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/model-free/</loc>
+    <lastmod>2025-09-17T18:00:56+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/categories/reinforcement-learning/</loc>
+    <lastmod>2025-09-17T18:00:56+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/reinforcement-learning/</loc>
+    <lastmod>2025-09-17T18:00:56+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/rl/</loc>
+    <lastmod>2025-09-17T18:00:56+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/</loc>
+    <lastmod>2025-09-17T18:00:56+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/value-function/</loc>
+    <lastmod>2025-09-17T18:00:56+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/monte-carlo/</loc>
+    <lastmod>2025-09-12T11:39:17+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/temporal-difference/</loc>
+    <lastmod>2025-09-12T11:39:17+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://JaeSim.github.io/tags/c/</loc>
     <lastmod>2025-09-04T10:11:10+09:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -162,22 +232,7 @@
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://JaeSim.github.io/categories/</loc>
-    <lastmod>2025-09-04T10:11:10+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
     <loc>https://JaeSim.github.io/categories/development/</loc>
-    <lastmod>2025-09-04T10:11:10+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://JaeSim.github.io/</loc>
-    <lastmod>2025-09-04T10:11:10+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://JaeSim.github.io/tags/</loc>
     <lastmod>2025-09-04T10:11:10+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -253,11 +308,6 @@
     <priority>0.5</priority>
   </url><url>
     <loc>https://JaeSim.github.io/tags/optimizer/</loc>
-    <lastmod>2025-08-28T11:32:49+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://JaeSim.github.io/tags/reinforcement-learning/</loc>
     <lastmod>2025-08-28T11:32:49+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -357,11 +407,6 @@
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://JaeSim.github.io/tags/rl/</loc>
-    <lastmod>2025-07-03T10:53:40+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
     <loc>https://JaeSim.github.io/categories/learned-index/</loc>
     <lastmod>2025-07-02T13:01:23+09:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -389,31 +434,6 @@
   </url><url>
     <loc>https://JaeSim.github.io/tags/loger/</loc>
     <lastmod>2025-06-12T11:50:33+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://JaeSim.github.io/tags/definition/</loc>
-    <lastmod>2025-06-12T10:57:55+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://JaeSim.github.io/tags/model-free/</loc>
-    <lastmod>2025-06-12T10:57:55+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://JaeSim.github.io/tags/monte-carlo/</loc>
-    <lastmod>2025-06-12T10:57:55+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://JaeSim.github.io/categories/reinforcement-learning/</loc>
-    <lastmod>2025-06-12T10:57:55+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://JaeSim.github.io/tags/temporal-difference/</loc>
-    <lastmod>2025-06-12T10:57:55+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
