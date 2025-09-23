@@ -14,29 +14,35 @@
 
   
     
-      6. Value Function Approximation  (Not Completed)
+      7. Polciy Gradient Methods (Not completed)
     
 
     
 
-    2025-09-17 18:00:56 KST
+    2025-09-23 13:22:02 KST
 
     
        
         
-  6. Value Function Approximation
+  7. Policy Gradient Method
   
 
 
   // NOTE: 이 페이지는 임시로 작성되었습니다.
 
-large MDP를 풀수 없으니 (too many state and action) value function(state-value/action-value function)을 어떻게 근사하게 구하는가?">
+이전섹션에서는 action-value function(state value function, action-value function)을 근사해서 옵티멀한 value function을 찾아 갔다. 이때 policy는 
+
+
+
+  \(\epsilon\)
+
+-greedy.">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="Home">
-  <meta property="og:description" content="Recent Posts#6. Value Function Approximation (Not Completed)2025-09-17 18:00:56 KST6. Value Function Approximation// NOTE: 이 페이지는 임시로 작성되었습니다.large MDP를 풀수 없으니 (too many state and action) value function(state-value/action-value function)을 어떻게 근사하게 구하는가?">
+  <meta property="og:description" content="Recent Posts#7. Polciy Gradient Methods (Not completed)2025-09-23 13:22:02 KST7. Policy Gradient Method// NOTE: 이 페이지는 임시로 작성되었습니다.이전섹션에서는 action-value function(state value function, action-value function)을 근사해서 옵티멀한 value function을 찾아 갔다. 이때 policy는 \(\epsilon\)-greedy.">
   <meta property="og:locale" content="ko_kr">
   <meta property="og:type" content="website">
 <title>Home | JaeSim&#39;s Workspace</title>
@@ -45,7 +51,7 @@ large MDP를 풀수 없으니 (too many state and action) value function(state-v
 <link rel="canonical" href="https://JaeSim.github.io/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.5dace7c7667f851378086f2b0660d764e3d306e0b90accd6ab0095034ba4714d.js" integrity="sha256-Xaznx2Z/hRN4CG8rBmDXZOPTBuC5CszWqwCVA0ukcU0=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.5f586b61308625a00bb468d15f8cc92f7321c7d071dc5e869c2bbbdb3c1bb250.js" integrity="sha256-X1hrYTCGJaALtGjRX4zJL3Mhx9Bx3F6GnCu72zwbslA=" crossorigin="anonymous"></script>
 <link rel="alternate" type="application/rss+xml" href="https://JaeSim.github.io/index.xml" title="JaeSim's Workspace" />
 <!--
 Made with Book Theme
@@ -414,7 +420,7 @@ https://github.com/alex-shpak/hugo-book
             <label for="section-5451d228399fc5c2fd05219bda7b986b" class="flex justify-between cursor-pointer">
               <span>
                 Reinforcement Learning / 강화학습
-                <span class="count">(6)</span>
+                <span class="count">(7)</span>
               </span>
             </label>
 
@@ -492,7 +498,20 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/reinforcement-learning/rl-value-function-approximation/" class="">6. Value Function Approximation  (Not Completed)</a>
+    <a href="/reinforcement-learning/rl-value-function-approximation/" class="">6. Value Function Approximation</a>
+  
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-policy-gradient-methods/" class="">7. Polciy Gradient Methods (Not completed)</a>
   
 
                   
@@ -682,8 +701,42 @@ https://github.com/alex-shpak/hugo-book
 <ul>
 
   <li style="margin-bottom: 2rem;">
+    <a href="/reinforcement-learning/rl-policy-gradient-methods/">
+      <strong style="font-size: 1.25rem;">7. Polciy Gradient Methods (Not completed)</strong>
+    </a><br/>
+
+    
+
+    <small>2025-09-23 13:22:02 KST</small>
+
+    <a href="/reinforcement-learning/rl-policy-gradient-methods/" style="text-decoration: none; color: inherit;">
+      <div class="summary-box"> 
+        <h1 id="7-policy-gradient-method">
+  <strong>7. Policy Gradient Method</strong>
+  
+</h1>
+<blockquote class="book-hint warning">
+  // NOTE: 이 페이지는 임시로 작성되었습니다.
+</blockquote>
+<p>이전섹션에서는 action-value function(state value function, action-value function)을 근사해서 옵티멀한 value function을 찾아 갔다. 이때 policy는 
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \(\epsilon\)
+</span>
+-greedy.</p>
+<p>policy gradient는 policy parameter를 직접 업데이트 한다. <strong>policy-based !</strong> <br>
+policy를 direct 로 업데이트 하는것 <br>
+이는 large complicated environment에 좀더 적합. 각 state를 명확하게 구분하기 어려울때. <br>
+(Policy는 value  …</p>
+      </div>
+    </a>
+
+  </li>
+
+  <li style="margin-bottom: 2rem;">
     <a href="/reinforcement-learning/rl-value-function-approximation/">
-      <strong style="font-size: 1.25rem;">6. Value Function Approximation  (Not Completed)</strong>
+      <strong style="font-size: 1.25rem;">6. Value Function Approximation</strong>
     </a><br/>
 
     
@@ -696,21 +749,29 @@ https://github.com/alex-shpak/hugo-book
   <strong>6. Value Function Approximation</strong>
   
 </h1>
-<blockquote class="book-hint warning">
-  // NOTE: 이 페이지는 임시로 작성되었습니다.
-</blockquote>
 <p>large MDP를 풀수 없으니 (too many state and action) value function(state-value/action-value function)을 어떻게 근사하게 구하는가?</p>
 <ul>
 <li>Liner combinations of feature</li>
 <li>Neural network</li>
 </ul>
+
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \[
+
+\hat{v}(s, \mathbf{w}) \approx v_\pi(s)
+\quad \text{or} \quad
+\hat{q}(s, a, \mathbf{w}) \approx q_\pi(s,a)
+
+\]
+</span>
+
 <p>여기서부터 Gradient Descent 가 나온다.</p>
 <blockquote>
 <ol>
 <li>정책 π 고정</li>
-<li>Q-function을 gradient descent로 근사 (policy evaluation)</li>
-<li>근사된 Q 기반으로 정책 개선 (policy improvement)</li>
-<li>다시 반복 (⇒ 점진적으로 최적 정책에 수렴) …</li></ol></blockquote>
+<li>Q-function을 gradient …</li></ol></blockquote>
       </div>
     </a>
 
@@ -840,40 +901,6 @@ WSL2부터는 hyper-v를 이용하는것으로 이해</li>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cd postgresql-17.6.tar.gz
 </span></span><span style="display:flex;"><span>./configure --prefix<span style="color:#f92672">=</span>/home/<span style="color:#f92672">{</span>user<span style="color:#f92672">}</span>/data/postgresql-17.6 --without-readline
 </span></span><span style="display:flex;"><span>sudo …</span></span></span></span></span></span></code></pre></div>
-      </div>
-    </a>
-
-  </li>
-
-  <li style="margin-bottom: 2rem;">
-    <a href="/learned-query-optimizer/limao-code/">
-      <strong style="font-size: 1.25rem;">Limao 코드 분석</strong>
-    </a><br/>
-
-    
-      <small style="color: #888;">LIMAO 프로젝트의 코드 분석 내용을 담은 내용입니다.</small><br/>
-    
-
-    <small>2025-08-28 11:32:49 KST</small>
-
-    <a href="/learned-query-optimizer/limao-code/" style="text-decoration: none; color: inherit;">
-      <div class="summary-box"> 
-        <h1 id="limao-프로젝트의-코드-분석-내용">
-  <strong>LIMAO 프로젝트의 코드 분석 내용</strong>
-  
-</h1>
-<h2 id="기본정보">
-  <strong>기본정보</strong>
-  
-</h2>
-<ul>
-<li>LIMAO: A Framework for Lifelong Modular Learned Query Optimization</li>
-<li>github repository
-https://github.com/Tsihan/LIMAOLifeLongRLDB</li>
-<li><em><strong>balsa 프로젝트 위에서 코딩으로 구현되어 있는데,, 썩 잘코딩되진&hellip;</strong></em></li>
-<li>github branch가 main은 사실상 original balsa project이며 branch를 바꿔서 테스트해야함</li>
-<li>model.py, optimizer.py, run.py 이 3개를 주로 코딩 작업 한것으로 이해</li>
-<li>plan decomposition(join을 breakpoint) …</li></ul>
       </div>
     </a>
 

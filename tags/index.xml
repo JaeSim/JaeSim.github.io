@@ -6,48 +6,55 @@
     <description>Recent content in Tags on JaeSim&#39;s Workspace</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Wed, 17 Sep 2025 18:00:56 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 23 Sep 2025 13:22:02 +0900</lastBuildDate>
     <atom:link href="https://JaeSim.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Approximiation</title>
-      <link>https://JaeSim.github.io/tags/approximiation/</link>
-      <pubDate>Wed, 17 Sep 2025 18:00:56 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/approximiation/</guid>
-      <description></description>
-    </item>
     <item>
       <title>Definition</title>
       <link>https://JaeSim.github.io/tags/definition/</link>
-      <pubDate>Wed, 17 Sep 2025 18:00:56 +0900</pubDate>
+      <pubDate>Tue, 23 Sep 2025 13:22:02 +0900</pubDate>
       <guid>https://JaeSim.github.io/tags/definition/</guid>
       <description></description>
     </item>
     <item>
       <title>Model Free</title>
       <link>https://JaeSim.github.io/tags/model-free/</link>
-      <pubDate>Wed, 17 Sep 2025 18:00:56 +0900</pubDate>
+      <pubDate>Tue, 23 Sep 2025 13:22:02 +0900</pubDate>
       <guid>https://JaeSim.github.io/tags/model-free/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Policy Gradient</title>
+      <link>https://JaeSim.github.io/tags/policy-gradient/</link>
+      <pubDate>Tue, 23 Sep 2025 13:22:02 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/policy-gradient/</guid>
       <description></description>
     </item>
     <item>
       <title>Reinforcement Learning</title>
       <link>https://JaeSim.github.io/tags/reinforcement-learning/</link>
-      <pubDate>Wed, 17 Sep 2025 18:00:56 +0900</pubDate>
+      <pubDate>Tue, 23 Sep 2025 13:22:02 +0900</pubDate>
       <guid>https://JaeSim.github.io/tags/reinforcement-learning/</guid>
       <description></description>
     </item>
     <item>
       <title>RL</title>
       <link>https://JaeSim.github.io/tags/rl/</link>
-      <pubDate>Wed, 17 Sep 2025 18:00:56 +0900</pubDate>
+      <pubDate>Tue, 23 Sep 2025 13:22:02 +0900</pubDate>
       <guid>https://JaeSim.github.io/tags/rl/</guid>
       <description></description>
     </item>
     <item>
       <title>Value Function</title>
       <link>https://JaeSim.github.io/tags/value-function/</link>
-      <pubDate>Wed, 17 Sep 2025 18:00:56 +0900</pubDate>
+      <pubDate>Tue, 23 Sep 2025 13:22:02 +0900</pubDate>
       <guid>https://JaeSim.github.io/tags/value-function/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Approximiation</title>
+      <link>https://JaeSim.github.io/tags/approximiation/</link>
+      <pubDate>Wed, 17 Sep 2025 18:00:56 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/approximiation/</guid>
       <description></description>
     </item>
     <item>

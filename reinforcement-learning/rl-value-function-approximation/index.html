@@ -7,13 +7,23 @@
   6. Value Function Approximation
   #
 
-
-  // NOTE: 이 페이지는 임시로 작성되었습니다.
-
 large MDP를 풀수 없으니 (too many state and action) value function(state-value/action-value function)을 어떻게 근사하게 구하는가?
 
 Liner combinations of feature
 Neural network
+
+
+
+
+
+  \[
+
+\hat{v}(s, \mathbf{w}) \approx v_\pi(s)
+\quad \text{or} \quad
+\hat{q}(s, a, \mathbf{w}) \approx q_\pi(s,a)
+
+\]
+
 
 여기서부터 Gradient Descent 가 나온다.
 
@@ -28,9 +38,9 @@ value function을 근사해서 사용하므로 value-based 라고도 한다.">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/reinforcement-learning/rl-value-function-approximation/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
-  <meta property="og:title" content="6. Value Function Approximation  (Not Completed)">
-  <meta property="og:description" content="6. Value Function Approximation#// NOTE: 이 페이지는 임시로 작성되었습니다.large MDP를 풀수 없으니 (too many state and action) value function(state-value/action-value function)을 어떻게 근사하게 구하는가?
-Liner combinations of feature Neural network 여기서부터 Gradient Descent 가 나온다.
+  <meta property="og:title" content="6. Value Function Approximation">
+  <meta property="og:description" content="6. Value Function Approximation#large MDP를 풀수 없으니 (too many state and action) value function(state-value/action-value function)을 어떻게 근사하게 구하는가?
+Liner combinations of feature Neural network \[\hat{v}(s, \mathbf{w}) \approx v_\pi(s)\quad \text{or} \quad\hat{q}(s, a, \mathbf{w}) \approx q_\pi(s,a)\]여기서부터 Gradient Descent 가 나온다.
 정책 π 고정 Q-function을 gradient descent로 근사 (policy evaluation) 근사된 Q 기반으로 정책 개선 (policy improvement) 다시 반복 (⇒ 점진적으로 최적 정책에 수렴) value function을 근사해서 사용하므로 value-based 라고도 한다.">
   <meta property="og:locale" content="ko_kr">
   <meta property="og:type" content="article">
@@ -43,13 +53,13 @@ Liner combinations of feature Neural network 여기서부터 Gradient Descent �
     <meta property="article:tag" content="Approximiation">
     <meta property="article:tag" content="Reinforcement Learning">
     <meta property="article:tag" content="RL">
-<title>6. Value Function Approximation  (Not Completed) | JaeSim&#39;s Workspace</title>
+<title>6. Value Function Approximation | JaeSim&#39;s Workspace</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
 <link rel="canonical" href="https://JaeSim.github.io/reinforcement-learning/rl-value-function-approximation/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.5dace7c7667f851378086f2b0660d764e3d306e0b90accd6ab0095034ba4714d.js" integrity="sha256-Xaznx2Z/hRN4CG8rBmDXZOPTBuC5CszWqwCVA0ukcU0=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.5f586b61308625a00bb468d15f8cc92f7321c7d071dc5e869c2bbbdb3c1bb250.js" integrity="sha256-X1hrYTCGJaALtGjRX4zJL3Mhx9Bx3F6GnCu72zwbslA=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -417,7 +427,7 @@ https://github.com/alex-shpak/hugo-book
             <label for="section-5451d228399fc5c2fd05219bda7b986b" class="flex justify-between cursor-pointer">
               <span>
                 Reinforcement Learning / 강화학습
-                <span class="count">(6)</span>
+                <span class="count">(7)</span>
               </span>
             </label>
 
@@ -495,7 +505,20 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/reinforcement-learning/rl-value-function-approximation/" class="active">6. Value Function Approximation  (Not Completed)</a>
+    <a href="/reinforcement-learning/rl-value-function-approximation/" class="active">6. Value Function Approximation</a>
+  
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-policy-gradient-methods/" class="">7. Polciy Gradient Methods (Not completed)</a>
   
 
                   
@@ -621,7 +644,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <h3>6. Value Function Approximation  (Not Completed)</h3>
+  <h3>6. Value Function Approximation</h3>
 
   <label for="toc-control">
     
@@ -639,35 +662,26 @@ https://github.com/alex-shpak/hugo-book
   <ul>
     <li><a href="#incremental-method"><strong>Incremental Method</strong></a>
       <ul>
-        <li><a href="#action-value-function-approximation"><strong>Action-value function Approximation</strong></a></li>
+        <li><a href="#value-function-approximation"><strong>Value Function Approximation</strong></a>
+          <ul>
+            <li><a href="#linear-function-approximation"><strong>Linear Function Approximation</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#incremental-prediction-algorithms"><strong>Incremental Prediction Algorithms</strong></a></li>
+        <li><a href="#incremental-control-algorithms"><strong>Incremental Control Algorithms</strong></a></li>
         <li><a href="#convergence-of-control-algo"><strong>Convergence of Control Algo</strong></a></li>
       </ul>
     </li>
     <li><a href="#batch-method"><strong>Batch Method</strong></a>
       <ul>
         <li><a href="#experience-replay"><strong>Experience Replay</strong></a></li>
-        <li><a href="#prioritized-experience-replay-per"><strong>Prioritized Experience Replay (PER)</strong></a></li>
+        <li><a href="#experience-replay-in-dqn"><strong>Experience Replay in DQN</strong></a>
+          <ul>
+            <li><a href="#linear-least-squarses-control"><strong>Linear Least Squarses Control</strong></a></li>
+          </ul>
+        </li>
       </ul>
     </li>
-  </ul>
-
-  <ul>
-    <li><a href="#actor-critic"><strong>Actor-Critic</strong></a>
-      <ul>
-        <li><a href="#proximal-policy-optimization-ppo"><strong>Proximal Policy Optimization (PPO)</strong></a></li>
-      </ul>
-    </li>
-  </ul>
-
-  <ul>
-    <li><a href="#model-based-rl"><strong>Model-based RL</strong></a></li>
-    <li><a href="#simulation-based-search"><strong>Simulation-based Search</strong></a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#model-agnostic-meta-learningmaml"><strong>Model-Agnostic Meta-Learning(MAML)</strong></a></li>
-    <li><a href="#per"><strong>PER</strong></a></li>
-    <li><a href="#참조">참조</a></li>
   </ul>
 </nav>
 
@@ -718,14 +732,24 @@ https://github.com/alex-shpak/hugo-book
   <strong>6. Value Function Approximation</strong>
   <a class="anchor" href="#6-value-function-approximation">#</a>
 </h1>
-<blockquote class="book-hint warning">
-  // NOTE: 이 페이지는 임시로 작성되었습니다.
-</blockquote>
 <p>large MDP를 풀수 없으니 (too many state and action) value function(state-value/action-value function)을 어떻게 근사하게 구하는가?</p>
 <ul>
 <li>Liner combinations of feature</li>
 <li>Neural network</li>
 </ul>
+
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \[
+
+\hat{v}(s, \mathbf{w}) \approx v_\pi(s)
+\quad \text{or} \quad
+\hat{q}(s, a, \mathbf{w}) \approx q_\pi(s,a)
+
+\]
+</span>
+
 <p>여기서부터 Gradient Descent 가 나온다.</p>
 <blockquote>
 <ol>
@@ -735,248 +759,370 @@ https://github.com/alex-shpak/hugo-book
 <li>다시 반복 (⇒ 점진적으로 최적 정책에 수렴)</li>
 </ol></blockquote>
 <p>value function을 근사해서 사용하므로 <strong>value-based</strong> 라고도 한다.</p>
+<ul>
+<li>
+<p>IID 트레이닝 method는 RL방법론에 적합하지 않다. (RL은 이전행동이 현재 행동에 크게 영향을 미치므로)</p>
+</li>
+<li>
+<p>neural network처럼 한스탭마다 value function을 online 업데이트하는 incremental method와 한번에 모아서 하는 batch method가 있다(data efficiency). <br>이것은 RL 관점에서는 중요한 분류가 아니지만, RL학습 코스(David Silver)에서는 이를 순차적으로 소개한것 정도로만 집고 넘어가자</p>
+</li>
+</ul>
 <h2 id="incremental-method">
   <strong>Incremental Method</strong>
   <a class="anchor" href="#incremental-method">#</a>
 </h2>
-<h3 id="action-value-function-approximation">
-  <strong>Action-value function Approximation</strong>
-  <a class="anchor" href="#action-value-function-approximation">#</a>
+<h3 id="value-function-approximation">
+  <strong>Value Function Approximation</strong>
+  <a class="anchor" href="#value-function-approximation">#</a>
 </h3>
 <p>아래와 같이 action value function은 approximate를 통해서 표현될수 있고.
-델타 W를 작게하므로써 근사를 구할 수 있다.
+델타 W를 작게하므로써 근사를 구할 수 있다.</p>
+<ul>
+<li>
+<p><strong>먼저 오라클이 있다고 가정하고</strong> <span>
+  \(v_{\pi}(S)\)
+</span>
+ 나 <span>
+  \(q_{\pi}(S, A)\)
+</span>
+ 를 우리에게 주어진다고 하면</p>
+</li>
+<li>
+<p><span>
+  \(v_{\pi}(S)\)
+</span>
+ 나 <span>
+  \(q_{\pi}(S, A)\)
+</span>
 
-<link rel="stylesheet" href="/katex/katex.min.css" />
-<script defer src="/katex/katex.min.js"></script>
-<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+와 근사 함수를 적게 하기 위해서 J(w)를 최소화하면 되고 (MSE).
+<span>
   \[
+J(\mathbf{w}) = \mathbb{E}_{\pi} \left[ \left( v_{\pi}(S) - \hat{v}(S, \mathbf{w}) \right)^2 \right]
+\\
 J(\mathbf{w}) = \mathbb{E}_{\pi} \left[ \left( q_{\pi}(S, A) - \hat{q}(S, A, \mathbf{w}) \right)^2 \right]
 \]
 </span>
 </p>
-<p><span>
+</li>
+<li>
+<p>이걸 미분으로 표현하면 아래와 같다. <span>
+  \( \alpha \)
+</span>
+ 는 step size
+<span>
   \[
+- \frac{1}{2}\alpha \nabla_{\mathbf{w}} J(\mathbf{w}) 
+= \alpha \mathbb{E}_\pi \left[ \bigl(v_\pi(S) - \hat{v}(S, \mathbf{w})\bigr) \nabla_\mathbf{w} \hat{v}(S, \mathbf{w}) \right]
+
+\\
 - \frac{1}{2} \nabla_{\mathbf{w}} J(\mathbf{w}) 
 = \left( q_{\pi}(S, A) - \hat{q}(S, A, \mathbf{w}) \right) \nabla_{\mathbf{w}} \hat{q}(S, A, \mathbf{w})
 \]
 </span>
-
+</p>
+</li>
+<li>
+<p>이것을 stochastic gradient descent는 samples 하므로 다음과 같다. 이것은 전체 gradient를 업데이트 한거랑 같다.
 <span>
   \[
+\Delta \mathbf{w} = \alpha \bigl(v_\pi(S) - \hat{v}(S, \mathbf{w})\bigr) \nabla_{\mathbf{w}} \hat{v}(S, \mathbf{w})
+\\
 \Delta \mathbf{w} = \alpha \left( q_{\pi}(S, A) - \hat{q}(S, A, \mathbf{w}) \right) \nabla_{\mathbf{w}} \hat{q}(S, A, \mathbf{w})
 \]
 </span>
 </p>
+</li>
+<li>
+<p>feature vector로 표현한것[해당 state일때 그 feature 값만 1이고 나머진 0인 모양]은 table lookup 한거랑 결과적으로 비슷한 직관을 가지고 있다.</p>
+</li>
+</ul>
+<h4 id="linear-function-approximation">
+  <strong>Linear Function Approximation</strong>
+  <a class="anchor" href="#linear-function-approximation">#</a>
+</h4>
+<ul>
+<li>linear function approximation 은 보통 feature vector를 써서 weight를 곱한다 (david silver 강의 에서는 neural network로 하는것은 다루지 않는다)
+<span>
+  \[
+\mathbf{x}(S) =
+\begin{pmatrix}
+x_1(S) \\
+\vdots \\
+x_n(S)
+\end{pmatrix}
+\\
+\hat{v}(S,\mathbf{w}) = \mathbf{x}(S)^\top \mathbf{w}
+= \sum_{j=1}^{n} x_j(S)\,w_j
+\]
+</span>
+</li>
+<li>이를 MSE로 표현하고 미분하여 정리하면 다음과 같다
+<span>
+  \[
+\nabla_{\mathbf{w}} \hat{v}(S,\mathbf{w}) = \mathbf{x}(S) \\
+\Delta \mathbf{w} = \alpha \bigl(v_\pi(S) - \hat{v}(S,\mathbf{w})\bigr)\mathbf{x}(S)
+\]
+</span>
+</li>
+</ul>
+<h3 id="incremental-prediction-algorithms">
+  <strong>Incremental Prediction Algorithms</strong>
+  <a class="anchor" href="#incremental-prediction-algorithms">#</a>
+</h3>
+<ul>
+<li>위에 설명들은 결국 <strong>오라클이 진짜 value function을 주어졌을때</strong> 의 식들이다</li>
+<li>우리는 없으니 이것을 MC, TD(0), TD(람다)[forward,backward]로 표현하면 다음과 같다. <br>(수식은 state-value function에 대해서만 있지만 q-value function에서도 가능)
+<span>
+  \[
+\Delta \mathbf{w} = \alpha \bigl(G_t - \hat{v}(S_t, \mathbf{w})\bigr) \nabla_{\mathbf{w}} \hat{v}(S_t, \mathbf{w})
+\\
+\Delta \mathbf{w} = \alpha \bigl(R_{t+1} + \gamma \hat{v}(S_{t+1}, \mathbf{w}) - \hat{v}(S_t, \mathbf{w})\bigr) \nabla_{\mathbf{w}} \hat{v}(S_t, \mathbf{w})
+\\
+\Delta \mathbf{w} = \alpha \bigl(G_t^{\lambda} - \hat{v}(S_t, \mathbf{w})\bigr) \nabla_{\mathbf{w}} \hat{v}(S_t, \mathbf{w})
+\\
+\Delta \mathbf{w} = \alpha \, \delta_t \, E_t
+\]
+</span>
+
+<ul>
+<li>MC는 <span>
+  \(G_t\)
+</span>
+ 가 unbiased 고 noisy sampe을 <span>
+  \(v_\pi(S_t)\)
+</span>
+ 로 부터 받을 수 있으니 supervised learning 을 적용할 수 있다.</li>
+<li>MC 는 조금 느리지만 <strong>non-linear value</strong> function approximation을 쓰더라도 <strong>local optimum</strong>에 도달한다는 장점이 있다</li>
+<li>TD는 true value 펑션의 biased 샘플이다. 여전히 supervised learning을 적용할 수 있다. <strong>linear</strong> TD(0)은 <strong>global optimum</strong>에 도달한다.</li>
+<li>TD(람다)는 true value 펑션의 biased 샘플이다. 동일하게 supervised learning을 적용할 수 있고. <br>
+forward view linear TD(람다) 와 backward view linear TD(람다) 둘다 계산이 가능하다.</li>
+</ul>
+</li>
+</ul>
+<h3 id="incremental-control-algorithms">
+  <strong>Incremental Control Algorithms</strong>
+  <a class="anchor" href="#incremental-control-algorithms">#</a>
+</h3>
+<ul>
+<li>q-value를 다음과 같은 근사를 사용해도 그림과 같으 수렴한다.<span>
+  \(\hat{q}(\cdot, \cdot, \mathbf{w}) \approx q_\pi\)
+</span>
+
+<ul>
+<li>최종 점으로 very close하게되고, 최종점을 하나의 ball 처럼 오실레이트 되는 구간(볼안) 에서 왔다 갔다 한다고 생각하자</li>
+<li>q-value 미분 관련식은 위에 언급하였음</li>
+</ul>
+</li>
+</ul>
+<img src="/images/rl-value-approximtion-control.png" alt="convergence approximation" style="width:80%;"/>
+<ul>
+<li>q-value에 대해서 feature vector를 보면 다음과 같고,
+<span>
+  \[
+\mathbf{x}(S, A) =
+\begin{pmatrix}
+x_1(S, A) \\
+\vdots \\
+x_n(S, A)
+\end{pmatrix} \\
+\hat{q}(S, A, \mathbf{w}) = \mathbf{x}(S, A)^\top \mathbf{w}
+= \sum_{j=1}^{n} x_j(S, A) w_j \\
+\Delta \mathbf{w} = \alpha \bigl(q_\pi(S, A) - \hat{q}(S, A, \mathbf{w})\bigr) \mathbf{x}(S, A)
+\]
+</span>
+</li>
+<li>이것을 state-value 와 같이 MC,TD,TD(람다)[forward,backward]를 적용할 수 있다.
+<span>
+  \[
+\Delta \mathbf{w} = \alpha \bigl(G_t - \hat{q}(S_t, A_t, \mathbf{w})\bigr) \nabla_{\mathbf{w}} \hat{q}(S_t, A_t, \mathbf{w})
+\\
+\Delta \mathbf{w} = \alpha \bigl(R_{t+1} + \gamma \hat{q}(S_{t+1}, A_{t+1}, \mathbf{w}) - \hat{q}(S_t, A_t, \mathbf{w})\bigr) \nabla_{\mathbf{w}} \hat{q}(S_t, A_t, \mathbf{w})
+\\
+\Delta \mathbf{w} = \alpha \bigl(q_t^{\lambda} - \hat{q}(S_t, A_t, \mathbf{w})\bigr) \nabla_{\mathbf{w}} \hat{q}(S_t, A_t, \mathbf{w})
+\\
+\Delta \mathbf{w} = \alpha \, \delta_t \, E_t
+\]
+</span>
+</li>
+</ul>
 <h3 id="convergence-of-control-algo">
   <strong>Convergence of Control Algo</strong>
   <a class="anchor" href="#convergence-of-control-algo">#</a>
 </h3>
-<p>MC은 on-policy, off-policy에서 수렴하나 TD나 어떤 approximation을 사용하는지 따라 수렴하지 않을 수 도있다. <br>
-[관련 표 추가 예정]
-gardient TD 는 TD의 이러한 문제점들을 수정한 것</p>
+<p>TD는 bootstrap은 좋은 효과를 가졌으나 수렴하지 않을 수 도 있다.<br>
+MC은 on-policy, off-policy에서 수렴하나 TD나 어떤 approximation을 사용하는지 따라 수렴하지 않을 수 도있다. <br>
+<img src="/images/rl-mc-td-convergence.png" alt="table mc,td convergence" style="width:80%;"/></p>
+<ul>
+<li>off policy일때 TD는 linear function approx 를 써도 수렴하지 않는다.
+<ul>
+<li>왜냐하면, Gradient Descent 아님: TD(0) 업데이트는 실제 손실 함수의 기울기 방향이 아니라 Projected Bellman Equation을 근사하는 방향으로 움직입니다. 따라서 &ldquo;진짜 기울기&quot;를 따라가지 않음 by GPT</li>
+</ul>
+</li>
+<li>gardient TD 는 TD의 이러한 문제점들을 수정한 것
+<ul>
+<li>Mean-Squared Projected Bellman Error (MSPBE) 최소화</li>
+<li>보조 변수 h 추가 (Two-timescale Update)</li>
+<li>two-timesacle stochastic approximation에 의해서, 전역 수렴성을 보장</li>
+</ul>
+</li>
+</ul>
+<img src="/images/rl-mc-td-convergence_2.png" alt="table mc,td convergence" style="width:80%;"/>
+<ul>
+<li>method를 정리하면 다음과 같다.</li>
+</ul>
+<img src="/images/rl-mc-td-convergence_3.png" alt="table mc,td convergence" style="width:80%;"/>
 <h2 id="batch-method">
   <strong>Batch Method</strong>
   <a class="anchor" href="#batch-method">#</a>
 </h2>
-<p>위의 gradient descent 할때 sampling을 효율적으로 하기 위한 여러가지 방법들</p>
-<p>Oracle이 도와줘서 우리는 못구하는 v_pi 를 정확하게 알수 있다고 가정하자.</p>
-<p>이것들을  dataset에 가지고 있다고 치자.
-D= {} // 수식추가</p>
-<p>그렇다면 우리가 근사하는 value function이 v_pi로부터 얼마나 떨어져 있는지 알수 있다.</p>
-<p>이것을 이용해서 mean square error를 수식으로 나타낼 수 있고,</p>
-<p>이것을 작게 하는것 (=value 근사가 잘되는것) 을 찾아햔다.</p>
-<p>빠른 방법은,
-기존 값들을 저장하고, 학습할때 랜덤하게 샘플링해서, <br>
-stochastic gradient desent update하는 것이고, 이것은 사실 ML이긴 하다. (=Experience Replay)</p>
 <h3 id="experience-replay">
   <strong>Experience Replay</strong>
   <a class="anchor" href="#experience-replay">#</a>
 </h3>
-<p>DQN 은 experience Replay 와 fixed Q-target 의 두가지 테크닉을 써서 수렴한다.<br></p>
-<ul>
-<li>fixed Q-target : 현재 학습중인 네트워크와 타겟을 계산할때 쓰는 네트워크를 분리 (타겟이 너무 자주 바뀌지 않아서 안정적인 학습을 위함)</li>
-<li>수식으로보면 오라클이 알려준다고 가정하는 진실된 value function을 old network가 대체되는셈</li>
-</ul>
-<p>과거의 transition들을 버리지 않고 buffer에 저장해 두었다가,
-학습할 때마다 랜덤하게 샘플링해서 사용</p>
-<h3 id="prioritized-experience-replay-per">
-  <strong>Prioritized Experience Replay (PER)</strong>
-  <a class="anchor" href="#prioritized-experience-replay-per">#</a>
-</h3>
-<p>모든 transition을 균등하게 샘플하지 않고,
-TD-error가 큰 transition에 더 높은 확률을 부여하여 학습</p>
-<p>직관: TD-error가 클수록 더 학습이 필요한 &ldquo;중요한&rdquo; 경험</p>
-<h1 id="7-policy-gradient-method">
-  <strong>7. policy gradient Method</strong>
-  <a class="anchor" href="#7-policy-gradient-method">#</a>
-</h1>
-<p>이전섹션에서는 action-value function(Q 펑션)을 근사해서 옵티멀한 폴리시를 찾아갔다면, <br>
-policy gradient는 Q 없이 policy parameter를 직접 업데이트 한다. <strong>policy-based</strong></p>
-<ul>
-<li>Softmax Policy : 이산행동일때, softmax over logits으로 정책을 정하고, policy에 대한 gradient 값 계산<br>
-이를 통해서 현재 iteration 에 대한 policy 파라미터를 업데이트한다.</li>
-<li>Gaussian Policy : 연속행동일때,  가우시안 분포를 정책으로 정하고, policy에 대한 gradient 값 계산<br>
-이를 통해서 현재 iteration 에 대한 policy 파라미터를 업데이트한다.</li>
-</ul>
-<blockquote class="book-hint warning">
-  <p>policy-based 에서도 replay buffer를 쓸수 있는가?</p>
-<ol>
-<li>
-<p>Policy-based에서 Replay Buffer의 어려움
-문제: Policy가 계속 변하기 때문에
-​</p>
-</li>
-<li>
-<p>PPO, TRPO [	❌ 또는 제한적 사용 ]	최근의 데이터만 사용 (very short buffer)</p>
-</li>
-<li>
-<p>SAC (Soft Actor-Critic) [ 확률적 policy 사용 ] (policy gradient 기반) <br>
-하지만 전체 구조는 off-policy 로써 replay buffer 적극 사용</p>
-</li>
-</ol>
-<p>by GPT</p>
-<p><strong>추가 research 요망</strong></p>
-</blockquote>
-<h2 id="actor-critic">
-  <strong>Actor-Critic</strong>
-  <a class="anchor" href="#actor-critic">#</a>
-</h2>
-<p>policy-based + value-based</p>
-<p>Actor는 행동을 생성하고 <br>
-Critic은 그 행동의 &ldquo;좋음&quot;을 평가해서 Advantage를 추정 <br>
-이를 바탕으로 Actor의 policy gradient를 계산 <br></p>
-<p>lacture-7 24page</p>
-<p>간단한 actor-critic 구조는 actuion-value를 critic 하는것이다.
-Critic은 TD(0)을 통해서 Q-Function을 학습하고
-Actor는 위 학습된 Q-function을 기반으로 policy gradient를 수행하는것이다.</p>
-<h3 id="proximal-policy-optimization-ppo">
-  <strong>Proximal Policy Optimization (PPO)</strong>
-  <a class="anchor" href="#proximal-policy-optimization-ppo">#</a>
-</h3>
-<p>Actor-Critic 구조에서
-Clipped Objective를 도입해서, policy가 너무 크게 바뀌지 않도록 제약하는것.</p>
-<p>아래는 PPO surrogate objective 함수(목적함수). 이를 gradient ascent(최대화) 하는 파라미터를 현재 policy에 업데이트하면 policy는 옵티멀을 향해간다.
+<p>exprience 한번을 통해서 기울기를 한번 업데이트하는건 data efficiency 하지 않다.<br>
+위의 gradient descent 할때 sampling을 효율적으로 하기 위한 여러가지 방법</p>
+<p>아래와 같은 근사함수가 있고.
 <span>
   \[
-L^{\text{CLIP}}(\theta) = \hat{\mathbb{E}}_t \left[ \min \left( r_t(\theta) \hat{A}_t,\; \text{clip}(r_t(\theta), 1 - \epsilon, 1 + \epsilon) \hat{A}_t \right) \right]
+\hat{v}(s, \mathbf{w}) \approx v_\pi(s)
 \]
 </span>
 </p>
-<h1 id="8-integration-learning-and-planning">
-  <strong>8. Integration Learning and Planning</strong>
-  <a class="anchor" href="#8-integration-learning-and-planning">#</a>
-</h1>
-<h2 id="model-based-rl">
-  <strong>Model-based RL</strong>
-  <a class="anchor" href="#model-based-rl">#</a>
-</h2>
-<p><strong>[생략]</strong></p>
-<h2 id="simulation-based-search">
-  <strong>Simulation-based Search</strong>
-  <a class="anchor" href="#simulation-based-search">#</a>
-</h2>
-<p>&ldquo;전체 상태 공간을 직접 학습하기는 너무 비싸다. 대신, 유망한 부분만 집중적으로 시뮬레이션하면서 거기서 경험한 정보로 Q값을 점점 더 정확하게 만든다.&rdquo;</p>
-<p>//note: balsa simulation learning 과는 개념이 조금 다름</p>
-<p><strong>[미완]</strong></p>
-<h1 id="9-exploration-and-exploitation">
-  <strong>9. Exploration and Exploitation</strong>
-  <a class="anchor" href="#9-exploration-and-exploitation">#</a>
-</h1>
+<p>Oracle이 도와줘서 우리는 못구하는  <span>
+  \(v_\pi\)
+</span>
+  를 정확하게 알수 있다고 가정하자.</p>
+<p>이것들을 dataset에 가지고 있다고 치자. 전체 dataset은 다음과 같이 표현한다.
+<span>
+  \[
+\mathcal{D} = \{ \langle s_1, v_1^\pi \rangle, \langle s_2, v_2^\pi \rangle, \ldots, \langle s_T, v_T^\pi \rangle \}
+\]
+</span>
+</p>
+<p>그렇다면 우리가 근사하는 value function이  <span>
+  \(v_\pi\)
+</span>
+ 로부터 얼마나 떨어져 있는지 알수 있다.<br>
+이것을 이용해서 mean square error를 수식으로 나타낼 수 있고,
+이것을 작게 하는것 (=value 근사가 잘되는것) 을 찾아햔다.</p>
+<p>least squear 알고리즘으로 w를 최소하하는 수식은 다음과 같다. 이것을 expectation으로 쓸수 있다.
+<span>
+  \[
+LS(\mathbf{w}) = \sum_{t=1}^T \bigl(v_t^\pi - \hat{v}(s_t, \mathbf{w})\bigr)^2
+= \mathbb{E}_{\mathcal{D}}\left[\bigl(v^\pi - \hat{v}(s, \mathbf{w})\bigr)^2\right]
+\]
+</span>
+</p>
+<p>빠른/쉬운 방법은,
+기존 값들을 저장하고, 학습할때 랜덤하게 샘플링해서, <br>
+stochastic gradient desent update하는 것이고, 이것을 반복한다 (=Experience Replay)<br>
+이것은 사실 standard supervised learning 이긴 하다.</p>
 <ul>
-<li><strong>Exploitation</strong> : Make the best decision given current information</li>
-<li><strong>Exploration</strong> : Gather more information</li>
+<li>D 로부터 랜덤하게 샘플링하고, stochastic gradient desent update 를 한다. 그리고 이것을 repeat한다.
+<span>
+  \[
+\langle s, v^\pi \rangle \sim \mathcal{D}
+\\
+\Delta \mathbf{w} = \alpha \bigl(v^\pi - \hat{v}(s, \mathbf{w})\bigr) \nabla_{\mathbf{w}} \hat{v}(s, \mathbf{w})
+\]
+</span>
+</li>
+<li>결국 다음과 같이 수렴한다,
+<span>
+  \[
+\mathbf{w}^\pi = \arg\min_{\mathbf{w}} LS(\mathbf{w})
+\]
+</span>
+</li>
 </ul>
-<p>너무 탐험만 하면: 성능이 낮은 행동도 계속 시도 → 학습은 느리고, 보상은 낮음 <br>
-너무 이용만 하면: 더 나은 행동을 아예 시도하지 않음 → **지역 최적해(local optimum)**에 갇힘 <br>
-→ 따라서, 단기 보상 vs 장기 학습 사이의 균형을 잡는 것이 중요합니다. <br></p>
-<p>이 섹션에서는 여러 방법들을 제시하고 있습니다
-[미완]</p>
-<h1 id="10-case-study-rl-in-classic-games">
-  <strong>10. Case Study: RL in Classic Games</strong>
-  <a class="anchor" href="#10-case-study-rl-in-classic-games">#</a>
-</h1>
-<p>[미완]</p>
-<hr>
-<h1 id="999-deep-rl">
-  <strong>999. Deep RL</strong>
-  <a class="anchor" href="#999-deep-rl">#</a>
-</h1>
-<p>RL과 딥러닝의 결합 <br>
-딥러닝이 사용하는 위치</p>
+<h3 id="experience-replay-in-dqn">
+  <strong>Experience Replay in DQN</strong>
+  <a class="anchor" href="#experience-replay-in-dqn">#</a>
+</h3>
+<p>DQN 은 experience Replay 와 fixed Q-target 의 두가지 테크닉을 써서 수렴한다.<br></p>
 <ul>
-<li><strong>Policy Network</strong> : 현재 상태에서 행동 분포를 출력</li>
-<li><strong>Value Network</strong> : 상태나 상태-행동의 가치를 출력</li>
-<li><strong>Q-network</strong> : Q(s, a)를 직접 추정</li>
-<li><strong>Model Network</strong> : 환경 dynamics (transition, reward)를 예측 (model-based RL에서만 사용)</li>
-</ul>
-<h1 id="a-balsa">
-  <strong>a. Balsa</strong>
-  <a class="anchor" href="#a-balsa">#</a>
-</h1>
-<p>Balsa는 쿼리 플랜을 순차적으로 구성하는 문제를 <strong>Markov Decision Process (MDP)</strong> 으로 보고,
-이를 강화학습으로 해결</p>
+<li>fixed Q-target : 현재 학습중인 네트워크와 타겟을 계산할때 쓰는 네트워크를 분리 (타겟이 너무 자주 바뀌지 않아서 안정적인 학습을 위함)
 <ul>
-<li>State s = 현재까지 만들어진 partial query plan</li>
-<li>Action a = 다음에 어떤 테이블을 조인할지 결정</li>
-<li>Reward r = 쿼리 플랜의 실행 비용 또는 latency</li>
-<li>Environment = DB 쿼리 시뮬레이터 or Costmodel</li>
+<li>참고로 TD 러닝은 fixed 파라미터가 아니라서 발산 위험이 있음</li>
 </ul>
-<p>추가적으로</p>
+</li>
+<li>수식으로보면 오라클이 알려준다고 가정하는 진실된 value function을 old network가 대체되는셈</li>
+</ul>
+<p>DQN는 다음과 같다</p>
 <ul>
-<li>simulation phase(step) 을 가져서 재앙적 plan을 탐험하지 않게하고,</li>
-<li>Timeout을 둬서 Safe Execution 시간을 보장했다. (재앙적 plan이 선택되더라도 timeout으로 하한보장)</li>
-<li>value network를 simple tree convolution networks 로 구성</li>
+<li><span>
+  \(\epsilon\)
+</span>
+  greedy policy를 사용해서 action 선택</li>
+<li><span>
+  \((s_t, a_t, r_{t+1}, s_{t+1})\)
+</span>
+ 를 <span>
+  \(\mathcal{D}\)
+</span>
+ 에 저장</li>
+<li>sampe random mini-batch를 진행.  <span>
+  \(\mathcal{D}\)
+</span>
+ 에 있는 <span>
+  \((s, a, r, s')\)
+</span>
+를 사용</li>
+<li>old fixed 파라미터를 이용해서 <span>
+  \(w^-\)
+</span>
+을 이용해서 Q러닝 계산</li>
+<li>이때 MSE 수식은 다음과 같음
+<span>
+  \[
+\mathcal{L}_i(w_i) = \mathbb{E}_{s,a,r,s' \sim \mathcal{D}_i} 
+\left[ \left( r + \gamma \max_{a'} Q(s', a'; w_i^-) - Q(s, a; w_i) \right)^2 \right]
+\]
+</span>
+</li>
+<li>stochastic gradient descent 사용</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 여기에서 모델은 강화학습의 environment의 모델이 아니라, value function을 근사할(계산할) treeconv 모델을 의미함</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">MakeModel</span>(p, exp, dataset):
-</span></span><span style="display:flex;"><span>    dev <span style="color:#f92672">=</span> GetDevice()
-</span></span><span style="display:flex;"><span>    num_label_bins <span style="color:#f92672">=</span> int(
-</span></span><span style="display:flex;"><span>        dataset<span style="color:#f92672">.</span>costs<span style="color:#f92672">.</span>max()<span style="color:#f92672">.</span>item()) <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>  <span style="color:#75715e"># +1 for 0, +1 for ceil(max cost).</span>
-</span></span><span style="display:flex;"><span>    query_feat_size <span style="color:#f92672">=</span> len(exp<span style="color:#f92672">.</span>query_featurizer(exp<span style="color:#f92672">.</span>nodes[<span style="color:#ae81ff">0</span>]))
-</span></span><span style="display:flex;"><span>    batch <span style="color:#f92672">=</span> exp<span style="color:#f92672">.</span>featurizer(exp<span style="color:#f92672">.</span>nodes[<span style="color:#ae81ff">0</span>])
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">assert</span> batch<span style="color:#f92672">.</span>ndim <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>    plan_feat_size <span style="color:#f92672">=</span> batch<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">0</span>]
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> p<span style="color:#f92672">.</span>tree_conv:
-</span></span><span style="display:flex;"><span>        labels <span style="color:#f92672">=</span> num_label_bins <span style="color:#66d9ef">if</span> p<span style="color:#f92672">.</span>cross_entropy <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> TreeConvolution(feature_size<span style="color:#f92672">=</span>query_feat_size,
-</span></span><span style="display:flex;"><span>                               plan_size<span style="color:#f92672">=</span>plan_feat_size,
-</span></span><span style="display:flex;"><span>                               label_size<span style="color:#f92672">=</span>labels,
-</span></span><span style="display:flex;"><span>                               version<span style="color:#f92672">=</span>p<span style="color:#f92672">.</span>tree_conv_version)<span style="color:#f92672">.</span>to(dev)
-</span></span></code></pre></div><h1 id="b-logger">
-  <strong>b. LOGGER</strong>
-  <a class="anchor" href="#b-logger">#</a>
-</h1>
+<h4 id="linear-least-squarses-control">
+  <strong>Linear Least Squarses Control</strong>
+  <a class="anchor" href="#linear-least-squarses-control">#</a>
+</h4>
 <ul>
-<li>e-beam search 소개 [Exploration and exploitation]</li>
-<li>loss function reward weighting을 통해서 poor operator에 의한 fluctuation 방지</li>
-<li>log transformation 을 통해서 reward의 범위를 압축 (재앙적 plan의 영향도를 감쇄)</li>
-<li>ROSS Restricted Operator Search Space. (최적을 찾지 않고 최악이 안골라지게 해서 효율적)</li>
-<li>value nertwork (GNN + LSTM)</li>
+<li>Least square solution을 하는데 이것은 많은 iteration이 필요하니</li>
+<li>linear value function approximation을 사용해서, least squares solution을 바로 푸는것
+<ul>
+<li>Sherman–Morrison 을 이용해서 <span>
+  \(O(N^3)\)
+</span>
+ 에서 <span>
+  \(O(N^2)\)
+</span>
+ 로 줄인다.</li>
+<li>linear이니  <span>
+  \( \hat{v}(s, \mathbf{w}) = \mathbf{x}(s)^\top \mathbf{w}\)
+</span>
+ 와 같고 수식적으로 아래와 같다.
+<span>
+  \[
+\mathbb{E}_{\mathcal{D}}[\Delta \mathbf{w}] = 0 \\
+\alpha \sum_{t=1}^T \mathbf{x}(s_t) \bigl(v_t^\pi - \mathbf{x}(s_t)^\top \mathbf{w}\bigr) = 0 \\
+\sum_{t=1}^T \mathbf{x}(s_t) v_t^\pi = \sum_{t=1}^T \mathbf{x}(s_t)\mathbf{x}(s_t)^\top \mathbf{w} \\
+\mathbf{w} = \left(\sum_{t=1}^T \mathbf{x}(s_t)\mathbf{x}(s_t)^\top \right)^{-1} \sum_{t=1}^T \mathbf{x}(s_t) v_t^\pi
+\]
+</span>
+</li>
 </ul>
-<h1 id="c-reload">
-  <strong>c. RELOAD</strong>
-  <a class="anchor" href="#c-reload">#</a>
-</h1>
-<p>Balsa + MAML + PER</p>
-<h2 id="model-agnostic-meta-learningmaml">
-  <strong>Model-Agnostic Meta-Learning(MAML)</strong>
-  <a class="anchor" href="#model-agnostic-meta-learningmaml">#</a>
-</h2>
-<p>모든 task에 잘 작동하는 하나의 모델을 학습하는 것&quot;이 아니라, <br>
-조금만 fine-tuning 하면 각 task에 잘 작동할 수 있는 초기 모델&quot;을 학습하는 것.</p>
-<h2 id="per">
-  <strong>PER</strong>
-  <a class="anchor" href="#per">#</a>
-</h2>
-<p>위에 언급 [ 생략 ]</p>
-<h2 id="참조">
-  참조
-  <a class="anchor" href="#%ec%b0%b8%ec%a1%b0">#</a>
-</h2>
-<p><a href="https://davidstarsilver.wordpress.com/teaching/">https://davidstarsilver.wordpress.com/teaching/</a></p>
-<p><a href="https://wnthqmffhrm.tistory.com/10">https://wnthqmffhrm.tistory.com/10</a></p>
-<p><a href="https://davidstarsilver.wordpress.com/wp-content/uploads/2025/04/lecture-5-model-free-control-.pdf">https://davidstarsilver.wordpress.com/wp-content/uploads/2025/04/lecture-5-model-free-control-.pdf</a></p>
+</li>
+<li>LSMC, LSTD, LSTD(람다) 에 적용이 가능하다.
+<span>
+  \[
+\mathbf{w} = \left( \sum_{t=1}^T \mathbf{x}(S_t)\mathbf{x}(S_t)^\top \right)^{-1} \sum_{t=1}^T \mathbf{x}(S_t) G_t \\
+\mathbf{w} = \left( \sum_{t=1}^T \mathbf{x}(S_t)\bigl(\mathbf{x}(S_t) - \gamma \mathbf{x}(S_{t+1})\bigr)^\top \right)^{-1} \sum_{t=1}^T \mathbf{x}(S_t) R_{t+1} \\
+\mathbf{w} = \left( \sum_{t=1}^T E_t \bigl(\mathbf{x}(S_t) - \gamma \mathbf{x}(S_{t+1})\bigr)^\top \right)^{-1} \sum_{t=1}^T E_t R_{t+1}
+\]
+</span>
+</li>
+</ul>
 </div>
 </article>
  
@@ -1036,35 +1182,26 @@ L^{\text{CLIP}}(\theta) = \hat{\mathbb{E}}_t \left[ \min \left( r_t(\theta) \hat
   <ul>
     <li><a href="#incremental-method"><strong>Incremental Method</strong></a>
       <ul>
-        <li><a href="#action-value-function-approximation"><strong>Action-value function Approximation</strong></a></li>
+        <li><a href="#value-function-approximation"><strong>Value Function Approximation</strong></a>
+          <ul>
+            <li><a href="#linear-function-approximation"><strong>Linear Function Approximation</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#incremental-prediction-algorithms"><strong>Incremental Prediction Algorithms</strong></a></li>
+        <li><a href="#incremental-control-algorithms"><strong>Incremental Control Algorithms</strong></a></li>
         <li><a href="#convergence-of-control-algo"><strong>Convergence of Control Algo</strong></a></li>
       </ul>
     </li>
     <li><a href="#batch-method"><strong>Batch Method</strong></a>
       <ul>
         <li><a href="#experience-replay"><strong>Experience Replay</strong></a></li>
-        <li><a href="#prioritized-experience-replay-per"><strong>Prioritized Experience Replay (PER)</strong></a></li>
+        <li><a href="#experience-replay-in-dqn"><strong>Experience Replay in DQN</strong></a>
+          <ul>
+            <li><a href="#linear-least-squarses-control"><strong>Linear Least Squarses Control</strong></a></li>
+          </ul>
+        </li>
       </ul>
     </li>
-  </ul>
-
-  <ul>
-    <li><a href="#actor-critic"><strong>Actor-Critic</strong></a>
-      <ul>
-        <li><a href="#proximal-policy-optimization-ppo"><strong>Proximal Policy Optimization (PPO)</strong></a></li>
-      </ul>
-    </li>
-  </ul>
-
-  <ul>
-    <li><a href="#model-based-rl"><strong>Model-based RL</strong></a></li>
-    <li><a href="#simulation-based-search"><strong>Simulation-based Search</strong></a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#model-agnostic-meta-learningmaml"><strong>Model-Agnostic Meta-Learning(MAML)</strong></a></li>
-    <li><a href="#per"><strong>PER</strong></a></li>
-    <li><a href="#참조">참조</a></li>
   </ul>
 </nav>
 
