@@ -107,10 +107,9 @@ V(S_t) \leftarrow V(S_t) + \alpha \left( R_{t+1} + \gamma V(S_{t+1}) - V(S_t) \r
 - Temporal-Difference Learning 또한 model-free
 
 
-
 ## **TD-람다**
 - 직관적으로 MC와 TD의 중간단계
-- **TD({{< katex display = false >}}\lambda{{< /katex >}})** : 여러 step + 가중합으로 업데이트 ?  MC와 TD의 중간<br>
+- TD({{< katex display = false >}}\lambda{{< /katex >}}) : 여러 step + 가중합으로 업데이트 ?  MC와 TD의 중간<br>
 MC <-> TD는 전체 에피소드를 보느냐, 일부분만 보느냐의 차이.<br>
 TD의 step을 0~n (n이 되면 MC와 같음) 사이를 {{< katex display = false >}}\lambda{{< /katex >}}로 가중치를 구해 사용하는것
 - n-step TD 에서의 n은 몇개의 step까지 하고 그다음을 예측할지를 나타내고, 람다는 {{< katex display = false >}}\lambda{{< /katex >}} 는 그 n-step들의 가중합을 하기 위한 적당한 값. (멀리있는것을 더 작게 영향이 가도록)
