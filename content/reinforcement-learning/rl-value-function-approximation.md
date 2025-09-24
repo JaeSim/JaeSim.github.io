@@ -231,7 +231,7 @@ DQN는 다음과 같다
 {{< /katex >}} 
  - stochastic gradient descent 사용
 
-#### **Linear Least Squarses Control**
+### **Linear Least Squarses Control**
  - Least square solution을 하는데 이것은 많은 iteration이 필요하니
  - linear value function approximation을 사용해서, least squares solution을 바로 푸는것
    - Sherman–Morrison 을 이용해서 {{< katex display = false >}}O(N^3){{< /katex>}} 에서 {{< katex display = false >}}O(N^2){{< /katex>}} 로 줄인다. 
