@@ -6,13 +6,48 @@
     <description>Recent content in Tags on JaeSim&#39;s Workspace</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Tue, 23 Sep 2025 13:22:02 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 24 Sep 2025 17:11:08 +0900</lastBuildDate>
     <atom:link href="https://JaeSim.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Definition</title>
       <link>https://JaeSim.github.io/tags/definition/</link>
-      <pubDate>Tue, 23 Sep 2025 13:22:02 +0900</pubDate>
+      <pubDate>Wed, 24 Sep 2025 17:11:08 +0900</pubDate>
       <guid>https://JaeSim.github.io/tags/definition/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Integrating</title>
+      <link>https://JaeSim.github.io/tags/integrating/</link>
+      <pubDate>Wed, 24 Sep 2025 17:11:08 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/integrating/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Planning</title>
+      <link>https://JaeSim.github.io/tags/planning/</link>
+      <pubDate>Wed, 24 Sep 2025 17:11:08 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/planning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Reinforcement Learning</title>
+      <link>https://JaeSim.github.io/tags/reinforcement-learning/</link>
+      <pubDate>Wed, 24 Sep 2025 17:11:08 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/reinforcement-learning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>RL</title>
+      <link>https://JaeSim.github.io/tags/rl/</link>
+      <pubDate>Wed, 24 Sep 2025 17:11:08 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/rl/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Simulation-Based Search</title>
+      <link>https://JaeSim.github.io/tags/simulation-based-search/</link>
+      <pubDate>Wed, 24 Sep 2025 17:11:08 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/simulation-based-search/</guid>
       <description></description>
     </item>
     <item>
@@ -27,20 +62,6 @@
       <link>https://JaeSim.github.io/tags/policy-gradient/</link>
       <pubDate>Tue, 23 Sep 2025 13:22:02 +0900</pubDate>
       <guid>https://JaeSim.github.io/tags/policy-gradient/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Reinforcement Learning</title>
-      <link>https://JaeSim.github.io/tags/reinforcement-learning/</link>
-      <pubDate>Tue, 23 Sep 2025 13:22:02 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/reinforcement-learning/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>RL</title>
-      <link>https://JaeSim.github.io/tags/rl/</link>
-      <pubDate>Tue, 23 Sep 2025 13:22:02 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/rl/</guid>
       <description></description>
     </item>
     <item>

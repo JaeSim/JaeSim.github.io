@@ -4,11 +4,8 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="
-  7. Policy Gradient Method
+  7. Policy Gradient Methods
   #
-
-
-  // NOTE: 이 페이지는 임시로 작성되었습니다.
 
 이전섹션에서는 action-value function(state value function, action-value function)을 근사해서 옵티멀한 value function을 찾아 갔다. 이때 policy는 
 
@@ -19,26 +16,28 @@
 -greedy.
 policy gradient는 policy parameter를 직접 업데이트 한다. policy-based ! 
 policy를 direct 로 업데이트 하는것 
-이는 large complicated environment에 좀더 적합. 각 state를 명확하게 구분하기 어려울때. 
-(Policy는 value 대비 더 compact하게 저장한다)
+이는 large complicated environment에 좀더 적합() 각 state를 명확하게 구분하기 어려울때). 
+Policy는 value 대비 더 compact하게 저장한다. 저게 저장하는 장점이 있긴한다.
+다음과 같은 장점이 있다고 언급한다.
+
+value-based 보다 convergence가 더 잘된다는 것이 있고
+high-dimensional 이나 contiunous action space에서 효과적이다.
+
+이경우, value-based는 심플한 직관이지만, 계산해야할 것이 많다
 
 
-policy는 probability 이며 현재 state에서 action을 선택할 확률 이고 action들이니 확률 분포이다.
+stochastic polices를 배울 수 있다.
 
-  \[
-\pi_\theta(s,a) = \mathbb{P}[a \mid s, \theta]
-\]
-
-
-">
+단점은 다음과 같다.">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/reinforcement-learning/rl-policy-gradient-methods/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
-  <meta property="og:title" content="7. Polciy Gradient Methods (Not completed)">
-  <meta property="og:description" content="7. Policy Gradient Method#// NOTE: 이 페이지는 임시로 작성되었습니다.이전섹션에서는 action-value function(state value function, action-value function)을 근사해서 옵티멀한 value function을 찾아 갔다. 이때 policy는 \(\epsilon\)-greedy.
-policy gradient는 policy parameter를 직접 업데이트 한다. policy-based ! policy를 direct 로 업데이트 하는것 이는 large complicated environment에 좀더 적합. 각 state를 명확하게 구분하기 어려울때. (Policy는 value 대비 더 compact하게 저장한다)
-policy는 probability 이며 현재 state에서 action을 선택할 확률 이고 action들이니 확률 분포이다. \[\pi_\theta(s,a) = \mathbb{P}[a \mid s, \theta]\]">
+  <meta property="og:title" content="7. Polciy Gradient Methods">
+  <meta property="og:description" content="7. Policy Gradient Methods#이전섹션에서는 action-value function(state value function, action-value function)을 근사해서 옵티멀한 value function을 찾아 갔다. 이때 policy는 \(\epsilon\)-greedy.
+policy gradient는 policy parameter를 직접 업데이트 한다. policy-based ! policy를 direct 로 업데이트 하는것 이는 large complicated environment에 좀더 적합() 각 state를 명확하게 구분하기 어려울때). Policy는 value 대비 더 compact하게 저장한다. 저게 저장하는 장점이 있긴한다.
+다음과 같은 장점이 있다고 언급한다.
+value-based 보다 convergence가 더 잘된다는 것이 있고 high-dimensional 이나 contiunous action space에서 효과적이다. 이경우, value-based는 심플한 직관이지만, 계산해야할 것이 많다 stochastic polices를 배울 수 있다. 단점은 다음과 같다.">
   <meta property="og:locale" content="ko_kr">
   <meta property="og:type" content="article">
     <meta property="article:section" content="reinforcement-learning">
@@ -50,13 +49,13 @@ policy는 probability 이며 현재 state에서 action을 선택할 확률 이�
     <meta property="article:tag" content="Policy Gradient">
     <meta property="article:tag" content="Reinforcement Learning">
     <meta property="article:tag" content="RL">
-<title>7. Polciy Gradient Methods (Not completed) | JaeSim&#39;s Workspace</title>
+<title>7. Polciy Gradient Methods | JaeSim&#39;s Workspace</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
 <link rel="canonical" href="https://JaeSim.github.io/reinforcement-learning/rl-policy-gradient-methods/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.5f586b61308625a00bb468d15f8cc92f7321c7d071dc5e869c2bbbdb3c1bb250.js" integrity="sha256-X1hrYTCGJaALtGjRX4zJL3Mhx9Bx3F6GnCu72zwbslA=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.42986ab7e091e26b30756ac1d001cd12930f8af3cfaab82fcfe91650cf22f620.js" integrity="sha256-Qphqt&#43;CR4mswdWrB0AHNEpMPivPPqrgvz&#43;kWUM8i9iA=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -424,7 +423,7 @@ https://github.com/alex-shpak/hugo-book
             <label for="section-5451d228399fc5c2fd05219bda7b986b" class="flex justify-between cursor-pointer">
               <span>
                 Reinforcement Learning / 강화학습
-                <span class="count">(7)</span>
+                <span class="count">(8)</span>
               </span>
             </label>
 
@@ -515,7 +514,20 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/reinforcement-learning/rl-policy-gradient-methods/" class="active">7. Polciy Gradient Methods (Not completed)</a>
+    <a href="/reinforcement-learning/rl-policy-gradient-methods/" class="active">7. Polciy Gradient Methods</a>
+  
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-integ-learning-and-planning/" class="">8. Integrating Learning and Planning (Not Complated)</a>
   
 
                   
@@ -641,7 +653,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <h3>7. Polciy Gradient Methods (Not completed)</h3>
+  <h3>7. Polciy Gradient Methods</h3>
 
   <label for="toc-control">
     
@@ -657,22 +669,22 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#actor-critic"><strong>Actor-Critic</strong></a>
+    <li><a href="#policy-objective-function"><strong>Policy Objective Function</strong></a></li>
+    <li><a href="#finite-difference-policy-gradient"><strong>Finite Difference Policy Gradient</strong></a></li>
+    <li><a href="#monte-carlo-policy-gradient"><strong>Monte-Carlo Policy Gradient</strong></a>
       <ul>
-        <li><a href="#proximal-policy-optimization-ppo"><strong>Proximal Policy Optimization (PPO)</strong></a></li>
+        <li><a href="#softmax-policy"><strong>Softmax Policy</strong></a></li>
+        <li><a href="#gaussian-policy"><strong>Gaussian Policy</strong></a></li>
+        <li><a href="#policy-gradient-theorem"><strong>Policy Gradient Theorem</strong></a></li>
+        <li><a href="#reinforce"><strong>REINFORCE</strong></a></li>
       </ul>
     </li>
-  </ul>
-
-  <ul>
-    <li><a href="#model-based-rl"><strong>Model-based RL</strong></a></li>
-    <li><a href="#simulation-based-search"><strong>Simulation-based Search</strong></a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#model-agnostic-meta-learningmaml"><strong>Model-Agnostic Meta-Learning(MAML)</strong></a></li>
-    <li><a href="#per"><strong>PER</strong></a></li>
-    <li><a href="#참조">참조</a></li>
+    <li><a href="#actor-critic-policy-gradient"><strong>Actor-Critic Policy Gradient</strong></a>
+      <ul>
+        <li><a href="#action-value-actor-critic-qac"><strong>Action-Value Actor-Critic (QAC)</strong></a></li>
+        <li><a href="#advantge-actor-critic-a2c"><strong>Advantge Actor-Critic (A2C)</strong></a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 
@@ -719,13 +731,10 @@ https://github.com/alex-shpak/hugo-book
       2025-09-23 13:22 KST
     </span>
   </h1>
-  <div class="book-post-content"><h1 id="7-policy-gradient-method">
-  <strong>7. Policy Gradient Method</strong>
-  <a class="anchor" href="#7-policy-gradient-method">#</a>
+  <div class="book-post-content"><h1 id="7-policy-gradient-methods">
+  <strong>7. Policy Gradient Methods</strong>
+  <a class="anchor" href="#7-policy-gradient-methods">#</a>
 </h1>
-<blockquote class="book-hint warning">
-  // NOTE: 이 페이지는 임시로 작성되었습니다.
-</blockquote>
 <p>이전섹션에서는 action-value function(state value function, action-value function)을 근사해서 옵티멀한 value function을 찾아 갔다. 이때 policy는 
 <link rel="stylesheet" href="/katex/katex.min.css" />
 <script defer src="/katex/katex.min.js"></script>
@@ -735,11 +744,26 @@ https://github.com/alex-shpak/hugo-book
 -greedy.</p>
 <p>policy gradient는 policy parameter를 직접 업데이트 한다. <strong>policy-based !</strong> <br>
 policy를 direct 로 업데이트 하는것 <br>
-이는 large complicated environment에 좀더 적합. 각 state를 명확하게 구분하기 어려울때. <br>
-(Policy는 value 대비 더 compact하게 저장한다)</p>
+이는 large complicated environment에 좀더 적합() 각 state를 명확하게 구분하기 어려울때). <br>
+Policy는 value 대비 더 compact하게 저장한다. 저게 저장하는 장점이 있긴한다.</p>
+<p>다음과 같은 장점이 있다고 언급한다.</p>
 <ul>
-<li>
-<p>policy는 probability 이며 현재 state에서 action을 선택할 확률 이고 action들이니 확률 분포이다.
+<li>value-based 보다 convergence가 더 잘된다는 것이 있고</li>
+<li>high-dimensional 이나 contiunous action space에서 효과적이다.
+<ul>
+<li>이경우, value-based는 심플한 직관이지만, 계산해야할 것이 많다</li>
+</ul>
+</li>
+<li>stochastic polices를 배울 수 있다.</li>
+</ul>
+<p>단점은 다음과 같다.</p>
+<ul>
+<li>나이브 policy는 local opitimum에 가거나</li>
+<li>slow 하게 converge 되고, high variance를 가진다.</li>
+</ul>
+<p>policy에 대하여 Deterministic policy(결정적 정책) 으로 할수도 있고 stochastic policy(확률적 정책)로 할수 있다. <br>
+그러나 Deterministic하면 goal에 절대 도달을 하지 못하거나, 매우 오래걸린다. 보통 stochastic이 더 좋다..</p>
+<p>따라서, policy는 probability 이며 현재 state에서 action을 선택할 확률 이고 action들이니 확률 분포이다.
 <span>
   \[
 \pi_\theta(s,a) = \mathbb{P}[a \mid s, \theta]
@@ -747,10 +771,8 @@ policy를 direct 로 업데이트 하는것 <br>
 </span>
 
 <img src="/images/rl-value-policy-diagrampng.png" alt="policy, value and action cricit" style="width:80%;"/></p>
-</li>
-<li>
-<p>Value-Based and Policy-based RL은 다음과 같은 특성을 가지고 있다.</p>
-</li>
+<ul>
+<li>Value-Based and Policy-based RL은 다음과 같은 특성을 가지고 있다.</li>
 </ul>
 <table>
   <thead>
@@ -781,171 +803,614 @@ policy를 direct 로 업데이트 하는것 <br>
       </tr>
   </tbody>
 </table>
-<ul>
-<li>Softmax Policy : 이산행동일때, softmax over logits으로 정책을 정하고, policy에 대한 gradient 값 계산<br>
-이를 통해서 현재 iteration 에 대한 policy 파라미터를 업데이트한다.</li>
-<li>Gaussian Policy : 연속행동일때,  가우시안 분포를 정책으로 정하고, policy에 대한 gradient 값 계산<br>
-이를 통해서 현재 iteration 에 대한 policy 파라미터를 업데이트한다.</li>
-</ul>
-<blockquote class="book-hint warning">
-  <p>policy-based 에서도 replay buffer를 쓸수 있는가?</p>
-<ol>
-<li>
-<p>Policy-based에서 Replay Buffer의 어려움
-문제: Policy가 계속 변하기 때문에
-​</p>
-</li>
-<li>
-<p>PPO, TRPO [	❌ 또는 제한적 사용 ]	최근의 데이터만 사용 (very short buffer)</p>
-</li>
-<li>
-<p>SAC (Soft Actor-Critic) [ 확률적 policy 사용 ] (policy gradient 기반) <br>
-하지만 전체 구조는 off-policy 로써 replay buffer 적극 사용</p>
-</li>
-</ol>
-<p>by GPT</p>
-<p><strong>추가 research 요망</strong></p>
-</blockquote>
-<h2 id="actor-critic">
-  <strong>Actor-Critic</strong>
-  <a class="anchor" href="#actor-critic">#</a>
+<h2 id="policy-objective-function">
+  <strong>Policy Objective Function</strong>
+  <a class="anchor" href="#policy-objective-function">#</a>
 </h2>
-<p>policy-based + value-based</p>
-<p>Actor는 행동을 생성하고 <br>
-Critic은 그 행동의 &ldquo;좋음&quot;을 평가해서 Advantage를 추정 <br>
-이를 바탕으로 Actor의 policy gradient를 계산 <br></p>
-<p>lacture-7 24page</p>
-<p>간단한 actor-critic 구조는 actuion-value를 critic 하는것이다.
-Critic은 TD(0)을 통해서 Q-Function을 학습하고
-Actor는 위 학습된 Q-function을 기반으로 policy gradient를 수행하는것이다.</p>
-<h3 id="proximal-policy-optimization-ppo">
-  <strong>Proximal Policy Optimization (PPO)</strong>
-  <a class="anchor" href="#proximal-policy-optimization-ppo">#</a>
-</h3>
-<p>Actor-Critic 구조에서
-Clipped Objective를 도입해서, policy가 너무 크게 바뀌지 않도록 제약하는것.</p>
-<p>아래는 PPO surrogate objective 함수(목적함수). 이를 gradient ascent(최대화) 하는 파라미터를 현재 policy에 업데이트하면 policy는 옵티멀을 향해간다.
+<ul>
+<li>
+<p>policy를 최적화 하려면 <span>
+  \(\pi_\theta(s, a)\)
+</span>
+ 로 표현하고, 파라미터 <span>
+  \(\theta\)
+</span>
+ 에 대해서 best  <span>
+  \(\theta\)
+</span>
+ 를 찾아야한다</p>
+<ul>
+<li>
+<p>어떻게 policy <span>
+  \(\pi_\theta\)
+</span>
+ 를 측정하는지 세가지 방법이 있다</p>
+</li>
+<li>
+<p>start value를 사용하는 것 <span>
+  \(J_1(\theta) = V^{\pi_\theta}(s_1) = \mathbb{E}_{\pi_\theta}[v_1]\)
+</span>
+</p>
+</li>
+<li>
+<p>average value를 사용하는 것 <span>
+  \(J_{avV}(\theta) = \sum_s d^{\pi_\theta}(s) V^{\pi_\theta}(s)\)
+</span>
+</p>
+</li>
+<li>
+<p>average reward per time-step을 사용하는 것 <span>
+  \(J_{avR}(\theta) = \sum_s d^{\pi_\theta}(s) \sum_a \pi_\theta(s,a) \mathcal{R}^a_s\)
+</span>
+</p>
+</li>
+<li>
+<p>이것들은 결국 distrubution term이 다를뿐 같은 gradient method를 쓴다.</p>
+</li>
+<li>
+<p>우리는 <span>
+  \(J(\theta)\)
+</span>
+ 를 maximise하는 <span>
+  \(\theta\)
+</span>
+를 찾아야한다</p>
+<ul>
+<li>gradient 을 접근할수 없을때 쓸수 있는 방법들이 있긴하다 (Hill Climbing, Simplex 기타 등등). 자세히 다루진 않음<br>
+강의에서는 gradient에 접근이 가능하다고 보고, gredient descent에 대해서만 설명</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>파라미터 <span>
+  \(\theta\)
+</span>
+ 의 델타와 목적 함수와의 관계는 다음같고.  <span>
+  \(\alpha\)
+</span>
+ 는 batch-size
 <span>
   \[
-L^{\text{CLIP}}(\theta) = \hat{\mathbb{E}}_t \left[ \min \left( r_t(\theta) \hat{A}_t,\; \text{clip}(r_t(\theta), 1 - \epsilon, 1 + \epsilon) \hat{A}_t \right) \right]
+\Delta \theta = \alpha \nabla_\theta J(\theta)
 \]
 </span>
 </p>
-<h1 id="8-integration-learning-and-planning">
-  <strong>8. Integration Learning and Planning</strong>
-  <a class="anchor" href="#8-integration-learning-and-planning">#</a>
-</h1>
-<h2 id="model-based-rl">
-  <strong>Model-based RL</strong>
-  <a class="anchor" href="#model-based-rl">#</a>
-</h2>
-<p><strong>[생략]</strong></p>
-<h2 id="simulation-based-search">
-  <strong>Simulation-based Search</strong>
-  <a class="anchor" href="#simulation-based-search">#</a>
-</h2>
-<p>&ldquo;전체 상태 공간을 직접 학습하기는 너무 비싸다. 대신, 유망한 부분만 집중적으로 시뮬레이션하면서 거기서 경험한 정보로 Q값을 점점 더 정확하게 만든다.&rdquo;</p>
-<p>//note: balsa simulation learning 과는 개념이 조금 다름</p>
-<p><strong>[미완]</strong></p>
-<h1 id="9-exploration-and-exploitation">
-  <strong>9. Exploration and Exploitation</strong>
-  <a class="anchor" href="#9-exploration-and-exploitation">#</a>
-</h1>
-<ul>
-<li><strong>Exploitation</strong> : Make the best decision given current information</li>
-<li><strong>Exploration</strong> : Gather more information</li>
+</li>
+<li>
+<p>미분된 목적함수는 다음과 같이 표현된다.
+<span>
+  \[
+\nabla_\theta J(\theta) =
+\begin{pmatrix}
+\frac{\partial J(\theta)}{\partial \theta_1} \\
+\vdots \\
+\frac{\partial J(\theta)}{\partial \theta_n}
+\end{pmatrix}
+\]
+</span>
+</p>
+</li>
 </ul>
-<p>너무 탐험만 하면: 성능이 낮은 행동도 계속 시도 → 학습은 느리고, 보상은 낮음 <br>
-너무 이용만 하면: 더 나은 행동을 아예 시도하지 않음 → **지역 최적해(local optimum)**에 갇힘 <br>
-→ 따라서, 단기 보상 vs 장기 학습 사이의 균형을 잡는 것이 중요합니다. <br></p>
-<p>이 섹션에서는 여러 방법들을 제시하고 있습니다
-[미완]</p>
-<h1 id="10-case-study-rl-in-classic-games">
-  <strong>10. Case Study: RL in Classic Games</strong>
-  <a class="anchor" href="#10-case-study-rl-in-classic-games">#</a>
-</h1>
-<p>[미완]</p>
-<hr>
-<h1 id="999-deep-rl">
-  <strong>999. Deep RL</strong>
-  <a class="anchor" href="#999-deep-rl">#</a>
-</h1>
-<p>RL과 딥러닝의 결합 <br>
-딥러닝이 사용하는 위치</p>
-<ul>
-<li><strong>Policy Network</strong> : 현재 상태에서 행동 분포를 출력</li>
-<li><strong>Value Network</strong> : 상태나 상태-행동의 가치를 출력</li>
-<li><strong>Q-network</strong> : Q(s, a)를 직접 추정</li>
-<li><strong>Model Network</strong> : 환경 dynamics (transition, reward)를 예측 (model-based RL에서만 사용)</li>
-</ul>
-<h1 id="a-balsa">
-  <strong>a. Balsa</strong>
-  <a class="anchor" href="#a-balsa">#</a>
-</h1>
-<p>Balsa는 쿼리 플랜을 순차적으로 구성하는 문제를 <strong>Markov Decision Process (MDP)</strong> 으로 보고,
-이를 강화학습으로 해결</p>
-<ul>
-<li>State s = 현재까지 만들어진 partial query plan</li>
-<li>Action a = 다음에 어떤 테이블을 조인할지 결정</li>
-<li>Reward r = 쿼리 플랜의 실행 비용 또는 latency</li>
-<li>Environment = DB 쿼리 시뮬레이터 or Costmodel</li>
-</ul>
-<p>추가적으로</p>
-<ul>
-<li>simulation phase(step) 을 가져서 재앙적 plan을 탐험하지 않게하고,</li>
-<li>Timeout을 둬서 Safe Execution 시간을 보장했다. (재앙적 plan이 선택되더라도 timeout으로 하한보장)</li>
-<li>value network를 simple tree convolution networks 로 구성</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 여기에서 모델은 강화학습의 environment의 모델이 아니라, value function을 근사할(계산할) treeconv 모델을 의미함</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">MakeModel</span>(p, exp, dataset):
-</span></span><span style="display:flex;"><span>    dev <span style="color:#f92672">=</span> GetDevice()
-</span></span><span style="display:flex;"><span>    num_label_bins <span style="color:#f92672">=</span> int(
-</span></span><span style="display:flex;"><span>        dataset<span style="color:#f92672">.</span>costs<span style="color:#f92672">.</span>max()<span style="color:#f92672">.</span>item()) <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>  <span style="color:#75715e"># +1 for 0, +1 for ceil(max cost).</span>
-</span></span><span style="display:flex;"><span>    query_feat_size <span style="color:#f92672">=</span> len(exp<span style="color:#f92672">.</span>query_featurizer(exp<span style="color:#f92672">.</span>nodes[<span style="color:#ae81ff">0</span>]))
-</span></span><span style="display:flex;"><span>    batch <span style="color:#f92672">=</span> exp<span style="color:#f92672">.</span>featurizer(exp<span style="color:#f92672">.</span>nodes[<span style="color:#ae81ff">0</span>])
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">assert</span> batch<span style="color:#f92672">.</span>ndim <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>    plan_feat_size <span style="color:#f92672">=</span> batch<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">0</span>]
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> p<span style="color:#f92672">.</span>tree_conv:
-</span></span><span style="display:flex;"><span>        labels <span style="color:#f92672">=</span> num_label_bins <span style="color:#66d9ef">if</span> p<span style="color:#f92672">.</span>cross_entropy <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> TreeConvolution(feature_size<span style="color:#f92672">=</span>query_feat_size,
-</span></span><span style="display:flex;"><span>                               plan_size<span style="color:#f92672">=</span>plan_feat_size,
-</span></span><span style="display:flex;"><span>                               label_size<span style="color:#f92672">=</span>labels,
-</span></span><span style="display:flex;"><span>                               version<span style="color:#f92672">=</span>p<span style="color:#f92672">.</span>tree_conv_version)<span style="color:#f92672">.</span>to(dev)
-</span></span></code></pre></div><h1 id="b-logger">
-  <strong>b. LOGGER</strong>
-  <a class="anchor" href="#b-logger">#</a>
-</h1>
-<ul>
-<li>e-beam search 소개 [Exploration and exploitation]</li>
-<li>loss function reward weighting을 통해서 poor operator에 의한 fluctuation 방지</li>
-<li>log transformation 을 통해서 reward의 범위를 압축 (재앙적 plan의 영향도를 감쇄)</li>
-<li>ROSS Restricted Operator Search Space. (최적을 찾지 않고 최악이 안골라지게 해서 효율적)</li>
-<li>value nertwork (GNN + LSTM)</li>
-</ul>
-<h1 id="c-reload">
-  <strong>c. RELOAD</strong>
-  <a class="anchor" href="#c-reload">#</a>
-</h1>
-<p>Balsa + MAML + PER</p>
-<h2 id="model-agnostic-meta-learningmaml">
-  <strong>Model-Agnostic Meta-Learning(MAML)</strong>
-  <a class="anchor" href="#model-agnostic-meta-learningmaml">#</a>
+<h2 id="finite-difference-policy-gradient">
+  <strong>Finite Difference Policy Gradient</strong>
+  <a class="anchor" href="#finite-difference-policy-gradient">#</a>
 </h2>
-<p>모든 task에 잘 작동하는 하나의 모델을 학습하는 것&quot;이 아니라, <br>
-조금만 fine-tuning 하면 각 task에 잘 작동할 수 있는 초기 모델&quot;을 학습하는 것.</p>
-<h2 id="per">
-  <strong>PER</strong>
-  <a class="anchor" href="#per">#</a>
+<ul>
+<li>gradient ascent 를 구한다. (reward가 최대화 되어야 하므로)</li>
+<li>simplelest naive approach (MC나 actor critic 대비). numarically approach</li>
+<li>k개의 dimension이 있다면, <span>
+  \(\theta\)
+</span>
+ 에 작은 변화량 <span>
+  \(\epsilon\)
+</span>
+을 주어 (perturb 이라고 쓰네..)<br>
+각각의 변수가(k개) objective function(목적함수)의 <span>
+  \(\theta\)
+</span>
+에 대해 미분량을 계산한다.
+<ul>
+<li>그런데 이건 차원(k)이 무지하게 늘어나면 그만큼 미분 계산이 필요. awful compuation, and noisy</li>
+<li>그러나 심플하고 결국 correct direction을 찾아가게 된다
+<span>
+  \[
+\frac{\partial J(\theta)}{\partial \theta_k} \approx \frac{J(\theta + \epsilon u_k) - J(\theta)}{\epsilon}
+\]
+</span>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="monte-carlo-policy-gradient">
+  <strong>Monte-Carlo Policy Gradient</strong>
+  <a class="anchor" href="#monte-carlo-policy-gradient">#</a>
 </h2>
-<p>위에 언급 [ 생략 ]</p>
-<h2 id="참조">
-  참조
-  <a class="anchor" href="#%ec%b0%b8%ec%a1%b0">#</a>
+<ul>
+<li>policy gradient를 analytically 한다.</li>
+<li>우리가 gradient <span>
+  \(\nabla_\theta \pi_\theta(s,a)\)
+</span>
+ 를 안다고 가정한다.</li>
+<li>미분을 log미분으로 다음과 같이 변형이 가능하고 ( Likelihood Ratio Trick 이라고 하는데,, 기대값의 기울기를 계산할때 자주 쓰는 기법이래)
+<span>
+  \[
+\nabla_\theta \pi_\theta(s,a)
+= \pi_\theta(s,a)\frac{\nabla_\theta \pi_\theta(s,a)}{\pi_\theta(s,a)}
+= \pi_\theta(s,a)\nabla_\theta \log \pi_\theta(s,a)
+\]
+</span>
+</li>
+<li>결국 score function은   <span>
+  \(\nabla_\theta \log \pi_\theta(s,a)\)
+</span>
+ 다</li>
+<li>이 score function은 computation이 원본보다 easy하다</li>
+</ul>
+<h3 id="softmax-policy">
+  <strong>Softmax Policy</strong>
+  <a class="anchor" href="#softmax-policy">#</a>
+</h3>
+<ul>
+<li>parameter 와 linear combination 으로  <span>
+  \(\phi(s,a)^\top \theta\)
+</span>
+ 로 나타내고</li>
+<li>이것을 exponentiate 하여 확률적으로 표현하고 <span>
+  \(\pi_\theta(s,a) \propto e^{\phi(s,a)^\top \theta}\)
+</span>
+</li>
+<li>그것을 gradient 하는 계산 식에 넣어서, 기대값으로 표현하면 다음과 같다.
+<ul>
+<li>softmax이므로 이렇고, 양변에 log 취하고 양변을 미분하면 최종 식이 된다.
+<span>
+  \[
+\pi_\theta(a|s) = \frac{e^{\phi(s,a)^\top \theta}}
+{\sum_{a'} e^{\phi(s,a')^\top \theta}}
+\\
+\log \pi_\theta(a|s) 
+= \phi(s,a)^\top \theta 
+- \log \sum_{a'} e^{\phi(s,a')^\top \theta}
+\\
+\nabla_\theta \log \pi_\theta(s,a) = \phi(s,a) - \mathbb{E}_{\pi_\theta}[\phi(s,\cdot)]\]
+</span>
+</li>
+</ul>
+</li>
+</ul>
+<p>직관적으로, <strong>실제값</strong>을 <strong>다른 모든행동의 기대값</strong> 에서 뺀것이 <em><strong>gradient</strong></em> 다.</p>
+<h3 id="gaussian-policy">
+  <strong>Gaussian Policy</strong>
+  <a class="anchor" href="#gaussian-policy">#</a>
+</h3>
+<ul>
+<li>
+<p>linear combination 의 feature의 결합으로 mean을 나타냄. <span>
+  \(\mu(s) = \phi(s)^\top \theta\)
+</span>
+</p>
+</li>
+<li>
+<p><span>
+  \(\sigma^2\)
+</span>
+ 도 parameterize 할수 있긴한데, 일단 심플 버전은 normal distribution일때
+<span>
+  \( a \sim \mathcal{N}(\mu(s), \sigma^2)\)
+</span>
+</p>
+</li>
+<li>
+<p>최종적으로 score function은 다음과 같이 된다. 수식적으로 몇단계 건너띄긴했는데, 생략함..
+<span>
+  \[
+\nabla_\theta \log \pi_\theta(s,a) = \frac{(a - \mu(s)) \phi(s)}{\sigma^2}
+\]
+</span>
+</p>
+</li>
+<li>
+<p>직관적으로 즉, 평균보다 큰 행동은 확률을 늘리고, 작은 행동은 확률을 줄이는 방향으로 파라미터 <span>
+  \(\theta\)
+</span>
+가 업데이트. 결과적으로 정책은 보상 높은 행동 쪽으로 평균을 이동하게 됨.</p>
+</li>
+</ul>
+<h3 id="policy-gradient-theorem">
+  <strong>Policy Gradient Theorem</strong>
+  <a class="anchor" href="#policy-gradient-theorem">#</a>
+</h3>
+<ul>
+<li>One-step MDP를 먼저 설명하고, 이를 확장하여 Multi-step MDP에 대해 설명한다</li>
+</ul>
+<p><strong>one-step MDP</strong>에 대해서,,</p>
+<ul>
+<li>one-step MDP란 action을 고르고, 다음단계에 reward를 얻고 termiante 되는 MDP. 이해를 위해 가정한 MDP</li>
+<li>one-step MDP의 목적함수는 다음과 같고, <span>
+  \(J(\theta) = \mathbb{E}_{\pi_\theta}[r] = \sum_{s \in \mathcal{S}} d(s) \sum_{a \in \mathcal{A}} \pi_\theta(s,a) \mathcal{R}_{s,a}
+\)
+</span>
+</li>
+<li>Likelihood Ratio Trick 을 넣으면 다음과 같다.
+<span>
+  \[
+\nabla_\theta J(\theta) = \sum_{s \in \mathcal{S}} d(s) \sum_{a \in \mathcal{A}} \pi_\theta(s,a) \nabla_\theta \log \pi_\theta(s,a) \mathcal{R}_{s,a}\\
+= \mathbb{E}_{\pi_\theta}[\nabla_\theta \log \pi_\theta(s,a) r]
+\]
+</span>
+</li>
+<li>보상 r이 크면 정책 파라미터(<span>
+  \(\theta\)
+</span>
+)를 증가시키는 것을 수식적으로 알수 있다.</li>
+</ul>
+<p><strong>multi-step MDP</strong>에 대해서,,</p>
+<ul>
+<li>multi-step MDP는 one-step MDP의 imemdiate reward를 value function으로 대체한것
+<span>
+  \[
+\nabla_\theta J(\theta) = \mathbb{E}_{\pi_\theta} \left[ \nabla_\theta \log \pi_\theta(s,a) \, Q^\pi(s,a) \right]
+\]
+</span>
+</li>
+</ul>
+<p>결국, <strong>Policy Gradient Theorem</strong>은 다음과 같다.</p>
+<ul>
+<li>모든 미분가능한 policy <span>
+  \(\pi_\theta(s,a)\)
+</span>
+ 에 대해서,</li>
+<li>모든 목적함수, start_value를 쓰던 average reward를 쓰던,  (<span>
+  \(J_1\)
+</span>
+, <span>
+  \(J_{avR}\)
+</span>
+ or <span>
+  \(\frac{1}{1-\gamma} J_{avV}\)
+</span>
+
+)</li>
+<li>policy graident는 multi-step MDP 수식과 같다.
+<span>
+  \(
+\nabla_\theta J(\theta) = \mathbb{E}_{\pi_\theta} \left[ \nabla_\theta \log \pi_\theta(s,a) \, Q^\pi(s,a) \right]
+\)
+</span>
+</li>
+</ul>
+<h3 id="reinforce">
+  <strong>REINFORCE</strong>
+  <a class="anchor" href="#reinforce">#</a>
+</h3>
+<ul>
+<li>
+<p>Monte-Carlo Policy Gradient의 대표적인 구현체</p>
+</li>
+<li>
+<p>원래라면 <span>
+  \(
+ \nabla_\theta J(\theta) = \mathbb{E}_{\pi_\theta} \left[ \nabla_\theta \log \pi_\theta(s,a) \, Q^\pi(s,a) \right]
+ \)
+</span>
+ 를 구해야하는데, 어려우니</p>
+</li>
+<li>
+<p><span>
+  \(Q^\pi(s,a)\)
+</span>
+ 의 unbiased sample (충분히 많이 구하면 Estimated 된거랑 같음[대수의 법칙]) 를  <span>
+  \(v_t\)
+</span>
+ 로 씀
+<span>
+  \[
+\Delta \theta_t = \alpha \nabla_\theta \log \pi_\theta(s_t, a_t) v_t
+\]
+</span>
+</p>
+</li>
+<li>
+<p>pseudo-code</p>
+</li>
+</ul>
+<span>
+  \(
+\textbf{function REINFORCE} \\
+\quad \text{Initialise } \theta \text{ arbitrarily} \\
+\quad \textbf{for} \text{ each episode } \{s_1, a_1, r_2, \ldots, s_{T-1}, a_{T-1}, r_T\} \sim \pi_\theta \ \textbf{do} \\
+\quad \quad \textbf{for } t = 1 \ \text{to } T-1 \ \textbf{do} \\
+\quad \quad \quad \theta \leftarrow \theta + \alpha \nabla_\theta \log \pi_\theta(s_t, a_t) v_t \\
+\quad \quad \textbf{end for} \\
+\quad \textbf{end for} \\
+\quad \textbf{return } \theta \\
+\textbf{end function}
+\)
+</span>
+
+<ul>
+<li>
+<p><em><strong>직관</strong></em> <br>
+각각의 샘플된 에피소드에 대해서, 전체 trajectory(출발부터 끝까지)를 본다음에, 각각의 Step에 대해서 gradient를 업데이트</p>
+</li>
+<li>
+<p>더 많은 iteration 이 value-based 보다 필요</p>
+</li>
+</ul>
+<h2 id="actor-critic-policy-gradient">
+  <strong>Actor-Critic Policy Gradient</strong>
+  <a class="anchor" href="#actor-critic-policy-gradient">#</a>
 </h2>
-<p><a href="https://davidstarsilver.wordpress.com/teaching/">https://davidstarsilver.wordpress.com/teaching/</a></p>
-<p><a href="https://wnthqmffhrm.tistory.com/10">https://wnthqmffhrm.tistory.com/10</a></p>
-<p><a href="https://davidstarsilver.wordpress.com/wp-content/uploads/2025/04/lecture-5-model-free-control-.pdf">https://davidstarsilver.wordpress.com/wp-content/uploads/2025/04/lecture-5-model-free-control-.pdf</a></p>
+<p>policy-based + value-based</p>
+<ul>
+<li>
+<p>Monte-Carlo policy gradient는 high-variance 를 가지고 있음</p>
+</li>
+<li>
+<p>value function approximator를 이용해서 Critic 모델을 구현. 하여 plug in</p>
+</li>
+<li>
+<p>original policy gradient 는 다음과 같다
+<span>
+  \[
+ \nabla_\theta J(\theta) = \mathbb{E}_{\pi_\theta} \left[ \nabla_\theta \log \pi_\theta(s,a) \, Q^\pi(s,a) \right]
+ \]
+</span>
+</p>
+</li>
+<li>
+<p>여기에서 Q-function을 다음과 같이 근사로 표현이 가능하다 <span>
+  \(Q_w(s,a) \approx Q^{\pi_\theta}(s,a)\)
+</span>
+</p>
+</li>
+<li>
+<p>이걸 원래 수식에 넣으면 다음과 같고
+<span>
+  \[
+\nabla_\theta J(\theta) \approx 
+\mathbb{E}_{\pi_\theta}\!\left[\,\nabla_\theta \log \pi_\theta(s,a)\; Q_w(s,a)\,\right]
+\]
+</span>
+</p>
+</li>
+<li>
+<p>미분량은 다음과 같이 볼 수 있다.
+<span>
+  \[
+\Delta \theta = \alpha\, \nabla_\theta \log \pi_\theta(s,a)\; Q_w(s,a)
+\]
+</span>
+</p>
+</li>
+<li>
+<p><em><strong>직관</strong></em> <br>
+policy-model 이 actor 가 된다. action을 선택하는. value-model이 critic이 된다. 얼마나 좋을지 등을 추정해 평가해준다 <br>
+critic이 평가해준 방향으로 업데이트가 된다.</p>
+</li>
+<li>
+<p>value function approximator 에 6장에서 배운 MC, TD, TD람다 등을 적용이 가능하다</p>
+</li>
+</ul>
+<h3 id="action-value-actor-critic-qac">
+  <strong>Action-Value Actor-Critic (QAC)</strong>
+  <a class="anchor" href="#action-value-actor-critic-qac">#</a>
+</h3>
+<p>다음은 linear TD(0)를 approximator로 하였을때를 보여준다. Action-Value Actor-Critic (QAC)</p>
+<ul>
+<li>action-value (q-value) 펑션을 다음과 같이 사용하고 <span>
+  \(Q_w(s,a) \;=\; \phi(s,a)^\top w\)
+</span>
+</li>
+<li>전체 pseudo-code는 다음과 같다</li>
+</ul>
+<span>
+  \(
+\textbf{function QAC}\\
+\quad \text{Initialise } s,\ \theta\\
+\quad \text{Sample } a \sim \pi_\theta(\cdot \mid s)\\
+\quad \textbf{for each step do}\\
+\quad \quad \text{Sample reward } r = \mathcal{R}^{a}_{s};\ \text{sample transition } s' \sim \mathcal{P}^{a}_{s}\\
+\quad \quad \text{Sample action } a' \sim \pi_\theta(\cdot \mid s')\\
+\quad \quad \delta \;=\; r \;+\; \gamma\, Q_w(s',a') \;-\; Q_w(s,a) \text{    // critic error calculate}\\
+\quad \quad \theta \leftarrow \theta \;+\; \alpha\, \nabla_\theta \log \pi_\theta(a \mid s)\, Q_w(s,a)  \text{    // actor update}\\
+\quad \quad w \leftarrow w \;+\; \beta\, \delta\, \phi(s,a) \text{  // ciritic update}\\
+\quad \quad a \leftarrow a',\quad s \leftarrow s'\\
+\quad \textbf{end for}\\
+\textbf{end function}
+\)
+</span>
+
+<h3 id="advantge-actor-critic-a2c">
+  <strong>Advantge Actor-Critic (A2C)</strong>
+  <a class="anchor" href="#advantge-actor-critic-a2c">#</a>
+</h3>
+<p>Baseline을 이용해서 variance을 줄이는 방법</p>
+<ul>
+<li>
+<p>baseline <span>
+  \(B(s)\)
+</span>
+ 가 있다고 하면</p>
+<ul>
+<li>baseline은 s,a 와 영향이 없어서 밖으로 나올수 있고, <span>
+  \(\sum_{a\in\mathcal{A}} \pi_\theta(s,a)\)
+</span>
+의 sum은 1이다.</li>
+<li>남은 앞의 term은 미분이므로(<span>
+  \(\nabla_\theta\)
+</span>
+) 항상 0이 된다
+<span>
+  \[
+\begin{aligned}
+\mathbb{E}_{\pi_\theta}\!\left[ \nabla_\theta \log \pi_\theta(s,a)\, B(s) \right]
+&= \sum_{s\in\mathcal{S}} d^{\pi_\theta}(s) \sum_{a\in\mathcal{A}} \nabla_\theta \pi_\theta(s,a)\, B(s) \\
+&= \sum_{s\in\mathcal{S}} d^{\pi_\theta}(s)\, B(s)\, \nabla_\theta \sum_{a\in\mathcal{A}} \pi_\theta(s,a) \\
+&= 0
+\end{aligned}
+\]
+</span>
+</li>
+</ul>
+</li>
+<li>
+<p>좋은 baseline를 state value function을 쓰는거다. <span>
+  \(B(s) = V^{\pi_\theta}(s)\)
+</span>
+</p>
+</li>
+<li>
+<p>그러면 우리는 q-value 와 state-value를 advantage를 쓸수 있다. <span>
+  \(A^{\pi_\theta}(s,a) = Q^{\pi_\theta}(s,a) - V^{\pi_\theta}(s)
+\)
+</span>
+</p>
+</li>
+<li>
+<p>전체 수식은 다음과 같이 된다
+<span>
+  \[
+ \nabla_\theta J(\theta)
+= \mathbb{E}_{\pi_\theta}\!\left[\,\nabla_\theta \log \pi_\theta(s,a)\; A^{\pi_\theta}(s,a)\,\right]
+\]
+</span>
+</p>
+</li>
+<li>
+<p>직관은<br>
+Q-value 에서 state-value 을 뺀것, 현재에서 어떤 action을 고르는게 현재 상태보다 어떤 어드벤테이지가 얼마나 있는지를 업데이트</p>
+</li>
+<li>
+<p>그러면 Q-value, state-value 두개를 각각 학습해야하는데, 하나만 하는 방법도 있다.</p>
+</li>
+<li>
+<p>true value function // 가 있으면 TD error는 다음과 같이 표현된다
+<span>
+  \[
+\delta^{\pi_\theta} \;=\; r \;+\; \gamma\, V^{\pi_\theta}(s') \;-\; V^{\pi_\theta}(s)
+\]
+</span>
+</p>
+</li>
+<li>
+<p>TD error이 expectation는 결국 TD error 는 advandage function의 unbiased sample이다
+<span>
+  \[
+\begin{aligned}
+\mathbb{E}_{\pi_\theta}\!\big[\delta^{\pi_\theta}\mid s,a\big]
+&= \mathbb{E}_{\pi_\theta}\!\big[r + \gamma V^{\pi_\theta}(s') \mid s,a\big] - V^{\pi_\theta}(s) \\
+&= Q^{\pi_\theta}(s,a) - V^{\pi_\theta}(s) \\
+&= A^{\pi_\theta}(s,a)
+\end{aligned}
+\]
+</span>
+</p>
+</li>
+<li>
+<p>TD error에 대한 approximate하면 다음과 같이 표현이 된다.
+<span>
+  \[
+ \delta_{w} \;=\; r \;+\; \gamma\, V_{w}(s') \;-\; V_{w}(s)
+\]
+</span>
+</p>
+</li>
+<li>
+<p>그래서 Q-value를 구하지 않고도 state-value function만으로 계산할 수 있다. 우리는 parameter w에 대해서만 구하면 된다.</p>
+</li>
+<li>
+<p>직관<br>
+우리가 Q-value 가 필요한 것은 결국 advantage function을 구하기 위함인데, TD error는 A^\phi의 unbiased estimation 이므로 q-value를 구하지 않아도 된다.</p>
+</li>
+</ul>
+<p>A2C의 advantage 수식을 critic에 대해서 다양한 Time-Scales를 적용하면 (MC, TD, TD람다[forwrad,backwrad])</p>
+<ul>
+<li>Monte-Carlo
+<span>
+  \[
+\Delta\theta \;=\; \alpha\,\big( v_t \;-\; V_\theta(s) \big)\,\phi(s)
+\]
+</span>
+</li>
+<li>TD(0)
+<span>
+  \[
+\Delta\theta \;=\; \alpha\,\big( r \;+\; \gamma V(s') \;-\; V_\theta(s) \big)\,\phi(s)
+\]
+</span>
+</li>
+<li>forwrad-view TD 람다
+<span>
+  \[
+\Delta\theta \;=\; \alpha\,\big( v_t^{\lambda} \;-\; V_\theta(s) \big)\,\phi(s)
+\]
+</span>
+</li>
+<li>backward-view TD 람다
+<span>
+  \[
+\delta_t \;=\; r_{t+1} \;+\; \gamma\, V(s_{t+1}) \;-\; V(s_t) \\
+e_t \;=\; \gamma \lambda\, e_{t-1} \;+\; \phi(s_t) \\
+\Delta\theta \;=\; \alpha\, \delta_t\, e_t \
+\]
+</span>
+</li>
+</ul>
+<p>A2C의 advantage 수식을 actor에 대해서 다양한 Time-Scales를 적용하면 (MC, TD, TD람다[forwrad,backwrad])</p>
+<ul>
+<li>다음과 같은 기본식에 대해서 추가적으로 time-scales를 적용할 수 있다.
+<span>
+  \[
+\nabla_\theta J(\theta)
+= \mathbb{E}_{\pi_\theta}\!\left[\,\nabla_\theta \log \pi_\theta(s,a)\; A^{\pi_\theta}(s,a)\,\right]
+\]
+</span>
+</li>
+<li>Monte-Carlo policy gradient 가 complete return error를 쓸 경우
+<span>
+  \[
+\Delta \theta \;=\; \alpha\,\big( v_t - V_w(s_t) \big)\, \nabla_\theta \log \pi_\theta(s_t, a_t)
+\]
+</span>
+</li>
+<li>one-step TD error를 쓸경우
+<span>
+  \[
+\Delta \theta \;=\; \alpha\,\big( r + \gamma V_w(s_{t+1}) - V_w(s_t) \big)\, \nabla_\theta \log \pi_\theta(s_t, a_t)
+\]
+</span>
+</li>
+</ul>
+<p>policy gradient에 동일하게 TD 람다 적용하는 것 처럼 Eligibility Trace 할 수 있다.</p>
+<ul>
+<li>
+<p>forward이고
+<span>
+  \[
+\Delta \theta \;=\; \alpha\,\big( v_t^{\lambda} - V_{w}(s_t) \big)\, \nabla_\theta \log \pi_\theta(s_t, a_t)
+\]
+</span>
+</p>
+</li>
+<li>
+<p>forward 와 backward가 동치가 되는 점을 정리하면 다음과 같다.
+<span>
+  \[
+\delta_t \;=\; r_{t+1} + \gamma\, V_{w}(s_{t+1}) - V_{w}(s_t) \\
+e_{t+1} \;=\; \lambda\, e_t + \nabla_\theta \log \pi_\theta(s_t, a_t) \\
+\Delta \theta \;=\; \alpha\, \delta_t\, e_t
+\]
+</span>
+</p>
+</li>
+<li>
+<p>이것으 장점은 episode가 끝나지 않아도 online 업데이트 한다.</p>
+</li>
+<li>
+<p>강의에서는 natural Actor-Critic을 설명하는데, posting에서는 생략함.</p>
+</li>
+</ul>
 </div>
 </article>
  
@@ -1003,22 +1468,22 @@ L^{\text{CLIP}}(\theta) = \hat{\mathbb{E}}_t \left[ \min \left( r_t(\theta) \hat
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#actor-critic"><strong>Actor-Critic</strong></a>
+    <li><a href="#policy-objective-function"><strong>Policy Objective Function</strong></a></li>
+    <li><a href="#finite-difference-policy-gradient"><strong>Finite Difference Policy Gradient</strong></a></li>
+    <li><a href="#monte-carlo-policy-gradient"><strong>Monte-Carlo Policy Gradient</strong></a>
       <ul>
-        <li><a href="#proximal-policy-optimization-ppo"><strong>Proximal Policy Optimization (PPO)</strong></a></li>
+        <li><a href="#softmax-policy"><strong>Softmax Policy</strong></a></li>
+        <li><a href="#gaussian-policy"><strong>Gaussian Policy</strong></a></li>
+        <li><a href="#policy-gradient-theorem"><strong>Policy Gradient Theorem</strong></a></li>
+        <li><a href="#reinforce"><strong>REINFORCE</strong></a></li>
       </ul>
     </li>
-  </ul>
-
-  <ul>
-    <li><a href="#model-based-rl"><strong>Model-based RL</strong></a></li>
-    <li><a href="#simulation-based-search"><strong>Simulation-based Search</strong></a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#model-agnostic-meta-learningmaml"><strong>Model-Agnostic Meta-Learning(MAML)</strong></a></li>
-    <li><a href="#per"><strong>PER</strong></a></li>
-    <li><a href="#참조">참조</a></li>
+    <li><a href="#actor-critic-policy-gradient"><strong>Actor-Critic Policy Gradient</strong></a>
+      <ul>
+        <li><a href="#action-value-actor-critic-qac"><strong>Action-Value Actor-Critic (QAC)</strong></a></li>
+        <li><a href="#advantge-actor-critic-a2c"><strong>Advantge Actor-Critic (A2C)</strong></a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 
