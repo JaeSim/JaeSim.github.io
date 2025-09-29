@@ -14,30 +14,35 @@
 
   
     
-      8. Integrating Learning and Planning (Not Complated)
+      9. Exploration and Exploitation (Not Completed)
     
 
     
 
-    2025-09-24 17:11:08 KST
+    2025-09-29 15:14:37 KST
 
     
        
         
-  8. Integration Learning and Planning
+  9. Exploration and Exploitation
   
 
 
-  Model-based RL
-  
+  // NOTE: 이 페이지는 임시로 작성되었습니다.
 
-[생략]">
+
+Exploitation : Make the best decision given current information
+Exploration : Gather more information
+
+너무 탐험만 하면: 성능이 낮은 행동도 계속 시도 → 학습은 느리고, 보상은 낮음 
+너무 이용만 하면: 더 나은 행동을 아예 시도하지 않음 → **지역 최적해(local optimum)**에 갇힘 
+→ 따라서, 단기 보상 vs 장기 학습 사이의 균형을 잡는 것이 중요합니다. ">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="Home">
-  <meta property="og:description" content="Recent Posts#8. Integrating Learning and Planning (Not Complated)2025-09-24 17:11:08 KST8. Integration Learning and PlanningModel-based RL[생략]">
+  <meta property="og:description" content="Recent Posts#9. Exploration and Exploitation (Not Completed)2025-09-29 15:14:37 KST9. Exploration and Exploitation// NOTE: 이 페이지는 임시로 작성되었습니다.Exploitation : Make the best decision given current information Exploration : Gather more information 너무 탐험만 하면: 성능이 낮은 행동도 계속 시도 → 학습은 느리고, 보상은 낮음 너무 이용만 하면: 더 나은 행동을 아예 시도하지 않음 → **지역 최적해(local optimum)**에 갇힘 → 따라서, 단기 보상 vs 장기 학습 사이의 균형을 잡는 것이 중요합니다.">
   <meta property="og:locale" content="ko_kr">
   <meta property="og:type" content="website">
 <title>Home | JaeSim&#39;s Workspace</title>
@@ -46,7 +51,7 @@
 <link rel="canonical" href="https://JaeSim.github.io/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.42986ab7e091e26b30756ac1d001cd12930f8af3cfaab82fcfe91650cf22f620.js" integrity="sha256-Qphqt&#43;CR4mswdWrB0AHNEpMPivPPqrgvz&#43;kWUM8i9iA=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.7592d6c3c05ef2f07e55f52305a9d62026e1bbbe973cf6772d2d57561f72c2e6.js" integrity="sha256-dZLWw8Be8vB&#43;VfUjBanWICbhu76XPPZ3LS1XVh9ywuY=" crossorigin="anonymous"></script>
 <link rel="alternate" type="application/rss+xml" href="https://JaeSim.github.io/index.xml" title="JaeSim's Workspace" />
 <!--
 Made with Book Theme
@@ -415,7 +420,7 @@ https://github.com/alex-shpak/hugo-book
             <label for="section-5451d228399fc5c2fd05219bda7b986b" class="flex justify-between cursor-pointer">
               <span>
                 Reinforcement Learning / 강화학습
-                <span class="count">(8)</span>
+                <span class="count">(9)</span>
               </span>
             </label>
 
@@ -519,7 +524,20 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/reinforcement-learning/rl-integ-learning-and-planning/" class="">8. Integrating Learning and Planning (Not Complated)</a>
+    <a href="/reinforcement-learning/rl-integ-learning-and-planning/" class="">8. Integrating Learning and Planning</a>
+  
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-exploration-exploitation/" class="">9. Exploration and Exploitation (Not Completed)</a>
   
 
                   
@@ -709,8 +727,39 @@ https://github.com/alex-shpak/hugo-book
 <ul>
 
   <li style="margin-bottom: 2rem;">
+    <a href="/reinforcement-learning/rl-exploration-exploitation/">
+      <strong style="font-size: 1.25rem;">9. Exploration and Exploitation (Not Completed)</strong>
+    </a><br/>
+
+    
+
+    <small>2025-09-29 15:14:37 KST</small>
+
+    <a href="/reinforcement-learning/rl-exploration-exploitation/" style="text-decoration: none; color: inherit;">
+      <div class="summary-box"> 
+        <h1 id="9-exploration-and-exploitation">
+  <strong>9. Exploration and Exploitation</strong>
+  
+</h1>
+<blockquote class="book-hint warning">
+  // NOTE: 이 페이지는 임시로 작성되었습니다.
+</blockquote>
+<ul>
+<li><strong>Exploitation</strong> : Make the best decision given current information</li>
+<li><strong>Exploration</strong> : Gather more information</li>
+</ul>
+<p>너무 탐험만 하면: 성능이 낮은 행동도 계속 시도 → 학습은 느리고, 보상은 낮음 <br>
+너무 이용만 하면: 더 나은 행동을 아예 시도하지 않음 → **지역 최적해(local optimum)**에 갇힘 <br>
+→ 따라서, 단기 보상 vs 장기 학습 사이의 균형을 잡는 것이 중요합니다. <br></p>
+<p>이 섹션에서는 여러 방법들을 제시하고 있습니다</p>
+      </div>
+    </a>
+
+  </li>
+
+  <li style="margin-bottom: 2rem;">
     <a href="/reinforcement-learning/rl-integ-learning-and-planning/">
-      <strong style="font-size: 1.25rem;">8. Integrating Learning and Planning (Not Complated)</strong>
+      <strong style="font-size: 1.25rem;">8. Integrating Learning and Planning</strong>
     </a><br/>
 
     
@@ -723,27 +772,21 @@ https://github.com/alex-shpak/hugo-book
   <strong>8. Integration Learning and Planning</strong>
   
 </h1>
-<h2 id="model-based-rl">
-  <strong>Model-based RL</strong>
-  
-</h2>
-<p><strong>[생략]</strong></p>
-<h2 id="simulation-based-search">
-  <strong>Simulation-based Search</strong>
-  
-</h2>
-<p>&ldquo;전체 상태 공간을 직접 학습하기는 너무 비싸다. 대신, 유망한 부분만 집중적으로 시뮬레이션하면서 거기서 경험한 정보로 Q값을 점점 더 정확하게 만든다.&rdquo;</p>
-<p>//note: balsa simulation learning 과는 개념이 조금 다름</p>
-<p><strong>[미완]</strong></p>
-<h1 id="etc">
-  <strong>etc</strong>
-  
-</h1>
-<blockquote class="book-hint warning">
-  // NOTE: 이 페이지는 임시로 작성되었습니다.
-</blockquote>
 <ul>
-<li>Softmax Policy : 이산행동일때, softmax over logits으로 정책을 정하고, policy에 대한 gradient …</li></ul>
+<li>Planning의 개념적 의미 : 모델을 알때 &ldquo;앞으로 어떻게 될지?&rdquo; 를 planning 할 수 있음</li>
+</ul>
+<h2 id="model-based-reinforcement-learning">
+  <strong>Model-based Reinforcement Learning</strong>
+  
+</h2>
+<p>여태까지 배운 것은 Model-free여서 모델을 학습하지 않았다.<br>
+Model-based RL은 model을 experience로부터 배운다.<br>
+그리고 value function이나 policy 를 model로부터 <strong>plan</strong> 한다.</p>
+<p>다음과 같은 사이클을 가지고 있다.</p>
+<img src="/images/rl-model-based-cycle.png" alt="rl-model-based-cycle" style="width:40%; display: block;margin: 0 auto;" />
+<p>model은, <br>
+환경의 동작을 근사하는 방향으로 학습한다.<br>이를 통해 simulated interaction을 할 수 있다.<br>
+다음 그림은 환경(지구) …</p>
       </div>
     </a>
 
@@ -858,52 +901,6 @@ Learn about policy π from experience sampled from µ <br>
 <script defer src="/katex/katex.min.js"></script>
 <script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
   \(\varepsilon\) …</span></p></li></ul>
-      </div>
-    </a>
-
-  </li>
-
-  <li style="margin-bottom: 2rem;">
-    <a href="/development/wsl-c-env/">
-      <strong style="font-size: 1.25rem;">WSL을 이용한 C언어 개발환경 셋업</strong>
-    </a><br/>
-
-    
-
-    <small>2025-09-04 10:11:10 KST</small>
-
-    <a href="/development/wsl-c-env/" style="text-decoration: none; color: inherit;">
-      <div class="summary-box"> 
-        <h1 id="wsl을-이용한-c언어-개발환경-셋업-하기">
-  <strong>WSL을 이용한 C언어 개발환경 셋업 하기</strong>
-  
-</h1>
-<h2 id="기본-정보">
-  <strong>기본 정보</strong>
-  
-</h2>
-<h3 id="wsl">
-  <strong>WSL</strong>
-  
-</h3>
-<ul>
-<li>세상이 많이 변했다. window 위 에서 손쉽게 linux 환경을 구축하는 것 정도로 이해하면 될 것 같다<br>
-WSL2부터는 hyper-v를 이용하는것으로 이해</li>
-</ul>
-<h4 id="wsl-install">
-  <strong>WSL install</strong>
-  
-</h4>
-<ul>
-<li>target PC: Window 11 home, LG gram.</li>
-<li>powershell에서 아래명령어 실행. 자동으로 wsl2가 설치되는것으로 이해</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>wsl --install
-</span></span></code></pre></div><ul>
-<li>에러에 대한 해결. 재부팅후 wsl-in</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>필요한 기능이 설치되어 있지 않기 때문에 작업을 시작할 수 없습니다.
-</span></span><span style="display:flex;"><span>오류 코드: …</span></span></span></span></code></pre></div>
       </div>
     </a>
 
