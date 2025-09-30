@@ -6,13 +6,41 @@
     <description>Recent content in Tags on JaeSim&#39;s Workspace</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Mon, 29 Sep 2025 15:14:37 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 30 Sep 2025 17:08:48 +0900</lastBuildDate>
     <atom:link href="https://JaeSim.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Case Study</title>
+      <link>https://JaeSim.github.io/tags/case-study/</link>
+      <pubDate>Tue, 30 Sep 2025 17:08:48 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/case-study/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Definition</title>
       <link>https://JaeSim.github.io/tags/definition/</link>
-      <pubDate>Mon, 29 Sep 2025 15:14:37 +0900</pubDate>
+      <pubDate>Tue, 30 Sep 2025 17:08:48 +0900</pubDate>
       <guid>https://JaeSim.github.io/tags/definition/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Pratice</title>
+      <link>https://JaeSim.github.io/tags/pratice/</link>
+      <pubDate>Tue, 30 Sep 2025 17:08:48 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/pratice/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Reinforcement Learning</title>
+      <link>https://JaeSim.github.io/tags/reinforcement-learning/</link>
+      <pubDate>Tue, 30 Sep 2025 17:08:48 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/reinforcement-learning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>RL</title>
+      <link>https://JaeSim.github.io/tags/rl/</link>
+      <pubDate>Tue, 30 Sep 2025 17:08:48 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/rl/</guid>
       <description></description>
     </item>
     <item>
@@ -30,17 +58,17 @@
       <description></description>
     </item>
     <item>
-      <title>Reinforcement Learning</title>
-      <link>https://JaeSim.github.io/tags/reinforcement-learning/</link>
+      <title>Regret</title>
+      <link>https://JaeSim.github.io/tags/regret/</link>
       <pubDate>Mon, 29 Sep 2025 15:14:37 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/reinforcement-learning/</guid>
+      <guid>https://JaeSim.github.io/tags/regret/</guid>
       <description></description>
     </item>
     <item>
-      <title>RL</title>
-      <link>https://JaeSim.github.io/tags/rl/</link>
+      <title>UCB</title>
+      <link>https://JaeSim.github.io/tags/ucb/</link>
       <pubDate>Mon, 29 Sep 2025 15:14:37 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/rl/</guid>
+      <guid>https://JaeSim.github.io/tags/ucb/</guid>
       <description></description>
     </item>
     <item>

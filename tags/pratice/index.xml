@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pratice on JaeSim&#39;s Workspace</title>
+    <link>https://JaeSim.github.io/tags/pratice/</link>
+    <description>Recent content in Pratice on JaeSim&#39;s Workspace</description>
+    <generator>Hugo</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Tue, 30 Sep 2025 17:08:48 +0900</lastBuildDate>
+    <atom:link href="https://JaeSim.github.io/tags/pratice/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>10. Case Study: RL in Classic Games (Not Completed)</title>
+      <link>https://JaeSim.github.io/reinforcement-learning/rl-case-study/</link>
+      <pubDate>Tue, 30 Sep 2025 17:08:48 +0900</pubDate>
+      <guid>https://JaeSim.github.io/reinforcement-learning/rl-case-study/</guid>
+      <description>&lt;h1 id=&#34;10-case-study-rl-in-classic-games&#34;&gt;&#xD;&#xA;  &lt;strong&gt;10. Case Study: RL in Classic Games&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#10-case-study-rl-in-classic-games&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;[미완]&lt;/p&gt;&#xA;&lt;blockquote class=&#34;book-hint warning&#34;&gt;&#xD;&#xA;  // NOTE: 이 페이지는 임시로 작성되었습니다.&#xD;&#xA;&lt;/blockquote&gt;&#xD;&#xA;&lt;p&gt;삭제될 수 도 있는 page&lt;/p&gt;&#xA;&lt;h1 id=&#34;etc&#34;&gt;&#xD;&#xA;  &lt;strong&gt;etc&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#etc&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Softmax Policy : 이산행동일때, softmax over logits으로 정책을 정하고, policy에 대한 gradient 값 계산&lt;br&gt;&#xA;이를 통해서 현재 iteration 에 대한 policy 파라미터를 업데이트한다.&lt;/li&gt;&#xA;&lt;li&gt;Gaussian Policy : 연속행동일때,  가우시안 분포를 정책으로 정하고, policy에 대한 gradient 값 계산&lt;br&gt;&#xA;이를 통해서 현재 iteration 에 대한 policy 파라미터를 업데이트한다.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;blockquote class=&#34;book-hint warning&#34;&gt;&#xD;&#xA;  &lt;p&gt;policy-based 에서도 replay buffer를 쓸수 있는가?&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

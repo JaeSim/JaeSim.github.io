@@ -6,7 +6,7 @@
     <description>Recent content in Reinforcement Learning / 강화학습 on JaeSim&#39;s Workspace</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Mon, 29 Sep 2025 15:14:37 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 30 Sep 2025 17:08:48 +0900</lastBuildDate>
     <atom:link href="https://JaeSim.github.io/reinforcement-learning/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>1. Reinforcement Learning Essential</title>
@@ -65,11 +65,18 @@
       <description>&lt;h1 id=&#34;8-integration-learning-and-planning&#34;&gt;&#xD;&#xA;  &lt;strong&gt;8. Integration Learning and Planning&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#8-integration-learning-and-planning&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Planning의 개념적 의미 : 모델을 알때 &amp;ldquo;앞으로 어떻게 될지?&amp;rdquo; 를 planning 할 수 있음&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;model-based-reinforcement-learning&#34;&gt;&#xD;&#xA;  &lt;strong&gt;Model-based Reinforcement Learning&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#model-based-reinforcement-learning&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;여태까지 배운 것은 Model-free여서 모델을 학습하지 않았다.&lt;br&gt;&#xA;Model-based RL은 model을 experience로부터 배운다.&lt;br&gt;&#xA;그리고 value function이나 policy 를 model로부터 &lt;strong&gt;plan&lt;/strong&gt; 한다.&lt;/p&gt;&#xA;&lt;p&gt;다음과 같은 사이클을 가지고 있다.&lt;/p&gt;&#xA;&lt;img src=&#34;https://JaeSim.github.io/images/rl-model-based-cycle.png&#34; alt=&#34;rl-model-based-cycle&#34; style=&#34;width:40%; display: block;margin: 0 auto;&#34; /&gt;&#xD;&#xA;&lt;p&gt;model은, &lt;br&gt;&#xA;환경의 동작을 근사하는 방향으로 학습한다.&lt;br&gt;이를 통해 simulated interaction을 할 수 있다.&lt;br&gt;&#xA;다음 그림은 환경(지구)를 simulation 하는 model(cartoon 지구를) 표현한 것이다.&lt;/p&gt;</description>
     </item>
     <item>
-      <title>9. Exploration and Exploitation (Not Completed)</title>
+      <title>9. Exploration and Exploitation</title>
       <link>https://JaeSim.github.io/reinforcement-learning/rl-exploration-exploitation/</link>
       <pubDate>Mon, 29 Sep 2025 15:14:37 +0900</pubDate>
       <guid>https://JaeSim.github.io/reinforcement-learning/rl-exploration-exploitation/</guid>
-      <description>&lt;h1 id=&#34;9-exploration-and-exploitation&#34;&gt;&#xD;&#xA;  &lt;strong&gt;9. Exploration and Exploitation&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#9-exploration-and-exploitation&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;blockquote class=&#34;book-hint warning&#34;&gt;&#xD;&#xA;  // NOTE: 이 페이지는 임시로 작성되었습니다.&#xD;&#xA;&lt;/blockquote&gt;&#xD;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Exploitation&lt;/strong&gt; : Make the best decision given current information&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Exploration&lt;/strong&gt; : Gather more information&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;너무 탐험만 하면: 성능이 낮은 행동도 계속 시도 → 학습은 느리고, 보상은 낮음 &lt;br&gt;&#xA;너무 이용만 하면: 더 나은 행동을 아예 시도하지 않음 → **지역 최적해(local optimum)**에 갇힘 &lt;br&gt;&#xA;→ 따라서, 단기 보상 vs 장기 학습 사이의 균형을 잡는 것이 중요합니다. &lt;br&gt;&lt;/p&gt;&#xA;&lt;p&gt;이 섹션에서는 여러 방법들을 제시하고 있습니다&lt;/p&gt;</description>
+      <description>&lt;h1 id=&#34;9-exploration-and-exploitation&#34;&gt;&#xD;&#xA;  &lt;strong&gt;9. Exploration and Exploitation&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#9-exploration-and-exploitation&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;multi-armed bandits은 하나의 action을 고르고 하나의 reward를 받고 episode가 끝나는 단순한 문제&lt;br&gt;&#xA;여기부터 contextual Bandits(예를들어 배너광고, 유저가오면 뭘보여줘야하지?), MDP 점차 확대해 나가면서 설명함&lt;/p&gt;&#xA;&lt;p&gt;online decision-making은 두개의 초이스 중에 하나다&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Exploitation&lt;/strong&gt; : Make the best decision given current information&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Exploration&lt;/strong&gt; : Gather more information&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;long-term strategy는 short-term의 희생(sacrifices)를 야기할 수 있다. &lt;br&gt;&#xA;따라서 충분한 information을 모아서 best overall decision을 골라야 한다&lt;/p&gt;&#xA;&lt;p&gt;너무 탐험만 하면: 성능이 낮은 행동도 계속 시도 → 학습은 느리고, 보상은 낮음 &lt;br&gt;&#xA;너무 이용만 하면: 더 나은 행동을 아예 시도하지 않음 → **지역 최적해(local optimum)**에 갇힘 &lt;br&gt;&#xA;→ 따라서, 단기 보상 vs 장기 학습 사이의 균형을 잡는 것이 중요합니다. &lt;br&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>10. Case Study: RL in Classic Games (Not Completed)</title>
+      <link>https://JaeSim.github.io/reinforcement-learning/rl-case-study/</link>
+      <pubDate>Tue, 30 Sep 2025 17:08:48 +0900</pubDate>
+      <guid>https://JaeSim.github.io/reinforcement-learning/rl-case-study/</guid>
+      <description>&lt;h1 id=&#34;10-case-study-rl-in-classic-games&#34;&gt;&#xD;&#xA;  &lt;strong&gt;10. Case Study: RL in Classic Games&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#10-case-study-rl-in-classic-games&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;[미완]&lt;/p&gt;&#xA;&lt;blockquote class=&#34;book-hint warning&#34;&gt;&#xD;&#xA;  // NOTE: 이 페이지는 임시로 작성되었습니다.&#xD;&#xA;&lt;/blockquote&gt;&#xD;&#xA;&lt;p&gt;삭제될 수 도 있는 page&lt;/p&gt;&#xA;&lt;h1 id=&#34;etc&#34;&gt;&#xD;&#xA;  &lt;strong&gt;etc&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#etc&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Softmax Policy : 이산행동일때, softmax over logits으로 정책을 정하고, policy에 대한 gradient 값 계산&lt;br&gt;&#xA;이를 통해서 현재 iteration 에 대한 policy 파라미터를 업데이트한다.&lt;/li&gt;&#xA;&lt;li&gt;Gaussian Policy : 연속행동일때,  가우시안 분포를 정책으로 정하고, policy에 대한 gradient 값 계산&lt;br&gt;&#xA;이를 통해서 현재 iteration 에 대한 policy 파라미터를 업데이트한다.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;blockquote class=&#34;book-hint warning&#34;&gt;&#xD;&#xA;  &lt;p&gt;policy-based 에서도 replay buffer를 쓸수 있는가?&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

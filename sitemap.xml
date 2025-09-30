@@ -177,13 +177,53 @@
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>https://JaeSim.github.io/reinforcement-learning/rl-case-study/</loc>
+    <lastmod>2025-09-30T17:08:48+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/case-study/</loc>
+    <lastmod>2025-09-30T17:08:48+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://JaeSim.github.io/categories/</loc>
-    <lastmod>2025-09-29T15:14:37+09:00</lastmod>
+    <lastmod>2025-09-30T17:08:48+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>https://JaeSim.github.io/tags/definition/</loc>
-    <lastmod>2025-09-29T15:14:37+09:00</lastmod>
+    <lastmod>2025-09-30T17:08:48+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/</loc>
+    <lastmod>2025-09-30T17:08:48+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/pratice/</loc>
+    <lastmod>2025-09-30T17:08:48+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/categories/reinforcement-learning/</loc>
+    <lastmod>2025-09-30T17:08:48+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/reinforcement-learning/</loc>
+    <lastmod>2025-09-30T17:08:48+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/rl/</loc>
+    <lastmod>2025-09-30T17:08:48+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/</loc>
+    <lastmod>2025-09-30T17:08:48+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -197,27 +237,12 @@
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://JaeSim.github.io/</loc>
+    <loc>https://JaeSim.github.io/tags/regret/</loc>
     <lastmod>2025-09-29T15:14:37+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://JaeSim.github.io/categories/reinforcement-learning/</loc>
-    <lastmod>2025-09-29T15:14:37+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://JaeSim.github.io/tags/reinforcement-learning/</loc>
-    <lastmod>2025-09-29T15:14:37+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://JaeSim.github.io/tags/rl/</loc>
-    <lastmod>2025-09-29T15:14:37+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://JaeSim.github.io/tags/</loc>
+    <loc>https://JaeSim.github.io/tags/ucb/</loc>
     <lastmod>2025-09-29T15:14:37+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

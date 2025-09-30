@@ -14,35 +14,26 @@
 
   
     
-      9. Exploration and Exploitation (Not Completed)
+      10. Case Study: RL in Classic Games (Not Completed)
     
 
     
 
-    2025-09-29 15:14:37 KST
+    2025-09-30 17:08:48 KST
 
     
        
         
-  9. Exploration and Exploitation
+  10. Case Study: RL in Classic Games
   
 
-
-  // NOTE: 이 페이지는 임시로 작성되었습니다.
-
-
-Exploitation : Make the best decision given current information
-Exploration : Gather more information
-
-너무 탐험만 하면: 성능이 낮은 행동도 계속 시도 → 학습은 느리고, 보상은 낮음 
-너무 이용만 하면: 더 나은 행동을 아예 시도하지 않음 → **지역 최적해(local optimum)**에 갇힘 
-→ 따라서, 단기 보상 vs 장기 학습 사이의 균형을 잡는 것이 중요합니다. ">
+[미완]">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="Home">
-  <meta property="og:description" content="Recent Posts#9. Exploration and Exploitation (Not Completed)2025-09-29 15:14:37 KST9. Exploration and Exploitation// NOTE: 이 페이지는 임시로 작성되었습니다.Exploitation : Make the best decision given current information Exploration : Gather more information 너무 탐험만 하면: 성능이 낮은 행동도 계속 시도 → 학습은 느리고, 보상은 낮음 너무 이용만 하면: 더 나은 행동을 아예 시도하지 않음 → **지역 최적해(local optimum)**에 갇힘 → 따라서, 단기 보상 vs 장기 학습 사이의 균형을 잡는 것이 중요합니다.">
+  <meta property="og:description" content="Recent Posts#10. Case Study: RL in Classic Games (Not Completed)2025-09-30 17:08:48 KST10. Case Study: RL in Classic Games[미완]">
   <meta property="og:locale" content="ko_kr">
   <meta property="og:type" content="website">
 <title>Home | JaeSim&#39;s Workspace</title>
@@ -51,7 +42,7 @@ Exploration : Gather more information
 <link rel="canonical" href="https://JaeSim.github.io/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.7592d6c3c05ef2f07e55f52305a9d62026e1bbbe973cf6772d2d57561f72c2e6.js" integrity="sha256-dZLWw8Be8vB&#43;VfUjBanWICbhu76XPPZ3LS1XVh9ywuY=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.9823929d50b7cacefce335c426979331c69669da9b4c51d77d44842cc448e933.js" integrity="sha256-mCOSnVC3ys784zXEJpeTMcaWadqbTFHXfUSELMRI6TM=" crossorigin="anonymous"></script>
 <link rel="alternate" type="application/rss+xml" href="https://JaeSim.github.io/index.xml" title="JaeSim's Workspace" />
 <!--
 Made with Book Theme
@@ -420,7 +411,7 @@ https://github.com/alex-shpak/hugo-book
             <label for="section-5451d228399fc5c2fd05219bda7b986b" class="flex justify-between cursor-pointer">
               <span>
                 Reinforcement Learning / 강화학습
-                <span class="count">(9)</span>
+                <span class="count">(10)</span>
               </span>
             </label>
 
@@ -537,7 +528,20 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/reinforcement-learning/rl-exploration-exploitation/" class="">9. Exploration and Exploitation (Not Completed)</a>
+    <a href="/reinforcement-learning/rl-exploration-exploitation/" class="">9. Exploration and Exploitation</a>
+  
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-case-study/" class="">10. Case Study: RL in Classic Games (Not Completed)</a>
   
 
                   
@@ -727,8 +731,45 @@ https://github.com/alex-shpak/hugo-book
 <ul>
 
   <li style="margin-bottom: 2rem;">
+    <a href="/reinforcement-learning/rl-case-study/">
+      <strong style="font-size: 1.25rem;">10. Case Study: RL in Classic Games (Not Completed)</strong>
+    </a><br/>
+
+    
+
+    <small>2025-09-30 17:08:48 KST</small>
+
+    <a href="/reinforcement-learning/rl-case-study/" style="text-decoration: none; color: inherit;">
+      <div class="summary-box"> 
+        <h1 id="10-case-study-rl-in-classic-games">
+  <strong>10. Case Study: RL in Classic Games</strong>
+  
+</h1>
+<p>[미완]</p>
+<blockquote class="book-hint warning">
+  // NOTE: 이 페이지는 임시로 작성되었습니다.
+</blockquote>
+<p>삭제될 수 도 있는 page</p>
+<h1 id="etc">
+  <strong>etc</strong>
+  
+</h1>
+<ul>
+<li>Softmax Policy : 이산행동일때, softmax over logits으로 정책을 정하고, policy에 대한 gradient 값 계산<br>
+이를 통해서 현재 iteration 에 대한 policy 파라미터를 업데이트한다.</li>
+<li>Gaussian Policy : 연속행동일때,  가우시안 분포를 정책으로 정하고, policy에 대한 gradient 값 계산<br>
+이를 통해서 현재 iteration 에 대한 policy 파라미터를 업데이트한다.</li>
+</ul>
+<blockquote class="book-hint warning">
+  <p>policy-based 에서도 replay buffer …</p></blockquote>
+      </div>
+    </a>
+
+  </li>
+
+  <li style="margin-bottom: 2rem;">
     <a href="/reinforcement-learning/rl-exploration-exploitation/">
-      <strong style="font-size: 1.25rem;">9. Exploration and Exploitation (Not Completed)</strong>
+      <strong style="font-size: 1.25rem;">9. Exploration and Exploitation</strong>
     </a><br/>
 
     
@@ -741,17 +782,14 @@ https://github.com/alex-shpak/hugo-book
   <strong>9. Exploration and Exploitation</strong>
   
 </h1>
-<blockquote class="book-hint warning">
-  // NOTE: 이 페이지는 임시로 작성되었습니다.
-</blockquote>
+<p>multi-armed bandits은 하나의 action을 고르고 하나의 reward를 받고 episode가 끝나는 단순한 문제<br>
+여기부터 contextual Bandits(예를들어 배너광고, 유저가오면 뭘보여줘야하지?), MDP 점차 확대해 나가면서 설명함</p>
+<p>online decision-making은 두개의 초이스 중에 하나다</p>
 <ul>
 <li><strong>Exploitation</strong> : Make the best decision given current information</li>
 <li><strong>Exploration</strong> : Gather more information</li>
 </ul>
-<p>너무 탐험만 하면: 성능이 낮은 행동도 계속 시도 → 학습은 느리고, 보상은 낮음 <br>
-너무 이용만 하면: 더 나은 행동을 아예 시도하지 않음 → **지역 최적해(local optimum)**에 갇힘 <br>
-→ 따라서, 단기 보상 vs 장기 학습 사이의 균형을 잡는 것이 중요합니다. <br></p>
-<p>이 섹션에서는 여러 방법들을 제시하고 있습니다</p>
+<p>long-term strategy는 short-term의 희생(sacrifices)를 야기할 수 있다. …</p>
       </div>
     </a>
 
@@ -861,46 +899,6 @@ Policy는 value 대비 더 compact하게 저장한다. 저게 저장하는 장�
 <ol>
 <li>정책 π 고정</li>
 <li>Q-function을 gradient …</li></ol></blockquote>
-      </div>
-    </a>
-
-  </li>
-
-  <li style="margin-bottom: 2rem;">
-    <a href="/reinforcement-learning/rl-model-free-control/">
-      <strong style="font-size: 1.25rem;">5. Model Free Control</strong>
-    </a><br/>
-
-    
-
-    <small>2025-09-12 11:39:17 KST</small>
-
-    <a href="/reinforcement-learning/rl-model-free-control/" style="text-decoration: none; color: inherit;">
-      <div class="summary-box"> 
-        <h1 id="5-model-free-control">
-  <strong>5. model-free control</strong>
-  
-</h1>
-<ul>
-<li>이전장의 model-free prediction은 결국 예측하는 것이고. 이것은 실제로 행동하는것.</li>
-</ul>
-<h2 id="on-policyoff-policy-intro">
-  <strong>on-policy/off-policy intro</strong>
-  
-</h2>
-<p>π = Target Policy
-µ = Behavior Policy</p>
-<p>이두개가 같으면 on-policy 다르면 off-policy.</p>
-<ul>
-<li>
-<p>Off-policy learning : “Look over someone’s shoulder” <br>
-Learn about policy π from experience sampled from µ <br>
-<strong>re-use</strong> experience generated from old policy <br>
-<strong>Q-Learning</strong> : 
-<link rel="stylesheet" href="/katex/katex.min.css" />
-<script defer src="/katex/katex.min.js"></script>
-<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
-  \(\varepsilon\) …</span></p></li></ul>
       </div>
     </a>
 
