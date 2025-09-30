@@ -57,7 +57,7 @@ synchronous backup <br>=  한 iteration에서 전체 상태들의 값이 한꺼�
  
  이것은 true value function으로 수렴하는것을 보장한다 <br>(why?= discount factor 가 0~1 이므로 수축 매핑 성질을 가진다 (contraction mapping) by GPT)
 
-### synchronous backup policy evaluation example
+### **synchronous backup policy evaluation example**
 아래그림은 이동을 uniform random하기 pick된다는 policy에 대한 그림이다 (왼쪽에 적힌 숫자값들 : 1/4씩 가능성이 있는경우)
 k=1 일때의, 주변 으로 갔을때 전부 -1 이니 -1*4/4 로 1회 업데이트 <br>
 k=2 일때의 1.7 은 1.75가 짤린것. <br>
