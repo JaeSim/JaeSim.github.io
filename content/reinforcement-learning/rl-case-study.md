@@ -10,13 +10,14 @@ categories = ["Reinforcement Learning"]
 # **10. Case Study: RL in Classic Games**
 
 이 장에서는 각각의 RL 컴포넌트/기법이 고전 게임에서 어떻게 적용되고, 어떻게 super human performance를 내는지 설명한다.
-
+  
+ 
 ## **Game Theory**
 ### **Nash equilibrium**
  - 게임에서 optimal policy는 상대 player에 영향을 받는다
-   - player 본인의 policy를 {{< katex display=false >}}\pi^i{{< /katex >}} 로 표현하고
-   - 다른 상대 player의 policy를 {{< katex display=false >}}\pi^-i{{< /katex >}} 로 표현하면
-   - 상대 play에 대해여 best respone는 {{< katex display=false >}}\pi^i_{*}(\pi^{-i}){{< /katex >}} 로 표현된다.
+ - player 본인의 policy를 {{< katex display=false >}}\pi^i{{< /katex >}} 로 표현하고
+ - 다른 상대 player의 policy를 {{< katex display=false >}}\pi^-i{{< /katex >}} 로 표현하면
+ - 상대 play에 대해여 best respone는 {{< katex display=false >}}\pi^i_{*}(\pi^{-i}){{< /katex >}} 로 표현된다.
  - 모든 player의 policy는 다음과 같이 joint로 표현된다
 {{< katex display=true >}}\pi^i = \pi^i_{*}(\pi^{-i}){{< /katex >}}
  - 이것이 Nash equilibrium 이다
