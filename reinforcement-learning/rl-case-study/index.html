@@ -7,33 +7,56 @@
   10. Case Study: RL in Classic Games
   #
 
-[미완]
+이 장에서는 각각의 RL 컴포넌트/기법이 고전 게임에서 어떻게 적용되고, 어떻게 super human performance를 내는지 설명한다.
 
-  // NOTE: 이 페이지는 임시로 작성되었습니다.
-
-삭제될 수 도 있는 page
-
-  etc
+  Game Theory
   #
 
 
-Softmax Policy : 이산행동일때, softmax over logits으로 정책을 정하고, policy에 대한 gradient 값 계산
-이를 통해서 현재 iteration 에 대한 policy 파라미터를 업데이트한다.
-Gaussian Policy : 연속행동일때,  가우시안 분포를 정책으로 정하고, policy에 대한 gradient 값 계산
-이를 통해서 현재 iteration 에 대한 policy 파라미터를 업데이트한다.
+  Nash equilibrium
+  #
 
 
-  policy-based 에서도 replay buffer를 쓸수 있는가?">
+게임에서 optimal policy는 상대 player에 영향을 받는다
+
+player 본인의 policy를 
+
+
+
+  \(\pi^i\)
+
+ 로 표현하고
+다른 상대 player의 policy를 
+  \(\pi^-i\)
+
+ 로 표현하면
+상대 play에 대해여 best respone는 
+  \(\pi^i_{*}(\pi^{-i})\)
+
+ 로 표현된다.
+
+
+모든 player의 policy는 다음과 같이 joint로 표현된다
+
+  \[\pi^i = \pi^i_{*}(\pi^{-i})\]
+
+
+이것이 Nash equilibrium 이다
+
+각각의 player들은 다른 플레이어들의 정책에 대해서 자신의 best response를 내뱉는 지점.
+결국 서로간의 best response로 행동하면(행동하도록 업데이트하면) 균형점을 찾는다는 내용
+포커를 예를 들면, 내 최적의 policy 뿐만 아니라 딜러의 최적 policy까지 학습하고, joint한 policy가 옵티멀 policy라는 예.
+
+
+
+그동안 배워온것은 Single-Agent RL이다.">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/reinforcement-learning/rl-case-study/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
-  <meta property="og:title" content="10. Case Study: RL in Classic Games (Not Completed)">
-  <meta property="og:description" content="10. Case Study: RL in Classic Games#[미완]
-// NOTE: 이 페이지는 임시로 작성되었습니다.삭제될 수 도 있는 page
-etc#Softmax Policy : 이산행동일때, softmax over logits으로 정책을 정하고, policy에 대한 gradient 값 계산
-이를 통해서 현재 iteration 에 대한 policy 파라미터를 업데이트한다. Gaussian Policy : 연속행동일때, 가우시안 분포를 정책으로 정하고, policy에 대한 gradient 값 계산
-이를 통해서 현재 iteration 에 대한 policy 파라미터를 업데이트한다. policy-based 에서도 replay buffer를 쓸수 있는가?">
+  <meta property="og:title" content="10. Case Study: RL in Classic Games">
+  <meta property="og:description" content="10. Case Study: RL in Classic Games#이 장에서는 각각의 RL 컴포넌트/기법이 고전 게임에서 어떻게 적용되고, 어떻게 super human performance를 내는지 설명한다.
+Game Theory#Nash equilibrium#게임에서 optimal policy는 상대 player에 영향을 받는다 player 본인의 policy를 \(\pi^i\)로 표현하고 다른 상대 player의 policy를 \(\pi^-i\)로 표현하면 상대 play에 대해여 best respone는 \(\pi^i_{*}(\pi^{-i})\)로 표현된다. 모든 player의 policy는 다음과 같이 joint로 표현된다 \[\pi^i = \pi^i_{*}(\pi^{-i})\]이것이 Nash equilibrium 이다 각각의 player들은 다른 플레이어들의 정책에 대해서 자신의 best response를 내뱉는 지점. 결국 서로간의 best response로 행동하면(행동하도록 업데이트하면) 균형점을 찾는다는 내용 포커를 예를 들면, 내 최적의 policy 뿐만 아니라 딜러의 최적 policy까지 학습하고, joint한 policy가 옵티멀 policy라는 예. 그동안 배워온것은 Single-Agent RL이다.">
   <meta property="og:locale" content="ko_kr">
   <meta property="og:type" content="article">
     <meta property="article:section" content="reinforcement-learning">
@@ -42,15 +65,16 @@ etc#Softmax Policy : 이산행동일때, softmax over logits으로 정책을 �
     <meta property="article:tag" content="Definition">
     <meta property="article:tag" content="Pratice">
     <meta property="article:tag" content="Case Study">
+    <meta property="article:tag" content="Self-Play RL">
+    <meta property="article:tag" content="Minimax Search">
     <meta property="article:tag" content="Reinforcement Learning">
-    <meta property="article:tag" content="RL">
-<title>10. Case Study: RL in Classic Games (Not Completed) | JaeSim&#39;s Workspace</title>
+<title>10. Case Study: RL in Classic Games | JaeSim&#39;s Workspace</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
 <link rel="canonical" href="https://JaeSim.github.io/reinforcement-learning/rl-case-study/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.9823929d50b7cacefce335c426979331c69669da9b4c51d77d44842cc448e933.js" integrity="sha256-mCOSnVC3ys784zXEJpeTMcaWadqbTFHXfUSELMRI6TM=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.31f277a5498ee4da11add5898fef57546a6899f9b194f39238b6c16d7bdd7ed7.js" integrity="sha256-MfJ3pUmO5NoRrdWJj&#43;9XVGpomfmxlPOSOLbBbXvdftc=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -548,7 +572,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/reinforcement-learning/rl-case-study/" class="active">10. Case Study: RL in Classic Games (Not Completed)</a>
+    <a href="/reinforcement-learning/rl-case-study/" class="active">10. Case Study: RL in Classic Games</a>
   
 
                   
@@ -674,7 +698,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <h3>10. Case Study: RL in Classic Games (Not Completed)</h3>
+  <h3>10. Case Study: RL in Classic Games</h3>
 
   <label for="toc-control">
     
@@ -690,17 +714,37 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#game-theory"><strong>Game Theory</strong></a>
       <ul>
-        <li><a href="#proximal-policy-optimization-ppo"><strong>Proximal Policy Optimization (PPO)</strong></a></li>
+        <li><a href="#nash-equilibrium"><strong>Nash equilibrium</strong></a></li>
+        <li><a href="#two-player-zero-sum-games"><strong>Two-Player Zero-Sum Games</strong></a></li>
       </ul>
     </li>
-  </ul>
-
-  <ul>
-    <li><a href="#model-agnostic-meta-learningmaml"><strong>Model-Agnostic Meta-Learning(MAML)</strong></a></li>
-    <li><a href="#per"><strong>PER</strong></a></li>
-    <li><a href="#참조">참조</a></li>
+    <li><a href="#minimax-search"><strong>Minimax Search</strong></a>
+      <ul>
+        <li><a href="#minimax"><strong>Minimax</strong></a></li>
+        <li><a href="#minimax-search-1"><strong>Minimax Search</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#self-play-reinforcement-learning"><strong>Self-Play Reinforcement Learning</strong></a>
+      <ul>
+        <li><a href="#policy-improvement-with-afterstats"><strong>Policy Improvement with Afterstats</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#combining-reinforcement-learning-and-minimanx-search"><strong>Combining Reinforcement Learning and Minimanx Search</strong></a>
+      <ul>
+        <li><a href="#simple-td"><strong>Simple TD</strong></a></li>
+        <li><a href="#td-root"><strong>TD Root</strong></a></li>
+        <li><a href="#td-leaf"><strong>TD leaf</strong></a></li>
+        <li><a href="#treestrap"><strong>TreeStrap</strong></a></li>
+        <li><a href="#simulation-based-search"><strong>Simulation-Based Search</strong></a></li>
+        <li><a href="#game-tree-serach-in-imperfect-information-games"><strong>Game-Tree Serach in Imperfect information Games</strong></a>
+          <ul>
+            <li><a href="#smooth-uct-search"><strong>Smooth UCT Search</strong></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
   </ul>
 </nav>
 
@@ -712,6 +756,10 @@ https://github.com/alex-shpak/hugo-book
       <a href="/tags/pratice" class="tag">Pratice</a>
     
       <a href="/tags/case-study" class="tag">Case Study</a>
+    
+      <a href="/tags/self-play-rl" class="tag">self-play RL</a>
+    
+      <a href="/tags/minimax-search" class="tag">minimax search</a>
     
       <a href="/tags/reinforcement-learning" class="tag">Reinforcement Learning</a>
     
@@ -749,137 +797,440 @@ https://github.com/alex-shpak/hugo-book
   <strong>10. Case Study: RL in Classic Games</strong>
   <a class="anchor" href="#10-case-study-rl-in-classic-games">#</a>
 </h1>
-<p>[미완]</p>
-<blockquote class="book-hint warning">
-  // NOTE: 이 페이지는 임시로 작성되었습니다.
-</blockquote>
-<p>삭제될 수 도 있는 page</p>
-<h1 id="etc">
-  <strong>etc</strong>
-  <a class="anchor" href="#etc">#</a>
-</h1>
-<ul>
-<li>Softmax Policy : 이산행동일때, softmax over logits으로 정책을 정하고, policy에 대한 gradient 값 계산<br>
-이를 통해서 현재 iteration 에 대한 policy 파라미터를 업데이트한다.</li>
-<li>Gaussian Policy : 연속행동일때,  가우시안 분포를 정책으로 정하고, policy에 대한 gradient 값 계산<br>
-이를 통해서 현재 iteration 에 대한 policy 파라미터를 업데이트한다.</li>
-</ul>
-<blockquote class="book-hint warning">
-  <p>policy-based 에서도 replay buffer를 쓸수 있는가?</p>
-<ol>
-<li>
-<p>Policy-based에서 Replay Buffer의 어려움
-문제: Policy가 계속 변하기 때문에
-​</p>
-</li>
-<li>
-<p>PPO, TRPO [	❌ 또는 제한적 사용 ]	최근의 데이터만 사용 (very short buffer)</p>
-</li>
-<li>
-<p>SAC (Soft Actor-Critic) [ 확률적 policy 사용 ] (policy gradient 기반) <br>
-하지만 전체 구조는 off-policy 로써 replay buffer 적극 사용</p>
-</li>
-</ol>
-<p>by GPT</p>
-<p><strong>추가 research 요망</strong></p>
-</blockquote>
-<h3 id="proximal-policy-optimization-ppo">
-  <strong>Proximal Policy Optimization (PPO)</strong>
-  <a class="anchor" href="#proximal-policy-optimization-ppo">#</a>
+<p>이 장에서는 각각의 RL 컴포넌트/기법이 고전 게임에서 어떻게 적용되고, 어떻게 super human performance를 내는지 설명한다.</p>
+<h2 id="game-theory">
+  <strong>Game Theory</strong>
+  <a class="anchor" href="#game-theory">#</a>
+</h2>
+<h3 id="nash-equilibrium">
+  <strong>Nash equilibrium</strong>
+  <a class="anchor" href="#nash-equilibrium">#</a>
 </h3>
-<p>Actor-Critic 구조에서
-Clipped Objective를 도입해서, policy가 너무 크게 바뀌지 않도록 제약하는것.</p>
-<p>아래는 PPO surrogate objective 함수(목적함수). 이를 gradient ascent(최대화) 하는 파라미터를 현재 policy에 업데이트하면 policy는 옵티멀을 향해간다.
-
+<ul>
+<li>게임에서 optimal policy는 상대 player에 영향을 받는다
+<ul>
+<li>player 본인의 policy를 
 <link rel="stylesheet" href="/katex/katex.min.css" />
 <script defer src="/katex/katex.min.js"></script>
 <script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \(\pi^i\)
+</span>
+ 로 표현하고</li>
+<li>다른 상대 player의 policy를 <span>
+  \(\pi^-i\)
+</span>
+ 로 표현하면</li>
+<li>상대 play에 대해여 best respone는 <span>
+  \(\pi^i_{*}(\pi^{-i})\)
+</span>
+ 로 표현된다.</li>
+</ul>
+</li>
+<li>모든 player의 policy는 다음과 같이 joint로 표현된다
+<span>
+  \[\pi^i = \pi^i_{*}(\pi^{-i})\]
+</span>
+</li>
+<li>이것이 Nash equilibrium 이다
+<ul>
+<li>각각의 player들은 다른 플레이어들의 정책에 대해서 자신의 best response를 내뱉는 지점.</li>
+<li>결국 서로간의 best response로 행동하면(행동하도록 업데이트하면) 균형점을 찾는다는 내용</li>
+<li>포커를 예를 들면, 내 최적의 policy 뿐만 아니라 딜러의 최적 policy까지 학습하고, joint한 policy가 옵티멀 policy라는 예.</li>
+</ul>
+</li>
+</ul>
+<p>그동안 배워온것은 Single-Agent RL이다.</p>
+<ul>
+<li>다른 player는 environment의 일부로 취급해서 MDP를 푼것</li>
+</ul>
+<p>Nash equilibrium 은 <strong>fixed-point의 self-play RL</strong>이다.</p>
+<ul>
+<li>내가 다른 player가 된다고 생각해서, play 하는것</li>
+<li>서로 최적의 행동을 하면서 업데이트 해나가면 결국 고정점(fixed point)에 도달한다.</li>
+<li>각 agent에 대해서 각각의 experience를 생성한다.</li>
+<li>agente들은 각자 best response를 한다.
+<span>
   \[
-L^{\text{CLIP}}(\theta) = \hat{\mathbb{E}}_t \left[ \min \left( r_t(\theta) \hat{A}_t,\; \text{clip}(r_t(\theta), 1 - \epsilon, 1 + \epsilon) \hat{A}_t \right) \right]
+a_{1} \sim \pi^{1}, \; a_{2} \sim \pi^{2}, \; \ldots
+\]
+</span>
+</li>
+<li>이것들을 학습해내간다.</li>
+</ul>
+<h3 id="two-player-zero-sum-games">
+  <strong>Two-Player Zero-Sum Games</strong>
+  <a class="anchor" href="#two-player-zero-sum-games">#</a>
+</h3>
+<p>게임은 perfect information과 imperfect information의 경우가 있다. <br>
+perfect는 fully observed 이고, imperfect는 partially observed 인데, 강의에서는 perfect case를 위주로 다룬다. <br></p>
+<p>이후 section들은 Two-Player Zero-Sum game임을 가정하고 설명한다.<br>
+따라서 중요하진 않지만 간략하게 기술한다.</p>
+<ul>
+<li>두명의 플레이어가 있고, player 1= 백, player 2= 흑이다</li>
+<li>zero sum game이므로 두 player 의 reward의 합은 0이다
+<span>
+  \[
+R^{1} + R^{2} = 0
+\]
+</span>
+</li>
+</ul>
+<p>이것을 해결하는 방법은</p>
+<ul>
+<li>Game tree search (planning하는것)</li>
+<li>Self-play reinforcement learning</li>
+</ul>
+<p>이 있다. 우리는 Self-play reinforcement learning 로 해결하고자한다.</p>
+<h2 id="minimax-search">
+  <strong>Minimax Search</strong>
+  <a class="anchor" href="#minimax-search">#</a>
+</h2>
+<h3 id="minimax">
+  <strong>Minimax</strong>
+  <a class="anchor" href="#minimax">#</a>
+</h3>
+<ul>
+<li>
+<p>value function의 total reward는 joint policy <span>
+  \(\pi = \langle \pi^1, \pi^2 \rangle\)
+</span>
+ 로부터 표현된다.
+<span>
+  \[
+v_{\pi}(s) = \mathbb{E}_{\pi}[G_t \mid S_t = s]
 \]
 </span>
 </p>
-<hr>
-<h1 id="999-deep-rl">
-  <strong>999. Deep RL</strong>
-  <a class="anchor" href="#999-deep-rl">#</a>
-</h1>
-<p>RL과 딥러닝의 결합 <br>
-딥러닝이 사용하는 위치</p>
-<ul>
-<li><strong>Policy Network</strong> : 현재 상태에서 행동 분포를 출력</li>
-<li><strong>Value Network</strong> : 상태나 상태-행동의 가치를 출력</li>
-<li><strong>Q-network</strong> : Q(s, a)를 직접 추정</li>
-<li><strong>Model Network</strong> : 환경 dynamics (transition, reward)를 예측 (model-based RL에서만 사용)</li>
+</li>
+<li>
+<p>minimax value function은 player 1의 policy가 max가 되고 다른 player2의  policy가 min되는 것이다. 수식적으로 보면 다음과 같다.
+<span>
+  \[
+v_{*}(s) = \max_{\pi^1} \min_{\pi^2} \; v_{\pi}(s)
+\]
+</span>
+</p>
+</li>
+<li>
+<p>결국 minimax는 joint policy <span>
+  \(\pi = \langle \pi^1, \pi^2 \rangle\)
+</span>
+ 에 대해서 minimax value를 구하게 된다.</p>
+</li>
+<li>
+<p>만약 옵티멀하자면 Nash equilibrium 인 지점이다.</p>
+</li>
 </ul>
-<h1 id="a-balsa">
-  <strong>a. Balsa</strong>
-  <a class="anchor" href="#a-balsa">#</a>
-</h1>
-<p>Balsa는 쿼리 플랜을 순차적으로 구성하는 문제를 <strong>Markov Decision Process (MDP)</strong> 으로 보고,
-이를 강화학습으로 해결</p>
+<h3 id="minimax-search-1">
+  <strong>Minimax Search</strong>
+  <a class="anchor" href="#minimax-search-1">#</a>
+</h3>
 <ul>
-<li>State s = 현재까지 만들어진 partial query plan</li>
-<li>Action a = 다음에 어떤 테이블을 조인할지 결정</li>
-<li>Reward r = 쿼리 플랜의 실행 비용 또는 latency</li>
-<li>Environment = DB 쿼리 시뮬레이터 or Costmodel</li>
-</ul>
-<p>추가적으로</p>
+<li>Minimax를 tree로 해서 search 해나가면 minimax search 이다.
+<img src="/images/rl-minimax-search.png" alt="rl-minimax-search" style="width:80%;"/></li>
+<li>depth-first game tree search 로 minimax value를 찾는것이다.</li>
+<li>지금은 이진이지만 가능한 tree 전체가 보인다고 보면 될것 같다.</li>
+<li>가면갈수록 tree는 깊어지고 지수적으로 많아지기 때문에<br>
+minimax search에서 value function approximator를 적용해서 나타낼 수 있고,  <span>
+  \(v(s, \mathbf{w}) \approx v_{*}(s)\)
+</span>
+</li>
+<li>이를 통해 leaf nodes의 value를 estimate 할 수 있다</li>
+<li>아래 그림은 Binary feature vector 로 value function을 근사를 한 예제이다 (체스 게임)
 <ul>
-<li>simulation phase(step) 을 가져서 재앙적 plan을 탐험하지 않게하고,</li>
-<li>Timeout을 둬서 Safe Execution 시간을 보장했다. (재앙적 plan이 선택되더라도 timeout으로 하한보장)</li>
-<li>value network를 simple tree convolution networks 로 구성</li>
+<li>x(s) 는 해당 piece가 존재하나 여부. w는 각 piece의 가치</li>
+<li>이것은 단순히 piece의 존재만 가진것을 나타내는 feature이고, position까지하면 좀더 복잡한 feature가 된다</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 여기에서 모델은 강화학습의 environment의 모델이 아니라, value function을 근사할(계산할) treeconv 모델을 의미함</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">MakeModel</span>(p, exp, dataset):
-</span></span><span style="display:flex;"><span>    dev <span style="color:#f92672">=</span> GetDevice()
-</span></span><span style="display:flex;"><span>    num_label_bins <span style="color:#f92672">=</span> int(
-</span></span><span style="display:flex;"><span>        dataset<span style="color:#f92672">.</span>costs<span style="color:#f92672">.</span>max()<span style="color:#f92672">.</span>item()) <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>  <span style="color:#75715e"># +1 for 0, +1 for ceil(max cost).</span>
-</span></span><span style="display:flex;"><span>    query_feat_size <span style="color:#f92672">=</span> len(exp<span style="color:#f92672">.</span>query_featurizer(exp<span style="color:#f92672">.</span>nodes[<span style="color:#ae81ff">0</span>]))
-</span></span><span style="display:flex;"><span>    batch <span style="color:#f92672">=</span> exp<span style="color:#f92672">.</span>featurizer(exp<span style="color:#f92672">.</span>nodes[<span style="color:#ae81ff">0</span>])
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">assert</span> batch<span style="color:#f92672">.</span>ndim <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>    plan_feat_size <span style="color:#f92672">=</span> batch<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">0</span>]
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> p<span style="color:#f92672">.</span>tree_conv:
-</span></span><span style="display:flex;"><span>        labels <span style="color:#f92672">=</span> num_label_bins <span style="color:#66d9ef">if</span> p<span style="color:#f92672">.</span>cross_entropy <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> TreeConvolution(feature_size<span style="color:#f92672">=</span>query_feat_size,
-</span></span><span style="display:flex;"><span>                               plan_size<span style="color:#f92672">=</span>plan_feat_size,
-</span></span><span style="display:flex;"><span>                               label_size<span style="color:#f92672">=</span>labels,
-</span></span><span style="display:flex;"><span>                               version<span style="color:#f92672">=</span>p<span style="color:#f92672">.</span>tree_conv_version)<span style="color:#f92672">.</span>to(dev)
-</span></span></code></pre></div><h1 id="b-logger">
-  <strong>b. LOGGER</strong>
-  <a class="anchor" href="#b-logger">#</a>
-</h1>
+</li>
+</ul>
+ <img src="/images/rl-chess-example.png" alt="rl-chess-example" style="width:80%;"/>
 <ul>
-<li>e-beam search 소개 [Exploration and exploitation]</li>
-<li>loss function reward weighting을 통해서 poor operator에 의한 fluctuation 방지</li>
-<li>log transformation 을 통해서 reward의 범위를 압축 (재앙적 plan의 영향도를 감쇄)</li>
-<li>ROSS Restricted Operator Search Space. (최적을 찾지 않고 최악이 안골라지게 해서 효율적)</li>
-<li>value nertwork (GNN + LSTM)</li>
+<li>Deep Blue와 Chinook의 예시 설명은 생략</li>
 </ul>
-<h1 id="c-reload">
-  <strong>c. RELOAD</strong>
-  <a class="anchor" href="#c-reload">#</a>
-</h1>
-<p>Balsa + MAML + PER</p>
-<h2 id="model-agnostic-meta-learningmaml">
-  <strong>Model-Agnostic Meta-Learning(MAML)</strong>
-  <a class="anchor" href="#model-agnostic-meta-learningmaml">#</a>
+<h2 id="self-play-reinforcement-learning">
+  <strong>Self-Play Reinforcement Learning</strong>
+  <a class="anchor" href="#self-play-reinforcement-learning">#</a>
 </h2>
-<p>모든 task에 잘 작동하는 하나의 모델을 학습하는 것&quot;이 아니라, <br>
-조금만 fine-tuning 하면 각 task에 잘 작동할 수 있는 초기 모델&quot;을 학습하는 것.</p>
-<h2 id="per">
-  <strong>PER</strong>
-  <a class="anchor" href="#per">#</a>
+<p>Self-Play context에 기존에 배웠던 value-based RL등을 동일하게 적용이 가능하다.</p>
+<ul>
+<li>
+<p>MC는 <span>
+  \(G_t\)
+</span>
+ 에 대해서 value function을 업데이트하고
+<span>
+  \[
+\Delta \mathbf{w} = \alpha \bigl(G_t - v(S_t, \mathbf{w})\bigr) \nabla_{\mathbf{w}} v(S_t, \mathbf{w})
+\]
+</span>
+</p>
+</li>
+<li>
+<p>TD(0)는 <span>
+  \(v(S_{t+1})\)
+</span>
+ 에 대해서 value function을 업데이트하고
+<span>
+  \[
+\Delta \mathbf{w} = \alpha \bigl(v(S_{t+1}, \mathbf{w}) - v(S_t, \mathbf{w})\bigr) \nabla_{\mathbf{w}} v(S_t, \mathbf{w})
+\]
+</span>
+</p>
+</li>
+<li>
+<p>TD(람다)는  <span>
+  \(G_t^{\lambda}\)
+</span>
+ 에 대해서 value function을 업데이트한다
+<span>
+  \[
+\Delta \mathbf{w} = \alpha \bigl(G_t^{\lambda} - v(S_t, \mathbf{w})\bigr) \nabla_{\mathbf{w}} v(S_t, \mathbf{w})
+\]
+</span>
+</p>
+</li>
+</ul>
+<h3 id="policy-improvement-with-afterstats">
+  <strong>Policy Improvement with Afterstats</strong>
+  <a class="anchor" href="#policy-improvement-with-afterstats">#</a>
+</h3>
+<p>우리가 deterministic한 게임이라면 옵티멀한 value function을 충분히 찾을 수 있다.<br>
+왜냐하면 <strong>afterstate</strong> 때문. <br>
+deterministic 한 게임이기 때문에, 현재 state에서 다음 계승 state로 어떻게 바뀔지 명확하게 알기 때문이다<br>
+(체스로 두면 rule을 알기때문에 이동한 다음의 state[position]를 안다.)</p>
+<ul>
+<li>
+<p><span>
+  \(v_{*}(s)\)
+</span>
+ 를 successor state succ(s,a) 로써 표현한다면 다음과 같다.
+<span>
+  \[q_{*}(s, a) = v_{*}(\text{succ}(s, a))\]
+</span>
+</p>
+</li>
+<li>
+<p>이를 after state에 대한 min/maximising 을 적용하면 다음과 같이 표현된다
+<span>
+  \[
+A_t = \arg\max_{a} \; v_{*}(\text{succ}(S_t, a)) \ \text{for white} \\
+A_t = \arg\min_{a} \; v_{*}(\text{succ}(S_t, a)) \ \text{for black}
+\]
+</span>
+</p>
+</li>
+<li>
+<p>Logistello는 Othello 게임을 정복하기 위해서 Self-Play TD를 적용했다.</p>
+<ul>
+<li>policy iteration 을 다음과 같이 수행<br>
+(improvement를 one-step로 하지 않고 전체 minimax tree를 이용해서 한다)
+<ul>
+<li>current policy로 self-play game을 한다</li>
+<li>Monte-Carlo 로 현재 policy 를 평가한다 (regress problem이다. 누가 이길지 예측하는)</li>
+<li>Greedy policy improvement를 한다</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>TD-Gammon 은 backgammon 을 정복하기 위해서 (서양보드 게임인데 잘 몰라도된다 ) Non-Linear Value function Approximation을 사용했다.</p>
+<ul>
+<li>random weight로 초기화하고, self-play로 train 하였다.</li>
+<li>non-linear TD learning을 다음과 같이  표현된다.
+<span>
+  \[
+\delta_t = v(S_{t+1}, \mathbf{w}) - v(S_t, \mathbf{w}) \\
+\Delta \mathbf{w} = \alpha \delta_t \nabla_{\mathbf{w}} v(S_t, \mathbf{w})
+\]
+</span>
+</li>
+<li>greedy로 하여 exploration 하지 않도록함 (backgammon 은 dice로 하는거라서 이미 exploration을 내재하고 있음. 명시적으로 explore 하지 않아도 모든 state를 다가봄)</li>
+</ul>
+</li>
+</ul>
+<h2 id="combining-reinforcement-learning-and-minimanx-search">
+  <strong>Combining Reinforcement Learning and Minimanx Search</strong>
+  <a class="anchor" href="#combining-reinforcement-learning-and-minimanx-search">#</a>
 </h2>
-<p>위에 언급 [ 생략 ]</p>
-<h2 id="참조">
-  참조
-  <a class="anchor" href="#%ec%b0%b8%ec%a1%b0">#</a>
-</h2>
-<p><a href="https://davidstarsilver.wordpress.com/teaching/">https://davidstarsilver.wordpress.com/teaching/</a></p>
-<p><a href="https://wnthqmffhrm.tistory.com/10">https://wnthqmffhrm.tistory.com/10</a></p>
-<p><a href="https://davidstarsilver.wordpress.com/wp-content/uploads/2025/04/lecture-5-model-free-control-.pdf">https://davidstarsilver.wordpress.com/wp-content/uploads/2025/04/lecture-5-model-free-control-.pdf</a></p>
+<h3 id="simple-td">
+  <strong>Simple TD</strong>
+  <a class="anchor" href="#simple-td">#</a>
+</h3>
+<p>TD는 value function을 successor value로 업데이트하는 직관이다.
+<img src="/images/rl-simple-td.png" alt="rl-simple-td" style="width:80%;"/></p>
+<ul>
+<li>TD의 value function approximator sms v(s,w)로 다음과 같이 표현된다
+<span>
+  \[
+v(S_t, \mathbf{w}) \;\leftarrow\; v(S_{t+1}, \mathbf{w})
+\]
+</span>
+</li>
+<li>이것은 next state의 raw value로 update하는 모양새</li>
+<li>결국 Simple TD를 적용하는건 다음과 같이 두 단계로 나눠진다
+<ul>
+<li>TD learning으로 value function을 배운다</li>
+<li>그리고 이 value function으로 minimax search를 한다 (no laerning)
+<span>
+  \[
+v_{+}(S_t, \mathbf{w}) \;=\;  \operatorname*{minimax}_{s \in \text{leaves}(S_t)} v(s, \mathbf{w})
+\]
+</span>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="td-root">
+  <strong>TD Root</strong>
+  <a class="anchor" href="#td-root">#</a>
+</h3>
+<p>Logistello 나 TD-Gammon은 value function 학습하기 쉬워서 잘 적용되는데<br>
+Chess 등의 게임에서는 잘 적용이 안됨.<br>
+Search 없이 checkmate하는 전략을 찾기 어려움</p>
+<ul>
+<li>
+<p><strong>minimax search value로 나온 것들을 학습에 사용</strong>하는 직관
+<img src="/images/rl-td-root.png" alt="rl-td-root" style="width:80%;"/></p>
+</li>
+<li>
+<p>TD root는 왼쪽 그림과 같이 search를 하고, 아 빨간색이 좋구나 하고 St+1로 이동</p>
+</li>
+<li>
+<p>빨간색에서 search를 해보았는데 초록색이 좋았다 라는것을 이용해서 이전 St를 업데이트</p>
+</li>
+<li>
+<p>수식적으로는,  다음과 같이 표현된다</p>
+<ul>
+<li>minimax search의 값이 다음과 같이 표현될때
+<span>
+  \[
+v_{+}(S_t, \mathbf{w}) \;=\; \operatorname*{minimax}_{s \in \text{leaves}(S_t)} v(s, \mathbf{w})
+\]
+</span>
+</li>
+<li><span>
+  \(l_{+}(s)\)
+</span>
+ 는 state s 에 대해서 minimax leaf node가 가지는 value</li>
+<li>종합하면 수식으로는 다음과 같이 표현된다.
+<span>
+  \[
+v(S_t, \mathbf{w}) \;\leftarrow\; v_{+}(S_{t+1}, \mathbf{w}) \;=\; v(l_{+}(S_{t+1}), \mathbf{w})
+\]
+</span>
+</li>
+</ul>
+</li>
+<li>
+<p>후에 기술한 TD Leaf와 다른점은 roaw value를 이용해서 업데이트한다.</p>
+</li>
+</ul>
+<h3 id="td-leaf">
+  <strong>TD leaf</strong>
+  <a class="anchor" href="#td-leaf">#</a>
+</h3>
+<ul>
+<li>
+<p>직관</p>
+<ul>
+<li>TD root: “지금 state → 바로 다음 state 값으로 학습”</li>
+<li>TD leaf: “지금 state에서 search로 본 값 → 다음 state에서 search로 본 값으로 학습”
+<img src="/images/rl-td-leaf.png" alt="rl-td-leaf" style="width:80%;"/></li>
+</ul>
+</li>
+<li>
+<p>각각 minimax search 의 값이 다음과 같이 표현되고
+<span>
+  \[
+v_{+}(S_t, \mathbf{w}) \;=\; \operatorname*{minimax}_{s \in \text{leaves}(S_t)} v(s, \mathbf{w}) , \
+v_{+}(S_{t+1}, \mathbf{w}) \;=\; \operatorname*{minimax}_{s \in \text{leaves}(S_{t+1})} v(s, \mathbf{w})
+\]
+</span>
+</p>
+</li>
+<li>
+<p>업데이트 대상이 St에서 minimax search했던 leaf가 된다.
+<span>
+  \[
+v_{\textcolor{red}{+}}(S_t, \mathbf{w}) \;\leftarrow\; v_{+}(S_{t+1}, \mathbf{w}) \\
+\implies \; v(l_{+}(S_t), \mathbf{w}) \;\leftarrow\; v(l_{+}(S_{t+1}), \mathbf{w})
+\]
+</span>
+</p>
+</li>
+</ul>
+<h3 id="treestrap">
+  <strong>TreeStrap</strong>
+  <a class="anchor" href="#treestrap">#</a>
+</h3>
+<img src="/images/rl-treestrap.png" alt="rl-treestrap" style="width:30%;"/>
+<ul>
+<li>그냥 imagination 한 것들로 업데이트한다는 직관</li>
+<li>수식적으로 TD Leaf와 다른것은 S_t+1 이 아닌 s인 점이다.
+<span>
+  \[
+v(s, \mathbf{w}) \;\leftarrow\; v_{+}(s, \mathbf{w}) \\ 
+\implies \; v(s, \mathbf{w}) \;\leftarrow\; v(l_{+}(s), \mathbf{w})
+\]
+</span>
+</li>
+<li>TD root나 TD leaf는 한번 하고 마는데, Treestrap은 search 트리 전체에서 얻은 수많은 노드와 leaf를 업데이트에 활용하기 때문에 훨씬 풍부한 학습 신호를 제공한다.</li>
+</ul>
+<h3 id="simulation-based-search">
+  <strong>Simulation-Based Search</strong>
+  <a class="anchor" href="#simulation-based-search">#</a>
+</h3>
+<p>이전강의 에서 설명했던 내용이지만 다시 다룸 <br>
+self-play RL에서의 search를 simulation-based search로 대체할 수 있다는 직관</p>
+<ul>
+<li>AlphaZero 는 minimax의 아이디어(상대는 min, 나는 max)를 Monte Carlo 기반으로 근사</li>
+</ul>
+<p>UCT는 Monte-Carlo Tree Serach인데,<br> 각 노드가 하나의 bandit으로 multi-arms bandit을 다룰때 arm을 selecting 하는것을 UCB(Upper Confidence Bounds)를 적용한 것</p>
+<p>대부분의 게임은 simple monte-carlo search 가 거의 잘 작동한다</p>
+<h3 id="game-tree-serach-in-imperfect-information-games">
+  <strong>Game-Tree Serach in Imperfect information Games</strong>
+  <a class="anchor" href="#game-tree-serach-in-imperfect-information-games">#</a>
+</h3>
+<p>self-play의 MCTS등은 perfect information game에서는 잘 동작하나, imperfect하면 터진다. <br>
+(Nash Equilibrium에 잘 수렴하지 않는다 &ndash;&gt; player 별도 다른 observation을 가지고 있음.) <br>
+궁극적으로, 해결하기위해서 smooth UCT Search 등을 소개한다.</p>
+<ul>
+<li>예로써, 각 player가 다른 observation을 가진다고 보자. 그리고 MCTS나 다른 TreeSearch 뭐든 적용한다면 다음 그림처럼 보인다.</li>
+</ul>
+<img src="/images/rl-imperfect-info.png" alt="rl-imperfect-info" style="width:90%;"/>
+<ul>
+<li>imperfect 하지만 여러 state가 같은 information state에 맵핑될 수 있다는 직관을 얻을 수 있다.</li>
+<li>이로써 다른 player의 행동으로부터도 업데이트한다는 전략을 적용하는데 이때 업데이트를 smooth UCT Search를 사용하는 것으로 이해했다.</li>
+</ul>
+<h4 id="smooth-uct-search">
+  <strong>Smooth UCT Search</strong>
+  <a class="anchor" href="#smooth-uct-search">#</a>
+</h4>
+<ul>
+<li>
+<p>상대방의 현재 behavior을 학습하지 말고 average behavior을 학습한다는 직관</p>
+<ul>
+<li>상대방의 행동을 count하고 average 낸다.   <span>
+  \(\pi_{\text{avg}}(a \mid s) \;=\; \frac{N(s,a)}{N(s)}\)
+</span>
+</li>
+<li>그렇게하여 더 robust하다 (안정적으로 학습하여 Nash Equilibrium에 도달)</li>
+</ul>
+</li>
+<li>
+<p>수식적으로 UCT랑 mix한다
+<span>
+  \[
+A \sim 
+\begin{cases} 
+\text{UCT}(S), & \text{with probability } \eta \\
+\pi_{\text{avg}}(\cdot \mid S), & \text{with probability } 1 - \eta
+\end{cases}
+\]
+</span>
+</p>
+</li>
+</ul>
 </div>
 </article>
  
@@ -937,17 +1288,37 @@ L^{\text{CLIP}}(\theta) = \hat{\mathbb{E}}_t \left[ \min \left( r_t(\theta) \hat
   
 <nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#game-theory"><strong>Game Theory</strong></a>
       <ul>
-        <li><a href="#proximal-policy-optimization-ppo"><strong>Proximal Policy Optimization (PPO)</strong></a></li>
+        <li><a href="#nash-equilibrium"><strong>Nash equilibrium</strong></a></li>
+        <li><a href="#two-player-zero-sum-games"><strong>Two-Player Zero-Sum Games</strong></a></li>
       </ul>
     </li>
-  </ul>
-
-  <ul>
-    <li><a href="#model-agnostic-meta-learningmaml"><strong>Model-Agnostic Meta-Learning(MAML)</strong></a></li>
-    <li><a href="#per"><strong>PER</strong></a></li>
-    <li><a href="#참조">참조</a></li>
+    <li><a href="#minimax-search"><strong>Minimax Search</strong></a>
+      <ul>
+        <li><a href="#minimax"><strong>Minimax</strong></a></li>
+        <li><a href="#minimax-search-1"><strong>Minimax Search</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#self-play-reinforcement-learning"><strong>Self-Play Reinforcement Learning</strong></a>
+      <ul>
+        <li><a href="#policy-improvement-with-afterstats"><strong>Policy Improvement with Afterstats</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#combining-reinforcement-learning-and-minimanx-search"><strong>Combining Reinforcement Learning and Minimanx Search</strong></a>
+      <ul>
+        <li><a href="#simple-td"><strong>Simple TD</strong></a></li>
+        <li><a href="#td-root"><strong>TD Root</strong></a></li>
+        <li><a href="#td-leaf"><strong>TD leaf</strong></a></li>
+        <li><a href="#treestrap"><strong>TreeStrap</strong></a></li>
+        <li><a href="#simulation-based-search"><strong>Simulation-Based Search</strong></a></li>
+        <li><a href="#game-tree-serach-in-imperfect-information-games"><strong>Game-Tree Serach in Imperfect information Games</strong></a>
+          <ul>
+            <li><a href="#smooth-uct-search"><strong>Smooth UCT Search</strong></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
   </ul>
 </nav>
 
@@ -959,6 +1330,10 @@ L^{\text{CLIP}}(\theta) = \hat{\mathbb{E}}_t \left[ \min \left( r_t(\theta) \hat
       <a href="/tags/pratice" class="tag">Pratice</a>
     
       <a href="/tags/case-study" class="tag">Case Study</a>
+    
+      <a href="/tags/self-play-rl" class="tag">self-play RL</a>
+    
+      <a href="/tags/minimax-search" class="tag">minimax search</a>
     
       <a href="/tags/reinforcement-learning" class="tag">Reinforcement Learning</a>
     

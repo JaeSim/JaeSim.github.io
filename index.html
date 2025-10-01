@@ -14,7 +14,7 @@
 
   
     
-      10. Case Study: RL in Classic Games (Not Completed)
+      10. Case Study: RL in Classic Games
     
 
     
@@ -27,13 +27,13 @@
   10. Case Study: RL in Classic Games
   
 
-[미완]">
+이 장에서는 각각의 RL 컴포넌트/기법이 고전 게임에서 어떻게 적용되고, 어떻게 super human performance를 내는지 설명한다.">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="Home">
-  <meta property="og:description" content="Recent Posts#10. Case Study: RL in Classic Games (Not Completed)2025-09-30 17:08:48 KST10. Case Study: RL in Classic Games[미완]">
+  <meta property="og:description" content="Recent Posts#10. Case Study: RL in Classic Games2025-09-30 17:08:48 KST10. Case Study: RL in Classic Games이 장에서는 각각의 RL 컴포넌트/기법이 고전 게임에서 어떻게 적용되고, 어떻게 super human performance를 내는지 설명한다.">
   <meta property="og:locale" content="ko_kr">
   <meta property="og:type" content="website">
 <title>Home | JaeSim&#39;s Workspace</title>
@@ -42,7 +42,7 @@
 <link rel="canonical" href="https://JaeSim.github.io/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.9823929d50b7cacefce335c426979331c69669da9b4c51d77d44842cc448e933.js" integrity="sha256-mCOSnVC3ys784zXEJpeTMcaWadqbTFHXfUSELMRI6TM=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.31f277a5498ee4da11add5898fef57546a6899f9b194f39238b6c16d7bdd7ed7.js" integrity="sha256-MfJ3pUmO5NoRrdWJj&#43;9XVGpomfmxlPOSOLbBbXvdftc=" crossorigin="anonymous"></script>
 <link rel="alternate" type="application/rss+xml" href="https://JaeSim.github.io/index.xml" title="JaeSim's Workspace" />
 <!--
 Made with Book Theme
@@ -541,7 +541,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/reinforcement-learning/rl-case-study/" class="">10. Case Study: RL in Classic Games (Not Completed)</a>
+    <a href="/reinforcement-learning/rl-case-study/" class="">10. Case Study: RL in Classic Games</a>
   
 
                   
@@ -732,7 +732,7 @@ https://github.com/alex-shpak/hugo-book
 
   <li style="margin-bottom: 2rem;">
     <a href="/reinforcement-learning/rl-case-study/">
-      <strong style="font-size: 1.25rem;">10. Case Study: RL in Classic Games (Not Completed)</strong>
+      <strong style="font-size: 1.25rem;">10. Case Study: RL in Classic Games</strong>
     </a><br/>
 
     
@@ -745,23 +745,36 @@ https://github.com/alex-shpak/hugo-book
   <strong>10. Case Study: RL in Classic Games</strong>
   
 </h1>
-<p>[미완]</p>
-<blockquote class="book-hint warning">
-  // NOTE: 이 페이지는 임시로 작성되었습니다.
-</blockquote>
-<p>삭제될 수 도 있는 page</p>
-<h1 id="etc">
-  <strong>etc</strong>
+<p>이 장에서는 각각의 RL 컴포넌트/기법이 고전 게임에서 어떻게 적용되고, 어떻게 super human performance를 내는지 설명한다.</p>
+<h2 id="game-theory">
+  <strong>Game Theory</strong>
   
-</h1>
+</h2>
+<h3 id="nash-equilibrium">
+  <strong>Nash equilibrium</strong>
+  
+</h3>
 <ul>
-<li>Softmax Policy : 이산행동일때, softmax over logits으로 정책을 정하고, policy에 대한 gradient 값 계산<br>
-이를 통해서 현재 iteration 에 대한 policy 파라미터를 업데이트한다.</li>
-<li>Gaussian Policy : 연속행동일때,  가우시안 분포를 정책으로 정하고, policy에 대한 gradient 값 계산<br>
-이를 통해서 현재 iteration 에 대한 policy 파라미터를 업데이트한다.</li>
+<li>게임에서 optimal policy는 상대 player에 영향을 받는다
+<ul>
+<li>player 본인의 policy를 
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \(\pi^i\)
+</span>
+ 로 표현하고</li>
+<li>다른 상대 player의 policy를 <span>
+  \(\pi^-i\)
+</span>
+ 로 표현하면</li>
+<li>상대 play에 대해여 best respone는 <span>
+  \(\pi^i_{*}(\pi^{-i})\)
+</span>
+ 로 표현된다.</li>
 </ul>
-<blockquote class="book-hint warning">
-  <p>policy-based 에서도 replay buffer …</p></blockquote>
+</li>
+<li>모든 player …</li></li></ul></li></ul>
       </div>
     </a>
 
