@@ -9,11 +9,11 @@
     <lastBuildDate>Wed, 01 Oct 2025 16:20:45 +0900</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/appendix/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Rl Etc</title>
-      <link>http://localhost:1313/reinforcement-learning/rl-etc/</link>
+      <title>11. RL Appendix(temp)</title>
+      <link>http://localhost:1313/reinforcement-learning/rl-appendix/</link>
       <pubDate>Wed, 01 Oct 2025 16:20:45 +0900</pubDate>
-      <guid>http://localhost:1313/reinforcement-learning/rl-etc/</guid>
-      <description>&lt;h1 id=&#34;a&#34;&gt;&#xD;&#xA;  &lt;strong&gt;A&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#a&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;blockquote class=&#34;book-hint warning&#34;&gt;&#xD;&#xA;  // NOTE: 이 페이지는 임시로 작성되었습니다.&#xD;&#xA;&lt;/blockquote&gt;&#xD;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Softmax Policy : 이산행동일때, softmax over logits으로 정책을 정하고, policy에 대한 gradient 값 계산&lt;br&gt;&#xA;이를 통해서 현재 iteration 에 대한 policy 파라미터를 업데이트한다.&lt;/li&gt;&#xA;&lt;li&gt;Gaussian Policy : 연속행동일때,  가우시안 분포를 정책으로 정하고, policy에 대한 gradient 값 계산&lt;br&gt;&#xA;이를 통해서 현재 iteration 에 대한 policy 파라미터를 업데이트한다.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;blockquote class=&#34;book-hint warning&#34;&gt;&#xD;&#xA;  &lt;p&gt;policy-based 에서도 replay buffer를 쓸수 있는가?&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Policy-based에서 Replay Buffer의 어려움&#xA;문제: Policy가 계속 변하기 때문에&#xA;​&lt;/p&gt;</description>
+      <guid>http://localhost:1313/reinforcement-learning/rl-appendix/</guid>
+      <description>&lt;h1 id=&#34;appendix&#34;&gt;&#xD;&#xA;  &lt;strong&gt;appendix&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#appendix&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;blockquote class=&#34;book-hint warning&#34;&gt;&#xD;&#xA;  // NOTE: 이 페이지는 임시로 작성되었습니다.&#xD;&#xA;&lt;/blockquote&gt;&#xD;&#xA;&lt;h2 id=&#34;model-agnostic-meta-learningmaml&#34;&gt;&#xD;&#xA;  &lt;strong&gt;Model-Agnostic Meta-Learning(MAML)&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#model-agnostic-meta-learningmaml&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;모든 task에 잘 작동하는 하나의 모델을 학습하는 것&amp;quot;이 아니라, &lt;br&gt;&#xA;조금만 fine-tuning 하면 각 task에 잘 작동할 수 있는 초기 모델&amp;quot;을 학습하는 것.&lt;/p&gt;&#xA;&lt;h2 id=&#34;per&#34;&gt;&#xD;&#xA;  &lt;strong&gt;PER&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#per&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;위에 언급 [ 생략 ]&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Softmax Policy : 이산행동일때, softmax over logits으로 정책을 정하고, policy에 대한 gradient 값 계산&lt;br&gt;&#xA;이를 통해서 현재 iteration 에 대한 policy 파라미터를 업데이트한다.&lt;/li&gt;&#xA;&lt;li&gt;Gaussian Policy : 연속행동일때,  가우시안 분포를 정책으로 정하고, policy에 대한 gradient 값 계산&lt;br&gt;&#xA;이를 통해서 현재 iteration 에 대한 policy 파라미터를 업데이트한다.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;blockquote class=&#34;book-hint warning&#34;&gt;&#xD;&#xA;  &lt;p&gt;policy-based 에서도 replay buffer를 쓸수 있는가?&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
