@@ -702,6 +702,9 @@ LINEORDER,59986052
 
 ### **JOB table create**
  - imdb.tgz에 첨부되어있던, schematext.sql을 아래 python으로 변환
+ ```sh
+ wget -c https://event.cwi.nl/da/job/imdb.tgz && tar -xvzf imdb.tgz && popd
+ ```
  - 되도록 NVARCHAR으로 사이즈 제한
 ```python
 import re
@@ -756,43 +759,62 @@ if __name__ == "__main__":
     print(f"✅ 변환 완료: {dst_path}")
 
 ```
+ - 필요시에 hana explorer를 통해서 schema 생성
+ ```SQL
+ create schema imdb;
+ ```
  - 해당 sql을 이용하여 table 생성
   ```sh
   sudo /usr/sap/HXE/HDB90/exe/hdbsql -n {host}:443 -u {user} -p {password} -I output_schematext.sql
   ```
- - fkindexex.sql을 업로드 (from balsa)
+ - fkindexex.sql을 업로드 (from balsa)  [필요시 imdb. 삭제]
 ```sql
-create index company_id_movie_companies on movie_companies(company_id);
-create index company_type_id_movie_companies on movie_companies(company_type_id);
-create index info_type_id_movie_info_idx on movie_info_idx(info_type_id);
-create index info_type_id_movie_info on movie_info(info_type_id);
-create index info_type_id_person_info on person_info(info_type_id);
-create index keyword_id_movie_keyword on movie_keyword(keyword_id);
-create index kind_id_aka_title on aka_title(kind_id);
-create index kind_id_title on title(kind_id);
-create index linked_movie_id_movie_link on movie_link(linked_movie_id);
-create index link_type_id_movie_link on movie_link(link_type_id);
-create index movie_id_aka_title on aka_title(movie_id);
-create index movie_id_cast_info on cast_info(movie_id);
-create index movie_id_complete_cast on complete_cast(movie_id);
-create index subject_id_complete_cast on complete_cast(subject_id);
-create index status_id_complete_cast on complete_cast(status_id);
-create index movie_id_movie_companies on movie_companies(movie_id);
-create index movie_id_movie_info_idx on movie_info_idx(movie_id);
-create index movie_id_movie_keyword on movie_keyword(movie_id);
-create index movie_id_movie_link on movie_link(movie_id);
-create index movie_id_movie_info on movie_info(movie_id);
-create index person_id_aka_name on aka_name(person_id);
-create index person_id_cast_info on cast_info(person_id);
-create index person_id_person_info on person_info(person_id);
-create index person_role_id_cast_info on cast_info(person_role_id);
-create index role_id_cast_info on cast_info(role_id);
+create index company_id_movie_companies on imdb.movie_companies(company_id);
+create index company_type_id_movie_companies on imdb.movie_companies(company_type_id);
+create index info_type_id_movie_info_idx on imdb.movie_info_idx(info_type_id);
+create index info_type_id_movie_info on imdb.movie_info(info_type_id);
+create index info_type_id_person_info on imdb.person_info(info_type_id);
+create index keyword_id_movie_keyword on imdb.movie_keyword(keyword_id);
+create index kind_id_aka_title on imdb.aka_title(kind_id);
+create index kind_id_title on imdb.title(kind_id);
+create index linked_movie_id_movie_link on imdb.movie_link(linked_movie_id);
+create index link_type_id_movie_link on imdb.movie_link(link_type_id);
+create index movie_id_aka_title on imdb.aka_title(movie_id);
+create index movie_id_cast_info on imdb.cast_info(movie_id);
+create index movie_id_complete_cast on imdb.complete_cast(movie_id);
+create index subject_id_complete_cast on imdb.complete_cast(subject_id);
+create index status_id_complete_cast on imdb.complete_cast(status_id);
+create index movie_id_movie_companies on imdb.movie_companies(movie_id);
+create index movie_id_movie_info_idx on imdb.movie_info_idx(movie_id);
+create index movie_id_movie_keyword on imdb.movie_keyword(movie_id);
+create index movie_id_movie_link on imdb.movie_link(movie_id);
+create index movie_id_movie_info on imdb.movie_info(movie_id);
+create index person_id_aka_name on imdb.aka_name(person_id);
+create index person_id_cast_info on imdb.cast_info(person_id);
+create index person_id_person_info on imdb.person_info(person_id);
+create index person_role_id_cast_info on imdb.cast_info(person_role_id);
+create index role_id_cast_info on imdb.cast_info(role_id);
 ```
 ```sh
 sudo /usr/sap/HXE/HDB90/exe/hdbsql -n {host}:443 -u {user} -p {password} -I fkindexex.sql
 ```
 ### **JOB data bulk upload**
  - imdb.tgz로 파생된 csv파일들을 아래 python으로 업로드
+ - 아래 row들은 조금 다르게 업로드 될 수 있다는 점을 유의해야하고, title.csv 의 경우 수정이 필요하다
+    - postgresql 은 copy로 업로드하는데, hanadb는 row 파일 -> pandas 로 load -> upload 과정에서 tokenizer 과정에 의해서 \ 처리가 다르게 된다는 점을 유의
+```csv
+# person_info.csv 의 아래 두 row는 \ 가 postgresql copy로 업로드하는 것과 다르게 업로드 될수 있는것을 유의해야한다
+2671660,2604773,17,Daughter of Irish actor and raconteur 'Niall Toibin' (qv); \,
+2671662,1562399,37,"\"The Sunday Times Culture\" (UK), 26 April 2009",
+```
+ - 다음 row는 수정필요
+```csv
+# title.csv
+2522636,\Frag'ile\,,1,2010,,F624,,,,,c0b2e279bce6d3b1717e750a2591bb6d
+# 다음과 같이 수정
+2522636,\\Frag'ile\\,,1,2010,,F624,,,,,c0b2e279bce6d3b1717e750a2591bb6d
+```
+
  - 5000자가 넘는 파일에 대해서는 짤라서 업로드
 ```python
 import glob
