@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko-kr" dir="ltr">
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="
@@ -90,7 +90,7 @@ start commend
 ">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/development/milvus_build/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/development/milvus_build/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="Milvus_build from code">
   <meta property="og:description" content="Milvus를 build 하기#기본 정보#https://github.com/milvus-io/milvus 아래 요구사항 go와 c&#43;&#43;로 작성된 프로젝트로써, 사용시에는 보통 python SDK pymilvus를 이용해서 사용한다 go: &gt;= 1.21 cmake: &gt;= 3.26.4 gcc: 9.5 python: &gt; 3.8 and &lt;= 3.11 준비물#conda activate 및 git clone#conda 가상환경 설정 및 git clone conda create -n vec python=3.8 conda activate vec git clone https://github.com/milvus-io/milvus go 설치#https://go.dev/doc/install download Go file 또는 아래 명령어로 설치 wget https://go.dev/dl/go1.25.0.linux-amd64.tar.gz 기존 go project 지우고, 압축풀기 # delete old go project rm -rf /usr/local/go &amp;&amp; tar -C /usr/local -xzf go1.25.0.linux-amd64.tar.gz path 설정 및 확인 export PATH=$PATH:/usr/local/go/bin vim ~/.bashrc go version Build#준비물 python3 -m pip install &#34;conan&gt;=2,&lt;3&#34; export PATH=&#34;$HOME/.local/bin:$PATH&#34; conda install -c conda-forge &#34;cmake&gt;=3.22&#34; ninja . &#34;$HOME/.cargo/env&#34; 빌드스크립트 cd milvus ./scripts/install_deps.sh make SKIP_3RDPARTY=1 중간에 에러가 나면 go get -u github.com/bytedance/sonic@v1.14.0 go mod tidy Start#start commend ./scripts/start_standalone.sh /tmp/standalone.log 에 에러가 쌓임">
@@ -107,10 +107,10 @@ start commend
 <title>Milvus_build from code | JaeSim&#39;s Workspace</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="https://JaeSim.github.io/development/milvus_build/">
+<link rel="canonical" href="http://localhost:1313/development/milvus_build/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.31f277a5498ee4da11add5898fef57546a6899f9b194f39238b6c16d7bdd7ed7.js" integrity="sha256-MfJ3pUmO5NoRrdWJj&#43;9XVGpomfmxlPOSOLbBbXvdftc=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.422e4d89b7836d9315ef71a27fb511c2ef260e17a57927b276ea82c48a24cac6.js" integrity="sha256-Qi5NibeDbZMV73Gif7URwu8mDheleSeyduqCxIokysY=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -164,6 +164,26 @@ https://github.com/alex-shpak/hugo-book
 
         <li>
           
+            
+  
+  
+
+  
+    <a href="/aboutme/" class="">About Me</a>
+  
+
+          
+        </li>
+
+      
+    
+      
+
+      
+        
+
+        <li>
+          
             <input type="checkbox"
                    id="section-fa839a81c5edc0726797036b87ec4d40"
                    class="toggle"
@@ -171,7 +191,7 @@ https://github.com/alex-shpak/hugo-book
             <label for="section-fa839a81c5edc0726797036b87ec4d40" class="flex justify-between cursor-pointer">
               <span>
                 Development / 개발
-                <span class="count">(5)</span>
+                <span class="count">(6)</span>
               </span>
             </label>
 
@@ -237,6 +257,19 @@ https://github.com/alex-shpak/hugo-book
 
   
     <a href="/development/wsl-c-env/" class="">WSL을 이용한 C언어 개발환경 셋업</a>
+  
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/development/remotewow/" class="">모바일 원격 와우하기</a>
   
 
                   
@@ -478,7 +511,7 @@ https://github.com/alex-shpak/hugo-book
             <label for="section-5451d228399fc5c2fd05219bda7b986b" class="flex justify-between cursor-pointer">
               <span>
                 Reinforcement Learning / 강화학습
-                <span class="count">(10)</span>
+                <span class="count">(11)</span>
               </span>
             </label>
 
@@ -609,6 +642,19 @@ https://github.com/alex-shpak/hugo-book
 
   
     <a href="/reinforcement-learning/rl-case-study/" class="">10. Case Study: RL in Classic Games</a>
+  
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-appendix/" class="">11. RL Appendix(temp)</a>
   
 
                   

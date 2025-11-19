@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko-kr" dir="ltr">
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="
@@ -59,7 +59,7 @@ instance를 클릭후 &hellip; 에가면 open in SAP HANA Cockpit 이나 다른 
 참고 아래 instance 스펙으로 고정됨. trial은 총 2개의 instance를 지원하는 듯함">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/learned-query-optimizer/hana-database-porting/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/learned-query-optimizer/hana-database-porting/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="HANA Database Porting">
   <meta property="og:description" content="Learned Query Optimizer 포팅을 위한 HANA DB의 분석 내용#SAP trial#SAP BTP trial 링크 https://www.sap.com/products/technology-platform/trial.html BTP trial 생성 및 BTP cockpit 접속 ID = P2009440130 이후 스텝은 https://account.hanatrial.ondemand.com/trial/#/home/trial 관련 내용 따름 trial account 생성 - sub account 생성 및 sub account 클릭 !! 주의 !! US region으로 생성해야 HANA Cloud DB 서비스를 사용할 수 있음 Service -&gt; Service MarketPlace 에서 HANA Cloud tools 구독 생성 create SAP HANA Cloud - plan: tools 생성 Security User에 Role assign Security -&gt; Users -&gt; 본인 계정 선택 -&gt; Role Collections -&gt; Assign Role Collection -&gt; SAP HANA keyword 및 cloud keyword 모두 체크하여 반영 SAP HANA Cloud 생성 Service -&gt; Instances and Subscription -&gt; SAP HANA Cloud 생성 클릭 SAP HANA Instance 생성 allow all ip address 를 설정 생성된 instance의 connections의 SQL Endpoint가 host instance를 클릭후 … 에가면 open in SAP HANA Cockpit 이나 다른 Database Explorer 등으로 볼 수 있다 참고 아래 instance 스펙으로 고정됨. trial은 총 2개의 instance를 지원하는 듯함">
@@ -77,10 +77,10 @@ instance를 클릭후 &hellip; 에가면 open in SAP HANA Cockpit 이나 다른 
 <title>HANA Database Porting | JaeSim&#39;s Workspace</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="https://JaeSim.github.io/learned-query-optimizer/hana-database-porting/">
+<link rel="canonical" href="http://localhost:1313/learned-query-optimizer/hana-database-porting/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.31f277a5498ee4da11add5898fef57546a6899f9b194f39238b6c16d7bdd7ed7.js" integrity="sha256-MfJ3pUmO5NoRrdWJj&#43;9XVGpomfmxlPOSOLbBbXvdftc=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.422e4d89b7836d9315ef71a27fb511c2ef260e17a57927b276ea82c48a24cac6.js" integrity="sha256-Qi5NibeDbZMV73Gif7URwu8mDheleSeyduqCxIokysY=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -134,6 +134,26 @@ https://github.com/alex-shpak/hugo-book
 
         <li>
           
+            
+  
+  
+
+  
+    <a href="/aboutme/" class="">About Me</a>
+  
+
+          
+        </li>
+
+      
+    
+      
+
+      
+        
+
+        <li>
+          
             <input type="checkbox"
                    id="section-fa839a81c5edc0726797036b87ec4d40"
                    class="toggle"
@@ -141,7 +161,7 @@ https://github.com/alex-shpak/hugo-book
             <label for="section-fa839a81c5edc0726797036b87ec4d40" class="flex justify-between cursor-pointer">
               <span>
                 Development / 개발
-                <span class="count">(5)</span>
+                <span class="count">(6)</span>
               </span>
             </label>
 
@@ -207,6 +227,19 @@ https://github.com/alex-shpak/hugo-book
 
   
     <a href="/development/wsl-c-env/" class="">WSL을 이용한 C언어 개발환경 셋업</a>
+  
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/development/remotewow/" class="">모바일 원격 와우하기</a>
   
 
                   
@@ -448,7 +481,7 @@ https://github.com/alex-shpak/hugo-book
             <label for="section-5451d228399fc5c2fd05219bda7b986b" class="flex justify-between cursor-pointer">
               <span>
                 Reinforcement Learning / 강화학습
-                <span class="count">(10)</span>
+                <span class="count">(11)</span>
               </span>
             </label>
 
@@ -579,6 +612,19 @@ https://github.com/alex-shpak/hugo-book
 
   
     <a href="/reinforcement-learning/rl-case-study/" class="">10. Case Study: RL in Classic Games</a>
+  
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-appendix/" class="">11. RL Appendix(temp)</a>
   
 
                   
@@ -1628,6 +1674,9 @@ SQL trace	Collect information about all SQL statements executed on the index ser
 </h3>
 <ul>
 <li>imdb.tgz에 첨부되어있던, schematext.sql을 아래 python으로 변환</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>wget -c https://event.cwi.nl/da/job/imdb.tgz <span style="color:#f92672">&amp;&amp;</span> tar -xvzf imdb.tgz <span style="color:#f92672">&amp;&amp;</span> popd
+</span></span></code></pre></div><ul>
 <li>되도록 NVARCHAR으로 사이즈 제한</li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> re
@@ -1681,37 +1730,41 @@ SQL trace	Collect information about all SQL statements executed on the index ser
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;✅ 변환 완료: </span><span style="color:#e6db74">{</span>dst_path<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
 </span></span></code></pre></div><ul>
+<li>필요시에 hana explorer를 통해서 schema 생성</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-SQL" data-lang="SQL"><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">schema</span> imdb;
+</span></span></code></pre></div><ul>
 <li>해당 sql을 이용하여 table 생성</li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo /usr/sap/HXE/HDB90/exe/hdbsql -n <span style="color:#f92672">{</span>host<span style="color:#f92672">}</span>:443 -u <span style="color:#f92672">{</span>user<span style="color:#f92672">}</span> -p <span style="color:#f92672">{</span>password<span style="color:#f92672">}</span> -I output_schematext.sql
 </span></span></code></pre></div><ul>
-<li>fkindexex.sql을 업로드 (from balsa)</li>
+<li>fkindexex.sql을 업로드 (from balsa)  [필요시 imdb. 삭제]</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> company_id_movie_companies <span style="color:#66d9ef">on</span> movie_companies(company_id);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> company_type_id_movie_companies <span style="color:#66d9ef">on</span> movie_companies(company_type_id);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> info_type_id_movie_info_idx <span style="color:#66d9ef">on</span> movie_info_idx(info_type_id);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> info_type_id_movie_info <span style="color:#66d9ef">on</span> movie_info(info_type_id);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> info_type_id_person_info <span style="color:#66d9ef">on</span> person_info(info_type_id);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> keyword_id_movie_keyword <span style="color:#66d9ef">on</span> movie_keyword(keyword_id);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> kind_id_aka_title <span style="color:#66d9ef">on</span> aka_title(kind_id);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> kind_id_title <span style="color:#66d9ef">on</span> title(kind_id);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> linked_movie_id_movie_link <span style="color:#66d9ef">on</span> movie_link(linked_movie_id);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> link_type_id_movie_link <span style="color:#66d9ef">on</span> movie_link(link_type_id);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> movie_id_aka_title <span style="color:#66d9ef">on</span> aka_title(movie_id);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> movie_id_cast_info <span style="color:#66d9ef">on</span> cast_info(movie_id);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> movie_id_complete_cast <span style="color:#66d9ef">on</span> complete_cast(movie_id);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> subject_id_complete_cast <span style="color:#66d9ef">on</span> complete_cast(subject_id);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> status_id_complete_cast <span style="color:#66d9ef">on</span> complete_cast(status_id);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> movie_id_movie_companies <span style="color:#66d9ef">on</span> movie_companies(movie_id);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> movie_id_movie_info_idx <span style="color:#66d9ef">on</span> movie_info_idx(movie_id);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> movie_id_movie_keyword <span style="color:#66d9ef">on</span> movie_keyword(movie_id);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> movie_id_movie_link <span style="color:#66d9ef">on</span> movie_link(movie_id);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> movie_id_movie_info <span style="color:#66d9ef">on</span> movie_info(movie_id);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> person_id_aka_name <span style="color:#66d9ef">on</span> aka_name(person_id);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> person_id_cast_info <span style="color:#66d9ef">on</span> cast_info(person_id);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> person_id_person_info <span style="color:#66d9ef">on</span> person_info(person_id);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> person_role_id_cast_info <span style="color:#66d9ef">on</span> cast_info(person_role_id);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> role_id_cast_info <span style="color:#66d9ef">on</span> cast_info(role_id);
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> company_id_movie_companies <span style="color:#66d9ef">on</span> imdb.movie_companies(company_id);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> company_type_id_movie_companies <span style="color:#66d9ef">on</span> imdb.movie_companies(company_type_id);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> info_type_id_movie_info_idx <span style="color:#66d9ef">on</span> imdb.movie_info_idx(info_type_id);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> info_type_id_movie_info <span style="color:#66d9ef">on</span> imdb.movie_info(info_type_id);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> info_type_id_person_info <span style="color:#66d9ef">on</span> imdb.person_info(info_type_id);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> keyword_id_movie_keyword <span style="color:#66d9ef">on</span> imdb.movie_keyword(keyword_id);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> kind_id_aka_title <span style="color:#66d9ef">on</span> imdb.aka_title(kind_id);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> kind_id_title <span style="color:#66d9ef">on</span> imdb.title(kind_id);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> linked_movie_id_movie_link <span style="color:#66d9ef">on</span> imdb.movie_link(linked_movie_id);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> link_type_id_movie_link <span style="color:#66d9ef">on</span> imdb.movie_link(link_type_id);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> movie_id_aka_title <span style="color:#66d9ef">on</span> imdb.aka_title(movie_id);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> movie_id_cast_info <span style="color:#66d9ef">on</span> imdb.cast_info(movie_id);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> movie_id_complete_cast <span style="color:#66d9ef">on</span> imdb.complete_cast(movie_id);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> subject_id_complete_cast <span style="color:#66d9ef">on</span> imdb.complete_cast(subject_id);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> status_id_complete_cast <span style="color:#66d9ef">on</span> imdb.complete_cast(status_id);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> movie_id_movie_companies <span style="color:#66d9ef">on</span> imdb.movie_companies(movie_id);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> movie_id_movie_info_idx <span style="color:#66d9ef">on</span> imdb.movie_info_idx(movie_id);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> movie_id_movie_keyword <span style="color:#66d9ef">on</span> imdb.movie_keyword(movie_id);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> movie_id_movie_link <span style="color:#66d9ef">on</span> imdb.movie_link(movie_id);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> movie_id_movie_info <span style="color:#66d9ef">on</span> imdb.movie_info(movie_id);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> person_id_aka_name <span style="color:#66d9ef">on</span> imdb.aka_name(person_id);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> person_id_cast_info <span style="color:#66d9ef">on</span> imdb.cast_info(person_id);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> person_id_person_info <span style="color:#66d9ef">on</span> imdb.person_info(person_id);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> person_role_id_cast_info <span style="color:#66d9ef">on</span> imdb.cast_info(person_role_id);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> role_id_cast_info <span style="color:#66d9ef">on</span> imdb.cast_info(role_id);
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo /usr/sap/HXE/HDB90/exe/hdbsql -n <span style="color:#f92672">{</span>host<span style="color:#f92672">}</span>:443 -u <span style="color:#f92672">{</span>user<span style="color:#f92672">}</span> -p <span style="color:#f92672">{</span>password<span style="color:#f92672">}</span> -I fkindexex.sql
 </span></span></code></pre></div><h3 id="job-data-bulk-upload">
   <strong>JOB data bulk upload</strong>
@@ -1719,6 +1772,23 @@ SQL trace	Collect information about all SQL statements executed on the index ser
 </h3>
 <ul>
 <li>imdb.tgz로 파생된 csv파일들을 아래 python으로 업로드</li>
+<li>아래 row들은 조금 다르게 업로드 될 수 있다는 점을 유의해야하고, title.csv 의 경우 수정이 필요하다
+<ul>
+<li>postgresql 은 copy로 업로드하는데, hanadb는 row 파일 -&gt; pandas 로 load -&gt; upload 과정에서 tokenizer 과정에 의해서 \ 처리가 다르게 된다는 점을 유의</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csv" data-lang="csv"><span style="display:flex;"><span><span style="color:#e6db74"># person_info.csv 의 아래 두 row는 \ 가 postgresql copy로 업로드하는 것과 다르게 업로드 될수 있는것을 유의해야한다</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">2671660</span>,<span style="color:#e6db74">2604773</span>,<span style="color:#e6db74">17</span>,<span style="color:#e6db74">Daughter of Irish actor and raconteur &#39;Niall Toibin&#39; (qv); \</span>,
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">2671662</span>,<span style="color:#e6db74">1562399</span>,<span style="color:#e6db74">37</span>,<span style="color:#e6db74">&#34;\&#34;</span><span style="color:#e6db74">The Sunday Times Culture\&#34; (UK)</span>,<span style="color:#e6db74"> 26 April 2009&#34;</span>,
+</span></span></code></pre></div><ul>
+<li>다음 row는 수정필요</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csv" data-lang="csv"><span style="display:flex;"><span><span style="color:#e6db74"># title.csv</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">2522636</span>,<span style="color:#e6db74">\Frag&#39;ile\</span>,,<span style="color:#e6db74">1</span>,<span style="color:#e6db74">2010</span>,,<span style="color:#e6db74">F624</span>,,,,,<span style="color:#e6db74">c0b2e279bce6d3b1717e750a2591bb6d</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74"># 다음과 같이 수정</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">2522636</span>,<span style="color:#e6db74">\\Frag&#39;ile\\</span>,,<span style="color:#e6db74">1</span>,<span style="color:#e6db74">2010</span>,,<span style="color:#e6db74">F624</span>,,,,,<span style="color:#e6db74">c0b2e279bce6d3b1717e750a2591bb6d</span>
+</span></span></code></pre></div><ul>
 <li>5000자가 넘는 파일에 대해서는 짤라서 업로드</li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> glob

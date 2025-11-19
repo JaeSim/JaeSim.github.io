@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko-kr" dir="ltr">
 <head>
-	<meta name="generator" content="Hugo 0.147.3">
+	<meta name="generator" content="Hugo 0.147.3"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="
@@ -14,36 +14,47 @@
 
   
     
-      10. Case Study: RL in Classic Games
+      모바일 원격 와우하기
     
 
     
 
-    2025-09-30 17:08:48 KST
+    2025-11-19 11:47:44 KST
 
     
        
         
-  10. Case Study: RL in Classic Games
+  핸드폰으로 원격 와우하기
   
 
-이 장에서는 각각의 RL 컴포넌트/기법이 고전 게임에서 어떻게 적용되고, 어떻게 super human performance를 내는지 설명한다.">
+
+요약 : 3가지 기술 &amp; 장비의 조합 [ConsolePort add-on, Moonlight streaming, 모바일게임패드]
+궁극적인 goal은 &ldquo;핸드폰에서 와우를 하기&rdquo;.  (&ldquo;닌텐도 게임기에서 와우를 한다&rdquo; 도 가능)
+
+
+  ConsolePort add-on
+  
+
+
+
+PC에서 와우를 할때 게임패드 (닌텐도 스위치 패드, 플스 패드) 등으로 하기 위한 add-on 
+ref : https://www.inven.co.kr/board/wow/1896/46534">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="Home">
-  <meta property="og:description" content="Recent Posts#10. Case Study: RL in Classic Games2025-09-30 17:08:48 KST10. Case Study: RL in Classic Games이 장에서는 각각의 RL 컴포넌트/기법이 고전 게임에서 어떻게 적용되고, 어떻게 super human performance를 내는지 설명한다.">
+  <meta property="og:description" content="Recent Posts#모바일 원격 와우하기2025-11-19 11:47:44 KST핸드폰으로 원격 와우하기요약 : 3가지 기술 &amp; 장비의 조합 [ConsolePort add-on, Moonlight streaming, 모바일게임패드] 궁극적인 goal은 “핸드폰에서 와우를 하기”. (“닌텐도 게임기에서 와우를 한다” 도 가능) ConsolePort add-onPC에서 와우를 할때 게임패드 (닌텐도 스위치 패드, 플스 패드) 등으로 하기 위한 add-on ref : https://www.inven.co.kr/board/wow/1896/46534">
   <meta property="og:locale" content="ko_kr">
   <meta property="og:type" content="website">
 <title>Home | JaeSim&#39;s Workspace</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="https://JaeSim.github.io/">
+<link rel="canonical" href="http://localhost:1313/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.31f277a5498ee4da11add5898fef57546a6899f9b194f39238b6c16d7bdd7ed7.js" integrity="sha256-MfJ3pUmO5NoRrdWJj&#43;9XVGpomfmxlPOSOLbBbXvdftc=" crossorigin="anonymous"></script>
-<link rel="alternate" type="application/rss+xml" href="https://JaeSim.github.io/index.xml" title="JaeSim's Workspace" />
+  <script defer src="/en.search.min.422e4d89b7836d9315ef71a27fb511c2ef260e17a57927b276ea82c48a24cac6.js" integrity="sha256-Qi5NibeDbZMV73Gif7URwu8mDheleSeyduqCxIokysY=" crossorigin="anonymous"></script>
+<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/index.xml" title="JaeSim's Workspace" />
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -97,6 +108,26 @@ https://github.com/alex-shpak/hugo-book
 
         <li>
           
+            
+  
+  
+
+  
+    <a href="/aboutme/" class="">About Me</a>
+  
+
+          
+        </li>
+
+      
+    
+      
+
+      
+        
+
+        <li>
+          
             <input type="checkbox"
                    id="section-fa839a81c5edc0726797036b87ec4d40"
                    class="toggle"
@@ -104,7 +135,7 @@ https://github.com/alex-shpak/hugo-book
             <label for="section-fa839a81c5edc0726797036b87ec4d40" class="flex justify-between cursor-pointer">
               <span>
                 Development / 개발
-                <span class="count">(5)</span>
+                <span class="count">(6)</span>
               </span>
             </label>
 
@@ -170,6 +201,19 @@ https://github.com/alex-shpak/hugo-book
 
   
     <a href="/development/wsl-c-env/" class="">WSL을 이용한 C언어 개발환경 셋업</a>
+  
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/development/remotewow/" class="">모바일 원격 와우하기</a>
   
 
                   
@@ -411,7 +455,7 @@ https://github.com/alex-shpak/hugo-book
             <label for="section-5451d228399fc5c2fd05219bda7b986b" class="flex justify-between cursor-pointer">
               <span>
                 Reinforcement Learning / 강화학습
-                <span class="count">(10)</span>
+                <span class="count">(11)</span>
               </span>
             </label>
 
@@ -542,6 +586,19 @@ https://github.com/alex-shpak/hugo-book
 
   
     <a href="/reinforcement-learning/rl-case-study/" class="">10. Case Study: RL in Classic Games</a>
+  
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-appendix/" class="">11. RL Appendix(temp)</a>
   
 
                   
@@ -703,6 +760,7 @@ https://github.com/alex-shpak/hugo-book
 <style>
 .summary-box {
   background: #f8f9fa;
+  color: #212529;  
   padding: 1rem;
   border-radius: 8px;
   transition: background 0.3s ease;
@@ -712,6 +770,8 @@ https://github.com/alex-shpak/hugo-book
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;   
 }
+
+
 
 .summary-box h1,
 .summary-box h2,
@@ -729,6 +789,82 @@ https://github.com/alex-shpak/hugo-book
 </style>
 
 <ul>
+
+  <li style="margin-bottom: 2rem;">
+    <a href="/development/remotewow/">
+      <strong style="font-size: 1.25rem;">모바일 원격 와우하기</strong>
+    </a><br/>
+
+    
+
+    <small>2025-11-19 11:47:44 KST</small>
+
+    <a href="/development/remotewow/" style="text-decoration: none; color: inherit;">
+      <div class="summary-box"> 
+        <h1 id="핸드폰으로-원격-와우하기">
+  <strong>핸드폰으로 원격 와우하기</strong>
+  
+</h1>
+<ul>
+<li>요약 : 3가지 기술 &amp; 장비의 조합 [ConsolePort add-on, Moonlight streaming, 모바일게임패드]</li>
+<li>궁극적인 goal은 &ldquo;핸드폰에서 와우를 하기&rdquo;.  (&ldquo;닌텐도 게임기에서 와우를 한다&rdquo; 도 가능)</li>
+</ul>
+<h2 id="consoleport-add-on">
+  <strong>ConsolePort add-on</strong>
+  
+</h2>
+<ul>
+<li>
+<p>PC에서 와우를 할때 게임패드 (닌텐도 스위치 패드, 플스 패드) 등으로 하기 위한 add-on <br>
+ref : https://www.inven.co.kr/board/wow/1896/46534</p>
+</li>
+<li>
+<p>PC에 패드를 연결하고, ConsolePort 애드온을 사용해서 키를 맵핑하면, 콘솔게임용 패드로 와우 플레이가능</p>
+</li>
+<li>
+<p>패드류 device를 인 …</p></li></ul>
+      </div>
+    </a>
+
+  </li>
+
+  <li style="margin-bottom: 2rem;">
+    <a href="/reinforcement-learning/rl-appendix/">
+      <strong style="font-size: 1.25rem;">11. RL Appendix(temp)</strong>
+    </a><br/>
+
+    
+
+    <small>2025-10-01 16:20:45 KST</small>
+
+    <a href="/reinforcement-learning/rl-appendix/" style="text-decoration: none; color: inherit;">
+      <div class="summary-box"> 
+        <h1 id="appendix">
+  <strong>appendix</strong>
+  
+</h1>
+<blockquote class="book-hint warning">
+  // NOTE: 이 페이지는 임시로 작성되었습니다.
+</blockquote>
+<h2 id="model-agnostic-meta-learningmaml">
+  <strong>Model-Agnostic Meta-Learning(MAML)</strong>
+  
+</h2>
+<p>모든 task에 잘 작동하는 하나의 모델을 학습하는 것&quot;이 아니라, <br>
+조금만 fine-tuning 하면 각 task에 잘 작동할 수 있는 초기 모델&quot;을 학습하는 것.</p>
+<h2 id="per">
+  <strong>PER</strong>
+  
+</h2>
+<p>위에 언급 [ 생략 ]</p>
+<ul>
+<li>Softmax Policy : 이산행동일때, softmax over logits으로 정책을 정하고, policy에 대한 gradient 값 계산<br>
+이를 통해서 현재 iteration 에 대한 policy 파라미터를 업데이트한다.</li>
+<li>Gaussian Policy : 연속행동일때,  가우시안 분포를 정책으 …</li></ul>
+      </div>
+    </a>
+
+  </li>
 
   <li style="margin-bottom: 2rem;">
     <a href="/reinforcement-learning/rl-case-study/">
@@ -840,81 +976,8 @@ Model-based RL은 model을 experience로부터 배운다.<br>
 
   </li>
 
-  <li style="margin-bottom: 2rem;">
-    <a href="/reinforcement-learning/rl-policy-gradient-methods/">
-      <strong style="font-size: 1.25rem;">7. Polciy Gradient Methods</strong>
-    </a><br/>
-
-    
-
-    <small>2025-09-23 13:22:02 KST</small>
-
-    <a href="/reinforcement-learning/rl-policy-gradient-methods/" style="text-decoration: none; color: inherit;">
-      <div class="summary-box"> 
-        <h1 id="7-policy-gradient-methods">
-  <strong>7. Policy Gradient Methods</strong>
-  
-</h1>
-<p>이전섹션에서는 action-value function(state value function, action-value function)을 근사해서 옵티멀한 value function을 찾아 갔다. 이때 policy는 
-<link rel="stylesheet" href="/katex/katex.min.css" />
-<script defer src="/katex/katex.min.js"></script>
-<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
-  \(\epsilon\)
-</span>
--greedy.</p>
-<p>policy gradient는 policy parameter를 직접 업데이트 한다. <strong>policy-based !</strong> <br>
-policy를 direct 로 업데이트 하는것 <br>
-이는 large complicated environment에 좀더 적합() 각 state를 명확하게 구분하기 어려울때). <br>
-Policy는 value 대비 더 compact하게 저장한다. 저게 저장하는 장점이 있 …</p>
-      </div>
-    </a>
-
-  </li>
-
-  <li style="margin-bottom: 2rem;">
-    <a href="/reinforcement-learning/rl-value-function-approximation/">
-      <strong style="font-size: 1.25rem;">6. Value Function Approximation</strong>
-    </a><br/>
-
-    
-
-    <small>2025-09-17 18:00:56 KST</small>
-
-    <a href="/reinforcement-learning/rl-value-function-approximation/" style="text-decoration: none; color: inherit;">
-      <div class="summary-box"> 
-        <h1 id="6-value-function-approximation">
-  <strong>6. Value Function Approximation</strong>
-  
-</h1>
-<p>large MDP를 풀수 없으니 (too many state and action) value function(state-value/action-value function)을 어떻게 근사하게 구하는가?</p>
-<ul>
-<li>Liner combinations of feature</li>
-<li>Neural network</li>
 </ul>
 
-<link rel="stylesheet" href="/katex/katex.min.css" />
-<script defer src="/katex/katex.min.js"></script>
-<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
-  \[
-
-\hat{v}(s, \mathbf{w}) \approx v_\pi(s)
-\quad \text{or} \quad
-\hat{q}(s, a, \mathbf{w}) \approx q_\pi(s,a)
-
-\]
-</span>
-
-<p>여기서부터 Gradient Descent 가 나온다.</p>
-<blockquote>
-<ol>
-<li>정책 π 고정</li>
-<li>Q-function을 gradient …</li></ol></blockquote>
-      </div>
-    </a>
-
-  </li>
-
-</ul>
 
 </article>
  

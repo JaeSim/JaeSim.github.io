@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko-kr" dir="ltr">
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="
@@ -148,7 +148,7 @@ CREATE INDEX sift_hnsw ON sift_base USING hnsw (vec vector_cosine_ops) WITH (m =
 ">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/development/pgvector_build/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/development/pgvector_build/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="pgvector_build">
   <meta property="og:description" content="pgvector build 하기#기본 정보#https://github.com/pgvector/pgvector postgresql 이 먼저 running 한 뒤에 설치하여야한다. postgresql 준비#postgres 13이상 버전 준비 wget https://ftp.postgresql.org/pub/source/v17.6/postgresql-17.6.tar.gz tar -vxzf postgresql-17.6.tar.gz path 설정 및 build cd postgresql-17.6.tar.gz ./configure --prefix=/home/{user}/data/postgresql-17.6 --without-readline sudo make -j sudo make install postgresql 실행 # Create and start the DB /home/{user}/data/postgresql-17.6/bin/pg_ctl -D ~/vector_test initdb # change port_numver from 5432 to 5557 vim ~/vector_test/postgresql.conf /home/{user}/data/postgresql-17.6/bin/pg_ctl -D ~/vector_test start -l vec_test_logfile # create database /home/{user}/data/postgresql-17.6/bin/createdb vector_test -p 5557 # verify connection /home/{user}/data/postgresql-17.6/bin/psql vector_test -p 5557 pgvector 빌드#pg vector (공식 README.md 는 v0.8.0 을 사용하는것을 권장하고 있으니 참조) git clone https://github.com/pgvector/pgvector.git cd pgvector export PG_CONFIG=/home/{user}/data/postgresql-17.6/bin/pg_config make sudo --preserve-env=PG_CONFIG make install # verify that extension is installed /home/{user}/data/postgresql-17.6/bin/psql vector_test -p 5557 CREATE EXTENSION vector; SIFT1M Dataset#공식사이트 : http://corpus-texmex.irisa.fr/ wget ftp://ftp.irisa.fr/local/texmex/corpus/sift.tar.gz tar -vzxf sift.tar.gz table 생성 CREATE TABLE sift1m ( id bigint PRIMARY KEY, vec vector(128) ); load by python # save as fvecs_copy_stream.py import numpy as np from psycopg import connect def read_fvecs_memmap(path): # 메모리 절약을 위해 memmap 사용 a = np.memmap(path, dtype=np.int32, mode=&#39;r&#39;) d = int(a[0]) n = a.size // (d &#43; 1) a = a.reshape(n, d &#43; 1) X = a[:, 1:].astype(np.float32, copy=False) # view가 안 되면 astype with copy=False return X, d def normalize_rows(X, eps=1e-12): n = np.linalg.norm(X, axis=1, keepdims=True) n[n &lt; eps] = 1.0 X[:] = X / n return X def stream_copy_fvecs(dsn, table, fvecs_path, normalize=False, batch=10000): X, d = read_fvecs_memmap(fvecs_path) assert d &gt; 0 if normalize: normalize_rows(X) with connect(dsn) as conn: copy_sql = f&#34;COPY {table} (id, vec) FROM STDIN WITH (FORMAT csv, DELIMITER E&#39;\\t&#39;)&#34; with conn.cursor() as cur, cur.copy(copy_sql) as cp: rid = 0 N = X.shape[0] while rid &lt; N: end = min(rid &#43; batch, N) for i in range(rid, end): v = X[i] line = f&#34;{i}\t[{&#39;,&#39;.join(f&#39;{x:.6f}&#39; for x in v)}]\n&#34; cp.write(line.encode(&#39;utf-8&#39;)) rid = end conn.commit() if __name__ == &#34;__main__&#34;: DSN = &#34;host=/tmp dbname=vector_test port=5557&#34; stream_copy_fvecs(DSN, &#34;sift1m&#34;, &#34;sift_base.fvecs&#34;, normalize=True, batch=20000) cd sift ## above python script pip install &#34;psycopg[binary]&gt;=3.1.18&#34; python3 load_vec.py load 확인 vector_test=# select count(*) from sift1m; count --------- 1000000 (1 row) index build#CREATE INDEX sift_hnsw ON sift_base USING hnsw (vec vector_cosine_ops) WITH (m = 16, ef_construction = 200);">
@@ -166,10 +166,10 @@ CREATE INDEX sift_hnsw ON sift_base USING hnsw (vec vector_cosine_ops) WITH (m =
 <title>pgvector_build | JaeSim&#39;s Workspace</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="https://JaeSim.github.io/development/pgvector_build/">
+<link rel="canonical" href="http://localhost:1313/development/pgvector_build/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.31f277a5498ee4da11add5898fef57546a6899f9b194f39238b6c16d7bdd7ed7.js" integrity="sha256-MfJ3pUmO5NoRrdWJj&#43;9XVGpomfmxlPOSOLbBbXvdftc=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.422e4d89b7836d9315ef71a27fb511c2ef260e17a57927b276ea82c48a24cac6.js" integrity="sha256-Qi5NibeDbZMV73Gif7URwu8mDheleSeyduqCxIokysY=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -223,6 +223,26 @@ https://github.com/alex-shpak/hugo-book
 
         <li>
           
+            
+  
+  
+
+  
+    <a href="/aboutme/" class="">About Me</a>
+  
+
+          
+        </li>
+
+      
+    
+      
+
+      
+        
+
+        <li>
+          
             <input type="checkbox"
                    id="section-fa839a81c5edc0726797036b87ec4d40"
                    class="toggle"
@@ -230,7 +250,7 @@ https://github.com/alex-shpak/hugo-book
             <label for="section-fa839a81c5edc0726797036b87ec4d40" class="flex justify-between cursor-pointer">
               <span>
                 Development / 개발
-                <span class="count">(5)</span>
+                <span class="count">(6)</span>
               </span>
             </label>
 
@@ -296,6 +316,19 @@ https://github.com/alex-shpak/hugo-book
 
   
     <a href="/development/wsl-c-env/" class="">WSL을 이용한 C언어 개발환경 셋업</a>
+  
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/development/remotewow/" class="">모바일 원격 와우하기</a>
   
 
                   
@@ -537,7 +570,7 @@ https://github.com/alex-shpak/hugo-book
             <label for="section-5451d228399fc5c2fd05219bda7b986b" class="flex justify-between cursor-pointer">
               <span>
                 Reinforcement Learning / 강화학습
-                <span class="count">(10)</span>
+                <span class="count">(11)</span>
               </span>
             </label>
 
@@ -668,6 +701,19 @@ https://github.com/alex-shpak/hugo-book
 
   
     <a href="/reinforcement-learning/rl-case-study/" class="">10. Case Study: RL in Classic Games</a>
+  
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/reinforcement-learning/rl-appendix/" class="">11. RL Appendix(temp)</a>
   
 
                   

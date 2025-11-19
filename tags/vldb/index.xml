@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>VLDB on JaeSim&#39;s Workspace</title>
-    <link>https://JaeSim.github.io/tags/vldb/</link>
+    <link>http://localhost:1313/tags/vldb/</link>
     <description>Recent content in VLDB on JaeSim&#39;s Workspace</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
     <lastBuildDate>Fri, 25 Jul 2025 10:03:35 +0900</lastBuildDate>
-    <atom:link href="https://JaeSim.github.io/tags/vldb/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/vldb/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>2025 VLDB (Not Completed)</title>
-      <link>https://JaeSim.github.io/research-study/paper-trend/2025-vldb/</link>
+      <link>http://localhost:1313/research-study/paper-trend/2025-vldb/</link>
       <pubDate>Fri, 25 Jul 2025 10:03:35 +0900</pubDate>
-      <guid>https://JaeSim.github.io/research-study/paper-trend/2025-vldb/</guid>
+      <guid>http://localhost:1313/research-study/paper-trend/2025-vldb/</guid>
       <description>&lt;h1 id=&#34;vldb-2025-research-paper-sessions-미완&#34;&gt;&#xD;&#xA;  &lt;strong&gt;VLDB 2025 Research Paper Sessions (미완)&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#vldb-2025-research-paper-sessions-%eb%af%b8%ec%99%84&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://dblp.org/db/journals/pvldb/pvldb18.html&#34;&gt;https://dblp.org/db/journals/pvldb/pvldb18.html&lt;/a&gt; 에서 Volume 18, Number 5, January 2025 ~ ?&lt;/li&gt;&#xA;&lt;li&gt;&lt;em&gt;&lt;strong&gt;25년도 논문이 아직 전부 publish 되지 않음. Volume 18, Number 5 ~ 8(April), 만 다룸&lt;/strong&gt;&lt;/em&gt;&lt;/li&gt;&#xA;&lt;li&gt;각 논문들의 abstract 만 파악하여 나열&lt;/li&gt;&#xA;&lt;li&gt;작성자 기준 관심 분야가 아닌 것은 일부 skip&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;summary&#34;&gt;&#xD;&#xA;  &lt;strong&gt;Summary&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#summary&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;h3 id=&#34;느낀점&#34;&gt;&#xD;&#xA;  &lt;strong&gt;느낀점&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#%eb%8a%90%eb%82%80%ec%a0%90&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h3&gt;&#xD;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;privacy 항목이 적음, time serise 항목이 적음&lt;/li&gt;&#xA;&lt;li&gt;한 분야에 집중되었다기 보다는, 여러가지 항목이 나열된 느낌&#xA;&lt;ul&gt;&#xA;&lt;li&gt;time series 중 하나, 궤적 데이터중 하나,,, 이런식으로 되도록 다양한 논문이 실리는 느낌&lt;/li&gt;&#xA;&lt;li&gt;반대로말하면 한 분야에 대해서 경쟁이 매우 치열한듯한 느낌&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;추상적인 것보다는 실질적인 솔루션들만 구성되어 있음&lt;/li&gt;&#xA;&lt;li&gt;ICDE 대비 ML,RL 보다 약간 더 big data system(or DB) 쪽에 치중된 느낌&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;interested-papers&#34;&gt;&#xD;&#xA;  &lt;strong&gt;Interested Papers&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#interested-papers&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h3&gt;&#xD;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;BigVectorBench: Heterogeneous Data Embedding and Compound Queries are Essential in Evaluating Vector Databases&lt;/p&gt;</description>
     </item>
   </channel>

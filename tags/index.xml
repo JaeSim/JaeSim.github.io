@@ -2,507 +2,521 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on JaeSim&#39;s Workspace</title>
-    <link>https://JaeSim.github.io/tags/</link>
+    <link>http://localhost:1313/tags/</link>
     <description>Recent content in Tags on JaeSim&#39;s Workspace</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Tue, 30 Sep 2025 17:08:48 +0900</lastBuildDate>
-    <atom:link href="https://JaeSim.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 01 Oct 2025 16:20:45 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Case Study</title>
-      <link>https://JaeSim.github.io/tags/case-study/</link>
-      <pubDate>Tue, 30 Sep 2025 17:08:48 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/case-study/</guid>
+      <title>Appendix</title>
+      <link>http://localhost:1313/tags/appendix/</link>
+      <pubDate>Wed, 01 Oct 2025 16:20:45 +0900</pubDate>
+      <guid>http://localhost:1313/tags/appendix/</guid>
       <description></description>
     </item>
     <item>
       <title>Definition</title>
-      <link>https://JaeSim.github.io/tags/definition/</link>
-      <pubDate>Tue, 30 Sep 2025 17:08:48 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/definition/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Minimax Search</title>
-      <link>https://JaeSim.github.io/tags/minimax-search/</link>
-      <pubDate>Tue, 30 Sep 2025 17:08:48 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/minimax-search/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Pratice</title>
-      <link>https://JaeSim.github.io/tags/pratice/</link>
-      <pubDate>Tue, 30 Sep 2025 17:08:48 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/pratice/</guid>
+      <link>http://localhost:1313/tags/definition/</link>
+      <pubDate>Wed, 01 Oct 2025 16:20:45 +0900</pubDate>
+      <guid>http://localhost:1313/tags/definition/</guid>
       <description></description>
     </item>
     <item>
       <title>Reinforcement Learning</title>
-      <link>https://JaeSim.github.io/tags/reinforcement-learning/</link>
-      <pubDate>Tue, 30 Sep 2025 17:08:48 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/reinforcement-learning/</guid>
+      <link>http://localhost:1313/tags/reinforcement-learning/</link>
+      <pubDate>Wed, 01 Oct 2025 16:20:45 +0900</pubDate>
+      <guid>http://localhost:1313/tags/reinforcement-learning/</guid>
       <description></description>
     </item>
     <item>
       <title>RL</title>
-      <link>https://JaeSim.github.io/tags/rl/</link>
+      <link>http://localhost:1313/tags/rl/</link>
+      <pubDate>Wed, 01 Oct 2025 16:20:45 +0900</pubDate>
+      <guid>http://localhost:1313/tags/rl/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Case Study</title>
+      <link>http://localhost:1313/tags/case-study/</link>
       <pubDate>Tue, 30 Sep 2025 17:08:48 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/rl/</guid>
+      <guid>http://localhost:1313/tags/case-study/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Minimax Search</title>
+      <link>http://localhost:1313/tags/minimax-search/</link>
+      <pubDate>Tue, 30 Sep 2025 17:08:48 +0900</pubDate>
+      <guid>http://localhost:1313/tags/minimax-search/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Pratice</title>
+      <link>http://localhost:1313/tags/pratice/</link>
+      <pubDate>Tue, 30 Sep 2025 17:08:48 +0900</pubDate>
+      <guid>http://localhost:1313/tags/pratice/</guid>
       <description></description>
     </item>
     <item>
       <title>Self-Play RL</title>
-      <link>https://JaeSim.github.io/tags/self-play-rl/</link>
+      <link>http://localhost:1313/tags/self-play-rl/</link>
       <pubDate>Tue, 30 Sep 2025 17:08:48 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/self-play-rl/</guid>
+      <guid>http://localhost:1313/tags/self-play-rl/</guid>
       <description></description>
     </item>
     <item>
       <title>Exploitation</title>
-      <link>https://JaeSim.github.io/tags/exploitation/</link>
+      <link>http://localhost:1313/tags/exploitation/</link>
       <pubDate>Mon, 29 Sep 2025 15:14:37 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/exploitation/</guid>
+      <guid>http://localhost:1313/tags/exploitation/</guid>
       <description></description>
     </item>
     <item>
       <title>Exploration</title>
-      <link>https://JaeSim.github.io/tags/exploration/</link>
+      <link>http://localhost:1313/tags/exploration/</link>
       <pubDate>Mon, 29 Sep 2025 15:14:37 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/exploration/</guid>
+      <guid>http://localhost:1313/tags/exploration/</guid>
       <description></description>
     </item>
     <item>
       <title>Regret</title>
-      <link>https://JaeSim.github.io/tags/regret/</link>
+      <link>http://localhost:1313/tags/regret/</link>
       <pubDate>Mon, 29 Sep 2025 15:14:37 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/regret/</guid>
+      <guid>http://localhost:1313/tags/regret/</guid>
       <description></description>
     </item>
     <item>
       <title>UCB</title>
-      <link>https://JaeSim.github.io/tags/ucb/</link>
+      <link>http://localhost:1313/tags/ucb/</link>
       <pubDate>Mon, 29 Sep 2025 15:14:37 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/ucb/</guid>
+      <guid>http://localhost:1313/tags/ucb/</guid>
       <description></description>
     </item>
     <item>
       <title>Integrating</title>
-      <link>https://JaeSim.github.io/tags/integrating/</link>
+      <link>http://localhost:1313/tags/integrating/</link>
       <pubDate>Wed, 24 Sep 2025 17:11:08 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/integrating/</guid>
+      <guid>http://localhost:1313/tags/integrating/</guid>
       <description></description>
     </item>
     <item>
       <title>MCTS</title>
-      <link>https://JaeSim.github.io/tags/mcts/</link>
+      <link>http://localhost:1313/tags/mcts/</link>
       <pubDate>Wed, 24 Sep 2025 17:11:08 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/mcts/</guid>
+      <guid>http://localhost:1313/tags/mcts/</guid>
       <description></description>
     </item>
     <item>
       <title>Monte-Carlo Tree Search</title>
-      <link>https://JaeSim.github.io/tags/monte-carlo-tree-search/</link>
+      <link>http://localhost:1313/tags/monte-carlo-tree-search/</link>
       <pubDate>Wed, 24 Sep 2025 17:11:08 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/monte-carlo-tree-search/</guid>
+      <guid>http://localhost:1313/tags/monte-carlo-tree-search/</guid>
       <description></description>
     </item>
     <item>
       <title>Planning</title>
-      <link>https://JaeSim.github.io/tags/planning/</link>
+      <link>http://localhost:1313/tags/planning/</link>
       <pubDate>Wed, 24 Sep 2025 17:11:08 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/planning/</guid>
+      <guid>http://localhost:1313/tags/planning/</guid>
       <description></description>
     </item>
     <item>
       <title>Simulation-Based Search</title>
-      <link>https://JaeSim.github.io/tags/simulation-based-search/</link>
+      <link>http://localhost:1313/tags/simulation-based-search/</link>
       <pubDate>Wed, 24 Sep 2025 17:11:08 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/simulation-based-search/</guid>
+      <guid>http://localhost:1313/tags/simulation-based-search/</guid>
       <description></description>
     </item>
     <item>
       <title>Model Free</title>
-      <link>https://JaeSim.github.io/tags/model-free/</link>
+      <link>http://localhost:1313/tags/model-free/</link>
       <pubDate>Tue, 23 Sep 2025 13:22:02 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/model-free/</guid>
+      <guid>http://localhost:1313/tags/model-free/</guid>
       <description></description>
     </item>
     <item>
       <title>Policy Gradient</title>
-      <link>https://JaeSim.github.io/tags/policy-gradient/</link>
+      <link>http://localhost:1313/tags/policy-gradient/</link>
       <pubDate>Tue, 23 Sep 2025 13:22:02 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/policy-gradient/</guid>
+      <guid>http://localhost:1313/tags/policy-gradient/</guid>
       <description></description>
     </item>
     <item>
       <title>Value Function</title>
-      <link>https://JaeSim.github.io/tags/value-function/</link>
+      <link>http://localhost:1313/tags/value-function/</link>
       <pubDate>Tue, 23 Sep 2025 13:22:02 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/value-function/</guid>
+      <guid>http://localhost:1313/tags/value-function/</guid>
       <description></description>
     </item>
     <item>
       <title>Approximiation</title>
-      <link>https://JaeSim.github.io/tags/approximiation/</link>
+      <link>http://localhost:1313/tags/approximiation/</link>
       <pubDate>Wed, 17 Sep 2025 18:00:56 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/approximiation/</guid>
+      <guid>http://localhost:1313/tags/approximiation/</guid>
       <description></description>
     </item>
     <item>
       <title>Monte Carlo</title>
-      <link>https://JaeSim.github.io/tags/monte-carlo/</link>
+      <link>http://localhost:1313/tags/monte-carlo/</link>
       <pubDate>Fri, 12 Sep 2025 11:39:17 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/monte-carlo/</guid>
+      <guid>http://localhost:1313/tags/monte-carlo/</guid>
       <description></description>
     </item>
     <item>
       <title>Temporal Difference</title>
-      <link>https://JaeSim.github.io/tags/temporal-difference/</link>
+      <link>http://localhost:1313/tags/temporal-difference/</link>
       <pubDate>Fri, 12 Sep 2025 11:39:17 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/temporal-difference/</guid>
+      <guid>http://localhost:1313/tags/temporal-difference/</guid>
       <description></description>
     </item>
     <item>
       <title>C</title>
-      <link>https://JaeSim.github.io/tags/c/</link>
+      <link>http://localhost:1313/tags/c/</link>
       <pubDate>Thu, 04 Sep 2025 10:11:10 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/c/</guid>
+      <guid>http://localhost:1313/tags/c/</guid>
       <description></description>
     </item>
     <item>
       <title>C&#43;&#43;</title>
-      <link>https://JaeSim.github.io/tags/c&#43;&#43;/</link>
+      <link>http://localhost:1313/tags/c&#43;&#43;/</link>
       <pubDate>Thu, 04 Sep 2025 10:11:10 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/c&#43;&#43;/</guid>
+      <guid>http://localhost:1313/tags/c&#43;&#43;/</guid>
       <description></description>
     </item>
     <item>
       <title>Vscode</title>
-      <link>https://JaeSim.github.io/tags/vscode/</link>
+      <link>http://localhost:1313/tags/vscode/</link>
       <pubDate>Thu, 04 Sep 2025 10:11:10 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/vscode/</guid>
+      <guid>http://localhost:1313/tags/vscode/</guid>
       <description></description>
     </item>
     <item>
       <title>Wsl</title>
-      <link>https://JaeSim.github.io/tags/wsl/</link>
+      <link>http://localhost:1313/tags/wsl/</link>
       <pubDate>Thu, 04 Sep 2025 10:11:10 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/wsl/</guid>
+      <guid>http://localhost:1313/tags/wsl/</guid>
       <description></description>
     </item>
     <item>
       <title>ANN</title>
-      <link>https://JaeSim.github.io/tags/ann/</link>
+      <link>http://localhost:1313/tags/ann/</link>
       <pubDate>Tue, 02 Sep 2025 11:52:47 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/ann/</guid>
+      <guid>http://localhost:1313/tags/ann/</guid>
       <description></description>
     </item>
     <item>
       <title>Database</title>
-      <link>https://JaeSim.github.io/tags/database/</link>
+      <link>http://localhost:1313/tags/database/</link>
       <pubDate>Tue, 02 Sep 2025 11:52:47 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/database/</guid>
+      <guid>http://localhost:1313/tags/database/</guid>
       <description></description>
     </item>
     <item>
       <title>Embedding</title>
-      <link>https://JaeSim.github.io/tags/embedding/</link>
+      <link>http://localhost:1313/tags/embedding/</link>
       <pubDate>Tue, 02 Sep 2025 11:52:47 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/embedding/</guid>
+      <guid>http://localhost:1313/tags/embedding/</guid>
       <description></description>
     </item>
     <item>
       <title>Postgresql</title>
-      <link>https://JaeSim.github.io/tags/postgresql/</link>
+      <link>http://localhost:1313/tags/postgresql/</link>
       <pubDate>Tue, 02 Sep 2025 11:52:47 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/postgresql/</guid>
+      <guid>http://localhost:1313/tags/postgresql/</guid>
       <description></description>
     </item>
     <item>
       <title>Similarity Search</title>
-      <link>https://JaeSim.github.io/tags/similarity-search/</link>
+      <link>http://localhost:1313/tags/similarity-search/</link>
       <pubDate>Tue, 02 Sep 2025 11:52:47 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/similarity-search/</guid>
+      <guid>http://localhost:1313/tags/similarity-search/</guid>
       <description></description>
     </item>
     <item>
       <title>Vector</title>
-      <link>https://JaeSim.github.io/tags/vector/</link>
+      <link>http://localhost:1313/tags/vector/</link>
       <pubDate>Tue, 02 Sep 2025 11:52:47 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/vector/</guid>
+      <guid>http://localhost:1313/tags/vector/</guid>
       <description></description>
     </item>
     <item>
       <title>DBMS</title>
-      <link>https://JaeSim.github.io/tags/dbms/</link>
+      <link>http://localhost:1313/tags/dbms/</link>
       <pubDate>Thu, 28 Aug 2025 11:32:49 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/dbms/</guid>
+      <guid>http://localhost:1313/tags/dbms/</guid>
       <description></description>
     </item>
     <item>
       <title>Learned Query Optimizer</title>
-      <link>https://JaeSim.github.io/tags/learned-query-optimizer/</link>
+      <link>http://localhost:1313/tags/learned-query-optimizer/</link>
       <pubDate>Thu, 28 Aug 2025 11:32:49 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/learned-query-optimizer/</guid>
+      <guid>http://localhost:1313/tags/learned-query-optimizer/</guid>
       <description></description>
     </item>
     <item>
       <title>LIMAO</title>
-      <link>https://JaeSim.github.io/tags/limao/</link>
+      <link>http://localhost:1313/tags/limao/</link>
       <pubDate>Thu, 28 Aug 2025 11:32:49 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/limao/</guid>
+      <guid>http://localhost:1313/tags/limao/</guid>
       <description></description>
     </item>
     <item>
       <title>Optimizer</title>
-      <link>https://JaeSim.github.io/tags/optimizer/</link>
+      <link>http://localhost:1313/tags/optimizer/</link>
       <pubDate>Thu, 28 Aug 2025 11:32:49 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/optimizer/</guid>
+      <guid>http://localhost:1313/tags/optimizer/</guid>
       <description></description>
     </item>
     <item>
       <title>Conferenece</title>
-      <link>https://JaeSim.github.io/tags/conferenece/</link>
+      <link>http://localhost:1313/tags/conferenece/</link>
       <pubDate>Mon, 04 Aug 2025 09:44:51 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/conferenece/</guid>
+      <guid>http://localhost:1313/tags/conferenece/</guid>
       <description></description>
     </item>
     <item>
       <title>Paper</title>
-      <link>https://JaeSim.github.io/tags/paper/</link>
+      <link>http://localhost:1313/tags/paper/</link>
       <pubDate>Mon, 04 Aug 2025 09:44:51 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/paper/</guid>
+      <guid>http://localhost:1313/tags/paper/</guid>
       <description></description>
     </item>
     <item>
       <title>Research</title>
-      <link>https://JaeSim.github.io/tags/research/</link>
+      <link>http://localhost:1313/tags/research/</link>
       <pubDate>Mon, 04 Aug 2025 09:44:51 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/research/</guid>
+      <guid>http://localhost:1313/tags/research/</guid>
       <description></description>
     </item>
     <item>
       <title>SIGMOD</title>
-      <link>https://JaeSim.github.io/tags/sigmod/</link>
+      <link>http://localhost:1313/tags/sigmod/</link>
       <pubDate>Mon, 04 Aug 2025 09:44:51 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/sigmod/</guid>
+      <guid>http://localhost:1313/tags/sigmod/</guid>
       <description></description>
     </item>
     <item>
       <title>Survey</title>
-      <link>https://JaeSim.github.io/tags/survey/</link>
+      <link>http://localhost:1313/tags/survey/</link>
       <pubDate>Mon, 04 Aug 2025 09:44:51 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/survey/</guid>
+      <guid>http://localhost:1313/tags/survey/</guid>
       <description></description>
     </item>
     <item>
       <title>EDBT</title>
-      <link>https://JaeSim.github.io/tags/edbt/</link>
+      <link>http://localhost:1313/tags/edbt/</link>
       <pubDate>Mon, 28 Jul 2025 14:03:06 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/edbt/</guid>
+      <guid>http://localhost:1313/tags/edbt/</guid>
       <description></description>
     </item>
     <item>
       <title>VLDB</title>
-      <link>https://JaeSim.github.io/tags/vldb/</link>
+      <link>http://localhost:1313/tags/vldb/</link>
       <pubDate>Fri, 25 Jul 2025 10:03:35 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/vldb/</guid>
+      <guid>http://localhost:1313/tags/vldb/</guid>
       <description></description>
     </item>
     <item>
       <title>ICDE</title>
-      <link>https://JaeSim.github.io/tags/icde/</link>
+      <link>http://localhost:1313/tags/icde/</link>
       <pubDate>Mon, 21 Jul 2025 10:25:18 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/icde/</guid>
+      <guid>http://localhost:1313/tags/icde/</guid>
       <description></description>
     </item>
     <item>
       <title>Adaptive</title>
-      <link>https://JaeSim.github.io/tags/adaptive/</link>
+      <link>http://localhost:1313/tags/adaptive/</link>
       <pubDate>Wed, 16 Jul 2025 10:01:12 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/adaptive/</guid>
+      <guid>http://localhost:1313/tags/adaptive/</guid>
       <description></description>
     </item>
     <item>
       <title>Stream Processing</title>
-      <link>https://JaeSim.github.io/tags/stream-processing/</link>
+      <link>http://localhost:1313/tags/stream-processing/</link>
       <pubDate>Wed, 16 Jul 2025 10:01:12 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/stream-processing/</guid>
+      <guid>http://localhost:1313/tags/stream-processing/</guid>
       <description></description>
     </item>
     <item>
       <title>Watermark</title>
-      <link>https://JaeSim.github.io/tags/watermark/</link>
+      <link>http://localhost:1313/tags/watermark/</link>
       <pubDate>Wed, 16 Jul 2025 10:01:12 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/watermark/</guid>
+      <guid>http://localhost:1313/tags/watermark/</guid>
       <description></description>
     </item>
     <item>
       <title>BAO</title>
-      <link>https://JaeSim.github.io/tags/bao/</link>
+      <link>http://localhost:1313/tags/bao/</link>
       <pubDate>Fri, 04 Jul 2025 13:48:30 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/bao/</guid>
+      <guid>http://localhost:1313/tags/bao/</guid>
       <description></description>
     </item>
     <item>
       <title>HANA Database</title>
-      <link>https://JaeSim.github.io/tags/hana-database/</link>
+      <link>http://localhost:1313/tags/hana-database/</link>
       <pubDate>Fri, 04 Jul 2025 13:26:47 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/hana-database/</guid>
+      <guid>http://localhost:1313/tags/hana-database/</guid>
       <description></description>
     </item>
     <item>
       <title>ML</title>
-      <link>https://JaeSim.github.io/tags/ml/</link>
+      <link>http://localhost:1313/tags/ml/</link>
       <pubDate>Thu, 03 Jul 2025 10:53:40 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/ml/</guid>
+      <guid>http://localhost:1313/tags/ml/</guid>
       <description></description>
     </item>
     <item>
       <title>NN</title>
-      <link>https://JaeSim.github.io/tags/nn/</link>
+      <link>http://localhost:1313/tags/nn/</link>
       <pubDate>Thu, 03 Jul 2025 10:53:40 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/nn/</guid>
+      <guid>http://localhost:1313/tags/nn/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Profile</title>
+      <link>http://localhost:1313/tags/profile/</link>
+      <pubDate>Mon, 23 Jun 2025 14:05:50 +0900</pubDate>
+      <guid>http://localhost:1313/tags/profile/</guid>
       <description></description>
     </item>
     <item>
       <title>GNN</title>
-      <link>https://JaeSim.github.io/tags/gnn/</link>
+      <link>http://localhost:1313/tags/gnn/</link>
       <pubDate>Fri, 13 Jun 2025 14:45:35 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/gnn/</guid>
+      <guid>http://localhost:1313/tags/gnn/</guid>
       <description></description>
     </item>
     <item>
       <title>Neural Network</title>
-      <link>https://JaeSim.github.io/tags/neural-network/</link>
+      <link>http://localhost:1313/tags/neural-network/</link>
       <pubDate>Fri, 13 Jun 2025 14:45:35 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/neural-network/</guid>
+      <guid>http://localhost:1313/tags/neural-network/</guid>
       <description></description>
     </item>
     <item>
       <title>추천시스템</title>
-      <link>https://JaeSim.github.io/tags/%EC%B6%94%EC%B2%9C%EC%8B%9C%EC%8A%A4%ED%85%9C/</link>
+      <link>http://localhost:1313/tags/%EC%B6%94%EC%B2%9C%EC%8B%9C%EC%8A%A4%ED%85%9C/</link>
       <pubDate>Fri, 13 Jun 2025 14:45:35 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/%EC%B6%94%EC%B2%9C%EC%8B%9C%EC%8A%A4%ED%85%9C/</guid>
+      <guid>http://localhost:1313/tags/%EC%B6%94%EC%B2%9C%EC%8B%9C%EC%8A%A4%ED%85%9C/</guid>
       <description></description>
     </item>
     <item>
       <title>LOGER</title>
-      <link>https://JaeSim.github.io/tags/loger/</link>
+      <link>http://localhost:1313/tags/loger/</link>
       <pubDate>Thu, 12 Jun 2025 11:50:33 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/loger/</guid>
+      <guid>http://localhost:1313/tags/loger/</guid>
       <description></description>
     </item>
     <item>
       <title>DP</title>
-      <link>https://JaeSim.github.io/tags/dp/</link>
+      <link>http://localhost:1313/tags/dp/</link>
       <pubDate>Thu, 29 May 2025 12:21:05 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/dp/</guid>
+      <guid>http://localhost:1313/tags/dp/</guid>
       <description></description>
     </item>
     <item>
       <title>Dynamic Programming</title>
-      <link>https://JaeSim.github.io/tags/dynamic-programming/</link>
+      <link>http://localhost:1313/tags/dynamic-programming/</link>
       <pubDate>Thu, 29 May 2025 12:21:05 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/dynamic-programming/</guid>
+      <guid>http://localhost:1313/tags/dynamic-programming/</guid>
       <description></description>
     </item>
     <item>
       <title>Policy Iteration</title>
-      <link>https://JaeSim.github.io/tags/policy-iteration/</link>
+      <link>http://localhost:1313/tags/policy-iteration/</link>
       <pubDate>Thu, 29 May 2025 12:21:05 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/policy-iteration/</guid>
+      <guid>http://localhost:1313/tags/policy-iteration/</guid>
       <description></description>
     </item>
     <item>
       <title>Value Iteration</title>
-      <link>https://JaeSim.github.io/tags/value-iteration/</link>
+      <link>http://localhost:1313/tags/value-iteration/</link>
       <pubDate>Thu, 29 May 2025 12:21:05 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/value-iteration/</guid>
+      <guid>http://localhost:1313/tags/value-iteration/</guid>
       <description></description>
     </item>
     <item>
       <title>Markov</title>
-      <link>https://JaeSim.github.io/tags/markov/</link>
+      <link>http://localhost:1313/tags/markov/</link>
       <pubDate>Tue, 27 May 2025 16:43:57 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/markov/</guid>
+      <guid>http://localhost:1313/tags/markov/</guid>
       <description></description>
     </item>
     <item>
       <title>Markov Decision Process</title>
-      <link>https://JaeSim.github.io/tags/markov-decision-process/</link>
+      <link>http://localhost:1313/tags/markov-decision-process/</link>
       <pubDate>Tue, 27 May 2025 16:43:57 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/markov-decision-process/</guid>
+      <guid>http://localhost:1313/tags/markov-decision-process/</guid>
       <description></description>
     </item>
     <item>
       <title>Markov Process</title>
-      <link>https://JaeSim.github.io/tags/markov-process/</link>
+      <link>http://localhost:1313/tags/markov-process/</link>
       <pubDate>Tue, 27 May 2025 16:43:57 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/markov-process/</guid>
+      <guid>http://localhost:1313/tags/markov-process/</guid>
       <description></description>
     </item>
     <item>
       <title>Blog</title>
-      <link>https://JaeSim.github.io/tags/blog/</link>
+      <link>http://localhost:1313/tags/blog/</link>
       <pubDate>Fri, 23 May 2025 11:06:13 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/blog/</guid>
+      <guid>http://localhost:1313/tags/blog/</guid>
       <description></description>
     </item>
     <item>
       <title>Giscus</title>
-      <link>https://JaeSim.github.io/tags/giscus/</link>
+      <link>http://localhost:1313/tags/giscus/</link>
       <pubDate>Fri, 23 May 2025 11:06:13 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/giscus/</guid>
+      <guid>http://localhost:1313/tags/giscus/</guid>
       <description></description>
     </item>
     <item>
       <title>Github</title>
-      <link>https://JaeSim.github.io/tags/github/</link>
+      <link>http://localhost:1313/tags/github/</link>
       <pubDate>Fri, 23 May 2025 11:06:13 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/github/</guid>
+      <guid>http://localhost:1313/tags/github/</guid>
       <description></description>
     </item>
     <item>
       <title>Github Pages</title>
-      <link>https://JaeSim.github.io/tags/github-pages/</link>
+      <link>http://localhost:1313/tags/github-pages/</link>
       <pubDate>Fri, 23 May 2025 11:06:13 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/github-pages/</guid>
+      <guid>http://localhost:1313/tags/github-pages/</guid>
       <description></description>
     </item>
     <item>
       <title>Hugo</title>
-      <link>https://JaeSim.github.io/tags/hugo/</link>
+      <link>http://localhost:1313/tags/hugo/</link>
       <pubDate>Fri, 23 May 2025 11:06:13 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/hugo/</guid>
+      <guid>http://localhost:1313/tags/hugo/</guid>
       <description></description>
     </item>
     <item>
       <title>Hugo-Book</title>
-      <link>https://JaeSim.github.io/tags/hugo-book/</link>
+      <link>http://localhost:1313/tags/hugo-book/</link>
       <pubDate>Fri, 23 May 2025 11:06:13 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/hugo-book/</guid>
+      <guid>http://localhost:1313/tags/hugo-book/</guid>
       <description></description>
     </item>
     <item>
       <title>Setup</title>
-      <link>https://JaeSim.github.io/tags/setup/</link>
+      <link>http://localhost:1313/tags/setup/</link>
       <pubDate>Fri, 23 May 2025 11:06:13 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/setup/</guid>
+      <guid>http://localhost:1313/tags/setup/</guid>
       <description></description>
     </item>
     <item>
       <title>Essential</title>
-      <link>https://JaeSim.github.io/tags/essential/</link>
+      <link>http://localhost:1313/tags/essential/</link>
       <pubDate>Thu, 22 May 2025 11:13:00 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/essential/</guid>
+      <guid>http://localhost:1313/tags/essential/</guid>
       <description></description>
     </item>
     <item>
       <title>To-Do</title>
-      <link>https://JaeSim.github.io/tags/to-do/</link>
+      <link>http://localhost:1313/tags/to-do/</link>
       <pubDate>Wed, 21 May 2025 10:26:34 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/to-do/</guid>
+      <guid>http://localhost:1313/tags/to-do/</guid>
       <description></description>
     </item>
   </channel>

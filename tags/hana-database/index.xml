@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>HANA Database on JaeSim&#39;s Workspace</title>
-    <link>https://JaeSim.github.io/tags/hana-database/</link>
+    <link>http://localhost:1313/tags/hana-database/</link>
     <description>Recent content in HANA Database on JaeSim&#39;s Workspace</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
     <lastBuildDate>Fri, 04 Jul 2025 13:26:47 +0900</lastBuildDate>
-    <atom:link href="https://JaeSim.github.io/tags/hana-database/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/hana-database/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>HANA Database Porting</title>
-      <link>https://JaeSim.github.io/learned-query-optimizer/hana-database-porting/</link>
+      <link>http://localhost:1313/learned-query-optimizer/hana-database-porting/</link>
       <pubDate>Fri, 04 Jul 2025 13:26:47 +0900</pubDate>
-      <guid>https://JaeSim.github.io/learned-query-optimizer/hana-database-porting/</guid>
+      <guid>http://localhost:1313/learned-query-optimizer/hana-database-porting/</guid>
       <description>&lt;h1 id=&#34;learned-query-optimizer-포팅을-위한-hana-db의-분석-내용&#34;&gt;&#xD;&#xA;  &lt;strong&gt;Learned Query Optimizer 포팅을 위한 HANA DB의 분석 내용&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#learned-query-optimizer-%ed%8f%ac%ed%8c%85%ec%9d%84-%ec%9c%84%ed%95%9c-hana-db%ec%9d%98-%eb%b6%84%ec%84%9d-%eb%82%b4%ec%9a%a9&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;h2 id=&#34;sap-trial&#34;&gt;&#xD;&#xA;  &lt;strong&gt;SAP trial&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#sap-trial&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;SAP BTP trial 링크&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://www.sap.com/products/technology-platform/trial.html&#34;&gt;https://www.sap.com/products/technology-platform/trial.html&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;BTP trial 생성 및 BTP cockpit 접속&#xA;&lt;ul&gt;&#xA;&lt;li&gt;ID = P2009440130&lt;/li&gt;&#xA;&lt;li&gt;이후 스텝은 &lt;a href=&#34;https://account.hanatrial.ondemand.com/trial/#/home/trial&#34;&gt;https://account.hanatrial.ondemand.com/trial/#/home/trial&lt;/a&gt; 관련 내용 따름&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;trial account 생성 - sub account 생성 및 sub account 클릭&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;em&gt;&lt;strong&gt;!! 주의 !!&lt;/strong&gt;&lt;/em&gt;   US region으로 생성해야 HANA Cloud DB 서비스를 사용할 수 있음&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Service -&amp;gt; Service MarketPlace 에서 HANA Cloud tools 구독 생성&#xA;&lt;ul&gt;&#xA;&lt;li&gt;create SAP HANA Cloud - plan: tools 생성&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Security User에 Role assign&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Security -&amp;gt; Users -&amp;gt; 본인 계정 선택 -&amp;gt; Role Collections -&amp;gt; Assign Role Collection -&amp;gt; &lt;code&gt;SAP HANA&lt;/code&gt; keyword 및 &lt;code&gt;cloud&lt;/code&gt; keyword 모두 체크하여 반영&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;SAP HANA Cloud 생성&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Service -&amp;gt; Instances and Subscription -&amp;gt; SAP HANA Cloud 생성 클릭&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;SAP HANA Instance 생성&#xA;&lt;ul&gt;&#xA;&lt;li&gt;allow all ip address 를 설정&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;생성된 instance의 connections의 SQL Endpoint가 host&#xA;&lt;ul&gt;&#xA;&lt;li&gt;instance를 클릭후 &amp;hellip; 에가면 open in SAP HANA Cockpit 이나 다른 Database Explorer 등으로 볼 수 있다&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;참고 아래 instance 스펙으로 고정됨. trial은 총 2개의 instance를 지원하는 듯함&lt;/p&gt;</description>
     </item>
   </channel>
