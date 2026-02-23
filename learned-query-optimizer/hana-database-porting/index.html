@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko-kr" dir="ltr">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="
@@ -59,7 +59,7 @@ instance를 클릭후 &hellip; 에가면 open in SAP HANA Cockpit 이나 다른 
 참고 아래 instance 스펙으로 고정됨. trial은 총 2개의 instance를 지원하는 듯함">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/learned-query-optimizer/hana-database-porting/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/learned-query-optimizer/hana-database-porting/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="HANA Database Porting">
   <meta property="og:description" content="Learned Query Optimizer 포팅을 위한 HANA DB의 분석 내용#SAP trial#SAP BTP trial 링크 https://www.sap.com/products/technology-platform/trial.html BTP trial 생성 및 BTP cockpit 접속 ID = P2009440130 이후 스텝은 https://account.hanatrial.ondemand.com/trial/#/home/trial 관련 내용 따름 trial account 생성 - sub account 생성 및 sub account 클릭 !! 주의 !! US region으로 생성해야 HANA Cloud DB 서비스를 사용할 수 있음 Service -&gt; Service MarketPlace 에서 HANA Cloud tools 구독 생성 create SAP HANA Cloud - plan: tools 생성 Security User에 Role assign Security -&gt; Users -&gt; 본인 계정 선택 -&gt; Role Collections -&gt; Assign Role Collection -&gt; SAP HANA keyword 및 cloud keyword 모두 체크하여 반영 SAP HANA Cloud 생성 Service -&gt; Instances and Subscription -&gt; SAP HANA Cloud 생성 클릭 SAP HANA Instance 생성 allow all ip address 를 설정 생성된 instance의 connections의 SQL Endpoint가 host instance를 클릭후 … 에가면 open in SAP HANA Cockpit 이나 다른 Database Explorer 등으로 볼 수 있다 참고 아래 instance 스펙으로 고정됨. trial은 총 2개의 instance를 지원하는 듯함">
@@ -77,10 +77,10 @@ instance를 클릭후 &hellip; 에가면 open in SAP HANA Cockpit 이나 다른 
 <title>HANA Database Porting | JaeSim&#39;s Workspace</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="http://localhost:1313/learned-query-optimizer/hana-database-porting/">
+<link rel="canonical" href="https://JaeSim.github.io/learned-query-optimizer/hana-database-porting/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.422e4d89b7836d9315ef71a27fb511c2ef260e17a57927b276ea82c48a24cac6.js" integrity="sha256-Qi5NibeDbZMV73Gif7URwu8mDheleSeyduqCxIokysY=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.cc8c60958d3c2be6e138a7080268bc5297e9f37260a6166634a2805a54b3d10c.js" integrity="sha256-zIxglY08K&#43;bhOKcIAmi8Upfp83JgphZmNKKAWlSz0Qw=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -126,26 +126,6 @@ https://github.com/alex-shpak/hugo-book
 
   
   <ul>
-    
-      
-
-      
-        
-
-        <li>
-          
-            
-  
-  
-
-  
-    <a href="/aboutme/" class="">About Me</a>
-  
-
-          
-        </li>
-
-      
     
       
 
@@ -481,7 +461,7 @@ https://github.com/alex-shpak/hugo-book
             <label for="section-5451d228399fc5c2fd05219bda7b986b" class="flex justify-between cursor-pointer">
               <span>
                 Reinforcement Learning / 강화학습
-                <span class="count">(11)</span>
+                <span class="count">(10)</span>
               </span>
             </label>
 
@@ -612,19 +592,6 @@ https://github.com/alex-shpak/hugo-book
 
   
     <a href="/reinforcement-learning/rl-case-study/" class="">10. Case Study: RL in Classic Games</a>
-  
-
-                  
-                </li>
-              
-                <li>
-                  
-                    
-  
-  
-
-  
-    <a href="/reinforcement-learning/rl-appendix/" class="">11. RL Appendix(temp)</a>
   
 
                   
@@ -820,6 +787,11 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#tpc-ds-dataset-생성"><strong>TPC-DS dataset 생성</strong></a></li>
         <li><a href="#tpc-ds-table-convert"><strong>TPC-DS table convert</strong></a></li>
         <li><a href="#tpc-ds-data-bulk-upload"><strong>TPC-DS data bulk upload</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#stack-workload-업로드"><strong>STACK workload 업로드</strong></a>
+      <ul>
+        <li><a href="#stack-dataset-다운로드"><strong>STACK dataset 다운로드</strong></a></li>
       </ul>
     </li>
   </ul>
@@ -2289,6 +2261,210 @@ SQL trace	Collect information about all SQL statements executed on the index ser
 </span></span><span style="display:flex;"><span>                f<span style="color:#f92672">.</span>close()
 </span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">NotImplementedError</span>
 </span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;[</span><span style="color:#e6db74">{</span>i<span style="color:#e6db74">:</span><span style="color:#e6db74">04d</span><span style="color:#e6db74">}</span><span style="color:#e6db74">] chunk rows=</span><span style="color:#e6db74">{</span>rows<span style="color:#e6db74">:</span><span style="color:#e6db74">,</span><span style="color:#e6db74">}</span><span style="color:#e6db74">  processed=</span><span style="color:#e6db74">{</span>total_rows<span style="color:#e6db74">:</span><span style="color:#e6db74">,</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>) 
+</span></span></code></pre></div><h2 id="stack-workload-업로드">
+  <strong>STACK workload 업로드</strong>
+  <a class="anchor" href="#stack-workload-%ec%97%85%eb%a1%9c%eb%93%9c">#</a>
+</h2>
+<h3 id="stack-dataset-다운로드">
+  <strong>STACK dataset 다운로드</strong>
+  <a class="anchor" href="#stack-dataset-%eb%8b%a4%ec%9a%b4%eb%a1%9c%eb%93%9c">#</a>
+</h3>
+<ul>
+<li>홈페이지가 이상하긴한데 다음 url에서 다운 가능</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>wget https://www.dropbox.com/s/98u5ec6yb365913/so_pg12?dl<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><ul>
+<li>pg_dump로 만들어진 파일로 pg로 만들수 있음</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>pg_restore -p <span style="color:#ae81ff">5477</span> -d glo --no-owner -v <span style="color:#e6db74">&#39;so_pg12?dl=1&#39;</span>
+</span></span></code></pre></div><ul>
+<li>다음 명령어로 table sql export. index도 포함되어 있다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>pg_dump -p <span style="color:#ae81ff">5477</span> -d glo --schema-only   -t public.account -t public.answer -t public.badge -t public.comment   -t public.post_link -t public.question -t public.site   -t public.so_user -t public.tag -t public.tag_question   &gt; so_pg_schema.sql
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>psql -h localhost -p <span style="color:#ae81ff">5477</span> -d glo -W  -v ON_ERROR_STOP<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>  -c <span style="color:#e6db74">&#34;\copy public.account TO &#39;account.tsv&#39; WITH (FORMAT text, DELIMITER E&#39;\t&#39;, NULL &#39;&#39;, ENCODING &#39;UTF8&#39;)&#34;</span>
+</span></span><span style="display:flex;"><span>psql -h localhost -p <span style="color:#ae81ff">5477</span> -d glo -W  -v ON_ERROR_STOP<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>  -c <span style="color:#e6db74">&#34;\copy public.answer TO &#39;answer.tsv&#39; WITH (FORMAT text, DELIMITER E&#39;\t&#39;, NULL &#39;&#39;, ENCODING &#39;UTF8&#39;)&#34;</span>
+</span></span><span style="display:flex;"><span>psql -h localhost -p <span style="color:#ae81ff">5477</span> -d glo -W  -v ON_ERROR_STOP<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>  -c <span style="color:#e6db74">&#34;\copy public.badge TO &#39;badge.tsv&#39; WITH (FORMAT text, DELIMITER E&#39;\t&#39;, NULL &#39;&#39;, ENCODING &#39;UTF8&#39;)&#34;</span>
+</span></span><span style="display:flex;"><span>psql -h localhost -p <span style="color:#ae81ff">5477</span> -d glo -W  -v ON_ERROR_STOP<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>  -c <span style="color:#e6db74">&#34;\copy public.comment TO &#39;comment.tsv&#39; WITH (FORMAT text, DELIMITER E&#39;\t&#39;, NULL &#39;&#39;, ENCODING &#39;UTF8&#39;)&#34;</span>
+</span></span><span style="display:flex;"><span>psql -h localhost -p <span style="color:#ae81ff">5477</span> -d glo -W  -v ON_ERROR_STOP<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>  -c <span style="color:#e6db74">&#34;\copy public.post_link TO &#39;post_link.tsv&#39; WITH (FORMAT text, DELIMITER E&#39;\t&#39;, NULL &#39;&#39;, ENCODING &#39;UTF8&#39;)&#34;</span>
+</span></span><span style="display:flex;"><span>psql -h localhost -p <span style="color:#ae81ff">5477</span> -d glo -W  -v ON_ERROR_STOP<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>  -c <span style="color:#e6db74">&#34;\copy public.question TO &#39;question.tsv&#39; WITH (FORMAT text, DELIMITER E&#39;\t&#39;, NULL &#39;&#39;, ENCODING &#39;UTF8&#39;)&#34;</span>
+</span></span><span style="display:flex;"><span>psql -h localhost -p <span style="color:#ae81ff">5477</span> -d glo -W  -v ON_ERROR_STOP<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>  -c <span style="color:#e6db74">&#34;\copy public.site TO &#39;site.tsv&#39; WITH (FORMAT text, DELIMITER E&#39;\t&#39;, NULL &#39;&#39;, ENCODING &#39;UTF8&#39;)&#34;</span>
+</span></span><span style="display:flex;"><span>psql -h localhost -p <span style="color:#ae81ff">5477</span> -d glo -W  -v ON_ERROR_STOP<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>  -c <span style="color:#e6db74">&#34;\copy public.so_user TO &#39;so_user.tsv&#39; WITH (FORMAT text, DELIMITER E&#39;\t&#39;, NULL &#39;&#39;, ENCODING &#39;UTF8&#39;)&#34;</span>
+</span></span><span style="display:flex;"><span>psql -h localhost -p <span style="color:#ae81ff">5477</span> -d glo -W  -v ON_ERROR_STOP<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>  -c <span style="color:#e6db74">&#34;\copy public.tag TO &#39;tag.tsv&#39; WITH (FORMAT text, DELIMITER E&#39;\t&#39;, NULL &#39;&#39;, ENCODING &#39;UTF8&#39;)&#34;</span>
+</span></span><span style="display:flex;"><span>psql -h localhost -p <span style="color:#ae81ff">5477</span> -d glo -W  -v ON_ERROR_STOP<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>  -c <span style="color:#e6db74">&#34;\copy public.tag_question TO &#39;tag_question.tsv&#39; WITH (FORMAT text, DELIMITER E&#39;\t&#39;, NULL &#39;&#39;, ENCODING &#39;UTF8&#39;)&#34;</span>
+</span></span></code></pre></div><ul>
+<li>so_pg_schema.sql 의 앞에 set 하는 부분 생략</li>
+<li>so_pg_schema.sql 의 아래 부분들 생략</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> glo.<span style="color:#960050;background-color:#1e0010">{</span><span style="color:#66d9ef">table_name</span><span style="color:#960050;background-color:#1e0010">}</span> <span style="color:#66d9ef">OWNER</span> <span style="color:#66d9ef">TO</span> <span style="color:#e6db74">&#34;{your id}&#34;</span>;
+</span></span></code></pre></div><ul>
+<li>
+<p>character varying 를 NVARCHAR(5000) 로 수정</p>
+</li>
+<li>
+<p>timestamp without time zone 을 timestamp   으로</p>
+</li>
+<li>
+<p>ALTER TABLE ONLY 을 ALTER TABLE 으로</p>
+</li>
+<li>
+<p>using btree 를 빈칸(&rsquo; &lsquo;) 으로<br>
+예시)</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">INDEX</span> answer_creation_date_idx <span style="color:#66d9ef">ON</span> glo.answer <span style="color:#66d9ef">USING</span> btree (creation_date); 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">INDEX</span> answer_creation_date_idx <span style="color:#66d9ef">ON</span> glo.answer (creation_date);
+</span></span></code></pre></div><ul>
+<li>아래 항목들을 주석처리하고, 다음과 같이 넣음 (SAP HANA는 순서가 중요함. (pg는 순서 상관없이 동작))</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">--ALTER TABLE glo.so_user
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">--    ADD CONSTRAINT so_user_pkey PRIMARY KEY (id, site_id);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">--ALTER TABLE glo.question
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">--    ADD CONSTRAINT question_pkey PRIMARY KEY (id, site_id);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">--ALTER TABLE glo.tag
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">--    ADD CONSTRAINT tag_pkey PRIMARY KEY (id, site_id);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">--ALTER TABLE glo.answer
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">--    ADD CONSTRAINT answer_pkey PRIMARY KEY (id, site_id);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> glo.so_user  <span style="color:#66d9ef">ADD</span> <span style="color:#66d9ef">CONSTRAINT</span> uq_so_user_site_id_id <span style="color:#66d9ef">UNIQUE</span> (site_id, id);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> glo.question <span style="color:#66d9ef">ADD</span> <span style="color:#66d9ef">CONSTRAINT</span> uq_question_site_id_id <span style="color:#66d9ef">UNIQUE</span> (site_id, id);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> glo.tag      <span style="color:#66d9ef">ADD</span> <span style="color:#66d9ef">CONSTRAINT</span> uq_tag_site_id_id <span style="color:#66d9ef">UNIQUE</span> (site_id, id);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> glo.answer   <span style="color:#66d9ef">ADD</span> <span style="color:#66d9ef">CONSTRAINT</span> uq_answer_site_id_id <span style="color:#66d9ef">UNIQUE</span> (site_id, id);
+</span></span></code></pre></div><ul>
+<li>so_pg_schema.sql 에서 create table 하는 부분[1] 과, create index 하는 부분[2] , create fk 하는 부분[3]을 나눠어서 진행 cli로 업로드</li>
+<li>모든 테이블 지우는 SQL</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- 자식 테이블들 먼저
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">DROP</span> <span style="color:#66d9ef">TABLE</span>  GLO.TAG_QUESTION;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">DROP</span> <span style="color:#66d9ef">TABLE</span>  GLO.POST_LINK;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">DROP</span> <span style="color:#66d9ef">TABLE</span>  GLO.ANSWER;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">DROP</span> <span style="color:#66d9ef">TABLE</span>  GLO.<span style="color:#66d9ef">COMMENT</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- 중간 레벨
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">DROP</span> <span style="color:#66d9ef">TABLE</span>  GLO.TAG;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">DROP</span> <span style="color:#66d9ef">TABLE</span>  GLO.BADGE;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">DROP</span> <span style="color:#66d9ef">TABLE</span>  GLO.QUESTION;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">DROP</span> <span style="color:#66d9ef">TABLE</span>  GLO.ACCOUNT;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">DROP</span> <span style="color:#66d9ef">TABLE</span>  GLO.SO_USER;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- 최상위 부모
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">DROP</span> <span style="color:#66d9ef">TABLE</span>  GLO.SITE;
+</span></span></code></pre></div><ul>
+<li>다음으로 실행</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo /usr/sap/HXE/HDB90/exe/hdbsql -n <span style="color:#f92672">{</span>host<span style="color:#f92672">}</span> -u <span style="color:#f92672">{</span>user<span style="color:#f92672">}</span> -p <span style="color:#f92672">{</span>password<span style="color:#f92672">}</span> -I hana_schema.sql
+</span></span><span style="display:flex;"><span>sudo /usr/sap/HXE/HDB90/exe/hdbsql -n <span style="color:#f92672">{</span>host<span style="color:#f92672">}</span> -u <span style="color:#f92672">{</span>user<span style="color:#f92672">}</span> -p <span style="color:#f92672">{</span>password<span style="color:#f92672">}</span> -I hana_addinx.sql
+</span></span><span style="display:flex;"><span>sudo /usr/sap/HXE/HDB90/exe/hdbsql -n <span style="color:#f92672">{</span>host<span style="color:#f92672">}</span> -u <span style="color:#f92672">{</span>user<span style="color:#f92672">}</span> -p <span style="color:#f92672">{</span>password<span style="color:#f92672">}</span> -I hana_add_fk_.sql
+</span></span></code></pre></div><ul>
+<li>tsv 로직</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> glob
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> pandas <span style="color:#66d9ef">as</span> pd
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> typing <span style="color:#f92672">import</span> Iterable, List, Any
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os<span style="color:#f92672">,</span> csv<span style="color:#f92672">,</span> tempfile
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> hdbcli <span style="color:#f92672">import</span> dbapi
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> sqlalchemy <span style="color:#f92672">import</span> create_engine
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>engine <span style="color:#f92672">=</span> create_engine(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;hana://</span><span style="color:#e6db74">{</span>user<span style="color:#e6db74">}</span><span style="color:#e6db74">:</span><span style="color:#e6db74">{</span>password<span style="color:#e6db74">}</span><span style="color:#e6db74">@</span><span style="color:#e6db74">{</span>host<span style="color:#e6db74">}</span><span style="color:#e6db74">:</span><span style="color:#e6db74">{</span>post<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>table_columns <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;account&#34;</span>: [
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;id&#34;</span>, <span style="color:#e6db74">&#34;display_name&#34;</span>, <span style="color:#e6db74">&#34;location&#34;</span>, <span style="color:#e6db74">&#34;about_me&#34;</span>, <span style="color:#e6db74">&#34;website_url&#34;</span>
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;answer&#34;</span>: [
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;id&#34;</span>, <span style="color:#e6db74">&#34;site_id&#34;</span>, <span style="color:#e6db74">&#34;question_id&#34;</span>, <span style="color:#e6db74">&#34;creation_date&#34;</span>, <span style="color:#e6db74">&#34;deletion_date&#34;</span>, <span style="color:#e6db74">&#34;score&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;view_count&#34;</span>, <span style="color:#e6db74">&#34;body&#34;</span>, <span style="color:#e6db74">&#34;owner_user_id&#34;</span>, <span style="color:#e6db74">&#34;last_editor_id&#34;</span>, <span style="color:#e6db74">&#34;last_edit_date&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;last_activity_date&#34;</span>, <span style="color:#e6db74">&#34;title&#34;</span>
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;badge&#34;</span>: [
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;site_id&#34;</span>, <span style="color:#e6db74">&#34;user_id&#34;</span>, <span style="color:#e6db74">&#34;name&#34;</span>, <span style="color:#e6db74">&#34;date&#34;</span>
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;comment&#34;</span>: [
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;id&#34;</span>, <span style="color:#e6db74">&#34;site_id&#34;</span>, <span style="color:#e6db74">&#34;post_id&#34;</span>, <span style="color:#e6db74">&#34;user_id&#34;</span>, <span style="color:#e6db74">&#34;score&#34;</span>, <span style="color:#e6db74">&#34;body&#34;</span>, <span style="color:#e6db74">&#34;date&#34;</span>
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;post_link&#34;</span>: [
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;site_id&#34;</span>, <span style="color:#e6db74">&#34;post_id_from&#34;</span>, <span style="color:#e6db74">&#34;post_id_to&#34;</span>, <span style="color:#e6db74">&#34;link_type&#34;</span>, <span style="color:#e6db74">&#34;date&#34;</span>
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;question&#34;</span>: [
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;id&#34;</span>, <span style="color:#e6db74">&#34;site_id&#34;</span>, <span style="color:#e6db74">&#34;accepted_answer_id&#34;</span>, <span style="color:#e6db74">&#34;creation_date&#34;</span>, <span style="color:#e6db74">&#34;deletion_date&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;score&#34;</span>, <span style="color:#e6db74">&#34;view_count&#34;</span>, <span style="color:#e6db74">&#34;body&#34;</span>, <span style="color:#e6db74">&#34;owner_user_id&#34;</span>, <span style="color:#e6db74">&#34;last_editor_id&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;last_edit_date&#34;</span>, <span style="color:#e6db74">&#34;last_activity_date&#34;</span>, <span style="color:#e6db74">&#34;title&#34;</span>, <span style="color:#e6db74">&#34;favorite_count&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;closed_date&#34;</span>, <span style="color:#e6db74">&#34;tagstring&#34;</span>
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;site&#34;</span>: [
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;site_id&#34;</span>, <span style="color:#e6db74">&#34;site_name&#34;</span>
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;so_user&#34;</span>: [
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;id&#34;</span>, <span style="color:#e6db74">&#34;site_id&#34;</span>, <span style="color:#e6db74">&#34;reputation&#34;</span>, <span style="color:#e6db74">&#34;creation_date&#34;</span>, <span style="color:#e6db74">&#34;last_access_date&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;upvotes&#34;</span>, <span style="color:#e6db74">&#34;downvotes&#34;</span>, <span style="color:#e6db74">&#34;account_id&#34;</span>
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;tag&#34;</span>: [
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;id&#34;</span>, <span style="color:#e6db74">&#34;site_id&#34;</span>, <span style="color:#e6db74">&#34;name&#34;</span>
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;tag_question&#34;</span>: [
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;question_id&#34;</span>, <span style="color:#e6db74">&#34;tag_id&#34;</span>, <span style="color:#e6db74">&#34;site_id&#34;</span>
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>path <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;.&#34;</span>
+</span></span><span style="display:flex;"><span>tsv_files <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(path, f)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> f <span style="color:#f92672">in</span> os<span style="color:#f92672">.</span>listdir(path)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> f<span style="color:#f92672">.</span>lower()<span style="color:#f92672">.</span>endswith(<span style="color:#e6db74">&#34;.tsv&#34;</span>)
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>fix_none <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> x: <span style="color:#66d9ef">None</span> <span style="color:#66d9ef">if</span> (x <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span> <span style="color:#f92672">or</span> x <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;&#39;</span>) <span style="color:#66d9ef">else</span> x
+</span></span><span style="display:flex;"><span>MAX_NCHAR <span style="color:#f92672">=</span> <span style="color:#ae81ff">5000</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> tsv_file <span style="color:#f92672">in</span> tsv_files:
+</span></span><span style="display:flex;"><span>    name, _ <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>splitext(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>basename(tsv_file))
+</span></span><span style="display:flex;"><span>    table <span style="color:#f92672">=</span> name
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Processing </span><span style="color:#e6db74">{</span>table<span style="color:#e6db74">}</span><span style="color:#e6db74"> (</span><span style="color:#e6db74">{</span>tsv_file<span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    read_kwargs <span style="color:#f92672">=</span> dict(
+</span></span><span style="display:flex;"><span>        sep<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">&#34;</span>,                 <span style="color:#75715e"># ✅ TSV</span>
+</span></span><span style="display:flex;"><span>        header<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>,                 <span style="color:#75715e"># TSV 뽑을 때 HEADER true 썼으면 0</span>
+</span></span><span style="display:flex;"><span>        chunksize<span style="color:#f92672">=</span><span style="color:#ae81ff">500000</span>,
+</span></span><span style="display:flex;"><span>        engine<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;python&#34;</span>,          <span style="color:#75715e"># 멀티라인 text 안전</span>
+</span></span><span style="display:flex;"><span>        names<span style="color:#f92672">=</span>table_columns[table],
+</span></span><span style="display:flex;"><span>        na_filter<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,          <span style="color:#75715e"># ✅ 켜기</span>
+</span></span><span style="display:flex;"><span>        keep_default_na<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>,   <span style="color:#75715e"># ✅ 기본 NA는 쓰지 말고</span>
+</span></span><span style="display:flex;"><span>        na_values<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;&#34;</span>],          <span style="color:#75715e"># ✅ 빈 문자열만 NA로</span>
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    chunker <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(tsv_file, <span style="color:#f92672">**</span>read_kwargs)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    total_rows <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i, chunk <span style="color:#f92672">in</span> enumerate(chunker, start<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 문자열 컬럼 길이 제한</span>
+</span></span><span style="display:flex;"><span>        obj_cols <span style="color:#f92672">=</span> chunk<span style="color:#f92672">.</span>select_dtypes(include<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;object&#34;</span>])<span style="color:#f92672">.</span>columns
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> col <span style="color:#f92672">in</span> obj_cols:
+</span></span><span style="display:flex;"><span>            chunk[col] <span style="color:#f92672">=</span> chunk[col]<span style="color:#f92672">.</span>map(
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">lambda</span> v: v[:MAX_NCHAR] <span style="color:#66d9ef">if</span> isinstance(v, str) <span style="color:#f92672">and</span> len(v) <span style="color:#f92672">&gt;</span> MAX_NCHAR <span style="color:#66d9ef">else</span> v
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        rows <span style="color:#f92672">=</span> len(chunk)
+</span></span><span style="display:flex;"><span>        total_rows <span style="color:#f92672">+=</span> rows
+</span></span><span style="display:flex;"><span>        chunk <span style="color:#f92672">=</span> chunk<span style="color:#f92672">.</span>where(pd<span style="color:#f92672">.</span>notnull(chunk), <span style="color:#66d9ef">None</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            chunk<span style="color:#f92672">.</span>to_sql(
+</span></span><span style="display:flex;"><span>                schema<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;glo&#39;</span>,
+</span></span><span style="display:flex;"><span>                name<span style="color:#f92672">=</span>table,
+</span></span><span style="display:flex;"><span>                con<span style="color:#f92672">=</span>engine,
+</span></span><span style="display:flex;"><span>                index<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>,
+</span></span><span style="display:flex;"><span>                if_exists<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;append&#39;</span>
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>            os<span style="color:#f92672">.</span>makedirs(<span style="color:#e6db74">&#34;./error&#34;</span>, exist_ok<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>            chunk<span style="color:#f92672">.</span>to_csv(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;./error/</span><span style="color:#e6db74">{</span>table<span style="color:#e6db74">}</span><span style="color:#e6db74">_chunk_</span><span style="color:#e6db74">{</span>i<span style="color:#e6db74">}</span><span style="color:#e6db74">.csv&#34;</span>, index<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;./error/error.log&#34;</span>, <span style="color:#e6db74">&#34;a&#34;</span>, encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>) <span style="color:#66d9ef">as</span> f:
+</span></span><span style="display:flex;"><span>                f<span style="color:#f92672">.</span>write(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">=== table=</span><span style="color:#e6db74">{</span>table<span style="color:#e6db74">}</span><span style="color:#e6db74"> chunk=</span><span style="color:#e6db74">{</span>i<span style="color:#e6db74">}</span><span style="color:#e6db74"> ===</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">{</span>repr(e)<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">raise</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;[</span><span style="color:#e6db74">{</span>i<span style="color:#e6db74">:</span><span style="color:#e6db74">04d</span><span style="color:#e6db74">}</span><span style="color:#e6db74">] chunk rows=</span><span style="color:#e6db74">{</span>rows<span style="color:#e6db74">:</span><span style="color:#e6db74">,</span><span style="color:#e6db74">}</span><span style="color:#e6db74">  processed=</span><span style="color:#e6db74">{</span>total_rows<span style="color:#e6db74">:</span><span style="color:#e6db74">,</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
 </span></span></code></pre></div></div>
 </article>
  
@@ -2402,6 +2578,11 @@ SQL trace	Collect information about all SQL statements executed on the index ser
         <li><a href="#tpc-ds-data-bulk-upload"><strong>TPC-DS data bulk upload</strong></a></li>
       </ul>
     </li>
+    <li><a href="#stack-workload-업로드"><strong>STACK workload 업로드</strong></a>
+      <ul>
+        <li><a href="#stack-dataset-다운로드"><strong>STACK dataset 다운로드</strong></a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 
@@ -2464,7 +2645,12 @@ SQL trace	Collect information about all SQL statements executed on the index ser
 
       
       button.addEventListener('click', () => {
-        navigator.clipboard.writeText(codeBlock.innerText);
+        let text = codeBlock.textContent;
+
+        
+        text = text.replace(/\n{2,}/g, '\n');
+
+        navigator.clipboard.writeText(text);
         button.innerText = '✔';
         setTimeout(() => button.innerText = '📋', 1000);
       });

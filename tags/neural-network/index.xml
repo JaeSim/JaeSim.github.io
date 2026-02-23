@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Neural Network on JaeSim&#39;s Workspace</title>
-    <link>http://localhost:1313/tags/neural-network/</link>
+    <link>https://JaeSim.github.io/tags/neural-network/</link>
     <description>Recent content in Neural Network on JaeSim&#39;s Workspace</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
     <lastBuildDate>Fri, 13 Jun 2025 14:45:35 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/neural-network/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://JaeSim.github.io/tags/neural-network/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>GNN</title>
-      <link>http://localhost:1313/research-study/brief/graph/</link>
+      <link>https://JaeSim.github.io/research-study/brief/graph/</link>
       <pubDate>Fri, 13 Jun 2025 14:45:35 +0900</pubDate>
-      <guid>http://localhost:1313/research-study/brief/graph/</guid>
+      <guid>https://JaeSim.github.io/research-study/brief/graph/</guid>
       <description>&lt;h1 id=&#34;gnn-직관&#34;&gt;&#xD;&#xA;  &lt;strong&gt;GNN 직관&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#gnn-%ec%a7%81%ea%b4%80&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;CNN은 Euclidean 공간에서 행과 열로 배열된 픽셀들로 이루어진 이미지에서 특징을 추출한다. &lt;br&gt;&#xA;LSTM은 자기 자신으로 돌아오는 recurrent 구조를 통해 input으로 주어지는 어떤 한 시계열 데이터인 sequence의 특징을 추출한다. &lt;br&gt;&#xA;Transformer는 self-attention 구조를 통해 어떤 한 부분에서 주의를 기울여야 할 여러 부분을 병렬적으로 함께 처리함으로써 input의 특징을 추출한다. &lt;br&gt;&#xA;감이 오겠지만 마찬가지로 GNN에서도 그래프 구조를 통해 시스템에서의 관계 등 다양한 특징을 추출한다.&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;h2 id=&#34;keywords&#34;&gt;&#xD;&#xA;  &lt;strong&gt;keywords&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#keywords&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Graph representation learning&#xA;&lt;ul&gt;&#xA;&lt;li&gt;먼저 시작되고 여기에 NN이 접목된것이 GNN&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Unstructured data&#xA;&lt;ul&gt;&#xA;&lt;li&gt;GNN 은 Unstructured data에 주로 사용됨&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Node embedding (Shallow embedding, Message passing GNN)&#xA;&lt;ul&gt;&#xA;&lt;li&gt;적은 차수의 데이터로 projection 하는것. 지금은 GNN은 주로 노드 기반의 임베딩이 함, edge 기반 임베딩은?&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Aggregation&#xA;&lt;ul&gt;&#xA;&lt;li&gt;embedding 된 정보를 잘 합치는것&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Neighborhood and adjacency matrix&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Neighborhood : 정의를 어떻게 하느냐에 따라 성능이 크게 좌우됨&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;(Neighborhood) Attention&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;참고&#34;&gt;&#xD;&#xA;  &lt;strong&gt;참고&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#%ec%b0%b8%ea%b3%a0&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;&lt;a href=&#34;https://glanceyes.com/entry/%EC%B6%94%EC%B2%9C-%EC%8B%9C%EC%8A%A4%ED%85%9C-GNNGraph-Neural-Network%EC%99%80-%EC%9D%B4%EB%A5%BC-%EC%9D%91%EC%9A%A9%ED%95%9C-NGCFNeural-Graph-Collaborative-Filtering%EC%99%80-LightGCN&#34;&gt;https://glanceyes.com/entry/%EC%B6%94%EC%B2%9C-%EC%8B%9C%EC%8A%A4%ED%85%9C-GNNGraph-Neural-Network%EC%99%80-%EC%9D%B4%EB%A5%BC-%EC%9D%91%EC%9A%A9%ED%95%9C-NGCFNeural-Graph-Collaborative-Filtering%EC%99%80-LightGCN&lt;/a&gt;&lt;/p&gt;</description>
     </item>
   </channel>

@@ -54,7 +54,7 @@ Softmax Policy : 이산행동일때, softmax over logits으로 정책을 정하�
 <link rel="canonical" href="http://localhost:1313/reinforcement-learning/rl-appendix/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.422e4d89b7836d9315ef71a27fb511c2ef260e17a57927b276ea82c48a24cac6.js" integrity="sha256-Qi5NibeDbZMV73Gif7URwu8mDheleSeyduqCxIokysY=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.d011156accc9b2c4bb51b6dfe3f4f48c800c79605ccf99854c78ef36fe2c0778.js" integrity="sha256-0BEVaszJssS7Ubbf4/T0jIAMeWBcz5mFTHjvNv4sB3g=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -1052,8 +1052,19 @@ L^{\text{CLIP}}(\theta) = \hat{\mathbb{E}}_t \left[ \min \left( r_t(\theta) \hat
       `;
 
       
+      
+      
+      
+      
+      
+
       button.addEventListener('click', () => {
-        navigator.clipboard.writeText(codeBlock.innerText);
+        let text = codeBlock.textContent;
+
+        
+        text = text.replace(/\n{2,}/g, '\n');
+
+        navigator.clipboard.writeText(text);
         button.innerText = '✔';
         setTimeout(() => button.innerText = '📋', 1000);
       });

@@ -2,632 +2,647 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/aboutme/</loc>
-    <lastmod>2025-06-23T14:05:50+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>http://localhost:1313/development/firstpost/</loc>
+    <loc>https://JaeSim.github.io/development/firstpost/</loc>
     <lastmod>2025-05-21T10:26:34+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/development/</loc>
+    <loc>https://JaeSim.github.io/development/</loc>
     <lastmod>2025-05-20T16:43:50+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/research-study/</loc>
+    <loc>https://JaeSim.github.io/research-study/</loc>
     <lastmod>2025-06-12T11:51:50+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/development/blogsetup/</loc>
+    <loc>https://JaeSim.github.io/development/blogsetup/</loc>
     <lastmod>2025-05-23T11:06:13+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/research-study/brief/graph/</loc>
+    <loc>https://JaeSim.github.io/research-study/brief/graph/</loc>
     <lastmod>2025-06-13T14:45:35+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/research-study/brief/</loc>
+    <loc>https://JaeSim.github.io/research-study/brief/</loc>
     <lastmod>2025-06-12T11:51:50+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/research-study/more-deep/</loc>
+    <loc>https://JaeSim.github.io/research-study/more-deep/</loc>
     <lastmod>2025-06-12T11:51:50+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/learned-query-optimizer/loger-code/</loc>
+    <loc>https://JaeSim.github.io/learned-query-optimizer/loger-code/</loc>
     <lastmod>2025-06-12T11:50:33+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/reinforcement-learning/rl-essential/</loc>
+    <loc>https://JaeSim.github.io/reinforcement-learning/rl-essential/</loc>
     <lastmod>2025-05-22T11:13:00+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/reinforcement-learning/</loc>
+    <loc>https://JaeSim.github.io/reinforcement-learning/</loc>
     <lastmod>2025-05-20T16:43:50+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/learned-query-optimizer/bao-code/</loc>
+    <loc>https://JaeSim.github.io/learned-query-optimizer/bao-code/</loc>
     <lastmod>2025-07-04T13:48:30+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/research-study/more-deep/learned-index/</loc>
+    <loc>https://JaeSim.github.io/research-study/more-deep/learned-index/</loc>
     <lastmod>2025-07-02T13:01:23+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/learned-query-optimizer/</loc>
+    <loc>https://JaeSim.github.io/learned-query-optimizer/</loc>
     <lastmod>2025-06-12T11:51:50+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/reinforcement-learning/rl-mdp/</loc>
+    <loc>https://JaeSim.github.io/reinforcement-learning/rl-mdp/</loc>
     <lastmod>2025-05-27T16:43:57+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/learned-query-optimizer/hana-database-porting/</loc>
+    <loc>https://JaeSim.github.io/learned-query-optimizer/hana-database-porting/</loc>
     <lastmod>2025-07-04T13:26:47+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/research-study/more-deep/learned-scheduler/</loc>
+    <loc>https://JaeSim.github.io/research-study/more-deep/learned-scheduler/</loc>
     <lastmod>2025-07-03T10:53:40+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/research-study/paper-trend/</loc>
+    <loc>https://JaeSim.github.io/research-study/paper-trend/</loc>
     <lastmod>2025-06-12T11:51:50+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/reinforcement-learning/rl-dp/</loc>
+    <loc>https://JaeSim.github.io/reinforcement-learning/rl-dp/</loc>
     <lastmod>2025-05-29T12:21:05+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/learned-query-optimizer/limao-code/</loc>
+    <loc>https://JaeSim.github.io/learned-query-optimizer/limao-code/</loc>
     <lastmod>2025-08-28T11:32:49+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/research-study/more-deep/adaptive-watermark/</loc>
+    <loc>https://JaeSim.github.io/research-study/more-deep/adaptive-watermark/</loc>
     <lastmod>2025-07-16T10:01:12+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/reinforcement-learning/rl-model-free-prediction/</loc>
+    <loc>https://JaeSim.github.io/reinforcement-learning/rl-model-free-prediction/</loc>
     <lastmod>2025-06-12T10:57:55+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/reinforcement-learning/rl-model-free-control/</loc>
+    <loc>https://JaeSim.github.io/reinforcement-learning/rl-model-free-control/</loc>
     <lastmod>2025-09-12T11:39:17+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/development/milvus_build/</loc>
+    <loc>https://JaeSim.github.io/development/milvus_build/</loc>
     <lastmod>2025-08-27T14:05:14+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/research-study/more-deep/vector-db/</loc>
+    <loc>https://JaeSim.github.io/research-study/more-deep/vector-db/</loc>
     <lastmod>2025-08-06T10:45:46+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/research-study/paper-trend/2025-icde/</loc>
+    <loc>https://JaeSim.github.io/research-study/paper-trend/2025-icde/</loc>
     <lastmod>2025-07-21T10:25:18+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/reinforcement-learning/rl-value-function-approximation/</loc>
+    <loc>https://JaeSim.github.io/reinforcement-learning/rl-value-function-approximation/</loc>
     <lastmod>2025-09-17T18:00:56+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/development/pgvector_build/</loc>
+    <loc>https://JaeSim.github.io/development/pgvector_build/</loc>
     <lastmod>2025-09-02T11:52:47+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/research-study/paper-trend/2025-vldb/</loc>
+    <loc>https://JaeSim.github.io/research-study/paper-trend/2025-vldb/</loc>
     <lastmod>2025-07-25T10:03:35+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/reinforcement-learning/rl-policy-gradient-methods/</loc>
+    <loc>https://JaeSim.github.io/reinforcement-learning/rl-policy-gradient-methods/</loc>
     <lastmod>2025-09-23T13:22:02+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/development/wsl-c-env/</loc>
+    <loc>https://JaeSim.github.io/development/wsl-c-env/</loc>
     <lastmod>2025-09-04T10:11:10+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/research-study/paper-trend/2025-edbt/</loc>
+    <loc>https://JaeSim.github.io/research-study/paper-trend/2025-edbt/</loc>
     <lastmod>2025-07-28T14:03:06+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/reinforcement-learning/rl-integ-learning-and-planning/</loc>
+    <loc>https://JaeSim.github.io/reinforcement-learning/rl-integ-learning-and-planning/</loc>
     <lastmod>2025-09-24T17:11:08+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/research-study/paper-trend/2025-sigmod/</loc>
+    <loc>https://JaeSim.github.io/research-study/paper-trend/2025-sigmod/</loc>
     <lastmod>2025-07-31T09:45:54+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/reinforcement-learning/rl-exploration-exploitation/</loc>
+    <loc>https://JaeSim.github.io/reinforcement-learning/rl-exploration-exploitation/</loc>
     <lastmod>2025-09-29T15:14:37+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/research-study/brief/llm-build/</loc>
+    <loc>https://JaeSim.github.io/research-study/brief/llm-build/</loc>
     <lastmod>2025-08-04T09:44:51+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/reinforcement-learning/rl-case-study/</loc>
+    <loc>https://JaeSim.github.io/reinforcement-learning/rl-case-study/</loc>
     <lastmod>2025-09-30T17:08:48+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/reinforcement-learning/rl-appendix/</loc>
-    <lastmod>2025-10-01T16:20:45+09:00</lastmod>
+    <loc>https://JaeSim.github.io/categories/</loc>
+    <lastmod>2025-11-19T11:47:44+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/appendix/</loc>
-    <lastmod>2025-10-01T16:20:45+09:00</lastmod>
+    <loc>https://JaeSim.github.io/tags/consoleport/</loc>
+    <lastmod>2025-11-19T11:47:44+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/categories/</loc>
-    <lastmod>2025-10-01T16:20:45+09:00</lastmod>
+    <loc>https://JaeSim.github.io/categories/development/</loc>
+    <lastmod>2025-11-19T11:47:44+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/definition/</loc>
-    <lastmod>2025-10-01T16:20:45+09:00</lastmod>
+    <loc>https://JaeSim.github.io/categories/game/</loc>
+    <lastmod>2025-11-19T11:47:44+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/</loc>
-    <lastmod>2025-10-01T16:20:45+09:00</lastmod>
+    <loc>https://JaeSim.github.io/</loc>
+    <lastmod>2025-11-19T11:47:44+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/categories/reinforcement-learning/</loc>
-    <lastmod>2025-10-01T16:20:45+09:00</lastmod>
+    <loc>https://JaeSim.github.io/categories/life/</loc>
+    <lastmod>2025-11-19T11:47:44+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/reinforcement-learning/</loc>
-    <lastmod>2025-10-01T16:20:45+09:00</lastmod>
+    <loc>https://JaeSim.github.io/tags/moonlight/</loc>
+    <lastmod>2025-11-19T11:47:44+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/rl/</loc>
-    <lastmod>2025-10-01T16:20:45+09:00</lastmod>
+    <loc>https://JaeSim.github.io/tags/</loc>
+    <lastmod>2025-11-19T11:47:44+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2025-10-01T16:20:45+09:00</lastmod>
+    <loc>https://JaeSim.github.io/tags/world-of-warcraft/</loc>
+    <lastmod>2025-11-19T11:47:44+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/case-study/</loc>
+    <loc>https://JaeSim.github.io/tags/wow/</loc>
+    <lastmod>2025-11-19T11:47:44+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/development/remotewow/</loc>
+    <lastmod>2025-11-19T11:47:44+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/%EC%99%80%EC%9A%B0/</loc>
+    <lastmod>2025-11-19T11:47:44+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/case-study/</loc>
     <lastmod>2025-09-30T17:08:48+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/minimax-search/</loc>
+    <loc>https://JaeSim.github.io/tags/definition/</loc>
     <lastmod>2025-09-30T17:08:48+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/pratice/</loc>
+    <loc>https://JaeSim.github.io/tags/minimax-search/</loc>
     <lastmod>2025-09-30T17:08:48+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/self-play-rl/</loc>
+    <loc>https://JaeSim.github.io/tags/pratice/</loc>
     <lastmod>2025-09-30T17:08:48+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/exploitation/</loc>
+    <loc>https://JaeSim.github.io/categories/reinforcement-learning/</loc>
+    <lastmod>2025-09-30T17:08:48+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/reinforcement-learning/</loc>
+    <lastmod>2025-09-30T17:08:48+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/rl/</loc>
+    <lastmod>2025-09-30T17:08:48+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/self-play-rl/</loc>
+    <lastmod>2025-09-30T17:08:48+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://JaeSim.github.io/tags/exploitation/</loc>
     <lastmod>2025-09-29T15:14:37+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/exploration/</loc>
+    <loc>https://JaeSim.github.io/tags/exploration/</loc>
     <lastmod>2025-09-29T15:14:37+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/regret/</loc>
+    <loc>https://JaeSim.github.io/tags/regret/</loc>
     <lastmod>2025-09-29T15:14:37+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/ucb/</loc>
+    <loc>https://JaeSim.github.io/tags/ucb/</loc>
     <lastmod>2025-09-29T15:14:37+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/integrating/</loc>
+    <loc>https://JaeSim.github.io/tags/integrating/</loc>
     <lastmod>2025-09-24T17:11:08+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/mcts/</loc>
+    <loc>https://JaeSim.github.io/tags/mcts/</loc>
     <lastmod>2025-09-24T17:11:08+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/monte-carlo-tree-search/</loc>
+    <loc>https://JaeSim.github.io/tags/monte-carlo-tree-search/</loc>
     <lastmod>2025-09-24T17:11:08+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/planning/</loc>
+    <loc>https://JaeSim.github.io/tags/planning/</loc>
     <lastmod>2025-09-24T17:11:08+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/simulation-based-search/</loc>
+    <loc>https://JaeSim.github.io/tags/simulation-based-search/</loc>
     <lastmod>2025-09-24T17:11:08+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/model-free/</loc>
+    <loc>https://JaeSim.github.io/tags/model-free/</loc>
     <lastmod>2025-09-23T13:22:02+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/policy-gradient/</loc>
+    <loc>https://JaeSim.github.io/tags/policy-gradient/</loc>
     <lastmod>2025-09-23T13:22:02+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/value-function/</loc>
+    <loc>https://JaeSim.github.io/tags/value-function/</loc>
     <lastmod>2025-09-23T13:22:02+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/approximiation/</loc>
+    <loc>https://JaeSim.github.io/tags/approximiation/</loc>
     <lastmod>2025-09-17T18:00:56+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/monte-carlo/</loc>
+    <loc>https://JaeSim.github.io/tags/monte-carlo/</loc>
     <lastmod>2025-09-12T11:39:17+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/temporal-difference/</loc>
+    <loc>https://JaeSim.github.io/tags/temporal-difference/</loc>
     <lastmod>2025-09-12T11:39:17+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/c/</loc>
+    <loc>https://JaeSim.github.io/tags/c/</loc>
     <lastmod>2025-09-04T10:11:10+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/c&#43;&#43;/</loc>
+    <loc>https://JaeSim.github.io/tags/c&#43;&#43;/</loc>
     <lastmod>2025-09-04T10:11:10+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/categories/development/</loc>
+    <loc>https://JaeSim.github.io/tags/vscode/</loc>
     <lastmod>2025-09-04T10:11:10+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/vscode/</loc>
+    <loc>https://JaeSim.github.io/tags/wsl/</loc>
     <lastmod>2025-09-04T10:11:10+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/wsl/</loc>
-    <lastmod>2025-09-04T10:11:10+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>http://localhost:1313/tags/ann/</loc>
+    <loc>https://JaeSim.github.io/tags/ann/</loc>
     <lastmod>2025-09-02T11:52:47+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/database/</loc>
+    <loc>https://JaeSim.github.io/tags/database/</loc>
     <lastmod>2025-09-02T11:52:47+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/embedding/</loc>
+    <loc>https://JaeSim.github.io/tags/embedding/</loc>
     <lastmod>2025-09-02T11:52:47+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/postgresql/</loc>
+    <loc>https://JaeSim.github.io/tags/postgresql/</loc>
     <lastmod>2025-09-02T11:52:47+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/similarity-search/</loc>
+    <loc>https://JaeSim.github.io/tags/similarity-search/</loc>
     <lastmod>2025-09-02T11:52:47+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/categories/study/</loc>
+    <loc>https://JaeSim.github.io/categories/study/</loc>
     <lastmod>2025-09-02T11:52:47+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/vector/</loc>
+    <loc>https://JaeSim.github.io/tags/vector/</loc>
     <lastmod>2025-09-02T11:52:47+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/categories/vector-database/</loc>
+    <loc>https://JaeSim.github.io/categories/vector-database/</loc>
     <lastmod>2025-09-02T11:52:47+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/dbms/</loc>
+    <loc>https://JaeSim.github.io/tags/dbms/</loc>
     <lastmod>2025-08-28T11:32:49+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/categories/learned-query-optimizer/</loc>
+    <loc>https://JaeSim.github.io/categories/learned-query-optimizer/</loc>
     <lastmod>2025-08-28T11:32:49+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/learned-query-optimizer/</loc>
+    <loc>https://JaeSim.github.io/tags/learned-query-optimizer/</loc>
     <lastmod>2025-08-28T11:32:49+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/limao/</loc>
+    <loc>https://JaeSim.github.io/tags/limao/</loc>
     <lastmod>2025-08-28T11:32:49+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/optimizer/</loc>
+    <loc>https://JaeSim.github.io/tags/optimizer/</loc>
     <lastmod>2025-08-28T11:32:49+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/conferenece/</loc>
+    <loc>https://JaeSim.github.io/tags/conferenece/</loc>
     <lastmod>2025-08-04T09:44:51+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/paper/</loc>
+    <loc>https://JaeSim.github.io/tags/paper/</loc>
     <lastmod>2025-08-04T09:44:51+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/research/</loc>
+    <loc>https://JaeSim.github.io/tags/research/</loc>
     <lastmod>2025-08-04T09:44:51+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/categories/reserach/</loc>
+    <loc>https://JaeSim.github.io/categories/reserach/</loc>
     <lastmod>2025-08-04T09:44:51+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/sigmod/</loc>
+    <loc>https://JaeSim.github.io/tags/sigmod/</loc>
     <lastmod>2025-08-04T09:44:51+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/survey/</loc>
+    <loc>https://JaeSim.github.io/tags/survey/</loc>
     <lastmod>2025-08-04T09:44:51+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/edbt/</loc>
+    <loc>https://JaeSim.github.io/tags/edbt/</loc>
     <lastmod>2025-07-28T14:03:06+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/vldb/</loc>
+    <loc>https://JaeSim.github.io/tags/vldb/</loc>
     <lastmod>2025-07-25T10:03:35+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/icde/</loc>
+    <loc>https://JaeSim.github.io/tags/icde/</loc>
     <lastmod>2025-07-21T10:25:18+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/adaptive/</loc>
+    <loc>https://JaeSim.github.io/tags/adaptive/</loc>
     <lastmod>2025-07-16T10:01:12+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/categories/adaptive-watermark/</loc>
+    <loc>https://JaeSim.github.io/categories/adaptive-watermark/</loc>
     <lastmod>2025-07-16T10:01:12+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/categories/stream-processing/</loc>
+    <loc>https://JaeSim.github.io/categories/stream-processing/</loc>
     <lastmod>2025-07-16T10:01:12+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/stream-processing/</loc>
+    <loc>https://JaeSim.github.io/tags/stream-processing/</loc>
     <lastmod>2025-07-16T10:01:12+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/watermark/</loc>
+    <loc>https://JaeSim.github.io/tags/watermark/</loc>
     <lastmod>2025-07-16T10:01:12+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/bao/</loc>
+    <loc>https://JaeSim.github.io/tags/bao/</loc>
     <lastmod>2025-07-04T13:48:30+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/hana-database/</loc>
+    <loc>https://JaeSim.github.io/tags/hana-database/</loc>
     <lastmod>2025-07-04T13:26:47+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/categories/learned-scheduler/</loc>
+    <loc>https://JaeSim.github.io/categories/learned-scheduler/</loc>
     <lastmod>2025-07-03T10:53:40+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/ml/</loc>
+    <loc>https://JaeSim.github.io/tags/ml/</loc>
     <lastmod>2025-07-03T10:53:40+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/nn/</loc>
+    <loc>https://JaeSim.github.io/tags/nn/</loc>
     <lastmod>2025-07-03T10:53:40+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/categories/learned-index/</loc>
+    <loc>https://JaeSim.github.io/categories/learned-index/</loc>
     <lastmod>2025-07-02T13:01:23+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/categories/private/</loc>
-    <lastmod>2025-06-23T14:05:50+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>http://localhost:1313/tags/profile/</loc>
-    <lastmod>2025-06-23T14:05:50+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>http://localhost:1313/tags/gnn/</loc>
+    <loc>https://JaeSim.github.io/tags/gnn/</loc>
     <lastmod>2025-06-13T14:45:35+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/categories/graph-neural-network/</loc>
+    <loc>https://JaeSim.github.io/categories/graph-neural-network/</loc>
     <lastmod>2025-06-13T14:45:35+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/neural-network/</loc>
+    <loc>https://JaeSim.github.io/tags/neural-network/</loc>
     <lastmod>2025-06-13T14:45:35+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/%EC%B6%94%EC%B2%9C%EC%8B%9C%EC%8A%A4%ED%85%9C/</loc>
+    <loc>https://JaeSim.github.io/tags/%EC%B6%94%EC%B2%9C%EC%8B%9C%EC%8A%A4%ED%85%9C/</loc>
     <lastmod>2025-06-13T14:45:35+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/loger/</loc>
+    <loc>https://JaeSim.github.io/tags/loger/</loc>
     <lastmod>2025-06-12T11:50:33+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/dp/</loc>
+    <loc>https://JaeSim.github.io/tags/dp/</loc>
     <lastmod>2025-05-29T12:21:05+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/dynamic-programming/</loc>
+    <loc>https://JaeSim.github.io/tags/dynamic-programming/</loc>
     <lastmod>2025-05-29T12:21:05+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/policy-iteration/</loc>
+    <loc>https://JaeSim.github.io/tags/policy-iteration/</loc>
     <lastmod>2025-05-29T12:21:05+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/value-iteration/</loc>
+    <loc>https://JaeSim.github.io/tags/value-iteration/</loc>
     <lastmod>2025-05-29T12:21:05+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/markov/</loc>
+    <loc>https://JaeSim.github.io/tags/markov/</loc>
     <lastmod>2025-05-27T16:43:57+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/markov-decision-process/</loc>
+    <loc>https://JaeSim.github.io/tags/markov-decision-process/</loc>
     <lastmod>2025-05-27T16:43:57+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/markov-process/</loc>
+    <loc>https://JaeSim.github.io/tags/markov-process/</loc>
     <lastmod>2025-05-27T16:43:57+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/blog/</loc>
+    <loc>https://JaeSim.github.io/tags/blog/</loc>
     <lastmod>2025-05-23T11:06:13+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/giscus/</loc>
+    <loc>https://JaeSim.github.io/tags/giscus/</loc>
     <lastmod>2025-05-23T11:06:13+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/github/</loc>
+    <loc>https://JaeSim.github.io/tags/github/</loc>
     <lastmod>2025-05-23T11:06:13+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/github-pages/</loc>
+    <loc>https://JaeSim.github.io/tags/github-pages/</loc>
     <lastmod>2025-05-23T11:06:13+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/hugo/</loc>
+    <loc>https://JaeSim.github.io/tags/hugo/</loc>
     <lastmod>2025-05-23T11:06:13+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/hugo-book/</loc>
+    <loc>https://JaeSim.github.io/tags/hugo-book/</loc>
     <lastmod>2025-05-23T11:06:13+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/setup/</loc>
+    <loc>https://JaeSim.github.io/tags/setup/</loc>
     <lastmod>2025-05-23T11:06:13+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/essential/</loc>
+    <loc>https://JaeSim.github.io/tags/essential/</loc>
     <lastmod>2025-05-22T11:13:00+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/to-do/</loc>
+    <loc>https://JaeSim.github.io/tags/to-do/</loc>
     <lastmod>2025-05-21T10:26:34+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

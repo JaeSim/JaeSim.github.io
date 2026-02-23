@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Integrating on JaeSim&#39;s Workspace</title>
-    <link>http://localhost:1313/tags/integrating/</link>
+    <link>https://JaeSim.github.io/tags/integrating/</link>
     <description>Recent content in Integrating on JaeSim&#39;s Workspace</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
     <lastBuildDate>Wed, 24 Sep 2025 17:11:08 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/integrating/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://JaeSim.github.io/tags/integrating/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>8. Integrating Learning and Planning</title>
-      <link>http://localhost:1313/reinforcement-learning/rl-integ-learning-and-planning/</link>
+      <link>https://JaeSim.github.io/reinforcement-learning/rl-integ-learning-and-planning/</link>
       <pubDate>Wed, 24 Sep 2025 17:11:08 +0900</pubDate>
-      <guid>http://localhost:1313/reinforcement-learning/rl-integ-learning-and-planning/</guid>
-      <description>&lt;h1 id=&#34;8-integration-learning-and-planning&#34;&gt;&#xD;&#xA;  &lt;strong&gt;8. Integration Learning and Planning&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#8-integration-learning-and-planning&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Planning의 개념적 의미 : 모델을 알때 &amp;ldquo;앞으로 어떻게 될지?&amp;rdquo; 를 planning 할 수 있음&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;model-based-reinforcement-learning&#34;&gt;&#xD;&#xA;  &lt;strong&gt;Model-based Reinforcement Learning&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#model-based-reinforcement-learning&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;여태까지 배운 것은 Model-free여서 모델을 학습하지 않았다.&lt;br&gt;&#xA;Model-based RL은 model을 experience로부터 배운다.&lt;br&gt;&#xA;그리고 value function이나 policy 를 model로부터 &lt;strong&gt;plan&lt;/strong&gt; 한다.&lt;/p&gt;&#xA;&lt;p&gt;다음과 같은 사이클을 가지고 있다.&lt;/p&gt;&#xA;&lt;img src=&#34;http://localhost:1313/images/rl-model-based-cycle.png&#34; alt=&#34;rl-model-based-cycle&#34; style=&#34;width:40%; display: block;margin: 0 auto;&#34; /&gt;&#xD;&#xA;&lt;p&gt;model은, &lt;br&gt;&#xA;환경의 동작을 근사하는 방향으로 학습한다.&lt;br&gt;이를 통해 simulated interaction을 할 수 있다.&lt;br&gt;&#xA;다음 그림은 환경(지구)를 simulation 하는 model(cartoon 지구를) 표현한 것이다.&lt;/p&gt;</description>
+      <guid>https://JaeSim.github.io/reinforcement-learning/rl-integ-learning-and-planning/</guid>
+      <description>&lt;h1 id=&#34;8-integration-learning-and-planning&#34;&gt;&#xD;&#xA;  &lt;strong&gt;8. Integration Learning and Planning&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#8-integration-learning-and-planning&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Planning의 개념적 의미 : 모델을 알때 &amp;ldquo;앞으로 어떻게 될지?&amp;rdquo; 를 planning 할 수 있음&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;model-based-reinforcement-learning&#34;&gt;&#xD;&#xA;  &lt;strong&gt;Model-based Reinforcement Learning&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#model-based-reinforcement-learning&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;여태까지 배운 것은 Model-free여서 모델을 학습하지 않았다.&lt;br&gt;&#xA;Model-based RL은 model을 experience로부터 배운다.&lt;br&gt;&#xA;그리고 value function이나 policy 를 model로부터 &lt;strong&gt;plan&lt;/strong&gt; 한다.&lt;/p&gt;&#xA;&lt;p&gt;다음과 같은 사이클을 가지고 있다.&lt;/p&gt;&#xA;&lt;img src=&#34;https://JaeSim.github.io/images/rl-model-based-cycle.png&#34; alt=&#34;rl-model-based-cycle&#34; style=&#34;width:40%; display: block;margin: 0 auto;&#34; /&gt;&#xD;&#xA;&lt;p&gt;model은, &lt;br&gt;&#xA;환경의 동작을 근사하는 방향으로 학습한다.&lt;br&gt;이를 통해 simulated interaction을 할 수 있다.&lt;br&gt;&#xA;다음 그림은 환경(지구)를 simulation 하는 model(cartoon 지구를) 표현한 것이다.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

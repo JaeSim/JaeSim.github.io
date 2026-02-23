@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>와우 on JaeSim&#39;s Workspace</title>
-    <link>http://localhost:1313/tags/%EC%99%80%EC%9A%B0/</link>
+    <link>https://JaeSim.github.io/tags/%EC%99%80%EC%9A%B0/</link>
     <description>Recent content in 와우 on JaeSim&#39;s Workspace</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
     <lastBuildDate>Wed, 19 Nov 2025 11:47:44 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/%EC%99%80%EC%9A%B0/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://JaeSim.github.io/tags/%EC%99%80%EC%9A%B0/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>모바일 원격 와우하기</title>
-      <link>http://localhost:1313/development/remotewow/</link>
+      <link>https://JaeSim.github.io/development/remotewow/</link>
       <pubDate>Wed, 19 Nov 2025 11:47:44 +0900</pubDate>
-      <guid>http://localhost:1313/development/remotewow/</guid>
-      <description></description>
+      <guid>https://JaeSim.github.io/development/remotewow/</guid>
+      <description>&lt;h1 id=&#34;핸드폰으로-원격-와우하기&#34;&gt;&#xD;&#xA;  &lt;strong&gt;핸드폰으로 원격 와우하기&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#%ed%95%b8%eb%93%9c%ed%8f%b0%ec%9c%bc%eb%a1%9c-%ec%9b%90%ea%b2%a9-%ec%99%80%ec%9a%b0%ed%95%98%ea%b8%b0&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;요약 : 3가지 기술 &amp;amp; 장비의 조합 [ConsolePort add-on, Moonlight streaming, 모바일게임패드]&lt;/li&gt;&#xA;&lt;li&gt;궁극적인 goal은 &amp;ldquo;핸드폰에서 와우를 하기&amp;rdquo;.  (&amp;ldquo;닌텐도 게임기에서 와우를 한다&amp;rdquo; 도 가능)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;consoleport-add-on&#34;&gt;&#xD;&#xA;  &lt;strong&gt;ConsolePort add-on&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#consoleport-add-on&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;PC에서 와우를 할때 게임패드 (닌텐도 스위치 패드, 플스 패드) 등으로 하기 위한 add-on &lt;br&gt;&#xA;ref : &lt;a href=&#34;https://www.inven.co.kr/board/wow/1896/46534&#34;&gt;https://www.inven.co.kr/board/wow/1896/46534&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;PC에 패드를 연결하고, ConsolePort 애드온을 사용해서 키를 맵핑하면, 콘솔게임용 패드로 와우 플레이가능&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;패드류 device를 인식하여 조작편의성을 높혀주는 addon&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;moonlight-streaming&#34;&gt;&#xD;&#xA;  &lt;strong&gt;Moonlight Streaming&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#moonlight-streaming&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;PC에 있는 화면을 remote device에 원격 스트리밍 기술&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

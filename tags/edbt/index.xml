@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>EDBT on JaeSim&#39;s Workspace</title>
-    <link>http://localhost:1313/tags/edbt/</link>
+    <link>https://JaeSim.github.io/tags/edbt/</link>
     <description>Recent content in EDBT on JaeSim&#39;s Workspace</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
     <lastBuildDate>Mon, 28 Jul 2025 14:03:06 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/edbt/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://JaeSim.github.io/tags/edbt/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>2025 EDBT</title>
-      <link>http://localhost:1313/research-study/paper-trend/2025-edbt/</link>
+      <link>https://JaeSim.github.io/research-study/paper-trend/2025-edbt/</link>
       <pubDate>Mon, 28 Jul 2025 14:03:06 +0900</pubDate>
-      <guid>http://localhost:1313/research-study/paper-trend/2025-edbt/</guid>
+      <guid>https://JaeSim.github.io/research-study/paper-trend/2025-edbt/</guid>
       <description>&lt;h1 id=&#34;edbt-2025-research-track&#34;&gt;&#xD;&#xA;  &lt;strong&gt;EDBT 2025 Research Track&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#edbt-2025-research-track&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://edbticdt2025.upc.edu/?contents=accepted-papers-research-track.html&#34;&gt;https://edbticdt2025.upc.edu/?contents=accepted-papers-research-track.html&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;각 논문들의 abstract 만 파악하여 나열&lt;/li&gt;&#xA;&lt;li&gt;작성자 기준 관심 분야가 아닌 것은 일부 skip&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;summary&#34;&gt;&#xD;&#xA;  &lt;strong&gt;Summary&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#summary&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;h3 id=&#34;느낀점&#34;&gt;&#xD;&#xA;  &lt;strong&gt;느낀점&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#%eb%8a%90%eb%82%80%ec%a0%90&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h3&gt;&#xD;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;여러 분야에 대한 관심도가 고루 분포되어 있음 (like VLDB)&lt;/li&gt;&#xA;&lt;li&gt;experiment 관련 항목이 따로 있어, dataset or benchmark만 제시해도 accept됨&lt;/li&gt;&#xA;&lt;li&gt;좀더 실용적인 느낌 (vs ICDE).&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;interested-papers&#34;&gt;&#xD;&#xA;  &lt;strong&gt;Interested Papers&lt;/strong&gt;&#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#interested-papers&#34;&gt;#&lt;/a&gt;&#xD;&#xA;&lt;/h3&gt;&#xD;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Pythia: A Neural Model for Data Prefetching&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;ML for System, buffer management, page access&lt;/li&gt;&#xA;&lt;li&gt;RDBMS의 버퍼 관리 모듈 최적화는 많이 연구되지 않음. 페이지 접근 예측하는것은 SQL이 비선형적이고, 정형화되지 않은 패턴을 가져 어려움&lt;/li&gt;&#xA;&lt;li&gt;적절한 경우에만 예측및 프리패칭을 수행하고, 아닐경우 기본 알고리즘을 수행해서, 버퍼 관리에 머신러닝이 적용된 솔루션 제시&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;흥미로운 or 신기한&lt;/strong&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Efficiently Indexing Large Data on GPUs with Fast Interconnects&lt;/p&gt;</description>
     </item>
   </channel>
