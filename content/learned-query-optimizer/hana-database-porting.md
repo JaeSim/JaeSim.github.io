@@ -1309,3 +1309,204 @@ for csv_file in dat_files:
             raise NotImplementedError
         print(f"[{i:04d}] chunk rows={rows:,}  processed={total_rows:,}") 
 ```
+
+
+## **STACK workload 업로드**
+
+### **STACK dataset 다운로드**
+- 홈페이지가 이상하긴한데 다음 url에서 다운 가능
+```sh
+wget https://www.dropbox.com/s/98u5ec6yb365913/so_pg12?dl=1
+```
+- pg_dump로 만들어진 파일로 pg로 만들수 있음
+```sh
+pg_restore -p 5477 -d glo --no-owner -v 'so_pg12?dl=1'
+```
+- 다음 명령어로 table sql export. index도 포함되어 있다.
+```sh
+pg_dump -p 5477 -d glo --schema-only   -t public.account -t public.answer -t public.badge -t public.comment   -t public.post_link -t public.question -t public.site   -t public.so_user -t public.tag -t public.tag_question   > so_pg_schema.sql
+```
+
+```sh
+psql -h localhost -p 5477 -d glo -W  -v ON_ERROR_STOP=1  -c "\copy public.account TO 'account.tsv' WITH (FORMAT text, DELIMITER E'\t', NULL '', ENCODING 'UTF8')"
+psql -h localhost -p 5477 -d glo -W  -v ON_ERROR_STOP=1  -c "\copy public.answer TO 'answer.tsv' WITH (FORMAT text, DELIMITER E'\t', NULL '', ENCODING 'UTF8')"
+psql -h localhost -p 5477 -d glo -W  -v ON_ERROR_STOP=1  -c "\copy public.badge TO 'badge.tsv' WITH (FORMAT text, DELIMITER E'\t', NULL '', ENCODING 'UTF8')"
+psql -h localhost -p 5477 -d glo -W  -v ON_ERROR_STOP=1  -c "\copy public.comment TO 'comment.tsv' WITH (FORMAT text, DELIMITER E'\t', NULL '', ENCODING 'UTF8')"
+psql -h localhost -p 5477 -d glo -W  -v ON_ERROR_STOP=1  -c "\copy public.post_link TO 'post_link.tsv' WITH (FORMAT text, DELIMITER E'\t', NULL '', ENCODING 'UTF8')"
+psql -h localhost -p 5477 -d glo -W  -v ON_ERROR_STOP=1  -c "\copy public.question TO 'question.tsv' WITH (FORMAT text, DELIMITER E'\t', NULL '', ENCODING 'UTF8')"
+psql -h localhost -p 5477 -d glo -W  -v ON_ERROR_STOP=1  -c "\copy public.site TO 'site.tsv' WITH (FORMAT text, DELIMITER E'\t', NULL '', ENCODING 'UTF8')"
+psql -h localhost -p 5477 -d glo -W  -v ON_ERROR_STOP=1  -c "\copy public.so_user TO 'so_user.tsv' WITH (FORMAT text, DELIMITER E'\t', NULL '', ENCODING 'UTF8')"
+psql -h localhost -p 5477 -d glo -W  -v ON_ERROR_STOP=1  -c "\copy public.tag TO 'tag.tsv' WITH (FORMAT text, DELIMITER E'\t', NULL '', ENCODING 'UTF8')"
+psql -h localhost -p 5477 -d glo -W  -v ON_ERROR_STOP=1  -c "\copy public.tag_question TO 'tag_question.tsv' WITH (FORMAT text, DELIMITER E'\t', NULL '', ENCODING 'UTF8')"
+```
+
+- so_pg_schema.sql 의 앞에 set 하는 부분 생략
+- so_pg_schema.sql 의 아래 부분들 생략
+```sql
+ALTER TABLE glo.{table_name} OWNER TO "{your id}";
+```
+- character varying 를 NVARCHAR(5000) 로 수정
+
+- timestamp without time zone 을 timestamp   으로
+
+- ALTER TABLE ONLY 을 ALTER TABLE 으로
+- using btree 를 빈칸(' ') 으로<br>
+예시)
+```sql
+CREATE INDEX answer_creation_date_idx ON glo.answer USING btree (creation_date); 
+CREATE INDEX answer_creation_date_idx ON glo.answer (creation_date);
+```
+
+- 아래 항목들을 주석처리하고, 다음과 같이 넣음 (SAP HANA는 순서가 중요함. (pg는 순서 상관없이 동작))
+```sql
+--ALTER TABLE glo.so_user
+--    ADD CONSTRAINT so_user_pkey PRIMARY KEY (id, site_id);
+--ALTER TABLE glo.question
+--    ADD CONSTRAINT question_pkey PRIMARY KEY (id, site_id);
+--ALTER TABLE glo.tag
+--    ADD CONSTRAINT tag_pkey PRIMARY KEY (id, site_id);
+--ALTER TABLE glo.answer
+--    ADD CONSTRAINT answer_pkey PRIMARY KEY (id, site_id);
+
+ALTER TABLE glo.so_user  ADD CONSTRAINT uq_so_user_site_id_id UNIQUE (site_id, id);
+ALTER TABLE glo.question ADD CONSTRAINT uq_question_site_id_id UNIQUE (site_id, id);
+ALTER TABLE glo.tag      ADD CONSTRAINT uq_tag_site_id_id UNIQUE (site_id, id);
+ALTER TABLE glo.answer   ADD CONSTRAINT uq_answer_site_id_id UNIQUE (site_id, id);
+```
+- so_pg_schema.sql 에서 create table 하는 부분[1] 과, create index 하는 부분[2] , create fk 하는 부분[3]을 나눠어서 진행 cli로 업로드
+- 모든 테이블 지우는 SQL
+```sql
+-- 자식 테이블들 먼저
+DROP TABLE  GLO.TAG_QUESTION;
+DROP TABLE  GLO.POST_LINK;
+DROP TABLE  GLO.ANSWER;
+DROP TABLE  GLO.COMMENT;
+
+-- 중간 레벨
+DROP TABLE  GLO.TAG;
+DROP TABLE  GLO.BADGE;
+DROP TABLE  GLO.QUESTION;
+DROP TABLE  GLO.ACCOUNT;
+DROP TABLE  GLO.SO_USER;
+
+-- 최상위 부모
+DROP TABLE  GLO.SITE;
+```
+ - 다음으로 실행
+ ```sh
+ sudo /usr/sap/HXE/HDB90/exe/hdbsql -n {host} -u {user} -p {password} -I hana_schema.sql
+ sudo /usr/sap/HXE/HDB90/exe/hdbsql -n {host} -u {user} -p {password} -I hana_addinx.sql
+ sudo /usr/sap/HXE/HDB90/exe/hdbsql -n {host} -u {user} -p {password} -I hana_add_fk_.sql
+ ```
+
+- tsv 로직
+```python
+import glob
+import pandas as pd
+from typing import Iterable, List, Any
+import os, csv, tempfile
+from hdbcli import dbapi
+from sqlalchemy import create_engine
+
+engine = create_engine(f'hana://{user}:{password}@{host}:{post}')
+table_columns = {
+    "account": [
+        "id", "display_name", "location", "about_me", "website_url"
+    ],
+    "answer": [
+        "id", "site_id", "question_id", "creation_date", "deletion_date", "score",
+        "view_count", "body", "owner_user_id", "last_editor_id", "last_edit_date",
+        "last_activity_date", "title"
+    ],
+    "badge": [
+        "site_id", "user_id", "name", "date"
+    ],
+    "comment": [
+        "id", "site_id", "post_id", "user_id", "score", "body", "date"
+    ],
+    "post_link": [
+        "site_id", "post_id_from", "post_id_to", "link_type", "date"
+    ],
+    "question": [
+        "id", "site_id", "accepted_answer_id", "creation_date", "deletion_date",
+        "score", "view_count", "body", "owner_user_id", "last_editor_id",
+        "last_edit_date", "last_activity_date", "title", "favorite_count",
+        "closed_date", "tagstring"
+    ],
+    "site": [
+        "site_id", "site_name"
+    ],
+    "so_user": [
+        "id", "site_id", "reputation", "creation_date", "last_access_date",
+        "upvotes", "downvotes", "account_id"
+    ],
+    "tag": [
+        "id", "site_id", "name"
+    ],
+    "tag_question": [
+        "question_id", "tag_id", "site_id"
+    ],
+}
+
+
+
+path = "."
+tsv_files = [
+    os.path.join(path, f)
+    for f in os.listdir(path)
+    if f.lower().endswith(".tsv")
+]
+
+fix_none = lambda x: None if (x is None or x == '') else x
+MAX_NCHAR = 5000
+
+for tsv_file in tsv_files:
+    name, _ = os.path.splitext(os.path.basename(tsv_file))
+    table = name
+
+    print(f"Processing {table} ({tsv_file})")
+
+    read_kwargs = dict(
+        sep="\t",                 # ✅ TSV
+        header=None,                 # TSV 뽑을 때 HEADER true 썼으면 0
+        chunksize=500000,
+        engine="python",          # 멀티라인 text 안전
+        names=table_columns[table],
+        na_filter=True,          # ✅ 켜기
+        keep_default_na=False,   # ✅ 기본 NA는 쓰지 말고
+        na_values=[""],          # ✅ 빈 문자열만 NA로
+    )
+
+    chunker = pd.read_csv(tsv_file, **read_kwargs)
+
+    total_rows = 0
+
+    for i, chunk in enumerate(chunker, start=1):
+
+        # 문자열 컬럼 길이 제한
+        obj_cols = chunk.select_dtypes(include=["object"]).columns
+        for col in obj_cols:
+            chunk[col] = chunk[col].map(
+                lambda v: v[:MAX_NCHAR] if isinstance(v, str) and len(v) > MAX_NCHAR else v
+            )
+
+        rows = len(chunk)
+        total_rows += rows
+        chunk = chunk.where(pd.notnull(chunk), None)
+        try:
+            chunk.to_sql(
+                schema='glo',
+                name=table,
+                con=engine,
+                index=False,
+                if_exists='append'
+            )
+        except Exception as e:
+            os.makedirs("./error", exist_ok=True)
+            chunk.to_csv(f"./error/{table}_chunk_{i}.csv", index=False)
+            with open("./error/error.log", "a", encoding="utf-8") as f:
+                f.write(f"\n=== table={table} chunk={i} ===\n{repr(e)}\n")
+            raise
+
+        print(f"[{i:04d}] chunk rows={rows:,}  processed={total_rows:,}")
+```

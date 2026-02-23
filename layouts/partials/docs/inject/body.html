@@ -22,7 +22,12 @@
 
       // 복사 동작 정의
       button.addEventListener('click', () => {
-        navigator.clipboard.writeText(codeBlock.innerText);
+        let text = codeBlock.textContent;
+
+        // ✅ 2번 이상 연속 줄바꿈을 1번으로 압축
+        text = text.replace(/\n{2,}/g, '\n');
+
+        navigator.clipboard.writeText(text);
         button.innerText = '✔';
         setTimeout(() => button.innerText = '📋', 1000);
       });
