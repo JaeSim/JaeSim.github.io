@@ -6,8 +6,50 @@
     <description>Recent content in Tags on JaeSim&#39;s Workspace</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Wed, 19 Nov 2025 11:47:44 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 24 Apr 2026 14:49:24 +0900</lastBuildDate>
     <atom:link href="https://JaeSim.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CUDA</title>
+      <link>https://JaeSim.github.io/tags/cuda/</link>
+      <pubDate>Fri, 24 Apr 2026 14:49:24 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/cuda/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>GPU</title>
+      <link>https://JaeSim.github.io/tags/gpu/</link>
+      <pubDate>Fri, 24 Apr 2026 14:49:24 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/gpu/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Memory</title>
+      <link>https://JaeSim.github.io/tags/memory/</link>
+      <pubDate>Fri, 24 Apr 2026 14:49:24 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/memory/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>ML</title>
+      <link>https://JaeSim.github.io/tags/ml/</link>
+      <pubDate>Fri, 24 Apr 2026 14:49:24 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/ml/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>NVIDIA</title>
+      <link>https://JaeSim.github.io/tags/nvidia/</link>
+      <pubDate>Fri, 24 Apr 2026 14:49:24 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/nvidia/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Essential</title>
+      <link>https://JaeSim.github.io/tags/essential/</link>
+      <pubDate>Fri, 17 Apr 2026 12:21:36 +0900</pubDate>
+      <guid>https://JaeSim.github.io/tags/essential/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Consoleport</title>
       <link>https://JaeSim.github.io/tags/consoleport/</link>
@@ -387,13 +429,6 @@
       <description></description>
     </item>
     <item>
-      <title>ML</title>
-      <link>https://JaeSim.github.io/tags/ml/</link>
-      <pubDate>Thu, 03 Jul 2025 10:53:40 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/ml/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>NN</title>
       <link>https://JaeSim.github.io/tags/nn/</link>
       <pubDate>Thu, 03 Jul 2025 10:53:40 +0900</pubDate>
@@ -524,13 +559,6 @@
       <link>https://JaeSim.github.io/tags/setup/</link>
       <pubDate>Fri, 23 May 2025 11:06:13 +0900</pubDate>
       <guid>https://JaeSim.github.io/tags/setup/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Essential</title>
-      <link>https://JaeSim.github.io/tags/essential/</link>
-      <pubDate>Thu, 22 May 2025 11:13:00 +0900</pubDate>
-      <guid>https://JaeSim.github.io/tags/essential/</guid>
       <description></description>
     </item>
     <item>

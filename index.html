@@ -14,37 +14,26 @@
 
   
     
-      모바일 원격 와우하기
+      2. GPU Memory
     
 
     
 
-    2025-11-19 11:47:44 KST
+    2026-04-24 14:49:24 KST
 
     
        
         
-  핸드폰으로 원격 와우하기
+  2. GPU Memory
   
 
-
-요약 : 3가지 기술 &amp; 장비의 조합 [ConsolePort add-on, Moonlight streaming, 모바일게임패드]
-궁극적인 goal은 &ldquo;핸드폰에서 와우를 하기&rdquo;.  (&ldquo;닌텐도 게임기에서 와우를 한다&rdquo; 도 가능)
-
-
-  ConsolePort add-on
-  
-
-
-
-PC에서 와우를 할때 게임패드 (닌텐도 스위치 패드, 플스 패드) 등으로 하기 위한 add-on 
-ref : https://www.inven.co.kr/board/wow/1896/46534">
+Reference : https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/writing-cuda-kernels.html">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:url" content="https://JaeSim.github.io/">
   <meta property="og:site_name" content="JaeSim&#39;s Workspace">
   <meta property="og:title" content="Home">
-  <meta property="og:description" content="Recent Posts#모바일 원격 와우하기2025-11-19 11:47:44 KST핸드폰으로 원격 와우하기요약 : 3가지 기술 &amp; 장비의 조합 [ConsolePort add-on, Moonlight streaming, 모바일게임패드] 궁극적인 goal은 “핸드폰에서 와우를 하기”. (“닌텐도 게임기에서 와우를 한다” 도 가능) ConsolePort add-onPC에서 와우를 할때 게임패드 (닌텐도 스위치 패드, 플스 패드) 등으로 하기 위한 add-on ref : https://www.inven.co.kr/board/wow/1896/46534">
+  <meta property="og:description" content="Recent Posts#2. GPU Memory2026-04-24 14:49:24 KST2. GPU MemoryReference : https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/writing-cuda-kernels.html">
   <meta property="og:locale" content="ko_kr">
   <meta property="og:type" content="website">
 <title>Home | JaeSim&#39;s Workspace</title>
@@ -53,7 +42,7 @@ ref : https://www.inven.co.kr/board/wow/1896/46534">
 <link rel="canonical" href="https://JaeSim.github.io/">
 <link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.cc8c60958d3c2be6e138a7080268bc5297e9f37260a6166634a2805a54b3d10c.js" integrity="sha256-zIxglY08K&#43;bhOKcIAmi8Upfp83JgphZmNKKAWlSz0Qw=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.5d057357ac80bfb47e26a3118591c0571efdb6764ce5ccff04a25f9065d1968d.js" integrity="sha256-XQVzV6yAv7R&#43;JqMRhZHAVx79tnZM5cz/BKJfkGXRlo0=" crossorigin="anonymous"></script>
 <link rel="alternate" type="application/rss+xml" href="https://JaeSim.github.io/index.xml" title="JaeSim's Workspace" />
 <!--
 Made with Book Theme
@@ -655,6 +644,58 @@ https://github.com/alex-shpak/hugo-book
 
       
     
+      
+
+      
+        
+
+        <li>
+          
+            <input type="checkbox"
+                   id="section-515c5a94f1e1579295fab198e749269d"
+                   class="toggle"
+                   >
+            <label for="section-515c5a94f1e1579295fab198e749269d" class="flex justify-between cursor-pointer">
+              <span>
+                GPU
+                <span class="count">(2)</span>
+              </span>
+            </label>
+
+            <ul>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/gpu/cuda_essential/" class="">1. CUDA Essential</a>
+  
+
+                  
+                </li>
+              
+                <li>
+                  
+                    
+  
+  
+
+  
+    <a href="/gpu/gpu_memory/" class="">2. GPU Memory</a>
+  
+
+                  
+                </li>
+              
+            </ul>
+          
+        </li>
+
+      
+    
   </ul>
 
 
@@ -756,6 +797,81 @@ https://github.com/alex-shpak/hugo-book
 </style>
 
 <ul>
+
+  <li style="margin-bottom: 2rem;">
+    <a href="/gpu/gpu_memory/">
+      <strong style="font-size: 1.25rem;">2. GPU Memory</strong>
+    </a><br/>
+
+    
+
+    <small>2026-04-24 14:49:24 KST</small>
+
+    <a href="/gpu/gpu_memory/" style="text-decoration: none; color: inherit;">
+      <div class="summary-box"> 
+        <h1 id="2-gpu-memory">
+  <strong>2. GPU Memory</strong>
+  
+</h1>
+<p>Reference : https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/writing-cuda-kernels.html</p>
+<table>
+  <thead>
+      <tr>
+          <th>Memory Type</th>
+          <th>Scope</th>
+          <th>Lifetime</th>
+          <th>Location</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Global</td>
+          <td>Grid</td>
+          <td>Application</td>
+          <td>Device</td>
+      </tr>
+      <tr>
+          <td>Constant</td>
+          <td>Grid</td>
+          <td>Application</td>
+          <td>Device …</td></tr></tbody></table>
+      </div>
+    </a>
+
+  </li>
+
+  <li style="margin-bottom: 2rem;">
+    <a href="/gpu/cuda_essential/">
+      <strong style="font-size: 1.25rem;">1. CUDA Essential</strong>
+    </a><br/>
+
+    
+
+    <small>2026-04-17 12:21:36 KST</small>
+
+    <a href="/gpu/cuda_essential/" style="text-decoration: none; color: inherit;">
+      <div class="summary-box"> 
+        <h1 id="1-cuda-essential">
+  <strong>1. CUDA Essential</strong>
+  
+</h1>
+<h2 id="cuda-란-무엇인가">
+  <strong>CUDA 란 무엇인가</strong>
+  
+</h2>
+<h3 id="cuda-programing">
+  <strong>CUDA programing</strong>
+  
+</h3>
+<p>Reference : https://docs.nvidia.com/cuda/cuda-programming-guide/index.html</p>
+<p><strong>CUDA (Computed Unified Device Architecture)</strong> 는  개발한 GPU 개발 툴 이다.
+NVIDIA에서 GPU를 활용한 병렬 프로그래밍을 가능하게 만드는 소프트웨어만드는 C++기반의 언어 (소프트웨어 플랫폼)</p>
+<p>Nvidia는 GPU를 <em><strong>device</strong></em> 라고 지칭하고, GPU에서 동작하는 application code를 <em><strong>device code</strong></em> 라고 명하며, <br>
+GPU에서 실행하는 function을 <em><strong>kernel</strong></em> 이라 명한다. …</p>
+      </div>
+    </a>
+
+  </li>
 
   <li style="margin-bottom: 2rem;">
     <a href="/development/remotewow/">
@@ -865,72 +981,6 @@ ref : https://www.inven.co.kr/board/wow/1896/46534</p>
 <li><strong>Exploration</strong> : Gather more information</li>
 </ul>
 <p>long-term strategy는 short-term의 희생(sacrifices)를 야기할 수 있다. …</p>
-      </div>
-    </a>
-
-  </li>
-
-  <li style="margin-bottom: 2rem;">
-    <a href="/reinforcement-learning/rl-integ-learning-and-planning/">
-      <strong style="font-size: 1.25rem;">8. Integrating Learning and Planning</strong>
-    </a><br/>
-
-    
-
-    <small>2025-09-24 17:11:08 KST</small>
-
-    <a href="/reinforcement-learning/rl-integ-learning-and-planning/" style="text-decoration: none; color: inherit;">
-      <div class="summary-box"> 
-        <h1 id="8-integration-learning-and-planning">
-  <strong>8. Integration Learning and Planning</strong>
-  
-</h1>
-<ul>
-<li>Planning의 개념적 의미 : 모델을 알때 &ldquo;앞으로 어떻게 될지?&rdquo; 를 planning 할 수 있음</li>
-</ul>
-<h2 id="model-based-reinforcement-learning">
-  <strong>Model-based Reinforcement Learning</strong>
-  
-</h2>
-<p>여태까지 배운 것은 Model-free여서 모델을 학습하지 않았다.<br>
-Model-based RL은 model을 experience로부터 배운다.<br>
-그리고 value function이나 policy 를 model로부터 <strong>plan</strong> 한다.</p>
-<p>다음과 같은 사이클을 가지고 있다.</p>
-<img src="/images/rl-model-based-cycle.png" alt="rl-model-based-cycle" style="width:40%; display: block;margin: 0 auto;" />
-<p>model은, <br>
-환경의 동작을 근사하는 방향으로 학습한다.<br>이를 통해 simulated interaction을 할 수 있다.<br>
-다음 그림은 환경(지구) …</p>
-      </div>
-    </a>
-
-  </li>
-
-  <li style="margin-bottom: 2rem;">
-    <a href="/reinforcement-learning/rl-policy-gradient-methods/">
-      <strong style="font-size: 1.25rem;">7. Polciy Gradient Methods</strong>
-    </a><br/>
-
-    
-
-    <small>2025-09-23 13:22:02 KST</small>
-
-    <a href="/reinforcement-learning/rl-policy-gradient-methods/" style="text-decoration: none; color: inherit;">
-      <div class="summary-box"> 
-        <h1 id="7-policy-gradient-methods">
-  <strong>7. Policy Gradient Methods</strong>
-  
-</h1>
-<p>이전섹션에서는 action-value function(state value function, action-value function)을 근사해서 옵티멀한 value function을 찾아 갔다. 이때 policy는 
-<link rel="stylesheet" href="/katex/katex.min.css" />
-<script defer src="/katex/katex.min.js"></script>
-<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
-  \(\epsilon\)
-</span>
--greedy.</p>
-<p>policy gradient는 policy parameter를 직접 업데이트 한다. <strong>policy-based !</strong> <br>
-policy를 direct 로 업데이트 하는것 <br>
-이는 large complicated environment에 좀더 적합() 각 state를 명확하게 구분하기 어려울때). <br>
-Policy는 value 대비 더 compact하게 저장한다. 저게 저장하는 장점이 있 …</p>
       </div>
     </a>
 
